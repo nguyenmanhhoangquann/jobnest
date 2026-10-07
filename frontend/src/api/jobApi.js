@@ -30,8 +30,14 @@ export const jobApi = {
       }
 
       // Lọc khu vực (area)
-      if (params.area) {
-        filtered = filtered.filter((j) => j.area === params.area);
+      if (params.area && params.area !== 'all' && params.area !== 'Tất cả') {
+        const a = params.area.toLowerCase();
+        filtered = filtered.filter(
+          (j) =>
+            (j.area && j.area.toLowerCase().includes(a)) ||
+            (j.location && j.location.toLowerCase().includes(a)) ||
+            (j.region && j.region.toLowerCase().includes(a))
+        );
       }
 
       // Lọc kinh nghiệm (experience)
@@ -87,8 +93,14 @@ export const jobApi = {
         filtered = filtered.filter((j) => j.jobType === params.type);
       }
 
-      if (params.area && params.area !== 'all') {
-        filtered = filtered.filter((j) => j.area === params.area);
+      if (params.area && params.area !== 'all' && params.area !== 'Tất cả') {
+        const a = params.area.toLowerCase();
+        filtered = filtered.filter(
+          (j) =>
+            (j.area && j.area.toLowerCase().includes(a)) ||
+            (j.location && j.location.toLowerCase().includes(a)) ||
+            (j.region && j.region.toLowerCase().includes(a))
+        );
       }
 
       // Shuffle random
