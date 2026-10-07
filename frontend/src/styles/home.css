@@ -1,33 +1,113 @@
 /* Hero Section */
 .hero-section {
   background-color: var(--color-hero-bg);
-  padding: 56px 0 40px;
+  padding: 40px 0 48px;
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--color-border);
 }
 
-.hero-layout {
+.hero-header-center {
+  max-width: 840px;
+}
+
+.hero-showcase-grid {
   display: flex;
-  gap: 32px;
+  gap: 24px;
   align-items: stretch;
 }
 
-.hero-content {
-  flex: 1;
-  min-width: 0;
-  position: relative;
-}
-
-.hero-sidebar-wrap {
-  width: 280px;
+.hero-showcase-sidebar {
+  width: 290px;
   flex-shrink: 0;
 }
 
-@media (max-width: 1199px) {
-  .hero-sidebar-wrap {
-    width: 240px;
+.hero-showcase-preview {
+  flex: 1;
+  min-width: 0;
+  min-height: 380px;
+}
+
+@media (max-width: 991px) {
+  .hero-showcase-grid {
+    flex-direction: column;
   }
+  .hero-showcase-sidebar {
+    width: 100%;
+  }
+}
+
+/* Category Preview Card (TopCV Style) */
+.category-preview-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.category-preview-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.category-preview-card:hover .category-preview-card__image {
+  transform: scale(1.03);
+}
+
+.category-preview-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.25) 0%, rgba(15, 23, 42, 0.88) 100%);
+}
+
+.category-preview-card__content {
+  position: relative;
+  z-index: 2;
+  padding: 28px;
+  color: #fff;
+}
+
+.category-preview-card__title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.category-preview-card__desc {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 520px;
+  margin-bottom: 14px;
+}
+
+.category-row--active {
+  background: #fffbeb !important;
+  border-left: 3px solid var(--color-primary);
+  font-weight: 600;
+}
+
+.category-row--active .category-row__name {
+  color: #b07f00 !important;
+  font-weight: 600;
+}
+
+.category-row--active .category-row__arrow {
+  color: #b07f00 !important;
+  transform: translateX(3px);
 }
 
 .hero-badge {

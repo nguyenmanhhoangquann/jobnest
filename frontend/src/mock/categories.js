@@ -5,20 +5,26 @@ export const mockCategories = [
     name: 'Công nghệ thông tin',
     jobCount: 2341,
     icon: 'FaLaptopCode',
+    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['ReactJS', 'Node.js', 'Java Spring Boot', 'AI Engineer', 'DevOps'],
   },
   {
     id: 2,
     slug: 'marketing',
-    name: 'Marketing - PR - Quảng cáo',
+    name: 'Marketing - Truyền thông',
     jobCount: 876,
     icon: 'FaBullhorn',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['Digital Marketing', 'Content Creator', 'SEO Specialist', 'Brand Manager'],
   },
   {
     id: 3,
     slug: 'kinh-doanh',
-    name: 'Kinh doanh - Bán hàng (Sale)',
+    name: 'Kinh doanh - Bán hàng (Sales)',
     jobCount: 712,
     icon: 'FaTags',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['B2B Sales', 'Account Executive', 'Quản lý đại lý', 'Tư vấn bán hàng'],
   },
   {
     id: 4,
@@ -26,13 +32,17 @@ export const mockCategories = [
     name: 'Thiết kế - Sáng tạo',
     jobCount: 543,
     icon: 'FaPaintBrush',
+    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['UI/UX Designer', 'Graphic Design', 'Motion Design', 'Product Design'],
   },
   {
     id: 5,
     slug: 'ke-toan',
-    name: 'Kế toán - Kiểm toán - Thuế',
+    name: 'Kế toán - Kiểm toán',
     jobCount: 432,
     icon: 'FaCalculator',
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['Kế toán tổng hợp', 'Kiểm toán viên', 'Kế toán thuế', 'Chuyên viên tài chính'],
   },
   {
     id: 6,
@@ -40,6 +50,8 @@ export const mockCategories = [
     name: 'Nhân sự - Hành chính',
     jobCount: 321,
     icon: 'FaUserTie',
+    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['HR Generalist', 'Tuyển dụng Talent', 'C&B', 'Đào tạo & Phát triển'],
   },
   {
     id: 7,
@@ -47,6 +59,8 @@ export const mockCategories = [
     name: 'Tài chính - Ngân hàng',
     jobCount: 654,
     icon: 'FaLandmark',
+    image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['Phân tích đầu tư', 'Tín dụng ngân hàng', 'Quản trị rủi ro', 'Fintech Specialist'],
   },
   {
     id: 8,
@@ -54,6 +68,8 @@ export const mockCategories = [
     name: 'DevOps - Hạ tầng Cloud',
     jobCount: 289,
     icon: 'FaServer',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['Cloud Engineer', 'Kubernetes', 'CI/CD Pipeline', 'Site Reliability (SRE)'],
   },
   {
     id: 9,
@@ -61,6 +77,8 @@ export const mockCategories = [
     name: 'Chăm sóc khách hàng',
     jobCount: 415,
     icon: 'FaHeadset',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['CSKH Online', 'Tư vấn viên', 'Hỗ trợ kỹ thuật'],
   },
   {
     id: 10,
@@ -68,5 +86,9 @@ export const mockCategories = [
     name: 'Bất động sản',
     jobCount: 380,
     icon: 'FaBuilding',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80',
+    popularRoles: ['Chuyên viên môi giới', 'Thẩm định giá', 'Phát triển dự án'],
   },
 ];
+
+export default mockCategories;
