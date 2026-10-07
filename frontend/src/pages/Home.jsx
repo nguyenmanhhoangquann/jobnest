@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/home/Hero.jsx';
-import CategoryGrid from '../components/home/CategoryGrid.jsx';
 import FeaturedJobs from '../components/home/FeaturedJobs.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
@@ -14,13 +13,10 @@ export default function Home() {
       {/* 1. Khối Hero Banner + Cột Danh mục nhanh (Hình 1) */}
       <Hero />
 
-      {/* 2. Lưới Top ngành nghề nổi bật (Hình 2 - Tông vàng) */}
-      <CategoryGrid />
-
-      {/* 3. Khối Việc làm nổi bật (Hình 3 - Tông vàng) */}
+      {/* 2. Khối Việc làm nổi bật (Hình 3) */}
       <FeaturedJobs />
 
-      {/* 4. Banner Nhà tuyển dụng (Mục 7.9) */}
+      {/* 3. Banner Nhà tuyển dụng (Mục 7.9) */}
       <section className="employer-banner-section py-4 mb-5">
         <div className="container-app">
           <div className="employer-banner d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
