@@ -5,10 +5,11 @@ import HeroSearchBar from './HeroSearchBar.jsx';
 import CategorySidebar from './CategorySidebar.jsx';
 import CategoryBannerPreview from './CategoryBannerPreview.jsx';
 import { POPULAR_KEYWORDS } from '../../constants.js';
+import { mockCategories } from '../../mock/categories.js';
 
 export default function Hero() {
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(() => mockCategories[0]);
 
   return (
     <section className="hero-section">

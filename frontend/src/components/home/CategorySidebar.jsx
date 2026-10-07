@@ -2,16 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaChevronRight } from 'react-icons/fa';
 import categoryApi from '../../api/categoryApi.js';
+import { mockCategories } from '../../mock/categories.js';
 
 export default function CategorySidebar({ activeCategory, onHoverCategory }) {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(() => mockCategories.slice(0, 8));
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!activeCategory && onHoverCategory && categories.length > 0) {
+      onHoverCategory(categories[0]);
+    }
     categoryApi.getCategories({ top: 8 }).then((data) => {
-      setCategories(data);
-      if (data.length > 0 && !activeCategory && onHoverCategory) {
-        onHoverCategory(data[0]);
+      if (Array.isArray(data) && data.length > 0) {
+        setCategories(data);
+        if (!activeCategory && onHoverCategory) {
+          onHoverCategory(data[0]);
+        }
       }
     });
   }, []);
@@ -27,9 +33,7 @@ export default function CategorySidebar({ activeCategory, onHoverCategory }) {
 
       <div className="category-directory-list d-flex flex-column gap-1">
         {categories.map((cat) => {
-          const IconComponent = iconMap[cat.icon] || FaBriefcase;
           const isActive = activeCategory?.id === cat.id;
-          const colors = iconColors[cat.slug] || { bg: '#F3F4F6', color: '#374151' };
 
           return (
             <div
