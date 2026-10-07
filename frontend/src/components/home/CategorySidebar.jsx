@@ -25,6 +25,18 @@ const iconMap = {
   FaServer,
 };
 
+// Pastel colors for category icon badges
+const iconColors = {
+  cntt: { bg: '#EFF6FF', color: '#2563EB' },
+  marketing: { bg: '#FDF2F8', color: '#DB2777' },
+  'kinh-doanh': { bg: '#FEF3C7', color: '#D97706' },
+  'thiet-ke': { bg: '#F5F3FF', color: '#7C3AED' },
+  'ke-toan': { bg: '#ECFDF5', color: '#059669' },
+  'nhan-su': { bg: '#FFF7ED', color: '#EA580C' },
+  'tai-chinh': { bg: '#F0FDF4', color: '#16A34A' },
+  devops: { bg: '#F1F5F9', color: '#475569' },
+};
+
 export default function CategorySidebar({ activeCategory, onHoverCategory }) {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
@@ -39,34 +51,38 @@ export default function CategorySidebar({ activeCategory, onHoverCategory }) {
   }, []);
 
   return (
-    <aside className="category-sidebar">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3 className="category-sidebar__title">Danh mục việc làm</h3>
-        <Link to="/jobs" className="category-sidebar__link">
+    <aside className="category-directory-card">
+      <div className="d-flex justify-content-between align-items-center mb-3 px-1">
+        <h3 className="category-directory-title mb-0">Danh mục việc làm</h3>
+        <Link to="/jobs" className="category-directory-link">
           Tất cả →
         </Link>
       </div>
 
-      <div className="category-sidebar__list">
+      <div className="category-directory-list d-flex flex-column gap-1">
         {categories.map((cat) => {
           const IconComponent = iconMap[cat.icon] || FaBriefcase;
           const isActive = activeCategory?.id === cat.id;
+          const colors = iconColors[cat.slug] || { bg: '#F3F4F6', color: '#374151' };
 
           return (
             <div
               key={cat.id}
-              className={`category-row ${isActive ? 'category-row--active' : ''}`}
+              className={`category-item-row ${isActive ? 'category-item-row--active' : ''}`}
               onMouseEnter={() => onHoverCategory && onHoverCategory(cat)}
               onClick={() => navigate(`/jobs?category=${cat.slug}`)}
             >
-              <div className="category-row__icon">
-                <IconComponent size={15} />
+              <div
+                className="category-icon-box"
+                style={{ backgroundColor: colors.bg, color: colors.color }}
+              >
+                <IconComponent size={14} />
               </div>
-              <span className="category-row__name">{cat.name}</span>
-              <span className="category-row__count">
+              <span className="category-item-name">{cat.name}</span>
+              <span className="category-item-count">
                 {cat.jobCount.toLocaleString('vi-VN')}+
               </span>
-              <FaChevronRight size={10} className="category-row__arrow" />
+              <FaChevronRight size={10} className="category-item-arrow" />
             </div>
           );
         })}

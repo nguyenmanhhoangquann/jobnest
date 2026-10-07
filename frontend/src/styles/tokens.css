@@ -27,7 +27,7 @@
   --color-success: #16A34A;
   --color-danger: #DC2626;
 
-  --font-main: 'Lora', 'Merriweather', 'Georgia', 'Times New Roman', serif;
+  --font-main: 'Plus Jakarta Sans', 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
   --font-hand: 'Caveat', cursive;
 
   --radius-sm: 8px;
