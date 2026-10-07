@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import {
   FaChevronLeft,
   FaChevronRight,
-  FaFilter,
-  FaInfoCircle,
+  FaSlidersH,
+  FaLightbulb,
   FaTimes,
 } from 'react-icons/fa';
 import jobApi from '../../api/jobApi.js';
@@ -12,31 +12,25 @@ import JobCard from '../job/JobCard.jsx';
 import LoadingGrid from '../common/Loading.jsx';
 import EmptyState from '../common/EmptyState.jsx';
 
-const TABS = [
-  { id: 'ALL', label: 'Tất cả' },
-  { id: 'FULL_TIME', label: 'Full time' },
-  { id: 'PART_TIME', label: 'Part time' },
-  { id: 'INTERN', label: 'Thực tập' },
+const JOB_CATEGORY_TABS = [
+  { id: 'office', label: 'Việc văn phòng' },
+  { id: 'general_labor', label: 'Việc phổ thông' },
 ];
 
-const DISTRICT_CHIPS = [
+const LOCATION_CHIPS = [
+  'Ngẫu Nhiên',
   'Hà Nội',
-  'Ba Đình',
-  'Hoàn Kiếm',
-  'Hai Bà Trưng',
-  'Đống Đa',
-  'Tây Hồ',
-  'Cầu Giấy',
-  'Thanh Xuân',
-  'Hà Đông',
-  'Nam Từ Liêm',
-  'Bắc Từ Liêm',
+  'Thành phố Hồ Chí Minh (cũ)',
+  'Miền Bắc',
+  'Miền Nam',
+  'Đà Nẵng',
+  'Bình Dương',
+  'Đồng Nai',
 ];
 
 export default function FeaturedJobs() {
-  const [activeTab, setActiveTab] = useState('ALL');
-  const [selectedLocation, setSelectedLocation] = useState('ha-noi');
-  const [selectedDistrict, setSelectedDistrict] = useState('Hà Nội');
+  const [activeTab, setActiveTab] = useState('general_labor');
+  const [selectedLocation, setSelectedLocation] = useState('Ngẫu Nhiên');
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -51,12 +45,13 @@ export default function FeaturedJobs() {
     setError(false);
     jobApi
       .getRandomJobs({
-        limit: 9,
-        type: activeTab,
-        area: selectedLocation,
+        limit: 6,
+        type: activeTab === 'office' ? 'FULL_TIME' : 'ALL',
+        area: selectedLocation === 'Ngẫu Nhiên' ? 'all' : selectedLocation,
       })
       .then((data) => {
-        setJobs(data);
+        // Luôn hiển thị đúng 6 thẻ việc làm (lưới 3x2) như TopCV
+        setJobs((data || []).slice(0, 6));
         setLoading(false);
       })
       .catch(() => {
@@ -67,22 +62,14 @@ export default function FeaturedJobs() {
 
   useEffect(() => {
     loadJobs();
-  }, [activeTab, selectedLocation, selectedDistrict]);
+  }, [activeTab, selectedLocation]);
 
   const handleScrollChips = (direction) => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
-        left: direction === 'left' ? -240 : 240,
+        left: direction === 'left' ? -220 : 220,
         behavior: 'smooth',
       });
-    }
-  };
-
-  const handleDistrictClick = (chip) => {
-    if (selectedDistrict === chip) {
-      setSelectedDistrict(''); // Bấm lần 2 để bỏ chọn
-    } else {
-      setSelectedDistrict(chip);
     }
   };
 
@@ -94,17 +81,18 @@ export default function FeaturedJobs() {
   return (
     <section className="featured-jobs-section py-5">
       <div className="container-app">
-        {/* Hàng 1: Tiêu đề, Tab pill & Link xem tất cả */}
-        <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+        {/* Header: Tiêu đề, 2 Tab lớn & Link xem tất cả + Điều hướng */}
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
           <div className="d-flex flex-wrap align-items-center gap-3">
-            <h2 className="section-title">Việc làm nổi bật</h2>
-            {/* Nhóm tab pill */}
-            <div className="tab-pill-group">
-              {TABS.map((tab) => (
+            <h2 className="topcv-featured-title mb-0">Việc làm nổi bật</h2>
+
+            {/* Nhóm 2 Tab lớn bo tròn */}
+            <div className="topcv-tab-group">
+              {JOB_CATEGORY_TABS.map((tab) => (
                 <button
                   key={tab.id}
                   type="button"
-                  className={`tab-pill-btn ${activeTab === tab.id ? 'tab-pill-btn--active' : ''}`}
+                  className={`topcv-tab-btn ${activeTab === tab.id ? 'topcv-tab-btn--active' : ''}`}
                   onClick={() => setActiveTab(tab.id)}
                 >
                   {tab.label}
@@ -114,47 +102,48 @@ export default function FeaturedJobs() {
           </div>
 
           <div className="d-flex align-items-center gap-3">
-            <Link to="/jobs" className="view-all-link">
-              Xem tất cả
+            <Link to="/jobs" className="topcv-view-all-link">
+              Xem tất cả →
             </Link>
-            <div className="d-flex gap-2">
+            <div className="d-flex gap-1">
               <button
                 type="button"
-                className="circle-nav-btn"
+                className="circle-nav-btn circle-nav-btn--sm"
                 onClick={loadJobs}
-                aria-label="Tải lô việc làm trước"
+                aria-label="Tải lô trước"
               >
-                <FaChevronLeft size={13} />
+                <FaChevronLeft size={11} />
               </button>
               <button
                 type="button"
-                className="circle-nav-btn circle-nav-btn--active"
+                className="circle-nav-btn circle-nav-btn--sm"
                 onClick={loadJobs}
-                aria-label="Tải lô việc làm sau"
+                aria-label="Tải lô sau"
               >
-                <FaChevronRight size={13} />
+                <FaChevronRight size={11} />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Hàng 2: Bộ lọc địa điểm & chip quận cuộn ngang */}
-        <div className="filter-chips-row mb-4">
-          <div className="location-select-wrap">
-            <FaFilter className="text-muted ms-2" size={13} />
+        {/* Thanh lọc theo: Địa điểm + dải chip cuộn ngang */}
+        <div className="topcv-filter-row mb-3">
+          {/* Nút lọc theo địa điểm */}
+          <div className="topcv-filter-select-wrap">
+            <FaSlidersH className="text-muted ms-2 me-1" size={13} />
             <select
-              className="location-select"
+              className="topcv-filter-select"
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
             >
-              <option value="all">Lọc theo: Tất cả</option>
-              <option value="ha-noi">Lọc theo: Hà Nội</option>
-              <option value="ho-chi-minh">Lọc theo: TP. HCM</option>
-              <option value="da-nang">Lọc theo: Đà Nẵng</option>
+              <option value="Ngẫu Nhiên">Lọc theo: Địa điểm</option>
+              <option value="Hà Nội">Hà Nội</option>
+              <option value="Thành phố Hồ Chí Minh (cũ)">TP. Hồ Chí Minh</option>
+              <option value="Đà Nẵng">Đà Nẵng</option>
             </select>
           </div>
 
-          {/* Dải chip quận với 2 nút mũi tên cuộn ngang */}
+          {/* Dải chip địa điểm dạng viên thuốc với nút cuộn */}
           <div className="chips-scroll-container">
             <button
               type="button"
@@ -166,14 +155,14 @@ export default function FeaturedJobs() {
             </button>
 
             <div className="chips-scroll-track" ref={scrollRef}>
-              {DISTRICT_CHIPS.map((chip) => {
-                const isSelected = selectedDistrict === chip;
+              {LOCATION_CHIPS.map((chip) => {
+                const isSelected = selectedLocation === chip;
                 return (
                   <button
                     key={chip}
                     type="button"
-                    className={`chip district-chip ${isSelected ? 'district-chip--selected' : ''}`}
-                    onClick={() => handleDistrictClick(chip)}
+                    className={`topcv-chip ${isSelected ? 'topcv-chip--selected' : ''}`}
+                    onClick={() => setSelectedLocation(chip)}
                   >
                     {chip}
                   </button>
@@ -192,16 +181,18 @@ export default function FeaturedJobs() {
           </div>
         </div>
 
-        {/* Hộp gợi ý (tùy chọn theo Mục 7.8) */}
+        {/* Hộp gợi ý nền xanh phấn (Tip Box) */}
         {showTip && (
-          <div className="tip-box mb-4">
-            <FaInfoCircle className="text-primary me-2 shrink-0" size={15} />
-            <span className="small text-muted flex-grow-1">
-              Gợi ý: Di chuột vào tiêu đề việc làm để xem thêm thông tin chi tiết
-            </span>
+          <div className="topcv-tip-box mb-4">
+            <div className="d-flex align-items-center gap-2">
+              <FaLightbulb className="text-primary flex-shrink-0" size={15} />
+              <span className="small text-secondary">
+                <strong>Gợi ý:</strong> Di chuột vào tiêu đề việc làm để xem thêm thông tin chi tiết
+              </span>
+            </div>
             <button
               type="button"
-              className="btn-close-tip"
+              className="btn-close-tip ms-auto"
               onClick={handleCloseTip}
               aria-label="Đóng gợi ý"
             >
@@ -210,9 +201,9 @@ export default function FeaturedJobs() {
           </div>
         )}
 
-        {/* Lưới 9 thẻ việc làm */}
+        {/* Lưới 6 thẻ việc làm (3 cột x 2 hàng) */}
         {loading ? (
-          <LoadingGrid count={9} />
+          <LoadingGrid count={6} />
         ) : error ? (
           <div className="text-center py-5">
             <p className="text-danger mb-3">Không tải được dữ liệu việc làm.</p>
@@ -223,12 +214,14 @@ export default function FeaturedJobs() {
         ) : jobs.length === 0 ? (
           <EmptyState
             title="Chưa có việc làm phù hợp"
-            description="Hãy thử chọn khu vực hoặc loại hình làm việc khác."
+            description="Hãy thử chọn khu vực hoặc tiêu chí khác."
           />
         ) : (
-          <div className="job-grid">
+          <div className="row g-3">
             {jobs.map((job) => (
-              <JobCard key={job.id} job={job} />
+              <div key={job.id} className="col-12 col-md-6 col-lg-4">
+                <JobCard job={job} />
+              </div>
             ))}
           </div>
         )}

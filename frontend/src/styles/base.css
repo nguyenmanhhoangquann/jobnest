@@ -338,30 +338,30 @@ img {
 }
 
 .badge-top {
-  background: #fef08a;
-  color: #854d0e;
+  background: #00B14F;
+  color: #FFFFFF;
 }
 
 .badge-hot {
-  background: #fee2e2;
-  color: #dc2626;
+  background: #EA580C;
+  color: #FFFFFF;
 }
 
 .badge-urgent {
-  background: #ffedd5;
-  color: #c2410c;
+  background: #DC2626;
+  color: #FFFFFF;
 }
 
 .job-card__title {
   margin: 0 0 4px 0;
   font-size: 15px;
   line-height: 1.45;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 
 .job-card__title a {
-  color: #111827;
+  color: #212F3F;
   text-decoration: none;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -371,14 +371,16 @@ img {
 }
 
 .job-card:hover .job-card__title a {
-  color: #b07f00;
+  color: #00B14F;
 }
 
 .job-card__company {
   margin: 0 0 10px 0;
-  font-size: 13px;
-  font-weight: 400;
-  color: #4b5563;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6F7882;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -400,17 +402,17 @@ img {
 }
 
 .chip-salary {
-  background: #fffbeb !important;
-  color: #b07f00 !important;
+  background: #F3F4F6 !important;
+  color: #212F3F !important;
   font-weight: 600 !important;
   border-radius: 4px !important;
-  padding: 3px 9px !important;
+  padding: 3px 8px !important;
   font-size: 12px !important;
 }
 
 .chip-location {
-  background: #f3f4f6 !important;
-  color: #4b5563 !important;
+  background: #F3F4F6 !important;
+  color: #6F7882 !important;
   border-radius: 4px !important;
   padding: 3px 8px !important;
   font-size: 12px !important;
@@ -425,10 +427,10 @@ img {
    SaveButton Styles (Section 8.2)
    ========================================================================== */
 .save-btn {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 1px solid #d1d5db;
+  border: 1px solid #E5E7EB;
   background: #fff;
   display: inline-flex;
   align-items: center;
@@ -436,6 +438,19 @@ img {
   cursor: pointer;
   transition: all 0.15s ease;
   padding: 0;
+  color: #9CA3AF;
+}
+
+.save-btn:hover {
+  border-color: #00B14F;
+  color: #00B14F;
+  background: #F0FDF4;
+}
+
+.save-btn--active {
+  border-color: #00B14F;
+  color: #00B14F;
+  background: #F0FDF4;
 }
 
 .save-btn:hover {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGem } from 'react-icons/fa';
-import SaveButton from './SaveButton';
+import { FaGem, FaStar } from 'react-icons/fa';
+import SaveButton from './SaveButton.jsx';
 
 export default function JobCard({ job, extra }) {
   if (!job) return null;
@@ -35,15 +35,19 @@ export default function JobCard({ job, extra }) {
 
       {/* Cột phải: Nội dung thẻ */}
       <div className="job-card__body">
-        {/* Hàng badge TOP / HOT / GẤP */}
+        {/* Hàng badge TOP / NỔI BẬT / GẤP chuẩn TopCV */}
         {(isTop || isHot || isUrgent) && (
           <div className="job-card__badges">
             {isTop && (
               <span className="badge-top">
-                <FaGem className="me-1" size={10} /> TOP
+                <FaGem className="me-1" size={9} /> TOP
               </span>
             )}
-            {isHot && <span className="badge-hot">HOT</span>}
+            {isHot && (
+              <span className="badge-hot">
+                <FaStar className="me-1" size={9} /> NỔI BẬT
+              </span>
+            )}
             {isUrgent && <span className="badge-urgent">GẤP</span>}
           </div>
         )}
