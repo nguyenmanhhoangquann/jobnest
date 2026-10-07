@@ -16,6 +16,18 @@ export default function CategoryBannerPreview({ category }) {
 
   return (
     <div className="category-showcase-card">
+      {/* Background photo matching each category */}
+      {category.image && (
+        <img
+          key={category.slug}
+          src={category.image}
+          alt={category.name}
+          className="showcase-bg-image"
+          loading="lazy"
+        />
+      )}
+      <div className="showcase-bg-overlay" />
+
       {/* Background glow effects */}
       <div className="showcase-glow-radial" />
       <div className="showcase-grid-pattern" />
