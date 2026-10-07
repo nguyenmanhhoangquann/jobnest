@@ -767,7 +767,55 @@ img {
   border-left: 3px solid var(--color-primary);
 }
 
-.dashboard-avatar {
-  width: 36px;
-  height: 36px;
+/* ==========================================================================
+   Emphatic Brand Logo Typography
+   ========================================================================== */
+.brand-logo-emphatic {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  text-decoration: none;
+}
+
+.brand-logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 4px rgba(251, 199, 37, 0.25));
+}
+
+.brand-logo-text-wrap {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-main), -apple-system, sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  transform: skewX(-7deg);
+}
+
+.brand-text-job {
+  font-size: 25px;
+  color: #111827;
+  letter-spacing: -0.03em;
+}
+
+.brand-text-nest {
+  font-size: 21px;
+  background: linear-gradient(135deg, #fbc725 0%, #f59e0b 100%);
+  color: #111827;
+  padding: 1px 8px 2px;
+  border-radius: 4px;
+  margin-left: 3px;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(251, 199, 37, 0.4);
+  clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+}
+
+.nav-pipe-divider {
+  font-size: 13px;
+  color: #d1d5db;
+  user-select: none;
+  margin: 0 4px;
 }

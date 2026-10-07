@@ -3,10 +3,6 @@ export const APP_NAME = 'JobNest';
 export const NAV_ITEMS = [
   { label: 'Trang chủ', to: '/' },
   { label: 'Việc làm', to: '/jobs' },
-  { label: 'Hỗ trợ', to: '/support' },
-];
-
-export const NAV_EXTRA = [
   { label: 'Công ty', to: '/companies' },
   { label: 'Bài viết', to: '/blog' },
   { label: 'Về chúng tôi', to: '/about' },

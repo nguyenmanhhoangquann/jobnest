@@ -13,8 +13,9 @@ import {
   FaRobot,
   FaPlusCircle
 } from 'react-icons/fa';
-import { APP_NAME, NAV_ITEMS } from '../../constants';
-import { useAuth } from '../../context/AuthContext';
+import { APP_NAME, NAV_ITEMS } from '../../constants.js';
+import BrandLogo from '../common/BrandLogo.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 function NotificationBell({ isAuth }) {
   const navigate = useNavigate();
@@ -144,15 +145,9 @@ export default function Navbar() {
   return (
     <BsNavbar expand="lg" sticky="top" className="app-navbar bg-white">
       <div className="container-app d-flex align-items-center w-100 justify-content-between">
-        {/* Left: Logo */}
-        <BsNavbar.Brand as={Link} to="/" className="brand d-flex align-items-center gap-2 m-0 text-decoration-none">
-          <span className="brand__icon">
-            <FaBriefcase size={20} />
-          </span>
-          <span className="d-flex flex-column">
-            <b className="brand__title">{APP_NAME}</b>
-            <small className="brand__tagline d-none d-xl-block">Kết nối tài năng - Kiến tạo tương lai</small>
-          </span>
+        {/* Left: Logo phong cách Emphatic */}
+        <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center m-0 text-decoration-none">
+          <BrandLogo />
         </BsNavbar.Brand>
 
         {/* Mobile quick actions + Hamburger */}
@@ -169,19 +164,23 @@ export default function Navbar() {
           <BsNavbar.Toggle aria-controls="main-nav" className="border-0 p-1 shadow-none" />
         </div>
 
-        {/* Center: Nav links & Desktop Right */}
+        {/* Center: Nav links kiểu TopCV phân tách gạch | */}
         <BsNavbar.Collapse id="main-nav" className="mt-3 mt-lg-0">
-          <Nav className="mx-auto app-menu mb-3 mb-lg-0">
-            {NAV_ITEMS.map((item) => (
-              <Nav.Link
-                key={item.to}
-                as={NavLink}
-                to={item.to}
-                end={item.to === '/'}
-                className="app-nav-link"
-              >
-                {item.label}
-              </Nav.Link>
+          <Nav className="mx-auto app-menu align-items-center mb-3 mb-lg-0">
+            {NAV_ITEMS.map((item, index) => (
+              <React.Fragment key={item.to}>
+                <Nav.Link
+                  as={NavLink}
+                  to={item.to}
+                  end={item.to === '/'}
+                  className="app-nav-link"
+                >
+                  {item.label}
+                </Nav.Link>
+                {index < NAV_ITEMS.length - 1 && (
+                  <span className="nav-pipe-divider d-none d-lg-inline text-muted opacity-25">|</span>
+                )}
+              </React.Fragment>
             ))}
           </Nav>
 

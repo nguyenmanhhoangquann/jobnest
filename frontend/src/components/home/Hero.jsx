@@ -14,28 +14,30 @@ export default function Hero() {
     <section className="hero-section">
       <div className="container-app">
         {/* Phần trên: Tiêu đề + Thanh tìm kiếm trung tâm */}
-        <div className="hero-header-center mb-4">
-          <div className="d-flex align-items-center gap-2 mb-2">
+        <div className="hero-header-center mx-auto text-center mb-4 d-flex flex-column align-items-center">
+          <div className="d-flex align-items-center justify-content-center gap-2 mb-2">
             <span className="hero-badge">
               <FaStar className="me-2" color="#FBC725" size={13} />
               Cơ hội nghề nghiệp hàng đầu
             </span>
           </div>
 
-          <h1 className="hero-title mb-2">
+          <h1 className="hero-title mb-2 text-center">
             Tìm công việc mơ ước <span className="hero-title--highlight">phù hợp với bạn</span>
           </h1>
 
-          <p className="hero-desc mb-3">
+          <p className="hero-desc mb-3 text-center mx-auto">
             Hàng nghìn việc làm chất lượng cao từ các công ty công nghệ và tập đoàn uy tín.
           </p>
 
-          <HeroSearchBar />
+          <div className="w-100 d-flex justify-content-center">
+            <HeroSearchBar />
+          </div>
 
-          {/* Dải từ khóa phổ biến */}
-          <div className="hero-keywords mt-3 mb-0">
+          {/* Dải từ khóa phổ biến căn giữa */}
+          <div className="hero-keywords mt-3 mb-0 justify-content-center">
             <span className="hero-keywords__label">Từ khóa phổ biến:</span>
-            <div className="hero-keywords__list">
+            <div className="hero-keywords__list d-flex flex-wrap justify-content-center gap-1">
               {POPULAR_KEYWORDS.map((kw) => (
                 <button
                   key={kw}

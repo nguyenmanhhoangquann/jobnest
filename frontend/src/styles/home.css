@@ -8,7 +8,10 @@
 }
 
 .hero-header-center {
-  max-width: 840px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .hero-showcase-grid {
