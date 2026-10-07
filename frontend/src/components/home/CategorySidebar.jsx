@@ -1,41 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  FaChevronRight,
-  FaLaptopCode,
-  FaBullhorn,
-  FaTags,
-  FaPaintBrush,
-  FaCalculator,
-  FaUserTie,
-  FaLandmark,
-  FaServer,
-  FaBriefcase,
-} from 'react-icons/fa';
+import { FaChevronRight } from 'react-icons/fa';
 import categoryApi from '../../api/categoryApi.js';
-
-const iconMap = {
-  FaLaptopCode,
-  FaBullhorn,
-  FaTags,
-  FaPaintBrush,
-  FaCalculator,
-  FaUserTie,
-  FaLandmark,
-  FaServer,
-};
-
-// Pastel colors for category icon badges
-const iconColors = {
-  cntt: { bg: '#EFF6FF', color: '#2563EB' },
-  marketing: { bg: '#FDF2F8', color: '#DB2777' },
-  'kinh-doanh': { bg: '#FEF3C7', color: '#D97706' },
-  'thiet-ke': { bg: '#F5F3FF', color: '#7C3AED' },
-  'ke-toan': { bg: '#ECFDF5', color: '#059669' },
-  'nhan-su': { bg: '#FFF7ED', color: '#EA580C' },
-  'tai-chinh': { bg: '#F0FDF4', color: '#16A34A' },
-  devops: { bg: '#F1F5F9', color: '#475569' },
-};
 
 export default function CategorySidebar({ activeCategory, onHoverCategory }) {
   const [categories, setCategories] = useState([]);
@@ -72,12 +38,6 @@ export default function CategorySidebar({ activeCategory, onHoverCategory }) {
               onMouseEnter={() => onHoverCategory && onHoverCategory(cat)}
               onClick={() => navigate(`/jobs?category=${cat.slug}`)}
             >
-              <div
-                className="category-icon-box"
-                style={{ backgroundColor: colors.bg, color: colors.color }}
-              >
-                <IconComponent size={14} />
-              </div>
               <span className="category-item-name">{cat.name}</span>
               <FaChevronRight size={10} className="category-item-arrow ms-auto" />
             </div>
