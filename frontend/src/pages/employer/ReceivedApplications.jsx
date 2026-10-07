@@ -29,10 +29,12 @@ export default function ReceivedApplications() {
     applicationApi
       .getReceivedApplications()
       .then((data) => {
-        setApplications(data || []);
+        const list = Array.isArray(data) ? data : data?.content || [];
+        setApplications(list);
         setLoading(false);
       })
       .catch(() => {
+        setApplications([]);
         setLoading(false);
       });
   }, []);

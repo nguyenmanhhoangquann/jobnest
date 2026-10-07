@@ -103,23 +103,23 @@ function UserMenu({ user, onLogout }) {
 
         {isEmployer ? (
           <>
-            <Dropdown.Item as={Link} to="/employer/cvs" className="d-flex align-items-center gap-2 py-2">
-              <FaUsers size={14} className="text-muted" /> CV đã nhận
-            </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/employer/ai-review" className="d-flex align-items-center gap-2 py-2">
-              <FaRobot size={14} className="text-muted" /> AI đánh giá CV
+            <Dropdown.Item as={Link} to="/employer/applications" className="d-flex align-items-center gap-2 py-2">
+              <FaUsers size={14} className="text-muted" /> Hồ sơ ứng tuyển (CV)
             </Dropdown.Item>
             <Dropdown.Item as={Link} to="/employer/post-job" className="d-flex align-items-center gap-2 py-2">
               <FaPlusCircle size={14} className="text-muted" /> Đăng bài tuyển dụng
             </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/employer/jobs" className="d-flex align-items-center gap-2 py-2">
+              <FaBriefcase size={14} className="text-muted" /> Tin đã đăng
+            </Dropdown.Item>
           </>
         ) : (
           <>
-            <Dropdown.Item as={Link} to="/candidate/applied" className="d-flex align-items-center gap-2 py-2">
+            <Dropdown.Item as={Link} to="/candidate/applied-jobs" className="d-flex align-items-center gap-2 py-2">
               <FaFileAlt size={14} className="text-muted" /> Việc đã ứng tuyển
             </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/candidate/saved" className="d-flex align-items-center gap-2 py-2">
-              <FaBookmark size={14} className="text-muted" /> JD đã lưu
+            <Dropdown.Item as={Link} to="/candidate/saved-jobs" className="d-flex align-items-center gap-2 py-2">
+              <FaBookmark size={14} className="text-muted" /> Công việc đã lưu
             </Dropdown.Item>
           </>
         )}

@@ -15,10 +15,12 @@ export default function AppliedJobs() {
     applicationApi
       .getMyApplications()
       .then((data) => {
-        setApplications(data || []);
+        const list = Array.isArray(data) ? data : data?.content || [];
+        setApplications(list);
         setLoading(false);
       })
       .catch(() => {
+        setApplications([]);
         setLoading(false);
       });
   }, []);
