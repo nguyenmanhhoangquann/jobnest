@@ -7,14 +7,19 @@ export const authApi = {
     if (USE_MOCK) {
       await new Promise((r) => setTimeout(r, 400));
       // Giả lập đăng nhập thành công
-      const isEmployer = username.toLowerCase().includes('ntd') || username.toLowerCase().includes('employer');
+      const isEmployer =
+        username.toLowerCase().includes('ntd') ||
+        username.toLowerCase().includes('employer') ||
+        username.toLowerCase().includes('tuyendung');
       return {
         token: 'mock-jwt-token-jobnest-2026',
         user: {
           id: isEmployer ? 1 : 201,
           username,
           role: isEmployer ? 'EMPLOYER' : 'CANDIDATE',
+          fullName: isEmployer ? 'Nguyễn Quản Lý' : 'Nguyễn Văn Hùng',
           displayName: isEmployer ? 'Công ty TNHH Ánh Dương' : 'Nguyễn Văn Hùng',
+          companyName: isEmployer ? 'Công ty TNHH Ánh Dương' : '',
           avatarUrl: '',
         },
       };

@@ -651,3 +651,67 @@ img {
   font-weight: 700;
   color: var(--color-text);
 }
+
+/* ==========================================================================
+   Auth Pages Styles (Mục 12)
+   ========================================================================== */
+.auth-page {
+  background-color: var(--color-surface-alt);
+  min-height: calc(100vh - 160px);
+  display: flex;
+  align-items: center;
+}
+
+.auth-card {
+  max-width: 440px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.auth-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.quick-login-box {
+  background-color: #fffbeb;
+  border: 1px solid #fef3c7;
+}
+
+.role-select-card {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #fff;
+}
+
+.role-select-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.role-select-card--active {
+  border-color: var(--color-primary) !important;
+  background-color: #fffbeb !important;
+}
+
+.role-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  transition: all 0.15s ease;
+}
+
+.role-select-card--active .role-icon-box {
+  background: var(--color-primary);
+}

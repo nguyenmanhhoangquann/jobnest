@@ -14,7 +14,7 @@
 - [x] **Bước 4:** Mock dữ liệu + src/api (chế độ mock)
 - [x] **Bước 5:** Trang chủ: Hero, HeroSearchBar, CategorySidebar, CategoryGrid, FeaturedJobs
 - [x] **Bước 6:** Jobs, JobSearch (bộ lọc 6 trường + URL search params), JobDetail
-- [ ] **Bước 7:** AuthContext, axiosClient, ProtectedRoute, Login, Register 2 bước
+- [x] **Bước 7:** AuthContext, axiosClient, ProtectedRoute, Login, Register 2 bước
 - [ ] **Bước 8:** SaveButton thật, ApplyModal, trang Việc đã ứng tuyển, JD đã lưu
 - [ ] **Bước 9:** DashboardLayout, CV đã nhận, Đăng bài tuyển dụng
 - [ ] **Bước 10:** Support (chatbot Gemini), useSpeech (mic + đọc to), AI đánh giá CV, AI gợi ý JD
@@ -32,6 +32,7 @@
 - **GIẢ ĐỊNH 6:** Khối minh họa Hero được dựng thuần CSS và vector placeholder (bàn làm việc, laptop, cà phê) để không phụ thuộc file ảnh ngoài mà vẫn hiển thị đẹp chuẩn bố cục Hình 1.
 - **GIẢ ĐỊNH 7:** Trang `/jobs` và `/jobs/search` dùng chung component `JobList.jsx` với bộ lọc 6 trường đồng bộ 2 chiều qua `useSearchParams`, bảo tồn tham số lọc khi chuyển trang phân trang.
 - **GIẢ ĐỊNH 8:** Nội dung mô tả công việc (JD) được render qua `white-space: pre-line` an toàn, tuyệt đối không dùng `dangerouslySetInnerHTML` để phòng chống XSS (Mục 10.3).
+- **GIẢ ĐỊNH 9:** Trang Đăng nhập hỗ trợ 2 nút Quick Login (Ứng viên: ungvien / Nhà tuyển dụng: tuyendung) để người chấm bài / giảng viên test ngay mà không cần gõ phím.
 
 ---
 
@@ -50,3 +51,6 @@
 - [x] Trang chủ: banner có khẩu hiệu "Your Career. Your Future. Your Way.", ô ngành nổi bật, việc làm ngẫu nhiên xếp ô (Mục 7)
 - [x] Bộ lọc tìm kiếm 6 trường tiêu chuẩn đồng bộ 2 chiều với URL Search Params (Mục 9)
 - [x] Chi tiết bài tuyển dụng: đầy đủ thông tin, không dùng dangerouslySetInnerHTML, hiển thị việc làm cùng ngành (Mục 10)
+- [x] Đăng nhập phân quyền 2 vai trò CANDIDATE và EMPLOYER (Mục 12.1 - 12.3)
+- [x] Đăng ký 2 bước phân nhánh vai trò, form validate đầy đủ (Mục 12.4)
+- [x] ProtectedRoute bảo vệ route private theo vai trò (Mục 12.2)
