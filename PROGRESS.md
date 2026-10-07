@@ -12,7 +12,7 @@
 - [x] **Bước 2:** MainLayout + Navbar + Footer (chưa cần đăng nhập thật)
 - [x] **Bước 3:** Component dùng chung: JobCard, SaveButton, Pagination, EmptyState, Skeleton, ToastHost
 - [x] **Bước 4:** Mock dữ liệu + src/api (chế độ mock)
-- [ ] **Bước 5:** Trang chủ: Hero, HeroSearchBar, CategorySidebar, CategoryGrid, FeaturedJobs
+- [x] **Bước 5:** Trang chủ: Hero, HeroSearchBar, CategorySidebar, CategoryGrid, FeaturedJobs
 - [ ] **Bước 6:** Jobs, JobSearch (bộ lọc 6 trường + URL search params), JobDetail
 - [ ] **Bước 7:** AuthContext, axiosClient, ProtectedRoute, Login, Register 2 bước
 - [ ] **Bước 8:** SaveButton thật, ApplyModal, trang Việc đã ứng tuyển, JD đã lưu
@@ -28,7 +28,8 @@
 - **GIẢ ĐỊNH 2:** Font chữ Google Fonts (*Be Vietnam Pro* và *Caveat*) được nạp thông qua thẻ `<link>` trong `index.html` để tối ưu tốc độ tải trang theo chuẩn Mục 2.3.
 - **GIẢ ĐỊNH 3:** Dropdown thông báo trên Navbar chuẩn bị sẵn 3 thông báo mẫu, sẵn sàng kết nối API ở Bước 4.
 - **GIẢ ĐỊNH 4:** Các thẻ tags trong JobCard được bọc flexbox riêng để nút SaveButton luôn căn phải cố định không bị rớt dòng khi gặp tên địa điểm dài.
-- **GIẢ ĐỊNH 5:** Tầng API được thiết kế theo mô hình Adapter chuyển mạch linh hoạt: khi `VITE_USE_MOCK=true` sẽ tự động trả dữ liệu mock sau 400ms (giả lập độ trễ mạng thực tế); khi `VITE_USE_MOCK=false` sẽ gọi trực tiếp Backend qua `axiosClient`.
+- **GIẢ ĐỊNH 5:** Tầng API được thiết kế theo mô hình Adapter chuyển mạch: khi `VITE_USE_MOCK=true` trả mock sau 400ms; khi `VITE_USE_MOCK=false` gọi trực tiếp Backend qua `axiosClient`.
+- **GIẢ ĐỊNH 6:** Khối minh họa Hero được dựng thuần CSS và vector placeholder (bàn làm việc, laptop, cà phê) để không phụ thuộc file ảnh ngoài mà vẫn hiển thị đẹp chuẩn bố cục Hình 1.
 
 ---
 
@@ -44,3 +45,4 @@
 - [x] Đủ 3 trạng thái danh sách: Skeleton loading, EmptyState, Toast thông báo (Mục 8.4)
 - [x] Tầng API cấu hình đầy đủ JWT interceptor, xử lý lỗi 401 về /login (Mục 15.1, 15.4)
 - [x] Dữ liệu mock đầy đủ: 10 ngành nghề, 30 việc làm phân trang, 5 CV ứng tuyển, chatbot reply, AI review CV (Mục 15.5, 15.6)
+- [x] Trang chủ: banner có khẩu hiệu "Your Career. Your Future. Your Way.", ô ngành nổi bật, việc làm ngẫu nhiên xếp ô (Mục 7)

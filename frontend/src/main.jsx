@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.min.css'; // 1. Bootstrap
-import './styles/tokens.css'; // 2. Biến màu, font (mục 3)
-import './styles/base.css'; // 3. Ghi đè Bootstrap + class dùng chung
-import './styles/responsive.css'; // 4. @media bổ sung
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/tokens.css';
+import './styles/base.css';
+import './styles/responsive.css';
+import './styles/home.css';
 import App from './App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -1,0 +1,68 @@
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  FaChevronRight,
+  FaLaptopCode,
+  FaBullhorn,
+  FaTags,
+  FaPaintBrush,
+  FaCalculator,
+  FaUserTie,
+  FaLandmark,
+  FaServer,
+  FaBriefcase,
+} from 'react-icons/fa';
+import categoryApi from '../../api/categoryApi.js';
+
+const iconMap = {
+  FaLaptopCode,
+  FaBullhorn,
+  FaTags,
+  FaPaintBrush,
+  FaCalculator,
+  FaUserTie,
+  FaLandmark,
+  FaServer,
+};
+
+export default function CategorySidebar() {
+  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    categoryApi.getCategories({ top: 8 }).then((data) => setCategories(data));
+  }, []);
+
+  return (
+    <aside className="category-sidebar">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h3 className="category-sidebar__title">Danh mục việc làm</h3>
+        <Link to="/jobs" className="category-sidebar__link">
+          Xem tất cả →
+        </Link>
+      </div>
+
+      <div className="category-sidebar__list">
+        {categories.map((cat) => {
+          const IconComponent = iconMap[cat.icon] || FaBriefcase;
+          return (
+            <div
+              key={cat.id}
+              className="category-row"
+              onClick={() => navigate(`/jobs?category=${cat.slug}`)}
+            >
+              <div className="category-row__icon">
+                <IconComponent size={16} />
+              </div>
+              <span className="category-row__name">{cat.name}</span>
+              <span className="category-row__count">
+                {cat.jobCount.toLocaleString('vi-VN')}+
+              </span>
+              <FaChevronRight size={10} className="category-row__arrow" />
+            </div>
+          );
+        })}
+      </div>
+    </aside>
+  );
+}

@@ -1,0 +1,547 @@
+/* Hero Section */
+.hero-section {
+  background-color: var(--color-hero-bg);
+  padding: 56px 0 40px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hero-layout {
+  display: flex;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.hero-content {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.hero-sidebar-wrap {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1199px) {
+  .hero-sidebar-wrap {
+    width: 240px;
+  }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-primary-soft);
+  color: #8a6500;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: 44px;
+  line-height: 52px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.hero-title--highlight {
+  color: var(--color-primary);
+}
+
+.hero-desc {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-text-muted);
+  max-width: 520px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+/* Hero Search Bar */
+.hero-search-bar {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-search);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 640px;
+  border: 1px solid var(--color-border);
+  margin-bottom: 16px;
+}
+
+.hero-search-bar__input-wrap,
+.hero-search-bar__select-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.hero-search-bar__input,
+.hero-search-bar__select {
+  border: 0;
+  outline: 0;
+  padding: 8px 12px;
+  font-size: 14px;
+  width: 100%;
+  background: transparent;
+  color: var(--color-text);
+}
+
+.hero-search-bar__divider {
+  width: 1px;
+  height: 28px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+
+.hero-search-bar__btn {
+  height: 46px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 575px) {
+  .hero-search-bar {
+    flex-direction: column;
+    padding: 12px;
+  }
+  .hero-search-bar__input-wrap,
+  .hero-search-bar__select-wrap,
+  .hero-search-bar__btn {
+    width: 100%;
+  }
+}
+
+/* Popular Keywords */
+.hero-keywords {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.hero-keywords__label {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.hero-keyword-chip {
+  border: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.hero-keyword-chip:hover {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+/* Handwritten Slogan & Illustration */
+.hero-illustration-box {
+  position: relative;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.hero-blob {
+  position: absolute;
+  top: -30px;
+  right: 60px;
+  width: 320px;
+  height: 240px;
+  border-radius: 50%;
+  background: var(--color-hero-blob);
+  z-index: 1;
+}
+
+.hero__slogan {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 32px;
+  color: var(--color-text);
+  transform: rotate(-5deg);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__slogan span:nth-child(2) {
+  margin-left: 20px;
+}
+
+.hero__slogan span:nth-child(3) {
+  margin-left: 40px;
+  color: var(--color-primary-dark);
+}
+
+.hero-illustration-placeholder {
+  position: relative;
+  z-index: 2;
+  margin-left: auto;
+  margin-right: 40px;
+}
+
+.desk-scene {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.laptop-graphic {
+  width: 90px;
+  height: 60px;
+  border: 3px solid #1F2937;
+  border-radius: 6px;
+  position: relative;
+  background: #fff;
+}
+
+.laptop-base {
+  position: absolute;
+  bottom: -6px;
+  left: -12px;
+  width: 114px;
+  height: 6px;
+  background: #1F2937;
+  border-radius: 3px;
+}
+
+.coffee-cup {
+  width: 24px;
+  height: 30px;
+  border: 3px solid #1F2937;
+  border-radius: 0 0 6px 6px;
+}
+
+/* Category Sidebar */
+.category-sidebar {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 20px 16px;
+  border: 1px solid var(--color-border);
+  height: 100%;
+}
+
+.category-sidebar__title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.category-sidebar__link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.category-row:hover {
+  background: var(--color-top-bg);
+}
+
+.category-row__icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+}
+
+.category-row__name {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-row__count {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-surface-alt);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.category-row__arrow {
+  color: #9CA3AF;
+}
+
+/* Category Grid (Top ngành nghề nổi bật) */
+.category-card {
+  background: var(--color-surface-alt);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.category-card:hover {
+  background: #fff;
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(251, 199, 37, 0.25);
+  transform: translateY(-2px);
+}
+
+.category-card__icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: var(--color-text);
+  background: #fff;
+  transition: background-color 0.15s ease;
+}
+
+.category-card:hover .category-card__icon-box {
+  background: var(--color-primary-soft);
+}
+
+.category-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.category-card__count {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+}
+
+.circle-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.circle-nav-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.circle-nav-btn--active {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.circle-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Featured Jobs Controls */
+.tab-pill-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tab-pill-btn {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  border: 0;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-pill-btn:hover {
+  background: #E5E7EB;
+}
+
+.tab-pill-btn--active {
+  background: var(--color-primary) !important;
+  color: var(--color-text) !important;
+  font-weight: 600;
+}
+
+.view-all-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+.filter-chips-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.location-select-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 4px 10px;
+  background: #fff;
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.location-select {
+  border: 0;
+  outline: 0;
+  font-size: 13.5px;
+  width: 100%;
+  background: transparent;
+  color: var(--color-text);
+}
+
+.chips-scroll-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.chips-scroll-track {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 4px 0;
+}
+
+.chips-scroll-track::-webkit-scrollbar {
+  display: none;
+}
+
+.chip-scroll-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.district-chip {
+  cursor: pointer;
+  border: 0;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.district-chip--selected {
+  background: var(--color-primary) !important;
+  color: var(--color-text) !important;
+  font-weight: 600;
+}
+
+.tip-box {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+}
+
+.btn-close-tip {
+  border: 0;
+  background: transparent;
+  color: #6B7280;
+  cursor: pointer;
+}
+
+/* Employer Banner (Mục 7.9) */
+.employer-banner {
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: 32px 40px;
+}
+
+.employer-banner__title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.employer-banner__desc {
+  font-size: 15px;
+  color: var(--color-text);
+  opacity: 0.9;
+}
+
+.employer-banner__btn {
+  background: #1F2937;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+.employer-banner__btn:hover {
+  background: #111827;
+  color: #fff;
+}
