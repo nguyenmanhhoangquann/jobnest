@@ -594,11 +594,24 @@ img {
 /* ==========================================================================
    Filter Sidebar & Job Detail Styles (Mục 9 & 10)
    ========================================================================== */
+.job-filter-sidebar-col {
+  width: 270px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 992px) {
+  .job-filter-sidebar-col {
+    position: sticky;
+    top: 76px;
+    align-self: flex-start;
+  }
+}
+
 .filter-sidebar {
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 20px;
+  padding: 16px 18px;
 }
 
 .filter-sidebar__title {

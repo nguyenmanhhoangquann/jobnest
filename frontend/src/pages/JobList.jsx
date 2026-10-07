@@ -87,7 +87,8 @@ export default function JobList() {
 
   return (
     <div className="job-list-page py-4">
-      <div className="container-app">
+      {/* Container mở rộng sát 2 bên mép chuẩn TopCV */}
+      <div className="container-fluid px-3 px-xl-5">
         {/* Nút bật/tắt bộ lọc trên mobile */}
         <div className="d-lg-none mb-3">
           <button
@@ -101,8 +102,8 @@ export default function JobList() {
         </div>
 
         <div className="row g-4">
-          {/* Cột trái: Bộ lọc (280px) */}
-          <div className={`col-lg-3 ${showMobileFilter ? 'd-block' : 'd-none d-lg-block'}`}>
+          {/* Cột trái: Bộ lọc sát bên trái, bề ngang gọn gàng 270px */}
+          <div className={`col-lg-auto job-filter-sidebar-col ${showMobileFilter ? 'd-block' : 'd-none d-lg-block'}`}>
             <JobFilterSidebar
               filters={filters}
               onChange={updateFilters}
@@ -110,8 +111,8 @@ export default function JobList() {
             />
           </div>
 
-          {/* Cột phải: Danh sách việc làm */}
-          <div className="col-lg-9">
+          {/* Cột phải: Danh sách việc làm mở rộng tối đa, thoáng đãng */}
+          <div className="col-lg flex-grow-1 min-w-0">
             {/* Header thanh kết quả & sắp xếp */}
             <div className="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center pb-3 mb-3 border-bottom gap-2">
               <span className="text-muted fs-6">
