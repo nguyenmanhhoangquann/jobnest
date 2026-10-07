@@ -788,9 +788,9 @@ img {
 .brand-logo-text-wrap {
   display: flex;
   align-items: center;
-  font-family: 'Cotdien Typeface', var(--font-main), sans-serif;
-  font-weight: 900;
-  letter-spacing: 0.02em;
+  font-family: var(--font-main);
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .brand-text-job {
