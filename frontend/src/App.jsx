@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import MainLayout from './components/layout/MainLayout.jsx';
+import DashboardLayout from './components/layout/DashboardLayout.jsx';
 import Home from './pages/Home.jsx';
 import JobList from './pages/JobList.jsx';
 import JobDetail from './pages/JobDetail.jsx';
@@ -9,6 +10,10 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import AppliedJobs from './pages/candidate/AppliedJobs.jsx';
 import SavedJobs from './pages/candidate/SavedJobs.jsx';
+import EmployerDashboard from './pages/employer/EmployerDashboard.jsx';
+import PostJob from './pages/employer/PostJob.jsx';
+import ReceivedApplications from './pages/employer/ReceivedApplications.jsx';
+import EmployerJobs from './pages/employer/EmployerJobs.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 import ToastHost from './components/common/ToastHost.jsx';
 
@@ -38,12 +43,30 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          {/* Tuyến đường Layout Nhà tuyển dụng (EMPLOYER) */}
+          <Route
+            path="/employer"
+            element={
+              <ProtectedRoute allowedRole="EMPLOYER">
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="/employer/dashboard" replace />} />
+            <Route path="dashboard" element={<EmployerDashboard />} />
+            <Route path="post-job" element={<PostJob />} />
+            <Route path="applications" element={<ReceivedApplications />} />
+            <Route path="jobs" element={<EmployerJobs />} />
+          </Route>
+
+          {/* Tuyến đường giao diện chính (CANDIDATE & Khách) */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/jobs" element={<JobList />} />
             <Route path="/jobs/search" element={<JobList />} />
             <Route path="/jobs/:id" element={<JobDetail />} />
-            
+
             {/* Tuyến đường ứng viên (CANDIDATE) */}
             <Route
               path="/candidate/applied-jobs"

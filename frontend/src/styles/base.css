@@ -715,3 +715,40 @@ img {
 .role-select-card--active .role-icon-box {
   background: var(--color-primary);
 }
+
+/* ==========================================================================
+   Employer Dashboard Styles (Mục 14)
+   ========================================================================== */
+.dashboard-container {
+  min-height: 100vh;
+}
+
+.dashboard-sidebar {
+  width: 260px;
+  min-height: 100vh;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+}
+
+.dashboard-nav__link {
+  color: #4b5563;
+  transition: all 0.15s ease;
+}
+
+.dashboard-nav__link:hover {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+.dashboard-nav__link--active {
+  background-color: #fffbeb !important;
+  color: var(--color-primary-dark) !important;
+  font-weight: 600;
+  border-left: 3px solid var(--color-primary);
+}
+
+.dashboard-avatar {
+  width: 36px;
+  height: 36px;
+}

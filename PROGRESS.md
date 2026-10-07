@@ -16,7 +16,7 @@
 - [x] **Bước 6:** Jobs, JobSearch (bộ lọc 6 trường + URL search params), JobDetail
 - [x] **Bước 7:** AuthContext, axiosClient, ProtectedRoute, Login, Register 2 bước
 - [x] **Bước 8:** SaveButton thật, ApplyModal, trang Việc đã ứng tuyển, JD đã lưu
-- [ ] **Bước 9:** DashboardLayout, CV đã nhận, Đăng bài tuyển dụng
+- [x] **Bước 9:** DashboardLayout, CV đã nhận, Đăng bài tuyển dụng
 - [ ] **Bước 10:** Support (chatbot Gemini), useSpeech (mic + đọc to), AI đánh giá CV, AI gợi ý JD
 - [ ] **Bước 11:** Kiểm tra chuyển đổi VITE_USE_MOCK=false và tích hợp Backend
 - [ ] **Bước 12:** Audit responsive 375/768/1024/1440px, Dockerfile, nginx.conf, checklist nghiệm thu
@@ -34,6 +34,7 @@
 - **GIẢ ĐỊNH 8:** Nội dung mô tả công việc (JD) được render qua `white-space: pre-line` an toàn, tuyệt đối không dùng `dangerouslySetInnerHTML` để phòng chống XSS (Mục 10.3).
 - **GIẢ ĐỊNH 9:** Trang Đăng nhập hỗ trợ 2 nút Quick Login (Ứng viên: ungvien / Nhà tuyển dụng: tuyendung) để người chấm bài / giảng viên test ngay mà không cần gõ phím.
 - **GIẢ ĐỊNH 10:** Modal ứng tuyển (ApplyModal) xác thực định dạng file (.pdf, .doc, .docx) và dung lượng giới hạn <= 5MB ở client trước khi gửi multipart/form-data.
+- **GIẢ ĐỊNH 11:** Phân hệ Nhà tuyển dụng (`/employer/*`) được tách biệt hoàn toàn qua `DashboardLayout.jsx` với thanh sidebar chuyên dụng, tích hợp tính năng tạo JD nhanh bằng AI và duyệt trạng thái hồ sơ trực tiếp.
 
 ---
 
@@ -58,3 +59,6 @@
 - [x] Nút Lưu việc làm kết nối API thật, optimistic update và đồng bộ (Mục 8.2, 13.3)
 - [x] Modal nộp CV có upload file, validate dung lượng 5MB, gửi kèm lời nhắn (Mục 13.1)
 - [x] Trang Việc đã ứng tuyển và Công việc đã lưu của ứng viên (Mục 13.2, 13.3)
+- [x] DashboardLayout dành riêng cho Nhà tuyển dụng (Mục 14.1)
+- [x] Đăng tin tuyển dụng đầy đủ form và có nút AI tạo nhanh JD (Mục 14.3)
+- [x] Xem danh sách CV ứng tuyển, lọc theo trạng thái, chấm điểm AI và duyệt trực tiếp (Mục 14.2)
