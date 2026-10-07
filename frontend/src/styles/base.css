@@ -58,64 +58,107 @@ img {
    Navbar Styles (Section 6.1)
    ========================================================================== */
 .app-navbar {
-  height: var(--navbar-h);
-  border-bottom: 1px solid #f3f4f6;
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E5E7EB;
   z-index: 1030;
   transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
-.brand__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--color-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text);
-  flex-shrink: 0;
-}
-
-.brand__title {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--color-text);
-  line-height: 1.1;
-}
-
-.brand__tagline {
-  font-size: 10.5px;
-  color: var(--color-text-muted);
-  line-height: 1.2;
+.navbar-brand-logo {
+  height: 42px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
 }
 
 .app-menu .app-nav-link {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--color-text);
-  padding: 8px 16px !important;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #374151;
+  padding: 8px 14px !important;
   position: relative;
-  transition: color 0.15s ease;
+  transition: all 0.15s ease;
+  border-radius: 6px;
 }
 
 .app-menu .app-nav-link:hover {
-  color: var(--color-primary-dark);
+  color: #111827;
+  background: #F9FAFB;
 }
 
 .app-menu .app-nav-link.active {
-  font-weight: 600;
-  color: var(--color-text);
+  font-weight: 700;
+  color: #111827;
 }
 
 .app-menu .app-nav-link.active::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 16px;
-  right: 16px;
-  height: 2px;
+  bottom: 0px;
+  left: 14px;
+  right: 14px;
+  height: 2.5px;
   background: var(--color-primary);
   border-radius: 2px;
+}
+
+.btn-nav-employer {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  padding: 6px 13px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-nav-employer:hover {
+  background: #E5E7EB;
+  color: #111827;
+}
+
+.btn-nav-login {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1F2937;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  padding: 6px 14px;
+  background: #FFFFFF;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-nav-login:hover {
+  border-color: #9CA3AF;
+  background: #F9FAFB;
+  color: #111827;
+}
+
+.btn-nav-register {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1F2937;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 6px 16px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(251, 199, 37, 0.3);
+}
+
+.btn-nav-register:hover {
+  background: #F2B705;
+  border-color: #F2B705;
+  color: #111827;
 }
 
 .icon-btn {

@@ -11,22 +11,20 @@ import {
   FaBookmark,
   FaUsers,
   FaRobot,
-  FaPlusCircle
+  FaPlusCircle,
 } from 'react-icons/fa';
-import { APP_NAME, NAV_ITEMS } from '../../constants.js';
-import BrandLogo from '../common/BrandLogo.jsx';
+import { NAV_ITEMS } from '../../constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 
 function NotificationBell({ isAuth }) {
   const navigate = useNavigate();
-  // Mock notifications
   const [notifications] = useState([
     { id: 1, content: 'Hồ sơ ứng tuyển của bạn đã được Nhà tuyển dụng xem.', time: '10 phút trước', isRead: false },
     { id: 2, content: 'Việc làm "Frontend Developer" mới phù hợp với bạn.', time: '1 giờ trước', isRead: false },
     { id: 3, content: 'Chào mừng bạn đến với nền tảng việc làm JobNest!', time: '1 ngày trước', isRead: true },
   ]);
 
-  const unreadCount = notifications.filter(n => !n.isRead).length;
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   if (!isAuth) {
     return (
@@ -36,7 +34,7 @@ function NotificationBell({ isAuth }) {
         aria-label="Thông báo"
         onClick={() => navigate('/login')}
       >
-        <FaBell size={18} />
+        <FaBell size={17} />
       </button>
     );
   }
@@ -44,13 +42,15 @@ function NotificationBell({ isAuth }) {
   return (
     <Dropdown align="end">
       <Dropdown.Toggle as="button" className="icon-btn notif-btn" aria-label="Thông báo">
-        <FaBell size={18} />
+        <FaBell size={17} />
         {unreadCount > 0 && <span className="notif-badge" aria-label={`${unreadCount} thông báo chưa đọc`} />}
       </Dropdown.Toggle>
 
       <Dropdown.Menu className="notif-menu shadow-lg border-0 py-2">
         <div className="px-3 py-2 border-bottom d-flex justify-content-between align-items-center">
-          <span className="fw-bold" style={{ fontSize: '15px' }}>Thông báo</span>
+          <span className="fw-bold" style={{ fontSize: '15px' }}>
+            Thông báo
+          </span>
           {unreadCount > 0 && (
             <span className="badge rounded-pill bg-warning text-dark font-monospace" style={{ fontSize: '11px' }}>
               {unreadCount} mới
@@ -65,12 +65,18 @@ function NotificationBell({ isAuth }) {
               style={{ fontSize: '13.5px', borderBottom: '1px solid #f3f4f6' }}
             >
               <div className="text-dark mb-1">{item.content}</div>
-              <small className="text-muted" style={{ fontSize: '11px' }}>{item.time}</small>
+              <small className="text-muted" style={{ fontSize: '11px' }}>
+                {item.time}
+              </small>
             </Dropdown.Item>
           ))}
         </div>
         <div className="px-3 pt-2 text-center">
-          <Link to="/notifications" className="text-decoration-none fw-semibold" style={{ fontSize: '13px', color: 'var(--color-primary-dark)' }}>
+          <Link
+            to="/notifications"
+            className="text-decoration-none fw-semibold"
+            style={{ fontSize: '13px', color: 'var(--color-primary-dark)' }}
+          >
             Xem tất cả
           </Link>
         </div>
@@ -96,7 +102,9 @@ function UserMenu({ user, onLogout }) {
 
       <Dropdown.Menu className="user-dropdown-menu shadow-lg border-0 py-2" style={{ minWidth: '220px' }}>
         <div className="px-3 py-2 border-bottom mb-1">
-          <div className="fw-bold text-dark" style={{ fontSize: '14px' }}>{user?.displayName || user?.username || 'Tài khoản'}</div>
+          <div className="fw-bold text-dark" style={{ fontSize: '14px' }}>
+            {user?.displayName || user?.username || 'Tài khoản'}
+          </div>
           <small className="text-muted" style={{ fontSize: '12px' }}>
             {isEmployer ? 'Nhà tuyển dụng' : 'Người tìm việc'}
           </small>
@@ -126,11 +134,7 @@ function UserMenu({ user, onLogout }) {
         )}
 
         <Dropdown.Divider />
-        <Dropdown.Item
-          as="button"
-          onClick={onLogout}
-          className="d-flex align-items-center gap-2 py-2 text-danger"
-        >
+        <Dropdown.Item as="button" onClick={onLogout} className="d-flex align-items-center gap-2 py-2 text-danger">
           <FaSignOutAlt size={14} /> Đăng xuất
         </Dropdown.Item>
       </Dropdown.Menu>
@@ -143,76 +147,89 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <BsNavbar expand="lg" sticky="top" className="app-navbar bg-white">
-      <div className="container-app d-flex align-items-center w-100 justify-content-between">
-        {/* Left: Logo phong cách Emphatic */}
-        <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center m-0 text-decoration-none">
-          <BrandLogo />
+    <BsNavbar expand="lg" sticky="top" className="app-navbar bg-white py-2">
+      {/* Container sát 2 biên chuẩn form TopCV */}
+      <div className="container-fluid px-3 px-xl-5 d-flex align-items-center w-100 justify-content-between">
+        {/* Left: Logo sát mép bên trái */}
+        <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center p-0 m-0 me-3 text-decoration-none">
+          <img
+            src="/images/jobnest-logo.png"
+            alt="JOB NEST - Kết nối tài năng, nâng tầm sự nghiệp"
+            className="navbar-brand-logo"
+          />
         </BsNavbar.Brand>
 
-        {/* Mobile quick actions + Hamburger */}
+        {/* Mobile controls */}
         <div className="d-flex d-lg-none align-items-center gap-2">
           <button
             type="button"
             className="icon-btn"
             aria-label="Tìm việc làm"
-            onClick={() => navigate('/jobs/search')}
+            onClick={() => navigate('/jobs')}
           >
-            <FaSearch size={18} />
+            <FaSearch size={16} />
           </button>
           <NotificationBell isAuth={isAuth} />
           <BsNavbar.Toggle aria-controls="main-nav" className="border-0 p-1 shadow-none" />
         </div>
 
-        {/* Center: Nav links kiểu TopCV phân tách gạch | */}
+        {/* Desktop Layout chuẩn TopCV: Menu nằm cạnh logo bên trái, Actions nằm bên phải */}
         <BsNavbar.Collapse id="main-nav" className="mt-3 mt-lg-0">
-          <Nav className="mx-auto app-menu align-items-center mb-3 mb-lg-0">
-            {NAV_ITEMS.map((item, index) => (
-              <React.Fragment key={item.to}>
-                <Nav.Link
-                  as={NavLink}
-                  to={item.to}
-                  end={item.to === '/'}
-                  className="app-nav-link"
-                >
-                  {item.label}
-                </Nav.Link>
-                {index < NAV_ITEMS.length - 1 && (
-                  <span className="nav-pipe-divider d-none d-lg-inline text-muted opacity-25">|</span>
-                )}
-              </React.Fragment>
+          <Nav className="me-auto app-menu align-items-center mb-3 mb-lg-0 ms-lg-2">
+            {NAV_ITEMS.map((item) => (
+              <Nav.Link
+                key={item.to}
+                as={NavLink}
+                to={item.to}
+                end={item.to === '/'}
+                className="app-nav-link"
+              >
+                {item.label}
+              </Nav.Link>
             ))}
           </Nav>
 
-          {/* Desktop Right: Actions */}
-          <div className="d-none d-lg-flex align-items-center gap-2">
+          {/* Right: Dành cho NTD, Tìm kiếm, Chuông & Nút Đăng nhập/Đăng ký */}
+          <div className="d-none d-lg-flex align-items-center gap-2 ms-auto">
+            {!isAuth && (
+              <Link to="/register?role=employer" className="btn-nav-employer me-1">
+                Dành cho nhà tuyển dụng
+              </Link>
+            )}
+
             <button
               type="button"
               className="icon-btn"
               aria-label="Tìm việc làm"
-              onClick={() => navigate('/jobs/search')}
+              onClick={() => navigate('/jobs')}
+              title="Tìm kiếm việc làm"
             >
-              <FaSearch size={18} />
+              <FaSearch size={15} />
             </button>
+
             <NotificationBell isAuth={isAuth} />
+
             {!isAuth ? (
-              <>
-                <Link to="/login" className="btn btn-ghost">
+              <div className="d-flex align-items-center gap-2 ms-2">
+                <Link to="/login" className="btn-nav-login">
                   Đăng nhập
                 </Link>
-                <Link to="/register" className="btn btn-brand">
+                <Link to="/register" className="btn-nav-register">
                   Đăng ký
                 </Link>
-              </>
+              </div>
             ) : (
               <UserMenu user={user} onLogout={logout} />
             )}
           </div>
 
-          {/* Mobile Collapse Menu Bottom (When on mobile) */}
+          {/* Mobile Collapse Drawer */}
           <div className="d-lg-none pt-3 border-top mt-2">
             {!isAuth ? (
               <div className="d-flex flex-column gap-2">
+                <Link to="/register?role=employer" className="btn btn-outline-secondary w-100 text-center py-2">
+                  Dành cho nhà tuyển dụng
+                </Link>
                 <Link to="/login" className="btn btn-ghost w-100 text-center">
                   Đăng nhập
                 </Link>
@@ -231,11 +248,8 @@ export default function Navbar() {
                 </div>
                 {user?.role === 'EMPLOYER' ? (
                   <>
-                    <Link to="/employer/cvs" className="btn btn-light text-start py-2">
-                      <FaUsers className="me-2" /> CV đã nhận
-                    </Link>
-                    <Link to="/employer/ai-review" className="btn btn-light text-start py-2">
-                      <FaRobot className="me-2" /> AI đánh giá CV
+                    <Link to="/employer/applications" className="btn btn-light text-start py-2">
+                      <FaUsers className="me-2" /> Hồ sơ ứng tuyển (CV)
                     </Link>
                     <Link to="/employer/post-job" className="btn btn-light text-start py-2">
                       <FaPlusCircle className="me-2" /> Đăng bài tuyển dụng
@@ -243,11 +257,11 @@ export default function Navbar() {
                   </>
                 ) : (
                   <>
-                    <Link to="/candidate/applied" className="btn btn-light text-start py-2">
+                    <Link to="/candidate/applied-jobs" className="btn btn-light text-start py-2">
                       <FaFileAlt className="me-2" /> Việc đã ứng tuyển
                     </Link>
-                    <Link to="/candidate/saved" className="btn btn-light text-start py-2">
-                      <FaBookmark className="me-2" /> JD đã lưu
+                    <Link to="/candidate/saved-jobs" className="btn btn-light text-start py-2">
+                      <FaBookmark className="me-2" /> Công việc đã lưu
                     </Link>
                   </>
                 )}
