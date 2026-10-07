@@ -79,10 +79,7 @@ export default function CategorySidebar({ activeCategory, onHoverCategory }) {
                 <IconComponent size={14} />
               </div>
               <span className="category-item-name">{cat.name}</span>
-              <span className="category-item-count">
-                {cat.jobCount.toLocaleString('vi-VN')}+
-              </span>
-              <FaChevronRight size={10} className="category-item-arrow" />
+              <FaChevronRight size={10} className="category-item-arrow ms-auto" />
             </div>
           );
         })}

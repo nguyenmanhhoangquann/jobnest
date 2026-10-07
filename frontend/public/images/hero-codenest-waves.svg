@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FAF6EF" />
+      <stop offset="100%" stop-color="#FFFDF9" />
+    </linearGradient>
+    <linearGradient id="waveLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE9B8" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0.1" />
+    </linearGradient>
+    <linearGradient id="waveRight" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FED7AA" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#FEEFC8" stop-opacity="0.15" />
+    </linearGradient>
+    <linearGradient id="waveBottom" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#FFFBEB" stop-opacity="0.05" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1600" height="900" fill="url(#bgGradient)" />
+
+  <!-- Smooth Organic Waves Left -->
+  <path d="M-100,120 C150,80 320,260 220,520 C140,720 -50,800 -100,850 Z" fill="url(#waveLeft)" />
+  <path d="M-80,-20 C220,60 380,320 180,600 C60,780 -60,820 -100,820 Z" fill="url(#waveLeft)" opacity="0.5" />
+
+  <!-- Smooth Organic Waves Right -->
+  <path d="M1700,40 C1420,100 1280,380 1440,650 C1540,820 1660,880 1700,900 Z" fill="url(#waveRight)" />
+  <path d="M1700,-50 C1380,80 1200,420 1400,720 C1520,890 1650,920 1700,920 Z" fill="url(#waveRight)" opacity="0.4" />
+
+  <!-- Subtle bottom decorative curve -->
+  <path d="M0,900 C400,840 850,880 1600,790 L1600,900 Z" fill="url(#waveBottom)" />
+</svg>

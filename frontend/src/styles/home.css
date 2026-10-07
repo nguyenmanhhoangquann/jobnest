@@ -1,17 +1,19 @@
 /* Hero Section - Optimized Modern Layout (CodeNest / TopCV Reference) */
 .hero-section {
   position: relative;
-  padding: 44px 0 52px;
+  padding: 46px 0 56px;
   overflow: hidden;
-  background: 
-    radial-gradient(circle at 10% 18%, rgba(254, 243, 199, 0.55) 0%, transparent 40%),
-    radial-gradient(circle at 90% 12%, rgba(254, 215, 170, 0.4) 0%, transparent 45%),
-    linear-gradient(180deg, #FAF8F5 0%, #FFFDF8 100%);
+  background-color: #FAF6EF;
+  background-image: url('/images/hero-codenest-waves.svg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
   border-bottom: 1px solid #EFEAE3;
 }
 
 .hero-header-center {
-  max-width: 860px;
+  max-width: 1080px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -378,37 +380,38 @@
   }
 }
 
-/* Hero Search Bar - Rounded Pill */
+/* Hero Search Bar - Rounded Pill - Wide Expansion */
 .hero-search-bar {
   background: #FFFFFF;
   border-radius: 999px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
-  padding: 6px 8px 6px 20px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.03);
+  padding: 6px 8px 6px 24px;
   display: flex;
   align-items: center;
   gap: 12px;
-  max-width: 680px;
+  max-width: 1060px;
+  width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .hero-search-bar__input-wrap {
   display: flex;
   align-items: center;
-  flex: 1.2;
+  flex: 2.2;
 }
 
 .hero-search-bar__select-wrap {
   display: flex;
   align-items: center;
-  flex: 0.9;
+  flex: 1;
 }
 
 .hero-search-bar__input,
 .hero-search-bar__select {
   border: 0;
   outline: 0;
-  padding: 8px 10px;
-  font-size: 14px;
+  padding: 10px 12px;
+  font-size: 15px;
   font-weight: 500;
   width: 100%;
   background: transparent;
@@ -417,23 +420,23 @@
 
 .hero-search-bar__divider {
   width: 1px;
-  height: 24px;
+  height: 28px;
   background: #E5E7EB;
   flex-shrink: 0;
 }
 
 .hero-search-bar__btn {
-  height: 44px;
-  padding: 0 26px;
+  height: 48px;
+  padding: 0 36px;
   border-radius: 999px;
   background: linear-gradient(135deg, #FBC725 0%, #F59E0B 100%);
   color: #111827;
   font-weight: 700;
-  font-size: 14.5px;
+  font-size: 15px;
   border: 0;
   white-space: nowrap;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
   transition: all 0.15s ease;
 }
 
