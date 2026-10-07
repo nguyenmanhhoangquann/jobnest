@@ -11,7 +11,7 @@
 - [x] **Bước 1:** Khởi tạo project Vite, cài thư viện, tokens.css, base.css, responsive.css, font, cấu trúc thư mục, constants.js
 - [x] **Bước 2:** MainLayout + Navbar + Footer (chưa cần đăng nhập thật)
 - [x] **Bước 3:** Component dùng chung: JobCard, SaveButton, Pagination, EmptyState, Skeleton, ToastHost
-- [ ] **Bước 4:** Mock dữ liệu + src/api (chế độ mock)
+- [x] **Bước 4:** Mock dữ liệu + src/api (chế độ mock)
 - [ ] **Bước 5:** Trang chủ: Hero, HeroSearchBar, CategorySidebar, CategoryGrid, FeaturedJobs
 - [ ] **Bước 6:** Jobs, JobSearch (bộ lọc 6 trường + URL search params), JobDetail
 - [ ] **Bước 7:** AuthContext, axiosClient, ProtectedRoute, Login, Register 2 bước
@@ -28,6 +28,7 @@
 - **GIẢ ĐỊNH 2:** Font chữ Google Fonts (*Be Vietnam Pro* và *Caveat*) được nạp thông qua thẻ `<link>` trong `index.html` để tối ưu tốc độ tải trang theo chuẩn Mục 2.3.
 - **GIẢ ĐỊNH 3:** Dropdown thông báo trên Navbar chuẩn bị sẵn 3 thông báo mẫu, sẵn sàng kết nối API ở Bước 4.
 - **GIẢ ĐỊNH 4:** Các thẻ tags trong JobCard được bọc flexbox riêng để nút SaveButton luôn căn phải cố định không bị rớt dòng khi gặp tên địa điểm dài.
+- **GIẢ ĐỊNH 5:** Tầng API được thiết kế theo mô hình Adapter chuyển mạch linh hoạt: khi `VITE_USE_MOCK=true` sẽ tự động trả dữ liệu mock sau 400ms (giả lập độ trễ mạng thực tế); khi `VITE_USE_MOCK=false` sẽ gọi trực tiếp Backend qua `axiosClient`.
 
 ---
 
@@ -41,3 +42,5 @@
 - [x] Mọi bài việc làm đều có nút Lưu JobCard + SaveButton (Mục 8.1, 8.2)
 - [x] Phân trang có nút Next/Sau; hết trang thì khóa nút (disabled 40%) (Mục 8.3)
 - [x] Đủ 3 trạng thái danh sách: Skeleton loading, EmptyState, Toast thông báo (Mục 8.4)
+- [x] Tầng API cấu hình đầy đủ JWT interceptor, xử lý lỗi 401 về /login (Mục 15.1, 15.4)
+- [x] Dữ liệu mock đầy đủ: 10 ngành nghề, 30 việc làm phân trang, 5 CV ứng tuyển, chatbot reply, AI review CV (Mục 15.5, 15.6)
