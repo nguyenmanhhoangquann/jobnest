@@ -14,17 +14,9 @@ import EmployerDashboard from './pages/employer/EmployerDashboard.jsx';
 import PostJob from './pages/employer/PostJob.jsx';
 import ReceivedApplications from './pages/employer/ReceivedApplications.jsx';
 import EmployerJobs from './pages/employer/EmployerJobs.jsx';
+import Support from './pages/Support.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 import ToastHost from './components/common/ToastHost.jsx';
-
-function SupportPlaceholder() {
-  return (
-    <div className="container-app py-5 text-center">
-      <h1 className="fw-bold mb-2">Hỗ trợ - Trợ lý JobNest</h1>
-      <p className="text-muted">Chatbot AI Gemini & Voice Speech (sẽ hoàn thiện tại Bước 10)...</p>
-    </div>
-  );
-}
 
 function NotFoundPlaceholder() {
   return (
@@ -85,7 +77,7 @@ export default function App() {
               }
             />
 
-            <Route path="/support" element={<SupportPlaceholder />} />
+            <Route path="/support" element={<Support />} />
             <Route path="*" element={<NotFoundPlaceholder />} />
           </Route>
         </Routes>

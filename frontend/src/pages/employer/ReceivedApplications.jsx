@@ -15,12 +15,14 @@ import StatusBadge from '../../components/common/StatusBadge.jsx';
 import EmptyState from '../../components/common/EmptyState.jsx';
 import { Spinner } from '../../components/common/Loading.jsx';
 import { showToast } from '../../components/common/ToastHost.jsx';
+import AiReviewModal from '../../components/common/AiReviewModal.jsx';
 
 export default function ReceivedApplications() {
   const [applications, setApplications] = useState([]);
   const [filterStatus, setFilterStatus] = useState('ALL');
   const [loading, setLoading] = useState(true);
   const [reviewingId, setReviewingId] = useState(null);
+  const [selectedReview, setSelectedReview] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -162,17 +164,26 @@ export default function ReceivedApplications() {
                           </a>
 
                           {app.aiScore ? (
-                            <span
-                              className={`badge ${
+                            <button
+                              type="button"
+                              className={`badge border-0 cursor-pointer ${
                                 app.aiScore >= 75
                                   ? 'bg-success'
                                   : app.aiScore >= 50
                                   ? 'bg-warning text-dark'
                                   : 'bg-danger'
                               }`}
+                              onClick={() =>
+                                setSelectedReview({
+                                  ...app.aiReview,
+                                  score: app.aiScore,
+                                  candidateName: candidate.fullName,
+                                })
+                              }
+                              title="Bấm để xem phân tích chi tiết của AI"
                             >
-                              AI: {app.aiScore}/100 điểm
-                            </span>
+                              AI: {app.aiScore}/100 điểm ℹ
+                            </button>
                           ) : (
                             <button
                               type="button"
@@ -230,6 +241,13 @@ export default function ReceivedApplications() {
           </div>
         </div>
       )}
+
+      <AiReviewModal
+        show={!!selectedReview}
+        onHide={() => setSelectedReview(null)}
+        review={selectedReview}
+        candidateName={selectedReview?.candidateName}
+      />
     </div>
   );
 }

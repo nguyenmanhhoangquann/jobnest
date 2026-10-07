@@ -17,7 +17,7 @@
 - [x] **Bước 7:** AuthContext, axiosClient, ProtectedRoute, Login, Register 2 bước
 - [x] **Bước 8:** SaveButton thật, ApplyModal, trang Việc đã ứng tuyển, JD đã lưu
 - [x] **Bước 9:** DashboardLayout, CV đã nhận, Đăng bài tuyển dụng
-- [ ] **Bước 10:** Support (chatbot Gemini), useSpeech (mic + đọc to), AI đánh giá CV, AI gợi ý JD
+- [x] **Bước 10:** Support (chatbot Gemini), useSpeech (mic + đọc to), AI đánh giá CV, AI gợi ý JD
 - [ ] **Bước 11:** Kiểm tra chuyển đổi VITE_USE_MOCK=false và tích hợp Backend
 - [ ] **Bước 12:** Audit responsive 375/768/1024/1440px, Dockerfile, nginx.conf, checklist nghiệm thu
 
@@ -35,6 +35,7 @@
 - **GIẢ ĐỊNH 9:** Trang Đăng nhập hỗ trợ 2 nút Quick Login (Ứng viên: ungvien / Nhà tuyển dụng: tuyendung) để người chấm bài / giảng viên test ngay mà không cần gõ phím.
 - **GIẢ ĐỊNH 10:** Modal ứng tuyển (ApplyModal) xác thực định dạng file (.pdf, .doc, .docx) và dung lượng giới hạn <= 5MB ở client trước khi gửi multipart/form-data.
 - **GIẢ ĐỊNH 11:** Phân hệ Nhà tuyển dụng (`/employer/*`) được tách biệt hoàn toàn qua `DashboardLayout.jsx` với thanh sidebar chuyên dụng, tích hợp tính năng tạo JD nhanh bằng AI và duyệt trạng thái hồ sơ trực tiếp.
+- **GIẢ ĐỊNH 12:** Tính năng giọng nói sử dụng Web Speech API bản địa của trình duyệt (`webkitSpeechRecognition` & `speechSynthesis`), không cài thư viện ngoài, hỗ trợ tiếng Việt mượt mà.
 
 ---
 
@@ -62,3 +63,6 @@
 - [x] DashboardLayout dành riêng cho Nhà tuyển dụng (Mục 14.1)
 - [x] Đăng tin tuyển dụng đầy đủ form và có nút AI tạo nhanh JD (Mục 14.3)
 - [x] Xem danh sách CV ứng tuyển, lọc theo trạng thái, chấm điểm AI và duyệt trực tiếp (Mục 14.2)
+- [x] Chatbot hỗ trợ thông minh với Gemini, gợi ý câu hỏi mẫu (Mục 11)
+- [x] Micro thu âm nói thành chữ tiếng Việt và Loa đọc to câu trả lời của Bot (Mục 11)
+- [x] Modal xem chi tiết Đánh giá CV bằng AI với ScoreRing, điểm mạnh, điểm yếu (Mục 14.4)
