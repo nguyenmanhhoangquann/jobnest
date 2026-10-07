@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGem, FaStar } from 'react-icons/fa';
+import { FaGem, FaFire } from 'react-icons/fa';
 import SaveButton from './SaveButton.jsx';
 
 export default function JobCard({ job, extra }) {
@@ -24,7 +24,7 @@ export default function JobCard({ job, extra }) {
 
   return (
     <article className={`job-card ${isTop ? 'job-card--top' : ''}`}>
-      {/* Phía trên: Logo + Tiêu đề + Tên công ty */}
+      {/* Thân trên: Logo + Tiêu đề & Công ty */}
       <div className="job-card__main">
         <Link to={`/jobs/${id}`} className="job-card__logo" aria-label={companyName}>
           {companyLogo ? (
@@ -35,23 +35,20 @@ export default function JobCard({ job, extra }) {
         </Link>
 
         <div className="job-card__content">
-          {(isTop || isHot || isUrgent) && (
-            <div className="job-card__badges">
-              {isTop && (
-                <span className="badge-top">
-                  <FaGem className="me-1" size={8} /> TOP
-                </span>
-              )}
-              {isHot && (
-                <span className="badge-hot">
-                  <FaStar className="me-1" size={8} /> NỔI BẬT
-                </span>
-              )}
-              {isUrgent && <span className="badge-urgent">GẤP</span>}
-            </div>
-          )}
-
           <h3 className="job-card__title">
+            {isTop && (
+              <span className="badge-inline badge-top me-1">
+                <FaGem size={8} className="me-1" />
+                TOP
+              </span>
+            )}
+            {isHot && (
+              <span className="badge-inline badge-hot me-1">
+                <FaFire size={8} className="me-1" />
+                HOT
+              </span>
+            )}
+            {isUrgent && <span className="badge-inline badge-urgent me-1">GẤP</span>}
             <Link to={`/jobs/${id}`} title={title}>
               {title}
             </Link>
@@ -63,7 +60,7 @@ export default function JobCard({ job, extra }) {
         </div>
       </div>
 
-      {/* Phía dưới: Chip lương, Địa điểm & Nút Lưu việc */}
+      {/* Thân dưới: Chip thông tin & Nút lưu */}
       <div className="job-card__footer">
         <div className="job-card__tags">
           {salaryText && <span className="job-tag job-tag--salary">{salaryText}</span>}
