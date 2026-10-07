@@ -745,24 +745,27 @@
 }
 
 .tab-pill-btn {
-  border: 0;
+  border: 1px solid #D1D5DB;
   border-radius: 999px;
   padding: 6px 18px;
   font-size: 13.5px;
   font-weight: 600;
-  background: #F3F4F6;
-  color: #4B5563;
+  background: #FFFFFF;
+  color: #374151;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .tab-pill-btn:hover {
-  background: #E5E7EB;
-  color: #1F2937;
+  background: #F9FAFB;
+  border-color: #9CA3AF;
+  color: #111827;
 }
 
 .tab-pill-btn--active {
   background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
   color: #1F2937 !important;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(251, 199, 37, 0.35);
