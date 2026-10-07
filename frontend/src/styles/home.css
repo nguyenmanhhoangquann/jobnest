@@ -717,6 +717,16 @@
   cursor: not-allowed;
 }
 
+/* ==========================================================================
+   Home Main Content Background (Từ Việc làm nổi bật trở đi - Chuẩn TopCV #F4F5F7)
+   ========================================================================== */
+.home-main-content-bg {
+  background-color: #F4F5F7;
+  border-top: 1px solid #E5E7EB;
+  position: relative;
+  width: 100%;
+}
+
 /* Featured Jobs Controls */
 /* ==========================================================================
    Featured Jobs Controls - JobNest Warm Theme (TopCV Form Layout)
