@@ -104,28 +104,10 @@ export default function FeaturedJobs() {
             </div>
           </div>
 
-          <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center">
             <Link to="/jobs" className="view-all-link-jobnest">
               Xem tất cả →
             </Link>
-            <div className="d-flex gap-1">
-              <button
-                type="button"
-                className="circle-nav-btn circle-nav-btn--sm"
-                onClick={loadJobs}
-                aria-label="Tải trước"
-              >
-                <FaChevronLeft size={10} />
-              </button>
-              <button
-                type="button"
-                className="circle-nav-btn circle-nav-btn--sm"
-                onClick={loadJobs}
-                aria-label="Tải sau"
-              >
-                <FaChevronRight size={10} />
-              </button>
-            </div>
           </div>
         </div>
 
