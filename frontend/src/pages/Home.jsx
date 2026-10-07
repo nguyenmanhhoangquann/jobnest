@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/home/Hero.jsx';
 import FeaturedJobs from '../components/home/FeaturedJobs.jsx';
+import TopCompanies from '../components/home/TopCompanies.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Home() {
@@ -16,7 +17,10 @@ export default function Home() {
       {/* 2. Khối Việc làm nổi bật (Hình 3) */}
       <FeaturedJobs />
 
-      {/* 3. Banner Nhà tuyển dụng (Mục 7.9) */}
+      {/* 3. Khối Thương hiệu lớn tiêu biểu (TopCV Pro Company) */}
+      <TopCompanies />
+
+      {/* 4. Banner Nhà tuyển dụng (Mục 7.9) */}
       <section className="employer-banner-section py-4 mb-5">
         <div className="container-app">
           <div className="employer-banner d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">

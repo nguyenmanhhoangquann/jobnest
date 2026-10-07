@@ -952,3 +952,160 @@
   background: #111827;
   color: #fff;
 }
+
+/* ==========================================================================
+   Top / Pro Companies Section (Mục Thương hiệu lớn tiêu biểu kiểu TopCV)
+   ========================================================================== */
+.pro-company-banner {
+  background: linear-gradient(135deg, #181109 0%, #291C0E 50%, #3D2914 100%);
+  border: 1px solid rgba(251, 199, 37, 0.25);
+  box-shadow: 0 12px 32px rgba(24, 17, 9, 0.2);
+}
+
+.badge-pro-company {
+  background: linear-gradient(135deg, #FBC725 0%, #F59E0B 100%);
+  color: #111827;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.pro-company-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #FBC725;
+  letter-spacing: -0.01em;
+}
+
+.pro-company-desc {
+  font-size: 14.5px;
+  color: #E5E7EB;
+  max-width: 640px;
+}
+
+.pro-banner-glow {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 199, 37, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.company-tabs-track {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 4px 0;
+}
+
+.company-tabs-track::-webkit-scrollbar {
+  display: none;
+}
+
+.company-tab-pill {
+  border: 0;
+  border-radius: 999px;
+  background: #F3F4F6;
+  color: #374151;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 6px 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.company-tab-pill:hover {
+  background: #E5E7EB;
+}
+
+.company-tab-pill--active {
+  background: #24180C !important;
+  color: #FBC725 !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(36, 24, 12, 0.25);
+}
+
+.circle-nav-btn--sm {
+  width: 32px;
+  height: 32px;
+}
+
+.company-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.company-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  border-color: rgba(251, 199, 37, 0.6);
+}
+
+.company-card__cover {
+  height: 105px;
+  position: relative;
+  overflow: hidden;
+  background: #1F2937;
+}
+
+.company-card__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.company-card:hover .company-card__cover img {
+  transform: scale(1.05);
+}
+
+.company-card__cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 100%);
+}
+
+.company-card__logo-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  border: 3px solid #FFFFFF;
+  margin-top: -28px;
+  position: relative;
+  z-index: 2;
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.company-card__logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.company-card__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
