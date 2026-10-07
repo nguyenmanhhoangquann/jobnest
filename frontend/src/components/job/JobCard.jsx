@@ -63,8 +63,8 @@ export default function JobCard({ job, extra }) {
         {/* Hàng chip: Lương, Địa điểm + Nút Lưu */}
         <div className="job-card__meta">
           <div className="job-card__meta-tags">
-            {salaryText && <span className="chip">{salaryText}</span>}
-            {location && <span className="chip">{location}</span>}
+            {salaryText && <span className="chip chip-salary">{salaryText}</span>}
+            {location && <span className="chip chip-location">{location}</span>}
           </div>
           <div className="save-btn-wrapper">
             <SaveButton jobId={id} initialSaved={saved} />

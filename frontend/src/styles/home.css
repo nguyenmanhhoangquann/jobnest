@@ -72,14 +72,14 @@
 /* Hero Search Bar */
 .hero-search-bar {
   background: #fff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-search);
-  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  padding: 6px;
   display: flex;
   align-items: center;
   gap: 8px;
   max-width: 640px;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   margin-bottom: 16px;
 }
 
@@ -103,8 +103,8 @@
 
 .hero-search-bar__divider {
   width: 1px;
-  height: 28px;
-  background: var(--color-border);
+  height: 26px;
+  background: #E5E7EB;
   flex-shrink: 0;
 }
 
@@ -112,6 +112,9 @@
   height: 46px;
   white-space: nowrap;
   flex-shrink: 0;
+  border-radius: 8px;
+  font-weight: 700;
+  padding: 0 24px;
 }
 
 @media (max-width: 575px) {
@@ -235,21 +238,22 @@
 /* Category Sidebar */
 .category-sidebar {
   background: #fff;
-  border-radius: var(--radius-md);
-  padding: 20px 16px;
-  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 18px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   height: 100%;
 }
 
 .category-sidebar__title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   margin: 0;
-  color: var(--color-text);
+  color: #111827;
 }
 
 .category-sidebar__link {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--color-primary-dark);
   text-decoration: none;
@@ -259,14 +263,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 10px;
-  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .category-row:hover {
-  background: var(--color-top-bg);
+  background: #fffbeb;
+}
+
+.category-row:hover .category-row__arrow {
+  transform: translateX(3px);
+  color: var(--color-primary-dark);
 }
 
 .category-row__icon {
@@ -275,12 +284,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text);
+  color: #374151;
 }
 
 .category-row__name {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
+  color: #1f2937;
   flex: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -288,24 +298,25 @@
 }
 
 .category-row__count {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 500;
-  color: var(--color-text-muted);
-  background: var(--color-surface-alt);
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 2px 7px;
+  border-radius: 4px;
 }
 
 .category-row__arrow {
   color: #9CA3AF;
+  transition: transform 0.15s ease, color 0.15s ease;
 }
 
 /* Category Grid (Top ngành nghề nổi bật) */
 .category-card {
-  background: var(--color-surface-alt);
-  border: 1px solid transparent;
-  border-radius: var(--radius-md);
-  height: 160px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  height: 156px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -313,37 +324,39 @@
   padding: 16px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .category-card:hover {
   background: #fff;
-  border-color: var(--color-primary);
-  box-shadow: 0 6px 20px rgba(251, 199, 37, 0.25);
-  transform: translateY(-2px);
+  border-color: rgba(251, 199, 37, 0.7);
+  box-shadow: 0 8px 24px rgba(251, 199, 37, 0.18);
+  transform: translateY(-3px);
 }
 
 .category-card__icon-box {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
-  color: var(--color-text);
-  background: #fff;
+  margin-bottom: 10px;
+  color: #1f2937;
+  background: #f9fafb;
   transition: background-color 0.15s ease;
 }
 
 .category-card:hover .category-card__icon-box {
-  background: var(--color-primary-soft);
+  background: #fef08a;
+  color: #854d0e;
 }
 
 .category-card__title {
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
-  margin: 0 0 4px 0;
+  margin: 0 0 3px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -351,9 +364,9 @@
 }
 
 .category-card__count {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
-  color: var(--color-primary-dark);
+  color: #b07f00;
 }
 
 .circle-nav-btn {
@@ -393,55 +406,62 @@
 }
 
 .tab-pill-btn {
-  background: var(--color-surface-alt);
-  color: var(--color-text);
+  background: #f3f4f6;
+  color: #374151;
   border: 0;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   padding: 6px 16px;
-  border-radius: var(--radius-pill);
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .tab-pill-btn:hover {
-  background: #E5E7EB;
+  background: #e5e7eb;
 }
 
 .tab-pill-btn--active {
   background: var(--color-primary) !important;
   color: var(--color-text) !important;
-  font-weight: 600;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(251, 199, 37, 0.3);
 }
 
 .view-all-link {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   color: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.view-all-link:hover {
   text-decoration: underline;
 }
 
 .filter-chips-row {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   align-items: center;
 }
 
 .location-select-wrap {
   display: flex;
   align-items: center;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
   padding: 4px 10px;
   background: #fff;
-  width: 200px;
+  width: 190px;
   flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .location-select {
   border: 0;
   outline: 0;
-  font-size: 13.5px;
+  font-size: 13px;
+  font-weight: 500;
   width: 100%;
   background: transparent;
   color: var(--color-text);
@@ -457,7 +477,7 @@
 
 .chips-scroll-track {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   overflow-x: auto;
   scrollbar-width: none;
   scroll-behavior: smooth;
@@ -469,29 +489,49 @@
 }
 
 .chip-scroll-arrow {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
+  color: #6b7280;
+  transition: all 0.15s ease;
+}
+
+.chip-scroll-arrow:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
 }
 
 .district-chip {
   cursor: pointer;
-  border: 0;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: #fff;
+  color: #4b5563;
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 500;
   white-space: nowrap;
   transition: all 0.15s ease;
+}
+
+.district-chip:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
 }
 
 .district-chip--selected {
   background: var(--color-primary) !important;
   color: var(--color-text) !important;
+  border-color: var(--color-primary) !important;
   font-weight: 600;
+  box-shadow: 0 1px 4px rgba(251, 199, 37, 0.3);
 }
 
 .tip-box {
