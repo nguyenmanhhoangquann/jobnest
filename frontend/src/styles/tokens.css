@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Cotdien Typeface';
+  src: url('/fonts/cotdien.woff2') format('woff2'),
+       url('/fonts/cotdien.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --color-primary: #FBC725;
   --color-primary-hover: #F2B705;
@@ -18,7 +27,7 @@
   --color-success: #16A34A;
   --color-danger: #DC2626;
 
-  --font-main: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-main: 'Cotdien Typeface', 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   --font-hand: 'Caveat', cursive;
 
   --radius-sm: 8px;
