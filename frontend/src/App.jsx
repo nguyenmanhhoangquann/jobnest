@@ -1,19 +1,90 @@
 import React from 'react';
-import { FaBriefcase } from 'react-icons/fa';
-import { APP_NAME } from './constants';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import MainLayout from './components/layout/MainLayout';
+
+function HomePlaceholder() {
+  return (
+    <div className="container-app py-5 text-center">
+      <h1 className="fw-bold mb-2">Trang chủ JobNest</h1>
+      <p className="text-muted">Đang chuẩn bị nội dung Hero và Việc làm nổi bật (sẽ hoàn thiện tại Bước 5)...</p>
+    </div>
+  );
+}
+
+function JobsPlaceholder() {
+  return (
+    <div className="container-app py-5 text-center">
+      <h1 className="fw-bold mb-2">Danh sách Việc làm</h1>
+      <p className="text-muted">Danh sách việc làm đầy đủ theo ngành nghề (sẽ hoàn thiện tại Bước 6)...</p>
+    </div>
+  );
+}
+
+function SearchPlaceholder() {
+  return (
+    <div className="container-app py-5 text-center">
+      <h1 className="fw-bold mb-2">Tìm kiếm việc làm</h1>
+      <p className="text-muted">Bộ lọc tìm kiếm 6 trường tiêu chuẩn (sẽ hoàn thiện tại Bước 6)...</p>
+    </div>
+  );
+}
+
+function SupportPlaceholder() {
+  return (
+    <div className="container-app py-5 text-center">
+      <h1 className="fw-bold mb-2">Hỗ trợ - Trợ lý JobNest</h1>
+      <p className="text-muted">Chatbot AI Gemini & Voice Speech (sẽ hoàn thiện tại Bước 10)...</p>
+    </div>
+  );
+}
+
+function LoginPlaceholder() {
+  return (
+    <div className="container-app py-5 text-center">
+      <h1 className="fw-bold mb-2">Đăng nhập</h1>
+      <p className="text-muted mb-4">Form đăng nhập tài khoản JobNest (sẽ hoàn thiện tại Bước 7)...</p>
+      <Link to="/" className="btn btn-ghost">Về trang chủ</Link>
+    </div>
+  );
+}
+
+function RegisterPlaceholder() {
+  return (
+    <div className="container-app py-5 text-center">
+      <h1 className="fw-bold mb-2">Đăng ký tài khoản</h1>
+      <p className="text-muted mb-4">Đăng ký 2 bước phân tách Ứng viên / Nhà tuyển dụng (sẽ hoàn thiện tại Bước 7)...</p>
+      <Link to="/" className="btn btn-ghost">Về trang chủ</Link>
+    </div>
+  );
+}
+
+function NotFoundPlaceholder() {
+  return (
+    <div className="container-app py-5 text-center">
+      <h1 className="display-4 fw-bold text-muted mb-2">404</h1>
+      <h2 className="fw-bold mb-3">Không tìm thấy trang</h2>
+      <Link to="/" className="btn btn-brand">Về trang chủ</Link>
+    </div>
+  );
+}
 
 export default function App() {
   return (
-    <div className="container-app py-5 text-center">
-      <div className="d-inline-flex align-items-center justify-content-center p-3 mb-3 rounded-3" style={{ background: 'var(--color-primary)' }}>
-        <FaBriefcase size={32} color="var(--color-text)" />
-      </div>
-      <h1 className="fw-bold mb-2">{APP_NAME}</h1>
-      <p className="text-muted mb-4">Kết nối tài năng - Kiến tạo tương lai</p>
-      <div className="d-flex justify-content-center gap-3">
-        <button className="btn-brand">Tìm việc làm</button>
-        <button className="btn-ghost">Đăng tuyển dụng</button>
-      </div>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPlaceholder />} />
+          <Route path="/register" element={<RegisterPlaceholder />} />
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<HomePlaceholder />} />
+            <Route path="/jobs" element={<JobsPlaceholder />} />
+            <Route path="/jobs/search" element={<SearchPlaceholder />} />
+            <Route path="/support" element={<SupportPlaceholder />} />
+            <Route path="*" element={<NotFoundPlaceholder />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
