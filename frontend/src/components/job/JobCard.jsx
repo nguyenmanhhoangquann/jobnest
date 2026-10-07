@@ -24,60 +24,57 @@ export default function JobCard({ job, extra }) {
 
   return (
     <article className={`job-card ${isTop ? 'job-card--top' : ''}`}>
-      {/* Cột trái: Logo */}
-      <Link to={`/jobs/${id}`} className="job-card__logo" aria-label={companyName}>
-        {companyLogo ? (
-          <img src={companyLogo} alt="" loading="lazy" />
-        ) : (
-          <span className="job-card__logo-fallback">{initialChar}</span>
-        )}
-      </Link>
+      {/* Phía trên: Logo + Tiêu đề + Tên công ty */}
+      <div className="job-card__main">
+        <Link to={`/jobs/${id}`} className="job-card__logo" aria-label={companyName}>
+          {companyLogo ? (
+            <img src={companyLogo} alt="" loading="lazy" />
+          ) : (
+            <span className="job-card__logo-fallback">{initialChar}</span>
+          )}
+        </Link>
 
-      {/* Cột phải: Nội dung thẻ */}
-      <div className="job-card__body">
-        {/* Hàng badge TOP / NỔI BẬT / GẤP chuẩn TopCV */}
-        {(isTop || isHot || isUrgent) && (
-          <div className="job-card__badges">
-            {isTop && (
-              <span className="badge-top">
-                <FaGem className="me-1" size={9} /> TOP
-              </span>
-            )}
-            {isHot && (
-              <span className="badge-hot">
-                <FaStar className="me-1" size={9} /> NỔI BẬT
-              </span>
-            )}
-            {isUrgent && <span className="badge-urgent">GẤP</span>}
-          </div>
-        )}
+        <div className="job-card__content">
+          {(isTop || isHot || isUrgent) && (
+            <div className="job-card__badges">
+              {isTop && (
+                <span className="badge-top">
+                  <FaGem className="me-1" size={8} /> TOP
+                </span>
+              )}
+              {isHot && (
+                <span className="badge-hot">
+                  <FaStar className="me-1" size={8} /> NỔI BẬT
+                </span>
+              )}
+              {isUrgent && <span className="badge-urgent">GẤP</span>}
+            </div>
+          )}
 
-        {/* Tiêu đề việc làm (tối đa 2 dòng, có tooltip title) */}
-        <h3 className="job-card__title">
-          <Link to={`/jobs/${id}`} title={title}>
-            {title}
-          </Link>
-        </h3>
+          <h3 className="job-card__title">
+            <Link to={`/jobs/${id}`} title={title}>
+              {title}
+            </Link>
+          </h3>
 
-        {/* Tên công ty (1 dòng, cắt ...) */}
-        <p className="job-card__company" title={companyName}>
-          {companyName}
-        </p>
-
-        {/* Hàng chip: Lương, Địa điểm + Nút Lưu */}
-        <div className="job-card__meta">
-          <div className="job-card__meta-tags">
-            {salaryText && <span className="chip chip-salary">{salaryText}</span>}
-            {location && <span className="chip chip-location">{location}</span>}
-          </div>
-          <div className="save-btn-wrapper">
-            <SaveButton jobId={id} initialSaved={saved} />
-          </div>
+          <p className="job-card__company" title={companyName}>
+            {companyName}
+          </p>
         </div>
-
-        {/* Phần mở rộng nếu có (ví dụ trạng thái ở trang AppliedJobs) */}
-        {extra && <div className="job-card__extra mt-2 pt-2 border-top">{extra}</div>}
       </div>
+
+      {/* Phía dưới: Chip lương, Địa điểm & Nút Lưu việc */}
+      <div className="job-card__footer">
+        <div className="job-card__tags">
+          {salaryText && <span className="job-tag job-tag--salary">{salaryText}</span>}
+          {location && <span className="job-tag job-tag--location">{location}</span>}
+        </div>
+        <div className="job-card__save">
+          <SaveButton jobId={id} initialSaved={saved} />
+        </div>
+      </div>
+
+      {extra && <div className="job-card__extra">{extra}</div>}
     </article>
   );
 }
