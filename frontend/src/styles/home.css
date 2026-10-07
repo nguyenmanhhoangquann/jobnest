@@ -770,9 +770,9 @@
    Featured Jobs Controls - TopCV Authentic Style
    ========================================================================== */
 .topcv-featured-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
-  color: #1F2937;
+  color: #00B14F;
   letter-spacing: -0.01em;
 }
 
@@ -799,22 +799,21 @@
 }
 
 .topcv-tab-btn--active {
-  background: var(--color-primary) !important;
-  color: #1F2937 !important;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(251, 199, 37, 0.35);
+  background: #00B14F !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(0, 177, 79, 0.28);
 }
 
 .topcv-view-all-link {
   font-size: 13.5px;
   font-weight: 600;
-  color: #4B5563;
+  color: #374151;
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .topcv-view-all-link:hover {
-  color: var(--color-primary-dark);
+  color: #00B14F;
   text-decoration: underline;
 }
 
@@ -864,10 +863,10 @@
 }
 
 .topcv-chip--selected {
-  background: var(--color-primary) !important;
-  color: #1F2937 !important;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(251, 199, 37, 0.35);
+  background: #00B14F !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 177, 79, 0.28);
 }
 
 .topcv-tip-box {

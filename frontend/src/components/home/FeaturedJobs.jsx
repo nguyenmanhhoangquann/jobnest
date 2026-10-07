@@ -12,29 +12,25 @@ import JobCard from '../job/JobCard.jsx';
 import LoadingGrid from '../common/Loading.jsx';
 import EmptyState from '../common/EmptyState.jsx';
 
-const TABS = [
-  { id: 'ALL', label: 'Tất cả' },
-  { id: 'FULL_TIME', label: 'Full time' },
-  { id: 'PART_TIME', label: 'Part time' },
-  { id: 'INTERN', label: 'Thực tập' },
+const TOPCV_JOB_TABS = [
+  { id: 'office', label: 'Việc văn phòng' },
+  { id: 'general_labor', label: 'Việc phổ thông' },
 ];
 
-const DISTRICT_CHIPS = [
+const TOPCV_LOCATION_CHIPS = [
+  'Ngẫu Nhiên',
   'Hà Nội',
-  'Ba Đình',
-  'Hoàn Kiếm',
-  'Hai Bà Trưng',
-  'Đống Đa',
-  'Cầu Giấy',
-  'Thanh Xuân',
-  'Hà Đông',
-  'Nam Từ Liêm',
-  'Bắc Từ Liêm',
+  'Thành phố Hồ Chí Minh (cũ)',
+  'Miền Bắc',
+  'Miền Nam',
+  'Đà Nẵng',
+  'Bình Dương',
+  'Đồng Nai',
 ];
 
 export default function FeaturedJobs() {
-  const [activeTab, setActiveTab] = useState('ALL');
-  const [selectedLocation, setSelectedLocation] = useState('Hà Nội');
+  const [activeTab, setActiveTab] = useState('office');
+  const [selectedLocation, setSelectedLocation] = useState('Ngẫu Nhiên');
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -50,8 +46,8 @@ export default function FeaturedJobs() {
     jobApi
       .getRandomJobs({
         limit: 6,
-        type: activeTab,
-        area: selectedLocation === 'Hà Nội' ? 'ha-noi' : selectedLocation,
+        type: activeTab === 'office' ? 'FULL_TIME' : 'ALL',
+        area: selectedLocation === 'Ngẫu Nhiên' ? 'all' : selectedLocation,
       })
       .then((data) => {
         setJobs((data || []).slice(0, 6));
@@ -70,7 +66,7 @@ export default function FeaturedJobs() {
   const handleScrollChips = (direction) => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
-        left: direction === 'left' ? -220 : 220,
+        left: direction === 'left' ? -200 : 200,
         behavior: 'smooth',
       });
     }
@@ -82,16 +78,16 @@ export default function FeaturedJobs() {
   };
 
   return (
-    <section className="featured-jobs-section py-5">
+    <section className="featured-jobs-section py-4">
       <div className="container-app">
-        {/* Hàng 1: Tiêu đề, Tab gốc & Nút điều hướng */}
+        {/* Hàng 1: Tiêu đề xanh TopCV, 2 Tab lớn viên thuốc & Xem tất cả */}
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
           <div className="d-flex flex-wrap align-items-center gap-3">
             <h2 className="topcv-featured-title mb-0">Việc làm nổi bật</h2>
 
-            {/* Dải tab bo tròn nguyên bản: Tất cả, Full time, Part time, Thực tập */}
+            {/* Nhóm 2 Tab viên thuốc TopCV: Việc văn phòng & Việc phổ thông */}
             <div className="topcv-tab-group">
-              {TABS.map((tab) => (
+              {TOPCV_JOB_TABS.map((tab) => (
                 <button
                   key={tab.id}
                   type="button"
@@ -113,35 +109,35 @@ export default function FeaturedJobs() {
                 type="button"
                 className="circle-nav-btn circle-nav-btn--sm"
                 onClick={loadJobs}
-                aria-label="Tải lô trước"
+                aria-label="Tải trước"
               >
-                <FaChevronLeft size={11} />
+                <FaChevronLeft size={10} />
               </button>
               <button
                 type="button"
                 className="circle-nav-btn circle-nav-btn--sm"
                 onClick={loadJobs}
-                aria-label="Tải lô sau"
+                aria-label="Tải sau"
               >
-                <FaChevronRight size={11} />
+                <FaChevronRight size={10} />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Hàng 2: Bộ lọc địa điểm & Dải chip quận */}
+        {/* Hàng 2: Dropdown Lọc theo: Địa điểm & Dải chip cuộn ngang */}
         <div className="topcv-filter-row mb-3">
           <div className="topcv-filter-select-wrap">
-            <FaSlidersH className="text-muted ms-2 me-1" size={13} />
+            <FaSlidersH className="text-muted ms-2 me-1" size={12} />
             <select
               className="topcv-filter-select"
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
             >
-              <option value="Hà Nội">Lọc theo: Hà Nội</option>
-              <option value="TP. HCM">Lọc theo: TP. HCM</option>
-              <option value="Đà Nẵng">Lọc theo: Đà Nẵng</option>
-              <option value="all">Lọc theo: Tất cả</option>
+              <option value="Ngẫu Nhiên">Lọc theo: Địa điểm</option>
+              <option value="Hà Nội">Hà Nội</option>
+              <option value="Thành phố Hồ Chí Minh (cũ)">TP. Hồ Chí Minh (cũ)</option>
+              <option value="Đà Nẵng">Đà Nẵng</option>
             </select>
           </div>
 
@@ -156,7 +152,7 @@ export default function FeaturedJobs() {
             </button>
 
             <div className="chips-scroll-track" ref={scrollRef}>
-              {DISTRICT_CHIPS.map((chip) => {
+              {TOPCV_LOCATION_CHIPS.map((chip) => {
                 const isSelected = selectedLocation === chip;
                 return (
                   <button
@@ -184,10 +180,10 @@ export default function FeaturedJobs() {
 
         {/* Hàng 3: Hộp gợi ý nền xanh phấn tinh tế */}
         {showTip && (
-          <div className="topcv-tip-box mb-4">
+          <div className="topcv-tip-box mb-3">
             <div className="d-flex align-items-center gap-2">
               <FaLightbulb className="text-primary flex-shrink-0" size={14} />
-              <span className="small text-secondary">
+              <span className="small text-secondary" style={{ fontSize: '13px' }}>
                 <strong>Gợi ý:</strong> Di chuột vào tiêu đề việc làm để xem thêm thông tin chi tiết
               </span>
             </div>
@@ -197,18 +193,18 @@ export default function FeaturedJobs() {
               onClick={handleCloseTip}
               aria-label="Đóng gợi ý"
             >
-              <FaTimes size={12} />
+              <FaTimes size={11} />
             </button>
           </div>
         )}
 
-        {/* Hàng 4: Lưới 6 thẻ việc làm (3 cột x 2 hàng) */}
+        {/* Hàng 4: Lưới 6 thẻ việc làm nhỏ gọn (3 cột x 2 hàng) */}
         {loading ? (
           <LoadingGrid count={6} />
         ) : error ? (
-          <div className="text-center py-5">
-            <p className="text-danger mb-3">Không tải được dữ liệu việc làm.</p>
-            <button type="button" className="btn btn-brand" onClick={loadJobs}>
+          <div className="text-center py-4">
+            <p className="text-danger mb-2 small">Không tải được dữ liệu việc làm.</p>
+            <button type="button" className="btn btn-sm btn-brand" onClick={loadJobs}>
               Thử lại
             </button>
           </div>
@@ -218,7 +214,7 @@ export default function FeaturedJobs() {
             description="Hãy thử chọn khu vực hoặc tiêu chí khác."
           />
         ) : (
-          <div className="row g-3">
+          <div className="row g-2 g-md-3">
             {jobs.map((job) => (
               <div key={job.id} className="col-12 col-md-6 col-lg-4">
                 <JobCard job={job} />
