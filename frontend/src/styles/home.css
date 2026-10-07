@@ -812,16 +812,13 @@
 .chips-scroll-container {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
 }
 
 .chips-scroll-track {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 2px 0;
+  align-items: center;
 }
 
 .chips-scroll-track::-webkit-scrollbar {
@@ -831,24 +828,28 @@
 .jobnest-chip {
   border: 0;
   border-radius: 999px;
-  padding: 5px 16px;
+  padding: 5px 14px;
   font-size: 13px;
   font-weight: 500;
-  background: #F3F4F6;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
   color: #4B5563;
   white-space: nowrap;
   cursor: pointer;
   flex-shrink: 0;
   transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .jobnest-chip:hover {
-  background: #E5E7EB;
+  background: #F3F4F6;
+  border-color: #D1D5DB;
   color: #1F2937;
 }
 
 .jobnest-chip--selected {
   background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
   color: #1F2937 !important;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(251, 199, 37, 0.35);

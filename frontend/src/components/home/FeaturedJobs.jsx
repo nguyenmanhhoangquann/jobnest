@@ -19,22 +19,19 @@ const TABS = [
   { id: 'INTERN', label: 'Thực tập' },
 ];
 
-const DISTRICT_CHIPS = [
+const LOCATION_CHIPS = [
+  'Tất cả',
+  'Miền Bắc',
+  'Miền Trung',
+  'Miền Nam',
   'Hà Nội',
-  'Ba Đình',
-  'Hoàn Kiếm',
-  'Hai Bà Trưng',
-  'Đống Đa',
-  'Cầu Giấy',
-  'Thanh Xuân',
-  'Hà Đông',
-  'Nam Từ Liêm',
-  'Bắc Từ Liêm',
+  'TP. Hồ Chí Minh',
+  'Đà Nẵng',
 ];
 
 export default function FeaturedJobs() {
   const [activeTab, setActiveTab] = useState('ALL');
-  const [selectedLocation, setSelectedLocation] = useState('Hà Nội');
+  const [selectedLocation, setSelectedLocation] = useState('Tất cả');
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -51,7 +48,7 @@ export default function FeaturedJobs() {
       .getRandomJobs({
         limit: 6,
         type: activeTab,
-        area: selectedLocation === 'Hà Nội' ? 'ha-noi' : selectedLocation,
+        area: selectedLocation === 'Tất cả' ? 'all' : selectedLocation,
       })
       .then((data) => {
         setJobs((data || []).slice(0, 6));
@@ -129,7 +126,7 @@ export default function FeaturedJobs() {
           </div>
         </div>
 
-        {/* Hàng 2: Dropdown Lọc theo: Địa điểm & Dải chip cuộn ngang */}
+        {/* Hàng 2: Dropdown Lọc theo: Địa điểm & Dải chip vùng miền/thành phố */}
         <div className="topcv-filter-row mb-3">
           <div className="topcv-filter-select-wrap">
             <FaSlidersH className="text-muted ms-2 me-1" size={12} />
@@ -138,16 +135,19 @@ export default function FeaturedJobs() {
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
             >
-              <option value="Hà Nội">Lọc theo: Hà Nội</option>
-              <option value="TP. HCM">Lọc theo: TP. HCM</option>
-              <option value="Đà Nẵng">Lọc theo: Đà Nẵng</option>
-              <option value="all">Lọc theo: Tất cả</option>
+              <option value="Tất cả">Lọc theo: Địa điểm</option>
+              <option value="Miền Bắc">Miền Bắc</option>
+              <option value="Miền Trung">Miền Trung</option>
+              <option value="Miền Nam">Miền Nam</option>
+              <option value="Hà Nội">Hà Nội</option>
+              <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+              <option value="Đà Nẵng">Đà Nẵng</option>
             </select>
           </div>
 
           <div className="chips-scroll-container">
             <div className="chips-scroll-track" ref={scrollRef}>
-              {DISTRICT_CHIPS.map((chip) => {
+              {LOCATION_CHIPS.map((chip) => {
                 const isSelected = selectedLocation === chip;
                 return (
                   <button
