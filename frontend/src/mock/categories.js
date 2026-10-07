@@ -5,7 +5,7 @@ export const mockCategories = [
     name: 'Công nghệ thông tin',
     jobCount: 2341,
     icon: 'FaLaptopCode',
-    image: '/images/hero-bg-clean.jpg',
+    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80',
     popularRoles: ['ReactJS', 'Node.js', 'Java Spring Boot', 'AI Engineer', 'DevOps'],
   },
   {
