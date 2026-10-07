@@ -3,25 +3,9 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import MainLayout from './components/layout/MainLayout.jsx';
 import Home from './pages/Home.jsx';
+import JobList from './pages/JobList.jsx';
+import JobDetail from './pages/JobDetail.jsx';
 import ToastHost from './components/common/ToastHost.jsx';
-
-function JobsPlaceholder() {
-  return (
-    <div className="container-app py-5 text-center">
-      <h1 className="fw-bold mb-2">Danh sách Việc làm</h1>
-      <p className="text-muted">Danh sách việc làm đầy đủ theo ngành nghề (sẽ hoàn thiện tại Bước 6)...</p>
-    </div>
-  );
-}
-
-function SearchPlaceholder() {
-  return (
-    <div className="container-app py-5 text-center">
-      <h1 className="fw-bold mb-2">Tìm kiếm việc làm</h1>
-      <p className="text-muted">Bộ lọc tìm kiếm 6 trường tiêu chuẩn (sẽ hoàn thiện tại Bước 6)...</p>
-    </div>
-  );
-}
 
 function SupportPlaceholder() {
   return (
@@ -71,8 +55,9 @@ export default function App() {
           <Route path="/register" element={<RegisterPlaceholder />} />
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/jobs" element={<JobsPlaceholder />} />
-            <Route path="/jobs/search" element={<SearchPlaceholder />} />
+            <Route path="/jobs" element={<JobList />} />
+            <Route path="/jobs/search" element={<JobList />} />
+            <Route path="/jobs/:id" element={<JobDetail />} />
             <Route path="/support" element={<SupportPlaceholder />} />
             <Route path="*" element={<NotFoundPlaceholder />} />
           </Route>
