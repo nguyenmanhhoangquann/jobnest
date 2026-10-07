@@ -10,7 +10,7 @@
 
 - [x] **Bước 1:** Khởi tạo project Vite, cài thư viện, tokens.css, base.css, responsive.css, font, cấu trúc thư mục, constants.js
 - [x] **Bước 2:** MainLayout + Navbar + Footer (chưa cần đăng nhập thật)
-- [ ] **Bước 3:** Component dùng chung: JobCard, SaveButton, Pagination, EmptyState, Skeleton, ToastHost
+- [x] **Bước 3:** Component dùng chung: JobCard, SaveButton, Pagination, EmptyState, Skeleton, ToastHost
 - [ ] **Bước 4:** Mock dữ liệu + src/api (chế độ mock)
 - [ ] **Bước 5:** Trang chủ: Hero, HeroSearchBar, CategorySidebar, CategoryGrid, FeaturedJobs
 - [ ] **Bước 6:** Jobs, JobSearch (bộ lọc 6 trường + URL search params), JobDetail
@@ -27,6 +27,7 @@
 - **GIẢ ĐỊNH 1:** Dự án frontend đặt tại thư mục `frontend/` nằm trong thư mục gốc `JobNest/`, chuẩn bị sẵn sàng cho cấu hình `docker-compose.yml` đa service (Mục 17).
 - **GIẢ ĐỊNH 2:** Font chữ Google Fonts (*Be Vietnam Pro* và *Caveat*) được nạp thông qua thẻ `<link>` trong `index.html` để tối ưu tốc độ tải trang theo chuẩn Mục 2.3.
 - **GIẢ ĐỊNH 3:** Dropdown thông báo trên Navbar chuẩn bị sẵn 3 thông báo mẫu, sẵn sàng kết nối API ở Bước 4.
+- **GIẢ ĐỊNH 4:** Các thẻ tags trong JobCard được bọc flexbox riêng để nút SaveButton luôn căn phải cố định không bị rớt dòng khi gặp tên địa điểm dài.
 
 ---
 
@@ -37,3 +38,6 @@
 - [x] Navbar: logo trái, menu giữa Trang chủ/Việc làm/Hỗ trợ; phải tìm kiếm, chuông, Đăng nhập/Đăng ký (Mục 6.1)
 - [x] Footer: 4 cột chuẩn token, đủ thông tin thương hiệu, link mạng xã hội, hotline, bản quyền (Mục 6.2)
 - [x] Responsive mobile hamburger menu cho Navbar, touch target >= 44px (Mục 6.1, 16.1)
+- [x] Mọi bài việc làm đều có nút Lưu JobCard + SaveButton (Mục 8.1, 8.2)
+- [x] Phân trang có nút Next/Sau; hết trang thì khóa nút (disabled 40%) (Mục 8.3)
+- [x] Đủ 3 trạng thái danh sách: Skeleton loading, EmptyState, Toast thông báo (Mục 8.4)
