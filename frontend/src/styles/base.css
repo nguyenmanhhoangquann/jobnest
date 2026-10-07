@@ -507,6 +507,140 @@ img {
   background: #FEF2F2;
 }
 
+/* ==========================================================================
+   TopCV Horizontal Job Search Item (Dành cho trang /jobs)
+   ========================================================================== */
+.job-search-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.job-search-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+  background: #FFFDF8;
+}
+
+.job-search-item--top {
+  border-left: 4px solid var(--color-primary);
+}
+
+.job-search-item__logo-wrap {
+  flex-shrink: 0;
+}
+
+.job-search-item__logo {
+  width: 76px;
+  height: 76px;
+  border-radius: 10px;
+  border: 1px solid #F3F4F6;
+  background: #FFFFFF;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  text-decoration: none;
+}
+
+.job-search-item__logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.job-search-item__logo-fallback {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  background: var(--color-primary-soft);
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.job-search-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.job-search-item__title {
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #111827;
+}
+
+.job-search-item__title a {
+  color: #111827;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.job-search-item:hover .job-search-item__title a {
+  color: var(--color-primary-dark);
+}
+
+.job-search-item__company {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4B5563;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 3px 0 6px 0;
+}
+
+.job-search-item__tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.job-search-item__actions {
+  flex-shrink: 0;
+  min-height: 76px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.btn-apply-fast {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1F2937;
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: 6px;
+  padding: 5px 14px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-apply-fast:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #111827;
+}
+
 .save-btn:hover {
   border-color: var(--color-primary);
   background: var(--color-surface-alt);

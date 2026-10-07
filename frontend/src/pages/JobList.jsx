@@ -148,7 +148,7 @@ export default function JobList() {
             ) : (
               <div className="d-flex flex-column gap-3">
                 {jobs.map((job) => (
-                  <JobCard key={job.id} job={job} />
+                  <JobCard key={job.id} job={job} variant="search-item" />
                 ))}
               </div>
             )}
