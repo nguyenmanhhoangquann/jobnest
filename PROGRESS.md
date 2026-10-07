@@ -18,8 +18,8 @@
 - [x] **Bước 8:** SaveButton thật, ApplyModal, trang Việc đã ứng tuyển, JD đã lưu
 - [x] **Bước 9:** DashboardLayout, CV đã nhận, Đăng bài tuyển dụng
 - [x] **Bước 10:** Support (chatbot Gemini), useSpeech (mic + đọc to), AI đánh giá CV, AI gợi ý JD
-- [ ] **Bước 11:** Kiểm tra chuyển đổi VITE_USE_MOCK=false và tích hợp Backend
-- [ ] **Bước 12:** Audit responsive 375/768/1024/1440px, Dockerfile, nginx.conf, checklist nghiệm thu
+- [x] **Bước 11:** Kiểm tra chuyển đổi VITE_USE_MOCK=false và tích hợp Backend
+- [x] **Bước 12:** Audit responsive 375/768/1024/1440px, Dockerfile, nginx.conf, checklist nghiệm thu
 
 ---
 
@@ -36,10 +36,11 @@
 - **GIẢ ĐỊNH 10:** Modal ứng tuyển (ApplyModal) xác thực định dạng file (.pdf, .doc, .docx) và dung lượng giới hạn <= 5MB ở client trước khi gửi multipart/form-data.
 - **GIẢ ĐỊNH 11:** Phân hệ Nhà tuyển dụng (`/employer/*`) được tách biệt hoàn toàn qua `DashboardLayout.jsx` với thanh sidebar chuyên dụng, tích hợp tính năng tạo JD nhanh bằng AI và duyệt trạng thái hồ sơ trực tiếp.
 - **GIẢ ĐỊNH 12:** Tính năng giọng nói sử dụng Web Speech API bản địa của trình duyệt (`webkitSpeechRecognition` & `speechSynthesis`), không cài thư viện ngoài, hỗ trợ tiếng Việt mượt mà.
+- **GIẢ ĐỊNH 13:** Đóng gói Docker hoàn chỉnh với multi-stage build (Node 20 Alpine -> Nginx Alpine), Nginx định tuyến SPA try_files, nén gzip và bảo mật HTTP headers.
 
 ---
 
-## 3. Checklist nghiệm thu liên quan (Mục 18.2)
+## 3. Checklist nghiệm thu liên quan (Mục 18.2) - ĐÃ HOÀN THÀNH 100%
 - [x] Màu chủ đạo vàng #FBC725 + trắng, nền trắng (Mục 3.1)
 - [x] Cấu trúc design tokens, font chữ Be Vietnam Pro và Caveat (Mục 3)
 - [x] Biến môi trường VITE_API_URL và VITE_USE_MOCK=true (Mục 2.2)
@@ -66,3 +67,6 @@
 - [x] Chatbot hỗ trợ thông minh với Gemini, gợi ý câu hỏi mẫu (Mục 11)
 - [x] Micro thu âm nói thành chữ tiếng Việt và Loa đọc to câu trả lời của Bot (Mục 11)
 - [x] Modal xem chi tiết Đánh giá CV bằng AI với ScoreRing, điểm mạnh, điểm yếu (Mục 14.4)
+- [x] Chuyển đổi linh hoạt giữa Mock và Backend thật qua VITE_USE_MOCK (Mục 15)
+- [x] Dockerfile multi-stage build, nginx.conf SPA routing, docker-compose.yml 3 containers (Mục 17)
+- [x] Kiểm tra responsive 375px, 768px, 1024px, 1440px không vỡ bố cục, không tràn ngang (Mục 16)
