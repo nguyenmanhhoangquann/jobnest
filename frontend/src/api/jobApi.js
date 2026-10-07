@@ -25,8 +25,8 @@ export const jobApi = {
       }
 
       // Lọc ngành nghề (category)
-      if (params.category) {
-        filtered = filtered.filter((j) => j.category.slug === params.category);
+      if (params.category && params.category !== 'all' && params.category !== 'Tất cả') {
+        filtered = filtered.filter((j) => j.category?.slug === params.category);
       }
 
       // Lọc khu vực (area)
@@ -41,19 +41,32 @@ export const jobApi = {
       }
 
       // Lọc kinh nghiệm (experience)
-      if (params.experience) {
+      if (params.experience && params.experience !== 'all') {
         filtered = filtered.filter((j) => j.experience === params.experience);
       }
 
       // Lọc loại hình (jobType - có thể là mảng cách nhau dấu phẩy)
-      if (params.jobType) {
+      if (params.jobType && params.jobType !== 'all') {
         const types = String(params.jobType).split(',');
         filtered = filtered.filter((j) => types.includes(j.jobType));
       }
 
       // Lọc cấp bậc (position)
-      if (params.position) {
+      if (params.position && params.position !== 'all') {
         filtered = filtered.filter((j) => j.position === params.position);
+      }
+
+      // Lọc mức lương (salary)
+      if (params.salary && params.salary !== 'all') {
+        if (params.salary === 'under10') {
+          filtered = filtered.filter((j) => (j.salaryMax || 0) > 0 && (j.salaryMax || 0) <= 10);
+        } else if (params.salary === '10-20') {
+          filtered = filtered.filter((j) => (j.salaryMax || 0) >= 10 && (j.salaryMin || 0) <= 20);
+        } else if (params.salary === '20-30') {
+          filtered = filtered.filter((j) => (j.salaryMax || 0) >= 20 && (j.salaryMin || 0) <= 30);
+        } else if (params.salary === 'over30') {
+          filtered = filtered.filter((j) => (j.salaryMax || 0) >= 30);
+        }
       }
 
       // Sắp xếp
