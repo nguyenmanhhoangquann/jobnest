@@ -104,10 +104,28 @@ export default function FeaturedJobs() {
             </div>
           </div>
 
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center gap-3">
             <Link to="/jobs" className="view-all-link-jobnest">
               Xem tất cả →
             </Link>
+            <div className="d-flex gap-1">
+              <button
+                type="button"
+                className="circle-nav-btn circle-nav-btn--sm"
+                onClick={loadJobs}
+                aria-label="Tải trước"
+              >
+                <FaChevronLeft size={10} />
+              </button>
+              <button
+                type="button"
+                className="circle-nav-btn circle-nav-btn--sm"
+                onClick={loadJobs}
+                aria-label="Tải sau"
+              >
+                <FaChevronRight size={10} />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -128,15 +146,6 @@ export default function FeaturedJobs() {
           </div>
 
           <div className="chips-scroll-container">
-            <button
-              type="button"
-              className="chip-scroll-arrow chip-scroll-arrow--left"
-              onClick={() => handleScrollChips('left')}
-              aria-label="Cuộn sang trái"
-            >
-              <FaChevronLeft size={10} />
-            </button>
-
             <div className="chips-scroll-track" ref={scrollRef}>
               {DISTRICT_CHIPS.map((chip) => {
                 const isSelected = selectedLocation === chip;
@@ -152,15 +161,6 @@ export default function FeaturedJobs() {
                 );
               })}
             </div>
-
-            <button
-              type="button"
-              className="chip-scroll-arrow chip-scroll-arrow--right"
-              onClick={() => handleScrollChips('right')}
-              aria-label="Cuộn sang phải"
-            >
-              <FaChevronRight size={10} />
-            </button>
           </div>
         </div>
 
