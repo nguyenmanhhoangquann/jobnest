@@ -14,6 +14,7 @@ import {
 import jobApi from '../api/jobApi.js';
 import SaveButton from '../components/job/SaveButton.jsx';
 import JobCard from '../components/job/JobCard.jsx';
+import ApplyModal from '../components/job/ApplyModal.jsx';
 import { Spinner } from '../components/common/Loading.jsx';
 import { showToast } from '../components/common/ToastHost.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
@@ -27,6 +28,8 @@ export default function JobDetail() {
   const [similarJobs, setSimilarJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [hasApplied, setHasApplied] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -63,8 +66,7 @@ export default function JobDetail() {
       showToast('error', 'Tài khoản Nhà tuyển dụng không thể ứng tuyển!');
       return;
     }
-    // Sẽ kết nối ApplyModal ở Bước 8
-    showToast('info', 'Tính năng nộp hồ sơ sẽ hoàn thiện ở Bước 8!');
+    setShowApplyModal(true);
   };
 
   const handleShare = () => {
@@ -297,6 +299,13 @@ export default function JobDetail() {
           </div>
         </div>
       </div>
+
+      <ApplyModal
+        job={job}
+        show={showApplyModal}
+        onHide={() => setShowApplyModal(false)}
+        onSuccess={() => setHasApplied(true)}
+      />
     </div>
   );
 }

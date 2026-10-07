@@ -7,6 +7,9 @@ import JobList from './pages/JobList.jsx';
 import JobDetail from './pages/JobDetail.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
+import AppliedJobs from './pages/candidate/AppliedJobs.jsx';
+import SavedJobs from './pages/candidate/SavedJobs.jsx';
+import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 import ToastHost from './components/common/ToastHost.jsx';
 
 function SupportPlaceholder() {
@@ -40,6 +43,25 @@ export default function App() {
             <Route path="/jobs" element={<JobList />} />
             <Route path="/jobs/search" element={<JobList />} />
             <Route path="/jobs/:id" element={<JobDetail />} />
+            
+            {/* Tuyến đường ứng viên (CANDIDATE) */}
+            <Route
+              path="/candidate/applied-jobs"
+              element={
+                <ProtectedRoute allowedRole="CANDIDATE">
+                  <AppliedJobs />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/candidate/saved-jobs"
+              element={
+                <ProtectedRoute allowedRole="CANDIDATE">
+                  <SavedJobs />
+                </ProtectedRoute>
+              }
+            />
+
             <Route path="/support" element={<SupportPlaceholder />} />
             <Route path="*" element={<NotFoundPlaceholder />} />
           </Route>

@@ -15,7 +15,7 @@
 - [x] **Bước 5:** Trang chủ: Hero, HeroSearchBar, CategorySidebar, CategoryGrid, FeaturedJobs
 - [x] **Bước 6:** Jobs, JobSearch (bộ lọc 6 trường + URL search params), JobDetail
 - [x] **Bước 7:** AuthContext, axiosClient, ProtectedRoute, Login, Register 2 bước
-- [ ] **Bước 8:** SaveButton thật, ApplyModal, trang Việc đã ứng tuyển, JD đã lưu
+- [x] **Bước 8:** SaveButton thật, ApplyModal, trang Việc đã ứng tuyển, JD đã lưu
 - [ ] **Bước 9:** DashboardLayout, CV đã nhận, Đăng bài tuyển dụng
 - [ ] **Bước 10:** Support (chatbot Gemini), useSpeech (mic + đọc to), AI đánh giá CV, AI gợi ý JD
 - [ ] **Bước 11:** Kiểm tra chuyển đổi VITE_USE_MOCK=false và tích hợp Backend
@@ -33,6 +33,7 @@
 - **GIẢ ĐỊNH 7:** Trang `/jobs` và `/jobs/search` dùng chung component `JobList.jsx` với bộ lọc 6 trường đồng bộ 2 chiều qua `useSearchParams`, bảo tồn tham số lọc khi chuyển trang phân trang.
 - **GIẢ ĐỊNH 8:** Nội dung mô tả công việc (JD) được render qua `white-space: pre-line` an toàn, tuyệt đối không dùng `dangerouslySetInnerHTML` để phòng chống XSS (Mục 10.3).
 - **GIẢ ĐỊNH 9:** Trang Đăng nhập hỗ trợ 2 nút Quick Login (Ứng viên: ungvien / Nhà tuyển dụng: tuyendung) để người chấm bài / giảng viên test ngay mà không cần gõ phím.
+- **GIẢ ĐỊNH 10:** Modal ứng tuyển (ApplyModal) xác thực định dạng file (.pdf, .doc, .docx) và dung lượng giới hạn <= 5MB ở client trước khi gửi multipart/form-data.
 
 ---
 
@@ -54,3 +55,6 @@
 - [x] Đăng nhập phân quyền 2 vai trò CANDIDATE và EMPLOYER (Mục 12.1 - 12.3)
 - [x] Đăng ký 2 bước phân nhánh vai trò, form validate đầy đủ (Mục 12.4)
 - [x] ProtectedRoute bảo vệ route private theo vai trò (Mục 12.2)
+- [x] Nút Lưu việc làm kết nối API thật, optimistic update và đồng bộ (Mục 8.2, 13.3)
+- [x] Modal nộp CV có upload file, validate dung lượng 5MB, gửi kèm lời nhắn (Mục 13.1)
+- [x] Trang Việc đã ứng tuyển và Công việc đã lưu của ứng viên (Mục 13.2, 13.3)
