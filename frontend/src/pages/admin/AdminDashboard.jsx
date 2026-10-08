@@ -13,6 +13,7 @@ import {
   FaFilter,
 } from 'react-icons/fa';
 import { showToast } from '../../components/common/ToastHost.jsx';
+import { VIOLATION_TYPES } from '../../constants.js';
 
 export default function AdminDashboard() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -85,6 +86,53 @@ export default function AdminDashboard() {
     { id: 5, username: 'viettel_telecom', fullName: 'Viettel Telecom', email: 'tuyendung@viettel.com.vn', role: 'EMPLOYER', joined: '15/09/2026', status: 'ACTIVE' },
   ]);
 
+  // Dữ liệu mock báo cáo vi phạm
+  const [reports, setReports] = useState([
+    {
+      id: 1,
+      targetType: 'JOB',
+      targetTitle: 'Việc nhẹ lương cao - Nhập liệu tại nhà 30tr/tháng',
+      violator: 'Công ty TNHH Đầu tư Thịnh Vượng 4.0',
+      reason: 'Tin tuyển dụng giả, lừa đảo hoặc thông tin sai lệch',
+      reasonCode: 'FAKE_JOB',
+      details: 'Yêu cầu ứng viên chuyển khoản trước 500.000đ tiền cọc tài liệu.',
+      reportedBy: 'nguyenvanhung',
+      date: '08/10/2026',
+    },
+    {
+      id: 2,
+      targetType: 'JOB',
+      targetTitle: 'Nhân viên lễ tân (Yêu cầu nữ độc thân, dưới 23 tuổi, cao > 1m65)',
+      violator: 'Quán Cafe SkyView',
+      reason: 'Nội dung phân biệt giới tính, tuổi, vùng miền, ngoại hình...',
+      reasonCode: 'DISCRIMINATION',
+      details: 'Phân biệt giới tính và yêu cầu ngoại hình trái quy định tuyển dụng.',
+      reportedBy: 'lethithu',
+      date: '07/10/2026',
+    },
+    {
+      id: 3,
+      targetType: 'USER',
+      targetTitle: 'Hồ sơ ứng viên: Bot spam tự động nộp hồ sơ',
+      violator: 'Tài khoản: bot_spammer_99',
+      reason: 'Thu thập dữ liệu hàng loạt, spam ứng viên / CV giả mạo',
+      reasonCode: 'DATA_CRAWL_SPAM',
+      details: 'Gửi 150 đơn ứng tuyển trong 2 phút với nội dung rác.',
+      reportedBy: 'fpt_recruitment',
+      date: '06/10/2026',
+    },
+  ]);
+
+  const handleResolveReport = (reportId, isActionTaken) => {
+    setReports((prev) => prev.filter((r) => r.id !== reportId));
+    showToast(
+      isActionTaken ? 'success' : 'info',
+      isActionTaken
+        ? `Đã xử lý vi phạm #${reportId}: Nội dung đã bị khóa và cảnh cáo tài khoản!`
+        : `Đã bác bỏ báo cáo #${reportId}: Nội dung được xác định là hợp lệ.`
+    );
+  };
+
   // Xử lý duyệt hoặc từ chối tin tuyển dụng
   const handleApproveJob = (jobId, approve) => {
     setPendingJobs((prev) => prev.filter((j) => j.id !== jobId));
@@ -145,6 +193,13 @@ export default function AdminDashboard() {
               onClick={() => setSearchParams({ tab: 'users' })}
             >
               <FaUsers className="me-1" /> Quản lý User
+            </button>
+            <button
+              type="button"
+              className={`btn btn-sm ${currentTab === 'reports' ? 'btn-danger text-white' : 'btn-light text-danger'}`}
+              onClick={() => setSearchParams({ tab: 'reports' })}
+            >
+              <FaShieldAlt className="me-1" /> Báo cáo vi phạm ({reports.length})
             </button>
           </div>
         </div>
@@ -404,6 +459,109 @@ export default function AdminDashboard() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* 5. KHỐI GIÁM SÁT VI PHẠM & XỬ LÝ (9 TIÊU CHÍ AN TOÀN HỆ THỐNG) */}
+        {currentTab === 'reports' && (
+          <div>
+            <div className="card border-0 shadow-sm rounded-3 p-4 bg-white mb-4">
+              <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <div>
+                  <h2 className="h5 fw-bold mb-1 text-danger d-flex align-items-center gap-2">
+                    <FaShieldAlt /> Danh sách nội dung bị báo cáo vi phạm
+                  </h2>
+                  <p className="small text-muted mb-0">
+                    Hệ thống kiểm duyệt theo 9 tiêu chuẩn cộng đồng và quy định pháp luật lao động.
+                  </p>
+                </div>
+                <span className="badge bg-danger-subtle text-danger fs-6 px-3 py-2">
+                  {reports.length} vụ việc chờ xử lý
+                </span>
+              </div>
+
+              {reports.length === 0 ? (
+                <div className="p-5 text-center text-muted">
+                  <FaCheckCircle size={36} className="text-success mb-2 d-block mx-auto" />
+                  Hệ thống an toàn! Không có nội dung vi phạm nào chưa được xử lý.
+                </div>
+              ) : (
+                <div className="table-responsive">
+                  <table className="table table-hover align-middle">
+                    <thead className="table-light">
+                      <tr>
+                        <th>Đối tượng bị báo cáo</th>
+                        <th>Bên vi phạm</th>
+                        <th>Hành vi vi phạm</th>
+                        <th>Bằng chứng / Chi tiết</th>
+                        <th>Người tố cáo</th>
+                        <th className="text-end">Xử lý</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {reports.map((r) => (
+                        <tr key={r.id}>
+                          <td>
+                            <span className={`badge me-2 ${r.targetType === 'JOB' ? 'bg-info text-dark' : 'bg-secondary'}`}>
+                              {r.targetType === 'JOB' ? 'Tin tuyển dụng' : 'Tài khoản User'}
+                            </span>
+                            <div className="fw-bold mt-1">{r.targetTitle}</div>
+                          </td>
+                          <td>
+                            <code>{r.violator}</code>
+                          </td>
+                          <td>
+                            <span className="badge bg-danger-subtle text-danger text-wrap text-start" style={{ maxWidth: '200px' }}>
+                              🚫 {r.reason}
+                            </span>
+                          </td>
+                          <td className="small text-muted" style={{ maxWidth: '240px' }}>
+                            {r.details}
+                          </td>
+                          <td className="small">
+                            <div><code>{r.reportedBy}</code></div>
+                            <span className="text-muted">{r.date}</span>
+                          </td>
+                          <td className="text-end text-nowrap">
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-danger me-2"
+                              onClick={() => handleResolveReport(r.id, true)}
+                            >
+                              Khóa vi phạm
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-secondary"
+                              onClick={() => handleResolveReport(r.id, false)}
+                            >
+                              Bỏ qua
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {/* Khung quy chuẩn 9 hành vi vi phạm chuẩn TopCV */}
+            <div className="card border-0 shadow-sm rounded-3 p-4 bg-white">
+              <h3 className="h6 fw-bold mb-3 text-dark">
+                📋 9 Quy chuẩn đánh giá vi phạm hệ thống JobNest
+              </h3>
+              <div className="row g-2">
+                {VIOLATION_TYPES.map((v, i) => (
+                  <div key={v.id} className="col-12 col-md-6 col-lg-4">
+                    <div className="p-2.5 rounded bg-light border small d-flex align-items-center gap-2">
+                      <span className="text-danger fw-bold">{i + 1}.</span>
+                      <span className="text-secondary">{v.label}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

@@ -12,6 +12,18 @@ export const ROLE_LABELS = {
   ADMIN: 'Quản trị viên',
 };
 
+export const VIOLATION_TYPES = [
+  { id: 'FAKE_JOB', label: 'Tin tuyển dụng giả, lừa đảo hoặc thông tin sai lệch' },
+  { id: 'DISCRIMINATION', label: 'Nội dung phân biệt giới tính, tuổi, vùng miền, ngoại hình...' },
+  { id: 'SPAM_DUPLICATE', label: 'Spam, đăng cùng một tin quá nhiều lần' },
+  { id: 'ADS_PROMOTION', label: 'Đăng nội dung quảng cáo không liên quan' },
+  { id: 'SENSITIVE_INFO', label: 'Đăng thông tin cá nhân nhạy cảm của người khác trái phép' },
+  { id: 'FEE_EXTORTION', label: 'Yêu cầu ứng viên nộp tiền / đóng phí bất thường' },
+  { id: 'FAKE_CV', label: 'CV / hồ sơ chứa nội dung giả mạo, gian lận' },
+  { id: 'DATA_CRAWL_SPAM', label: 'Thu thập dữ liệu hàng loạt, spam ứng viên' },
+  { id: 'SUSPICIOUS_ABUSE', label: 'Tài khoản có hành vi bất thường hoặc cố tình lách hệ thống' },
+];
+
 export const NAV_ITEMS = [
   { label: 'Trang chủ', to: '/' },
   { label: 'Việc làm', to: '/jobs' },
