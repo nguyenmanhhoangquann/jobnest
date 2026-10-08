@@ -12,6 +12,10 @@ import {
   FaUsers,
   FaRobot,
   FaPlusCircle,
+  FaShieldAlt,
+  FaChartBar,
+  FaBuilding,
+  FaCheckDouble,
 } from 'react-icons/fa';
 import { NAV_ITEMS } from '../../constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
@@ -86,6 +90,7 @@ function NotificationBell({ isAuth }) {
 }
 
 function UserMenu({ user, onLogout }) {
+  const isAdmin = user?.role === 'ADMIN';
   const isEmployer = user?.role === 'EMPLOYER';
 
   return (
@@ -105,12 +110,27 @@ function UserMenu({ user, onLogout }) {
           <div className="fw-bold text-dark" style={{ fontSize: '14px' }}>
             {user?.displayName || user?.username || 'Tài khoản'}
           </div>
-          <small className="text-muted" style={{ fontSize: '12px' }}>
-            {isEmployer ? 'Nhà tuyển dụng' : 'Người tìm việc'}
+          <small className={`badge ${isAdmin ? 'bg-danger' : isEmployer ? 'bg-warning text-dark' : 'bg-primary text-white'}`} style={{ fontSize: '11px' }}>
+            {isAdmin ? 'Quản trị viên (Admin)' : isEmployer ? 'Nhà tuyển dụng' : 'Người tìm việc'}
           </small>
         </div>
 
-        {isEmployer ? (
+        {isAdmin ? (
+          <>
+            <Dropdown.Item as={Link} to="/admin/dashboard" className="d-flex align-items-center gap-2 py-2">
+              <FaChartBar size={14} className="text-muted" /> Tổng quan hệ thống
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/admin/dashboard?tab=users" className="d-flex align-items-center gap-2 py-2">
+              <FaUsers size={14} className="text-muted" /> Quản lý User & NTD
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/admin/dashboard?tab=jobs" className="d-flex align-items-center gap-2 py-2">
+              <FaCheckDouble size={14} className="text-muted" /> Duyệt tin & Doanh nghiệp
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/admin/dashboard?tab=reports" className="d-flex align-items-center gap-2 py-2">
+              <FaShieldAlt size={14} className="text-muted" /> Giám sát vi phạm / CV
+            </Dropdown.Item>
+          </>
+        ) : isEmployer ? (
           <>
             <Dropdown.Item as={Link} to="/employer/applications" className="d-flex align-items-center gap-2 py-2">
               <FaUsers size={14} className="text-muted" /> Hồ sơ ứng tuyển (CV)

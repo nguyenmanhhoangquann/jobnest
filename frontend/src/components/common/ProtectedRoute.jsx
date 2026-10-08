@@ -11,9 +11,12 @@ export default function ProtectedRoute({ allowedRole, children }) {
     return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 
-  if (allowedRole && user.role !== allowedRole) {
-    showToast('error', 'Bạn không có quyền truy cập trang này!');
-    return <Navigate to="/" replace />;
+  if (allowedRole) {
+    const roles = Array.isArray(allowedRole) ? allowedRole : [allowedRole];
+    if (!roles.includes(user.role)) {
+      showToast('error', 'Bạn không có quyền truy cập trang này!');
+      return <Navigate to="/" replace />;
+    }
   }
 
   return children;

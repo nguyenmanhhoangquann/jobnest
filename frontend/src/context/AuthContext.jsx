@@ -45,6 +45,7 @@ export function AuthProvider({ children }) {
         isAuthenticated: !!user,
         isCandidate: user?.role === 'CANDIDATE',
         isEmployer: user?.role === 'EMPLOYER',
+        isAdmin: user?.role === 'ADMIN',
         login,
         register,
         logout,

@@ -31,7 +31,15 @@ export default function Login() {
     try {
       const loggedUser = await login(username.trim(), password);
       showToast('success', `Đăng nhập thành công! Chào mừng ${loggedUser.fullName || loggedUser.username}`);
-      navigate(redirectUrl, { replace: true });
+      if (location.state?.from) {
+        navigate(location.state.from, { replace: true });
+      } else if (loggedUser.role === 'ADMIN') {
+        navigate('/admin/dashboard', { replace: true });
+      } else if (loggedUser.role === 'EMPLOYER') {
+        navigate('/employer/dashboard', { replace: true });
+      } else {
+        navigate('/', { replace: true });
+      }
     } catch (err) {
       setErrorMsg(err.message || 'Tên đăng nhập hoặc mật khẩu không chính xác.');
     } finally {
@@ -120,7 +128,7 @@ export default function Login() {
             <div className="d-flex align-items-center gap-1 text-warning fw-semibold small mb-2">
               <FaBolt size={12} /> Tài khoản mẫu (Bấm để điền nhanh):
             </div>
-            <div className="d-flex gap-2">
+            <div className="d-flex flex-wrap gap-2">
               <button
                 type="button"
                 className="btn btn-sm btn-outline-secondary flex-fill"
@@ -134,6 +142,13 @@ export default function Login() {
                 onClick={() => handleQuickLogin('tuyendung', '123456')}
               >
                 Nhà tuyển dụng
+              </button>
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-warning flex-fill fw-semibold text-dark"
+                onClick={() => handleQuickLogin('admin', '123456')}
+              >
+                Admin (Quản trị)
               </button>
             </div>
           </div>

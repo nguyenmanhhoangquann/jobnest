@@ -1,5 +1,17 @@
 export const APP_NAME = 'JobNest';
 
+export const ROLES = {
+  CANDIDATE: 'CANDIDATE',
+  EMPLOYER: 'EMPLOYER',
+  ADMIN: 'ADMIN',
+};
+
+export const ROLE_LABELS = {
+  CANDIDATE: 'Người tìm việc',
+  EMPLOYER: 'Nhà tuyển dụng',
+  ADMIN: 'Quản trị viên',
+};
+
 export const NAV_ITEMS = [
   { label: 'Trang chủ', to: '/' },
   { label: 'Việc làm', to: '/jobs' },
