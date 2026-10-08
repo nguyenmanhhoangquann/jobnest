@@ -8,17 +8,25 @@ import {
   FaCheckCircle,
 } from 'react-icons/fa';
 import posterFeaturedImg from '../../assets/poster-featured.jpg';
-import proCompanyBannerImg from '../../assets/pro-company-banner.jpg';
 
 const COMPANY_TABS = [
   'Tất cả',
   'Ngân hàng',
+  'Bất động sản',
+  'Xây dựng',
   'IT - Phần mềm',
   'Tài chính',
-  'Bất động sản',
-  'Bán lẻ - Hàng tiêu dùng',
+  'Bán lẻ - Hàng tiêu dùng - FMCG',
   'Sản xuất',
-  'Marketing - Truyền thông',
+];
+
+const BANNER_BRAND_LOGOS = [
+  { name: 'FPT', logo: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=120&q=80' },
+  { name: 'Viettel', logo: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=120&q=80' },
+  { name: 'MB Bank', logo: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=120&q=80' },
+  { name: 'Techcombank', logo: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=120&q=80' },
+  { name: 'Vinamilk', logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=120&q=80' },
+  { name: 'MISA', logo: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=120&q=80' },
 ];
 
 const MOCK_PRO_COMPANIES = [
@@ -70,7 +78,7 @@ const MOCK_PRO_COMPANIES = [
   {
     id: 6,
     name: 'CÔNG TY CỔ PHẦN VINAMILK',
-    industry: 'Bán lẻ - Hàng tiêu dùng',
+    industry: 'Bán lẻ - Hàng tiêu dùng - FMCG',
     logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=120&q=80',
     cover: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
     openJobs: 21,
@@ -101,69 +109,76 @@ export default function TopCompanies() {
       <div className="container-app">
         {/* Khung duy nhất bao bọc toàn bộ Thương hiệu lớn tiêu biểu và các công ty */}
         <div className="top-companies-box p-3 p-md-4">
-          {/* Header trong khung: Banner nền hình JobNest đã xóa logo Gemini, gọn chiều dọc */}
-          <div className="pro-company-header-banner p-3 p-md-4 rounded-4 mb-4 text-white position-relative overflow-hidden">
-            {/* Ảnh banner nền */}
-            <img
-              src={proCompanyBannerImg}
-              alt="Thương hiệu lớn tiêu biểu"
-              className="pro-company-header-banner__bg"
-              loading="lazy"
-            />
-            <div className="pro-company-header-banner__overlay" />
-
-            <div className="position-relative z-2 d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-3">
-              <div>
-                <div className="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                  <span className="badge badge-pro-company">
-                    <FaCrown className="me-1" size={11} /> Pro Company
+          {/* 1. Banner phong cách chuẩn TopCV Pro Company */}
+          <div className="topcv-pro-banner p-4 p-lg-4 rounded-4 mb-3 position-relative overflow-hidden">
+            <div className="row align-items-center position-relative z-2">
+              {/* Bên trái: Tiêu đề + Phụ đề + Badge Pro Company */}
+              <div className="col-12 col-md-7 col-lg-7">
+                <div className="d-flex align-items-center gap-2 mb-2">
+                  <h2 className="topcv-pro-title mb-0">Thương hiệu lớn tiêu biểu</h2>
+                  <span className="badge badge-topcv-pro">
+                    <FaCrown className="me-1" size={10} /> Pro Company
                   </span>
-                  <span className="small text-white-50 fw-semibold">Đối tác chiến lược hàng đầu</span>
                 </div>
-                <h2 className="pro-company-title mb-1">Thương hiệu lớn tiêu biểu</h2>
-                <p className="pro-company-desc mb-0">
-                  Hàng trăm tập đoàn và doanh nghiệp hàng đầu đang mở rộng cơ hội tuyển dụng trên JobNest
+                <p className="topcv-pro-desc mb-0">
+                  Hàng trăm thương hiệu lớn tiêu biểu đang tuyển dụng trên JobNest Pro
                 </p>
               </div>
 
-              {/* Dải tab lọc ngành nghề dạng pill kèm nút cuộn */}
-              <div className="d-flex align-items-center gap-2 flex-shrink-0">
-                <div className="company-tabs-track" ref={scrollRef}>
-                  {COMPANY_TABS.map((tab) => (
-                    <button
-                      key={tab}
-                      type="button"
-                      className={`company-tab-pill company-tab-pill--dark ${activeTab === tab ? 'company-tab-pill--active' : ''}`}
-                      onClick={() => setActiveTab(tab)}
-                    >
-                      {tab}
-                    </button>
+              {/* Bên phải: Lưới logo các thương hiệu hàng đầu dạng ô vuông trắng bo góc */}
+              <div className="col-12 col-md-5 col-lg-5 d-none d-md-block">
+                <div className="topcv-brand-tiles d-flex flex-wrap justify-content-end align-items-center gap-2">
+                  {BANNER_BRAND_LOGOS.map((brand, idx) => (
+                    <div key={idx} className="topcv-brand-tile" title={brand.name}>
+                      <img src={brand.logo} alt={brand.name} loading="lazy" />
+                    </div>
                   ))}
-                </div>
-
-                <div className="d-flex gap-1 flex-shrink-0">
-                  <button
-                    type="button"
-                    className="circle-nav-btn circle-nav-btn--sm circle-nav-btn--dark"
-                    onClick={() => scrollTabs('left')}
-                    aria-label="Cuộn tab sang trái"
-                  >
-                    <FaChevronLeft size={11} />
-                  </button>
-                  <button
-                    type="button"
-                    className="circle-nav-btn circle-nav-btn--sm circle-nav-btn--dark"
-                    onClick={() => scrollTabs('right')}
-                    aria-label="Cuộn tab sang phải"
-                  >
-                    <FaChevronRight size={11} />
-                  </button>
                 </div>
               </div>
             </div>
+
+            {/* Background kim loại vàng đồng và vệt sáng */}
+            <div className="topcv-pro-banner__bg" />
+            <div className="topcv-pro-banner__glow" />
           </div>
 
-          {/* Phần thân: Cột trái (Poster trọn vẹn không khuất chữ) + Cột phải (2 công ty / hàng ngang) */}
+          {/* 2. Dải button tab lọc ngành nghề nằm bên dưới banner trên nền trắng chuẩn TopCV */}
+          <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
+            <div className="company-tabs-track flex-grow-1" ref={scrollRef}>
+              {COMPANY_TABS.map((tab) => (
+                <button
+                  key={tab}
+                  type="button"
+                  className={`company-tab-pill ${activeTab === tab ? 'company-tab-pill--active' : ''}`}
+                  onClick={() => setActiveTab(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            {/* Nút mũi tên điều hướng tròn nhỏ bên phải */}
+            <div className="d-flex gap-1 flex-shrink-0">
+              <button
+                type="button"
+                className="circle-nav-btn circle-nav-btn--sm"
+                onClick={() => scrollTabs('left')}
+                aria-label="Cuộn tab sang trái"
+              >
+                <FaChevronLeft size={11} />
+              </button>
+              <button
+                type="button"
+                className="circle-nav-btn circle-nav-btn--sm"
+                onClick={() => scrollTabs('right')}
+                aria-label="Cuộn tab sang phải"
+              >
+                <FaChevronRight size={11} />
+              </button>
+            </div>
+          </div>
+
+          {/* 3. Phần thân: Cột trái (Poster hiển thị 100% trọn vẹn) + Cột phải (2 công ty / hàng ngang) */}
           <div className="row g-3 align-items-stretch">
             {/* Cột trái: Tấm poster hiển thị toàn bộ ảnh và text, click toàn tấm link sang /jobs */}
             <div className="col-12 col-lg-4 col-xl-35">

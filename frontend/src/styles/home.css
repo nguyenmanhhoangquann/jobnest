@@ -920,51 +920,118 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 }
 
-/* Banner Header gọn gàng với ảnh JobNest làm background */
-.pro-company-header-banner {
-  min-height: 120px;
-  border: 1px solid rgba(251, 199, 37, 0.35);
-  box-shadow: 0 8px 24px rgba(24, 17, 9, 0.12);
+/* TopCV Pro Banner Header */
+.topcv-pro-banner {
+  background: linear-gradient(135deg, #181109 0%, #2A1D0E 45%, #150E07 100%);
+  border: 1px solid rgba(251, 199, 37, 0.3);
+  box-shadow: 0 8px 24px rgba(24, 17, 9, 0.15);
   position: relative;
+  overflow: hidden;
 }
 
-.pro-company-header-banner__bg {
+.topcv-pro-banner__bg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center right;
+  background: radial-gradient(circle at 100% 50%, rgba(251, 199, 37, 0.15) 0%, transparent 60%);
   z-index: 0;
+  pointer-events: none;
 }
 
-.pro-company-header-banner__overlay {
+.topcv-pro-banner__glow {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(20, 14, 8, 0.92) 0%, rgba(20, 14, 8, 0.78) 45%, rgba(20, 14, 8, 0.55) 100%);
+  top: -50px;
+  right: -50px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 199, 37, 0.22) 0%, transparent 70%);
   z-index: 1;
+  pointer-events: none;
 }
 
-.company-tab-pill--dark {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #F3F4F6 !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  backdrop-filter: blur(4px);
+.topcv-pro-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #FBC725;
+  letter-spacing: -0.01em;
 }
 
-.company-tab-pill--dark:hover {
-  background: rgba(255, 255, 255, 0.28) !important;
+.topcv-pro-desc {
+  font-size: 14.5px;
+  color: #FFFFFF;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+.badge-topcv-pro {
+  background: linear-gradient(135deg, #FBC725 0%, #F59E0B 100%);
+  color: #1F2937;
+  font-weight: 700;
+  font-size: 11.5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.topcv-brand-tiles {
+  perspective: 600px;
+}
+
+.topcv-brand-tile {
+  width: 52px;
+  height: 52px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.topcv-brand-tile img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.company-tabs-track {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 4px 0;
+}
+
+.company-tabs-track::-webkit-scrollbar {
+  display: none;
+}
+
+.company-tab-pill {
+  border: 0;
+  border-radius: 999px;
+  background: #F3F4F6;
+  color: #374151;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 7px 18px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.company-tab-pill:hover {
+  background: #E5E7EB;
+  color: #111827;
+}
+
+.company-tab-pill--active {
+  background: #25180C !important;
   color: #FFFFFF !important;
-}
-
-.circle-nav-btn--dark {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-}
-
-.circle-nav-btn--dark:hover {
-  background: rgba(255, 255, 255, 0.3) !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(37, 24, 12, 0.25);
 }
 
 /* Tấm Poster hiển thị 100% trọn vẹn toàn bộ ảnh và text không bị che/khuất */
