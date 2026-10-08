@@ -6,9 +6,8 @@ import {
   FaChevronRight,
   FaBriefcase,
   FaCheckCircle,
-  FaArrowRight,
-  FaBuilding,
 } from 'react-icons/fa';
+import posterFeaturedImg from '../../assets/poster-featured.jpg';
 
 const COMPANY_TABS = [
   'Tất cả',
@@ -152,63 +151,22 @@ export default function TopCompanies() {
             </div>
           </div>
 
-          {/* Phần thân: Cột trái (Poster có nút Khám phá ngay) + Cột phải (2 công ty / hàng ngang) */}
+          {/* Phần thân: Cột trái (Poster có nút Khám phá ngay trên ảnh) + Cột phải (2 công ty / hàng ngang) */}
           <div className="row g-3 align-items-stretch">
-            {/* Cột trái: Tấm poster với nút Khám phá ngay liên kết sang /jobs */}
+            {/* Cột trái: Tấm poster có sẵn nút Khám phá ngay, click toàn tấm link sang /jobs */}
             <div className="col-12 col-lg-4 col-xl-35">
-              <div className="pro-company-poster h-100 p-4 rounded-4 position-relative overflow-hidden text-white d-flex flex-column justify-content-between">
-                {/* Ảnh nền Poster */}
+              <Link
+                to="/jobs"
+                className="pro-company-poster-link d-block h-100 rounded-4 overflow-hidden position-relative shadow-sm"
+                title="2000+ Việc làm phổ thông thu nhập hấp dẫn - Khám phá ngay"
+              >
                 <img
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
-                  alt="JobNest Pro Partner"
-                  className="pro-company-poster__bg"
+                  src={posterFeaturedImg}
+                  alt="2000+ Việc làm phổ thông thu nhập hấp dẫn - Khám phá ngay"
+                  className="pro-company-poster-img w-100 h-100"
                   loading="lazy"
                 />
-                <div className="pro-company-poster__overlay" />
-                <div className="pro-company-poster__glow" />
-
-                {/* Nội dung trên poster */}
-                <div className="position-relative z-2">
-                  <div className="d-inline-flex align-items-center gap-1 badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3">
-                    <FaCrown size={12} />
-                    <span>JOBNEST SPOTLIGHT</span>
-                  </div>
-
-                  <h3 className="pro-poster-title mb-2">
-                    Gia nhập các doanh nghiệp hàng đầu
-                  </h3>
-
-                  <p className="pro-poster-desc mb-3">
-                    Tiếp cận trực tiếp hơn 500+ doanh nghiệp và tập đoàn đa quốc gia uy tín nhất trên thị trường.
-                  </p>
-
-                  <div className="d-flex flex-column gap-2 mb-4 text-white-50 small">
-                    <div className="d-flex align-items-center gap-2">
-                      <FaCheckCircle className="text-warning" size={13} />
-                      <span className="text-white">Môi trường làm việc chuyên nghiệp</span>
-                    </div>
-                    <div className="d-flex align-items-center gap-2">
-                      <FaCheckCircle className="text-warning" size={13} />
-                      <span className="text-white">Chế độ đãi ngộ & thăng tiến vượt trội</span>
-                    </div>
-                    <div className="d-flex align-items-center gap-2">
-                      <FaBuilding className="text-warning" size={13} />
-                      <span className="text-white">Phỏng vấn trực tiếp cùng nhà tuyển dụng</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Nút Khám phá ngay trỏ tới /jobs */}
-                <div className="position-relative z-2 pt-3 border-top border-light border-opacity-25 mt-auto">
-                  <Link
-                    to="/jobs"
-                    className="btn btn-brand w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2"
-                  >
-                    <span>Khám phá ngay</span>
-                    <FaArrowRight size={13} />
-                  </Link>
-                </div>
-              </div>
+              </Link>
             </div>
 
             {/* Cột phải: Danh sách các công ty sắp xếp 2 công ty hàng ngang */}
