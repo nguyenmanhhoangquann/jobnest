@@ -913,6 +913,62 @@
 /* ==========================================================================
    Top / Pro Companies Section (Mục Thương hiệu lớn tiêu biểu kiểu TopCV)
    ========================================================================== */
+.top-companies-box {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.pro-company-poster {
+  min-height: 440px;
+  background: #181109;
+  border: 1px solid rgba(251, 199, 37, 0.25);
+  box-shadow: 0 8px 24px rgba(24, 17, 9, 0.15);
+  position: relative;
+}
+
+.pro-company-poster__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.pro-company-poster__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 14, 8, 0.72) 0%, rgba(20, 14, 8, 0.94) 100%);
+  z-index: 1;
+}
+
+.pro-company-poster__glow {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 199, 37, 0.25) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pro-poster-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.35;
+}
+
+.pro-poster-desc {
+  font-size: 13.5px;
+  color: #CBD5E1;
+  line-height: 1.55;
+}
+
 .pro-company-banner {
   background: linear-gradient(135deg, #181109 0%, #291C0E 50%, #3D2914 100%);
   border: 1px solid rgba(251, 199, 37, 0.25);
