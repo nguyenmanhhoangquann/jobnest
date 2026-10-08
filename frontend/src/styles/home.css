@@ -920,80 +920,47 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 }
 
-/* TopCV Pro Banner Header */
-.topcv-pro-banner {
-  background: linear-gradient(135deg, #181109 0%, #2A1D0E 45%, #150E07 100%);
-  border: 1px solid rgba(251, 199, 37, 0.3);
-  box-shadow: 0 8px 24px rgba(24, 17, 9, 0.15);
+/* Banner có ảnh JobNest làm nền nhìn rõ, không có chữ Pro Company, bỏ Pro ở sau JobNest */
+.brand-header-banner {
+  min-height: 110px;
+  border-radius: 16px;
   position: relative;
   overflow: hidden;
+  padding: 22px 30px;
+  border: 1px solid rgba(251, 199, 37, 0.35);
+  box-shadow: 0 8px 24px rgba(24, 17, 9, 0.15);
 }
 
-.topcv-pro-banner__bg {
+.brand-header-banner__bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 100% 50%, rgba(251, 199, 37, 0.15) 0%, transparent 60%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
   z-index: 0;
-  pointer-events: none;
 }
 
-.topcv-pro-banner__glow {
+.brand-header-banner__overlay {
   position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(251, 199, 37, 0.22) 0%, transparent 70%);
+  inset: 0;
+  background: linear-gradient(90deg, rgba(20, 14, 8, 0.72) 0%, rgba(20, 14, 8, 0.40) 45%, rgba(20, 14, 8, 0.15) 100%);
   z-index: 1;
   pointer-events: none;
 }
 
-.topcv-pro-title {
+.brand-header-title {
   font-size: 24px;
   font-weight: 800;
   color: #FBC725;
   letter-spacing: -0.01em;
 }
 
-.topcv-pro-desc {
+.brand-header-desc {
   font-size: 14.5px;
   color: #FFFFFF;
+  font-weight: 500;
   opacity: 0.95;
-  line-height: 1.5;
-}
-
-.badge-topcv-pro {
-  background: linear-gradient(135deg, #FBC725 0%, #F59E0B 100%);
-  color: #1F2937;
-  font-weight: 700;
-  font-size: 11.5px;
-  padding: 4px 12px;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
-}
-
-.topcv-brand-tiles {
-  perspective: 600px;
-}
-
-.topcv-brand-tile {
-  width: 52px;
-  height: 52px;
-  background: #FFFFFF;
-  border-radius: 12px;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-}
-
-.topcv-brand-tile img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
 }
 
 .company-tabs-track {
@@ -1034,36 +1001,26 @@
   box-shadow: 0 2px 8px rgba(37, 24, 12, 0.25);
 }
 
-/* Tấm Poster hiển thị 100% trọn vẹn toàn bộ ảnh và text không bị che/khuất */
-.pro-company-poster-link {
-  height: 100%;
-  min-height: 480px;
+/* Tấm poster nguyên bản không nằm trong ô/khung nào, không bị lệch khi đổi tab */
+.featured-poster-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
   border-radius: 16px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(251, 199, 37, 0.25);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  background: #FFFBEB;
-  text-decoration: none;
-  padding: 6px;
+  transition: box-shadow 0.2s ease;
 }
 
-.pro-company-poster-link:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 8px 24px rgba(251, 199, 37, 0.25);
+.featured-poster-link:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
 }
 
-.pro-company-poster-img {
+.featured-poster-img {
   width: 100%;
-  height: 100%;
-  max-height: 100%;
-  object-fit: contain; /* HIỂN THỊ TRỌN VẸN 100% TOÀN BỘ ẢNH VÀ CHỮ */
-  object-position: center;
-  border-radius: 12px;
+  height: auto;
   display: block;
+  border-radius: 16px;
+  object-fit: contain;
 }
 
 .pro-company-poster {

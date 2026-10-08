@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  FaCrown,
   FaChevronLeft,
   FaChevronRight,
   FaBriefcase,
   FaCheckCircle,
 } from 'react-icons/fa';
 import posterFeaturedImg from '../../assets/poster-featured.jpg';
+import proCompanyBannerImg from '../../assets/pro-company-banner.jpg';
 
 const COMPANY_TABS = [
   'Tất cả',
@@ -18,15 +18,6 @@ const COMPANY_TABS = [
   'Tài chính',
   'Bán lẻ - Hàng tiêu dùng - FMCG',
   'Sản xuất',
-];
-
-const BANNER_BRAND_LOGOS = [
-  { name: 'FPT', logo: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=120&q=80' },
-  { name: 'Viettel', logo: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=120&q=80' },
-  { name: 'MB Bank', logo: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=120&q=80' },
-  { name: 'Techcombank', logo: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=120&q=80' },
-  { name: 'Vinamilk', logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=120&q=80' },
-  { name: 'MISA', logo: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=120&q=80' },
 ];
 
 const MOCK_PRO_COMPANIES = [
@@ -84,6 +75,33 @@ const MOCK_PRO_COMPANIES = [
     openJobs: 21,
     verified: true,
   },
+  {
+    id: 7,
+    name: 'TẬP ĐOÀN VINGROUP - VINHOMES',
+    industry: 'Bất động sản',
+    logo: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=120&q=80',
+    cover: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+    openJobs: 36,
+    verified: true,
+  },
+  {
+    id: 8,
+    name: 'TẬP ĐOÀN HÒA PHÁT',
+    industry: 'Xây dựng, Sản xuất',
+    logo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=120&q=80',
+    cover: 'https://images.unsplash.com/photo-1541888946425-d0fbb186156f?auto=format&fit=crop&w=600&q=80',
+    openJobs: 28,
+    verified: true,
+  },
+  {
+    id: 9,
+    name: 'CÔNG TY CHỨNG KHOÁN SSI',
+    industry: 'Tài chính',
+    logo: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=120&q=80',
+    cover: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
+    openJobs: 17,
+    verified: true,
+  },
 ];
 
 export default function TopCompanies() {
@@ -109,37 +127,23 @@ export default function TopCompanies() {
       <div className="container-app">
         {/* Khung duy nhất bao bọc toàn bộ Thương hiệu lớn tiêu biểu và các công ty */}
         <div className="top-companies-box p-3 p-md-4">
-          {/* 1. Banner phong cách chuẩn TopCV Pro Company */}
-          <div className="topcv-pro-banner p-4 p-lg-4 rounded-4 mb-3 position-relative overflow-hidden">
-            <div className="row align-items-center position-relative z-2">
-              {/* Bên trái: Tiêu đề + Phụ đề + Badge Pro Company */}
-              <div className="col-12 col-md-7 col-lg-7">
-                <div className="d-flex align-items-center gap-2 mb-2">
-                  <h2 className="topcv-pro-title mb-0">Thương hiệu lớn tiêu biểu</h2>
-                  <span className="badge badge-topcv-pro">
-                    <FaCrown className="me-1" size={10} /> Pro Company
-                  </span>
-                </div>
-                <p className="topcv-pro-desc mb-0">
-                  Hàng trăm thương hiệu lớn tiêu biểu đang tuyển dụng trên JobNest Pro
-                </p>
-              </div>
+          {/* 1. Banner có ảnh JobNest làm nền nhìn rõ, không có chữ Pro Company, bỏ Pro ở sau JobNest */}
+          <div className="brand-header-banner p-4 rounded-4 mb-3 position-relative overflow-hidden">
+            {/* Ảnh banner nền JobNest nhìn rõ ràng */}
+            <img
+              src={proCompanyBannerImg}
+              alt="Thương hiệu lớn tiêu biểu"
+              className="brand-header-banner__bg"
+              loading="lazy"
+            />
+            <div className="brand-header-banner__overlay" />
 
-              {/* Bên phải: Lưới logo các thương hiệu hàng đầu dạng ô vuông trắng bo góc */}
-              <div className="col-12 col-md-5 col-lg-5 d-none d-md-block">
-                <div className="topcv-brand-tiles d-flex flex-wrap justify-content-end align-items-center gap-2">
-                  {BANNER_BRAND_LOGOS.map((brand, idx) => (
-                    <div key={idx} className="topcv-brand-tile" title={brand.name}>
-                      <img src={brand.logo} alt={brand.name} loading="lazy" />
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="position-relative z-2">
+              <h2 className="brand-header-title mb-2">Thương hiệu lớn tiêu biểu</h2>
+              <p className="brand-header-desc mb-0">
+                Hàng trăm thương hiệu lớn tiêu biểu đang tuyển dụng trên JobNest
+              </p>
             </div>
-
-            {/* Background kim loại vàng đồng và vệt sáng */}
-            <div className="topcv-pro-banner__bg" />
-            <div className="topcv-pro-banner__glow" />
           </div>
 
           {/* 2. Dải button tab lọc ngành nghề nằm bên dưới banner trên nền trắng chuẩn TopCV */}
@@ -178,19 +182,19 @@ export default function TopCompanies() {
             </div>
           </div>
 
-          {/* 3. Phần thân: Cột trái (Poster hiển thị 100% trọn vẹn) + Cột phải (2 công ty / hàng ngang) */}
-          <div className="row g-3 align-items-stretch">
-            {/* Cột trái: Tấm poster hiển thị toàn bộ ảnh và text, click toàn tấm link sang /jobs */}
+          {/* 3. Phần thân: Cột trái (Tấm poster nguyên bản không nằm trong ô nào, click sang /jobs) + Cột phải (2 công ty / hàng ngang) */}
+          <div className="row g-4 align-items-start">
+            {/* Cột trái: Poster độc lập, không bị co giật/lệch khi đổi tab */}
             <div className="col-12 col-lg-4 col-xl-35">
               <Link
                 to="/jobs"
-                className="pro-company-poster-link d-flex align-items-center justify-content-center h-100 rounded-4 overflow-hidden position-relative shadow-sm"
-                title="2000+ Việc làm phổ thông thu nhập hấp dẫn - Khám phá ngay"
+                className="featured-poster-link d-block"
+                title="Khám phá ngay 2000+ việc làm hấp dẫn"
               >
                 <img
                   src={posterFeaturedImg}
                   alt="2000+ Việc làm phổ thông thu nhập hấp dẫn - Khám phá ngay"
-                  className="pro-company-poster-img"
+                  className="featured-poster-img shadow-sm"
                   loading="lazy"
                 />
               </Link>
@@ -198,7 +202,7 @@ export default function TopCompanies() {
 
             {/* Cột phải: Danh sách các công ty sắp xếp 2 công ty hàng ngang */}
             <div className="col-12 col-lg-8 col-xl-85">
-              <div className="row g-3 row-cols-1 row-cols-md-2 h-100">
+              <div className="row g-3 row-cols-1 row-cols-md-2">
                 {filtered.map((company) => (
                   <div key={company.id} className="col">
                     <div className="company-card h-100 d-flex flex-column">
