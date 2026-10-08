@@ -318,9 +318,14 @@ img {
 }
 
 .job-card:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 14px rgba(251, 199, 37, 0.15);
   border-color: var(--color-primary);
-  transform: translateY(-2px);
+  background: #FFFDF8;
+}
+
+.job-card:hover .job-card__title a,
+.job-card:hover .job-card__company {
+  color: var(--color-primary-dark);
 }
 
 .job-card--top {
@@ -525,9 +530,17 @@ img {
 
 .job-search-item:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(251, 199, 37, 0.15);
   background: #FFFDF8;
+}
+
+.job-search-item:hover .job-search-item__title a,
+.job-search-item:hover .job-search-item__company {
+  color: var(--color-primary-dark);
+}
+
+.job-search-item:hover .job-search-item__logo {
+  border-color: var(--color-primary);
 }
 
 .job-search-item--top {
@@ -644,7 +657,6 @@ img {
 .save-btn:hover {
   border-color: var(--color-primary);
   background: var(--color-surface-alt);
-  transform: scale(1.05);
 }
 
 .save-btn--active {
