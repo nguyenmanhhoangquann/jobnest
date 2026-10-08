@@ -111,7 +111,7 @@ export default function TopCompanies() {
   const filtered = MOCK_PRO_COMPANIES.filter((c) => {
     if (activeTab === 'Tất cả') return true;
     return c.industry.includes(activeTab) || activeTab.includes(c.industry);
-  });
+  }).slice(0, 6);
 
   const scrollTabs = (direction) => {
     if (scrollRef.current) {
@@ -185,7 +185,7 @@ export default function TopCompanies() {
           {/* 3. Phần thân: Cột trái (Tấm poster nguyên bản không nằm trong ô nào, click sang /jobs) + Cột phải (2 công ty / hàng ngang) */}
           <div className="row g-4 align-items-start">
             {/* Cột trái: Poster độc lập, không bị co giật/lệch khi đổi tab */}
-            <div className="col-12 col-lg-4 col-xl-35">
+            <div className="col-12 col-lg-4">
               <Link
                 to="/jobs"
                 className="featured-poster-link d-block"
@@ -200,8 +200,8 @@ export default function TopCompanies() {
               </Link>
             </div>
 
-            {/* Cột phải: Danh sách các công ty sắp xếp 2 công ty hàng ngang */}
-            <div className="col-12 col-lg-8 col-xl-85">
+            {/* Cột phải: Đúng 6 công ty (3 hàng x 2 cột), độ rộng căn vừa vặn với poster */}
+            <div className="col-12 col-lg-8">
               <div className="row g-3 row-cols-1 row-cols-md-2">
                 {filtered.map((company) => (
                   <div key={company.id} className="col">
