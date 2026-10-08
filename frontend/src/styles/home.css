@@ -920,29 +920,82 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 }
 
+/* Banner Header gọn gàng với ảnh JobNest làm background */
+.pro-company-header-banner {
+  min-height: 120px;
+  border: 1px solid rgba(251, 199, 37, 0.35);
+  box-shadow: 0 8px 24px rgba(24, 17, 9, 0.12);
+  position: relative;
+}
+
+.pro-company-header-banner__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  z-index: 0;
+}
+
+.pro-company-header-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(20, 14, 8, 0.92) 0%, rgba(20, 14, 8, 0.78) 45%, rgba(20, 14, 8, 0.55) 100%);
+  z-index: 1;
+}
+
+.company-tab-pill--dark {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #F3F4F6 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(4px);
+}
+
+.company-tab-pill--dark:hover {
+  background: rgba(255, 255, 255, 0.28) !important;
+  color: #FFFFFF !important;
+}
+
+.circle-nav-btn--dark {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.circle-nav-btn--dark:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Tấm Poster hiển thị 100% trọn vẹn toàn bộ ảnh và text không bị che/khuất */
 .pro-company-poster-link {
   height: 100%;
-  min-height: 440px;
+  min-height: 480px;
   border-radius: 16px;
   overflow: hidden;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(251, 199, 37, 0.25);
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
   background: #FFFBEB;
   text-decoration: none;
+  padding: 6px;
 }
 
 .pro-company-poster-link:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 8px 24px rgba(251, 199, 37, 0.22);
+  box-shadow: 0 8px 24px rgba(251, 199, 37, 0.25);
 }
 
 .pro-company-poster-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  max-height: 100%;
+  object-fit: contain; /* HIỂN THỊ TRỌN VẸN 100% TOÀN BỘ ẢNH VÀ CHỮ */
   object-position: center;
+  border-radius: 12px;
   display: block;
 }
 

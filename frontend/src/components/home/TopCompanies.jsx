@@ -8,6 +8,7 @@ import {
   FaCheckCircle,
 } from 'react-icons/fa';
 import posterFeaturedImg from '../../assets/poster-featured.jpg';
+import proCompanyBannerImg from '../../assets/pro-company-banner.jpg';
 
 const COMPANY_TABS = [
   'Tất cả',
@@ -99,71 +100,82 @@ export default function TopCompanies() {
     <section className="top-companies-section py-4">
       <div className="container-app">
         {/* Khung duy nhất bao bọc toàn bộ Thương hiệu lớn tiêu biểu và các công ty */}
-        <div className="top-companies-box p-3 p-md-4 p-xl-4">
-          {/* Header trong khung: Tiêu đề & Dải tab lọc ngành */}
-          <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4 pb-3 border-bottom">
-            <div>
-              <div className="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                <span className="badge badge-pro-company">
-                  <FaCrown className="me-1" size={11} /> Pro Company
-                </span>
-                <span className="small text-muted fw-semibold">Đối tác chiến lược hàng đầu</span>
-              </div>
-              <h2 className="section-title-jobnest mb-1">Thương hiệu lớn tiêu biểu</h2>
-              <p className="small text-muted mb-0">
-                Hàng trăm tập đoàn và doanh nghiệp hàng đầu đang mở rộng cơ hội tuyển dụng trên JobNest
-              </p>
-            </div>
+        <div className="top-companies-box p-3 p-md-4">
+          {/* Header trong khung: Banner nền hình JobNest đã xóa logo Gemini, gọn chiều dọc */}
+          <div className="pro-company-header-banner p-3 p-md-4 rounded-4 mb-4 text-white position-relative overflow-hidden">
+            {/* Ảnh banner nền */}
+            <img
+              src={proCompanyBannerImg}
+              alt="Thương hiệu lớn tiêu biểu"
+              className="pro-company-header-banner__bg"
+              loading="lazy"
+            />
+            <div className="pro-company-header-banner__overlay" />
 
-            {/* Dải tab lọc ngành nghề kèm nút cuộn */}
-            <div className="d-flex align-items-center gap-2">
-              <div className="company-tabs-track" ref={scrollRef}>
-                {COMPANY_TABS.map((tab) => (
+            <div className="position-relative z-2 d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-3">
+              <div>
+                <div className="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                  <span className="badge badge-pro-company">
+                    <FaCrown className="me-1" size={11} /> Pro Company
+                  </span>
+                  <span className="small text-white-50 fw-semibold">Đối tác chiến lược hàng đầu</span>
+                </div>
+                <h2 className="pro-company-title mb-1">Thương hiệu lớn tiêu biểu</h2>
+                <p className="pro-company-desc mb-0">
+                  Hàng trăm tập đoàn và doanh nghiệp hàng đầu đang mở rộng cơ hội tuyển dụng trên JobNest
+                </p>
+              </div>
+
+              {/* Dải tab lọc ngành nghề dạng pill kèm nút cuộn */}
+              <div className="d-flex align-items-center gap-2 flex-shrink-0">
+                <div className="company-tabs-track" ref={scrollRef}>
+                  {COMPANY_TABS.map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      className={`company-tab-pill company-tab-pill--dark ${activeTab === tab ? 'company-tab-pill--active' : ''}`}
+                      onClick={() => setActiveTab(tab)}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="d-flex gap-1 flex-shrink-0">
                   <button
-                    key={tab}
                     type="button"
-                    className={`company-tab-pill ${activeTab === tab ? 'company-tab-pill--active' : ''}`}
-                    onClick={() => setActiveTab(tab)}
+                    className="circle-nav-btn circle-nav-btn--sm circle-nav-btn--dark"
+                    onClick={() => scrollTabs('left')}
+                    aria-label="Cuộn tab sang trái"
                   >
-                    {tab}
+                    <FaChevronLeft size={11} />
                   </button>
-                ))}
-              </div>
-
-              <div className="d-flex gap-1 flex-shrink-0">
-                <button
-                  type="button"
-                  className="circle-nav-btn circle-nav-btn--sm"
-                  onClick={() => scrollTabs('left')}
-                  aria-label="Cuộn tab sang trái"
-                >
-                  <FaChevronLeft size={11} />
-                </button>
-                <button
-                  type="button"
-                  className="circle-nav-btn circle-nav-btn--sm"
-                  onClick={() => scrollTabs('right')}
-                  aria-label="Cuộn tab sang phải"
-                >
-                  <FaChevronRight size={11} />
-                </button>
+                  <button
+                    type="button"
+                    className="circle-nav-btn circle-nav-btn--sm circle-nav-btn--dark"
+                    onClick={() => scrollTabs('right')}
+                    aria-label="Cuộn tab sang phải"
+                  >
+                    <FaChevronRight size={11} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Phần thân: Cột trái (Poster có nút Khám phá ngay trên ảnh) + Cột phải (2 công ty / hàng ngang) */}
+          {/* Phần thân: Cột trái (Poster trọn vẹn không khuất chữ) + Cột phải (2 công ty / hàng ngang) */}
           <div className="row g-3 align-items-stretch">
-            {/* Cột trái: Tấm poster có sẵn nút Khám phá ngay, click toàn tấm link sang /jobs */}
+            {/* Cột trái: Tấm poster hiển thị toàn bộ ảnh và text, click toàn tấm link sang /jobs */}
             <div className="col-12 col-lg-4 col-xl-35">
               <Link
                 to="/jobs"
-                className="pro-company-poster-link d-block h-100 rounded-4 overflow-hidden position-relative shadow-sm"
+                className="pro-company-poster-link d-flex align-items-center justify-content-center h-100 rounded-4 overflow-hidden position-relative shadow-sm"
                 title="2000+ Việc làm phổ thông thu nhập hấp dẫn - Khám phá ngay"
               >
                 <img
                   src={posterFeaturedImg}
                   alt="2000+ Việc làm phổ thông thu nhập hấp dẫn - Khám phá ngay"
-                  className="pro-company-poster-img w-100 h-100"
+                  className="pro-company-poster-img"
                   loading="lazy"
                 />
               </Link>
