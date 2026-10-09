@@ -19,7 +19,7 @@ export const mockJobs = [
     "company": {
       "id": 1,
       "name": "CÔNG TY CỔ PHẦN K&M HOLDINGS",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/zJsv7DFbrY9dNT7TCco2gLJwmHe2uWqH_1742464853____1ab0e823e706c9db323941376c744816.png"
+      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": true,
@@ -52,7 +52,7 @@ export const mockJobs = [
     "company": {
       "id": 2,
       "name": "CHI NHÁNH CÔNG TY CỔ PHẦN CÔNG NGHỆ THÔNG TIN TRUYỀN THÔNG THIÊN HY LONG VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6abb85427acb21790674242.png"
+      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -85,7 +85,7 @@ export const mockJobs = [
     "company": {
       "id": 3,
       "name": "CÔNG TY CP SẢN XUẤT VÀ THƯƠNG MẠI AN VIỆT",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68789caa080471752734890.png"
+      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -118,7 +118,7 @@ export const mockJobs = [
     "company": {
       "id": 4,
       "name": "CÔNG TY CỔ PHẦN PHÁT TRIỂN ĐẦU TƯ XÂY DỰNG VIỆT NAM (VINADIC- THUỘC TẬP ĐOÀN AMACCAO)",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/gSZj1hotlNkJtL7wXUVM0RmzcaxN3Ex5_1648804377____43b39bd787dfd34794b560b9b53675a1.png"
+      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -151,7 +151,7 @@ export const mockJobs = [
     "company": {
       "id": 5,
       "name": "CÔNG TY TNHH HP PRO ENTERTAINMENT",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/XFyZxwDNMOxyJnI6xrqbT5Npaw7Q47iV_1781667140____6dcb43b7ddd9c2fbf7cd86cfb9245214.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -184,7 +184,7 @@ export const mockJobs = [
     "company": {
       "id": 6,
       "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68eefa26e5a991760492070.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -217,7 +217,7 @@ export const mockJobs = [
     "company": {
       "id": 7,
       "name": "CÔNG TY TNHH AUSSMILE",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/kz7xhm5Jjo4rV9QNykzK28ySisxWU2r5_1788967503____bce721eb8b0362b6f316fcbc74aede70.jpeg"
+      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -250,7 +250,7 @@ export const mockJobs = [
     "company": {
       "id": 8,
       "name": "CÔNG TY CỔ PHẦN KIẾN TRÚC - XÂY DỰNG XANH BABYLON",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68dcd4f5e8a961759302901.png"
+      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -283,7 +283,7 @@ export const mockJobs = [
     "company": {
       "id": 9,
       "name": "CÔNG TY TNHH TƯ VẤN THUÊ, KẾ TOÁN & KIỂM TOÁN VIỆT TÍN",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/U6uQ1VmbfGJV6CEl84Tk8MMTXt0XpkOc_1670213559____e3cdef28f4d186e8f40206ddbe94d1d2.png"
+      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -316,7 +316,7 @@ export const mockJobs = [
     "company": {
       "id": 10,
       "name": "CÔNG TY TNHH SIMPSON STRONG-TIE VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-tnhh-simpson-strong-tie-viet-nam-599bdf0e77288_rs.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -349,7 +349,7 @@ export const mockJobs = [
     "company": {
       "id": 11,
       "name": "CÔNG TY TNHH DIALECTICA VIETNAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/hOHwyR6gJSeTI9fY8iHmVhH8f4Ack5ez_1775624269____6d468d584b754a5a14ec4d626c1e1e0c.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -382,7 +382,7 @@ export const mockJobs = [
     "company": {
       "id": 12,
       "name": "CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN BCONS PS",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6a4b64e7820231783325927.png"
+      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -415,7 +415,7 @@ export const mockJobs = [
     "company": {
       "id": 13,
       "name": "CÔNG TY TNHH ATB GLOBAL",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/BgzXcLJSkO2AJKgV7yoOs6VMwyRrwGKu_1787541093____ad872b82d7446195c3e8120fa3b966a4.jfif"
+      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -448,7 +448,7 @@ export const mockJobs = [
     "company": {
       "id": 14,
       "name": "CÔNG TY TNHH THIẾT BỊ ĐIỆN SHIHLIN VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6a8ff101398a51787818241.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -481,7 +481,7 @@ export const mockJobs = [
     "company": {
       "id": 15,
       "name": "CÔNG TY CỔ PHẦN THƯƠNG MẠI H2T HÀ NỘI",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-co-phan-thuong-mai-h2t-ha-noi-a67db0e5350b188a44ca033249fdf4fc-64e5697d4bc88.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -514,7 +514,7 @@ export const mockJobs = [
     "company": {
       "id": 16,
       "name": "CÔNG TY CỔ PHẦN ĐẦU TƯ XÂY DỰNG VÀ THƯƠNG MẠI BẢO TÍN",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-co-phan-dau-tu-xay-dung-va-thuong-mai-bao-tin-62591d0fc0e64.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -547,7 +547,7 @@ export const mockJobs = [
     "company": {
       "id": 17,
       "name": "CÔNG TY CỔ PHẦN HỢP TÁC ĐẦU TƯ GIÁO DỤC QUỐC TẾ TÍN PHÁT",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-co-phan-hop-tac-dau-tu-giao-duc-quoc-te-tin-phat-5eb5142cb5fdf.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -580,7 +580,7 @@ export const mockJobs = [
     "company": {
       "id": 18,
       "name": "CÔNG TY TNHH TM DV KẾT GIAO PHÁT TRIỂN QUỐC TẾ ( IDECO)",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-tnhh-tm-dv-ket-giao-phat-trien-quoc-te-ideco-6285a46fd9843.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -613,7 +613,7 @@ export const mockJobs = [
     "company": {
       "id": 19,
       "name": "CÔNG TY TNHH MỘT THÀNH VIÊN HA LE",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/xhZuTcYVmP3aKKb97bJTw6HXUrsQ21pH_1790576450____158440d370adb4f8589f1ab573772922.png"
+      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -646,7 +646,7 @@ export const mockJobs = [
     "company": {
       "id": 20,
       "name": "CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN MAXREAL",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-co-phan-bat-dong-san-maxreal-61c1862e77967.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -679,7 +679,7 @@ export const mockJobs = [
     "company": {
       "id": 21,
       "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68eefa26e5a991760492070.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": true,
@@ -712,7 +712,7 @@ export const mockJobs = [
     "company": {
       "id": 22,
       "name": "CÔNG TY CỔ PHẦN DỊCH VỤ VÀ ĐỊA ỐC KIẾN HƯNG",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-co-phan-dich-vu-va-dia-oc-kien-hung-5c08a98696eb5_rs.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -745,7 +745,7 @@ export const mockJobs = [
     "company": {
       "id": 23,
       "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68eefa26e5a991760492070.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -778,7 +778,7 @@ export const mockJobs = [
     "company": {
       "id": 24,
       "name": "CÔNG TY CỔ PHẦN ĐẦU TƯ THƯƠNG MẠI TÂY VIÊN HÀ NỘI",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/n71AOmFln4ThGe8BRq2fdp6YHGmPIgB7_1750220802____ab49528acfb0f4f924f6431d714a9560.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -811,7 +811,7 @@ export const mockJobs = [
     "company": {
       "id": 25,
       "name": "CÔNG TY TNHH BBQ VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/wxMo8zzDMNSYa6rE3r0GLkmyXsLCJBKQ_1650258290____7072fdda7e6d7e82c0470107cff3ffc2.png"
+      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -844,7 +844,7 @@ export const mockJobs = [
     "company": {
       "id": 26,
       "name": "CÔNG TY TNHH BẢO HIỂM NHÂN THỌ SUN LIFE VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-tnhh-bao-hiem-nhan-tho-sun-life-viet-nam-5fd03684a7cdd.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -877,7 +877,7 @@ export const mockJobs = [
     "company": {
       "id": 27,
       "name": "CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ KỸ THUẬT BIA",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/BxZ9JIQFqNrT6Nb9GyqAiqaxnzP5g8XZ_1690775439____45a5231f7ead1423ea765fb5e2e25113.png"
+      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -910,7 +910,7 @@ export const mockJobs = [
     "company": {
       "id": 28,
       "name": "CÔNG TY TNHH GIÁO DỤC IELTS MENTOR",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/635072fb0e4de37cd31a03e8dfe4854c-6569536e9b143.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -943,7 +943,7 @@ export const mockJobs = [
     "company": {
       "id": 29,
       "name": "NOVALAND GROUP CORP",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/BArmC3Rnkdp9gNmXStSkXb0n6ACuS7dj_1657857868____421d88ded357fb7c2523abd83c85e998.PNG"
+      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -976,7 +976,7 @@ export const mockJobs = [
     "company": {
       "id": 30,
       "name": "HỘ KINH DOANH BAO LÀNH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/9xodX9fb3OMclkCLZUIssIOboNLdRD8G_1790312721____4f0a5851e2ddd8709ceff9e8e7803113.png"
+      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1009,7 +1009,7 @@ export const mockJobs = [
     "company": {
       "id": 31,
       "name": "CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ Ý CƯỜNG THỊNH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/m5r9K96GTXAN4So4nf02CttgKBAGRtkG_1723097165____9c2f3fd4d7b69a41a906f12dda1f69e5.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1042,7 +1042,7 @@ export const mockJobs = [
     "company": {
       "id": 32,
       "name": "CÔNG TY CỔ PHẦN THƯƠNG MẠI VÀ TỰ ĐỘNG HÓA ADI",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68d4fafca98ba1758788348.png"
+      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1075,7 +1075,7 @@ export const mockJobs = [
     "company": {
       "id": 33,
       "name": "CHI NHÁNH CÔNG TY CỔ PHẦN TẬP ĐOÀN SUNHOUSE TẠI THÀNH PHỐ HỒ CHÍ MINH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/67ff1a4f8a7e01744771663.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1108,7 +1108,7 @@ export const mockJobs = [
     "company": {
       "id": 34,
       "name": "CÔNG TY CỔ PHẦN HSC SMART RETAIL VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/8CERDjvhekt6ou0sdFOAPaHmZ8tfZmNZ_1653554526____11021e150882eb57b45afd0acdee9d1f.gif"
+      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1141,7 +1141,7 @@ export const mockJobs = [
     "company": {
       "id": 35,
       "name": "CÔNG TY TNHH TM THIÊN THỦY MỘC",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cb9Vf0qwmljRL7eCj1Pr2Rqsq8yaroH9_1647053525____b0ed0996d3d63ad13224acb3ad1a3582.png"
+      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1174,7 +1174,7 @@ export const mockJobs = [
     "company": {
       "id": 36,
       "name": "CÔNG TY CỔ PHẦN URI AESTHETIC GROUP",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/69a113a17135c1772164001.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1207,7 +1207,7 @@ export const mockJobs = [
     "company": {
       "id": 37,
       "name": "CÔNG TY TNHH KING VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/wf2y4Qo378kVSg176NdFuLaRaWwmgBAN_1728455815____8a7d7f9dfdab37452c64dc39b5e3bd80.png"
+      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1240,7 +1240,7 @@ export const mockJobs = [
     "company": {
       "id": 38,
       "name": "GOOD FOOD CO., LTD",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/DmPiGt4XMsf435Ek7pMfV2YlYRKHQFCj_1715243708____6ca280d91679de0e07bae2787bb74c5b.png"
+      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1273,7 +1273,7 @@ export const mockJobs = [
     "company": {
       "id": 39,
       "name": "CÔNG TY TNHH FERTRADE VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/5O3BLV92AJ2lIahpIrJnb0Dsu9gyvJES_1696319033____365ae265cca2cba4e6ea1b99bd0df20d.png"
+      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1306,7 +1306,7 @@ export const mockJobs = [
     "company": {
       "id": 40,
       "name": "CÔNG TY CỔ PHẦN COASIA CM VINA",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/ybDAmWfA7V1eBSqSJvO9x9l0bN5aeQIw_1784106509____6d157a38aad8c83b538eb239d896428d.png"
+      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1339,7 +1339,7 @@ export const mockJobs = [
     "company": {
       "id": 41,
       "name": "CÔNG TY TNHH ANH NGỮ ENVIS SCHOOL",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/RAplyBBN5m2S4HOIGUT1caz88iFPEWvd_1759997190____3e0ee0827dc5aba434bf9035245a471c.png"
+      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": true,
@@ -1372,7 +1372,7 @@ export const mockJobs = [
     "company": {
       "id": 42,
       "name": "CÔNG TY CỔ PHẦN ĐÀO TẠO VÀ THIẾT KẾ AWE",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/r236JSPYAS2FsXmGef8Zo8iUo6MxlvS6_1778042162____492b4f6aec9a734871266c75b2a3ce95.png"
+      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1405,7 +1405,7 @@ export const mockJobs = [
     "company": {
       "id": 43,
       "name": "CÔNG TY CỔ PHẦN MISA",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/YVVFSY05ZUhqjlVHtBl2kOD1a189WFj0_1652947920____d78c5dd2ab820dcbb9a367b40e712067.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1438,7 +1438,7 @@ export const mockJobs = [
     "company": {
       "id": 44,
       "name": "CÔNG TY TNHH TTSMART",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/uwGXHSAKi3NJXUNXlfOFIrY9w25p4GdD_1780308545____f1e54d4b3d632eead25467edce787739.png"
+      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1471,7 +1471,7 @@ export const mockJobs = [
     "company": {
       "id": 45,
       "name": "NGÂN HÀNG TMCP HÀNG HẢI VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6a61dafeca2c21784797950.png"
+      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1504,7 +1504,7 @@ export const mockJobs = [
     "company": {
       "id": 46,
       "name": "CÔNG TY CỔ PHẦN THỰC PHẨM QUỐC TẾ C&C",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-co-phan-thuc-pham-quoc-te-cc-628f19c5e352b.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1537,7 +1537,7 @@ export const mockJobs = [
     "company": {
       "id": 47,
       "name": "CÔNG TY CỔ PHẦN XHOME QUẢNG NINH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6a0442c0a14fd1778664128.png"
+      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1570,7 +1570,7 @@ export const mockJobs = [
     "company": {
       "id": 48,
       "name": "GALAXY EDUCATION JOINT STOCK COMPANY",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/galaxy-education-joint-stock-company-60c02e08afbff.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1603,7 +1603,7 @@ export const mockJobs = [
     "company": {
       "id": 49,
       "name": "MAC MARKETING",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/mac-marketing-6161527f0f7b2.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1636,7 +1636,7 @@ export const mockJobs = [
     "company": {
       "id": 50,
       "name": "CÔNG TY TNHH XE NÂNG PHÚC LÂM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/680609df3663b1745226207.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1669,7 +1669,7 @@ export const mockJobs = [
     "company": {
       "id": 51,
       "name": "CÔNG TY CỔ PHẦN DỊCH VỤ VÀ ĐỊA ỐC KIẾN HƯNG",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-co-phan-dich-vu-va-dia-oc-kien-hung-5c08a98696eb5_rs.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1702,7 +1702,7 @@ export const mockJobs = [
     "company": {
       "id": 52,
       "name": "CÔNG TY TNHH TRUYỀN THÔNG VÀ GT CD MEDIA",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/pEOhCV9sqNFuNKo5XjUDZ8dWKuLIzMYy_1790151102____3945b0be399e7a385d0d836521d442bc.png"
+      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1735,7 +1735,7 @@ export const mockJobs = [
     "company": {
       "id": 53,
       "name": "CÔNG TY TNHH THƯƠNG MẠI SẢN XUẤT CÔNG NGHIỆP NHÔM VIỆT PHÁP SHAL",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6a99201bac1291788420123.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1768,7 +1768,7 @@ export const mockJobs = [
     "company": {
       "id": 54,
       "name": "CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN BCONS PS",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/682fd08396e4b1747964035.jfif"
+      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1801,7 +1801,7 @@ export const mockJobs = [
     "company": {
       "id": 55,
       "name": "CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN BCONS PS",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/682fd08396e4b1747964035.jfif"
+      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1834,7 +1834,7 @@ export const mockJobs = [
     "company": {
       "id": 56,
       "name": "CÔNG TY CỔ PHẦN SALTLUX TECHNOLOGY",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/UYjiCDyHjORu5lSU012tOFYlaftPtJYG_1773387901____5bffb65f6de8c80617446235099b4e61.png"
+      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1867,7 +1867,7 @@ export const mockJobs = [
     "company": {
       "id": 57,
       "name": "CÔNG TY CỔ PHẦN THỂ THAO KOJI",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68cf74ab78fd41758426283.png"
+      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1900,7 +1900,7 @@ export const mockJobs = [
     "company": {
       "id": 58,
       "name": "CÔNG TY TNHH TRẦN THÀNH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-tnhh-tran-thanh-59e96b4b6961f_rs.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1933,7 +1933,7 @@ export const mockJobs = [
     "company": {
       "id": 59,
       "name": "CÔNG TY CỔ PHẦN CHỨNG KHOÁN DẦU KHÍ (PSI)",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/gf2V84avLIBwVBEtZ4tjZp6IsmoUyBAT_1748327017____d5d5a78e3cf3dcbd8370f2769fd8f198.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1966,7 +1966,7 @@ export const mockJobs = [
     "company": {
       "id": 60,
       "name": "CÔNG TY CỔ PHẦN GIẤY CP",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-co-phan-giay-cp-61933a1c3a7f1.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1999,7 +1999,7 @@ export const mockJobs = [
     "company": {
       "id": 61,
       "name": "CÔNG TY TNHH GIÁO DỤC HÁN NGỮ QUỐC TẾ HOA VIỆT HƯNG",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68b185229dda91756464418.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": true,
@@ -2032,7 +2032,7 @@ export const mockJobs = [
     "company": {
       "id": 62,
       "name": "CÔNG TY TNHH ĐÚC ĐỒNG ĐỆ NHẤT ĐỈNH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/686789d795caf1751615959.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2065,7 +2065,7 @@ export const mockJobs = [
     "company": {
       "id": 63,
       "name": "CÔNG TY TNHH TINA PET VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/68d602104bef41758855696.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2098,7 +2098,7 @@ export const mockJobs = [
     "company": {
       "id": 64,
       "name": "CÔNG TY TNHH NHÂN HÒA VINA",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/dcQwbJHxB31D0kKWauUrRjTpA1vOG55z_1745030439____d4b493a037a52bba4a0c21e20958309a.png"
+      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2131,7 +2131,7 @@ export const mockJobs = [
     "company": {
       "id": 65,
       "name": "CÔNG TY TNHH ĐẦU TƯ CÔNG NGHỆ MÁY TÍNH VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/RMS2VWLpnJ68meX9fymjihm25u9QTZ0e_1790907720____cb1f31e4537d54aa0fa7685004177cc9.png"
+      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -2164,7 +2164,7 @@ export const mockJobs = [
     "company": {
       "id": 66,
       "name": "CÔNG TY CỔ PHẦN XÂY DỰNG & THƯƠNG MẠI ĐẤT THÀNH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/61f71caefaf86ffe017869a18a528423-66b470a5563a2.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -2197,7 +2197,7 @@ export const mockJobs = [
     "company": {
       "id": 67,
       "name": "CÔNG TY TNHH THƯƠNG MẠI NCA (VN)",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/69c3c113ec33b1774436627.png"
+      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2230,7 +2230,7 @@ export const mockJobs = [
     "company": {
       "id": 68,
       "name": "CÔNG TY TNHH PRINTEK",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6ab486de8102a1790215902.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2263,7 +2263,7 @@ export const mockJobs = [
     "company": {
       "id": 69,
       "name": "CÔNG TY CỔ PHẦN GIÁO DỤC EDUCA CORPORATION",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/edupia-738d242f1fe18d4bbd6e7dc01d9b31c1-6594db35ebfd5.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -2296,7 +2296,7 @@ export const mockJobs = [
     "company": {
       "id": 70,
       "name": "CÔNG TY TNHH THẨM MỸ AZ NOSE",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/kriDLAsEPOzdmOup0nUFywp8rp45ecgw_1720512235____bb19b4af7f39429d817845bf3fcf6d81.png"
+      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2329,7 +2329,7 @@ export const mockJobs = [
     "company": {
       "id": 71,
       "name": "CÔNG TY TNHH THƯ KỲ ANH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/rIPj4mONHc9B46TFMsnXEgEHpp5gvXKw_1786504604____c3335263d72cd6164a8d89adf100842e.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -2362,7 +2362,7 @@ export const mockJobs = [
     "company": {
       "id": 72,
       "name": "CÔNG TY TNHH DU LỊCH CROSSING VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/ndpZ9Y3N0Xk5ERo2Ny1zqPQme4Pao1tR_1758784110____92264b258f73fd3743a8e91b076e1fce.png"
+      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2395,7 +2395,7 @@ export const mockJobs = [
     "company": {
       "id": 73,
       "name": "CÔNG TY CỔ PHẦN CÔNG NGHỆ SỐ VCI",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/9Cxbwtg3YosYxYS9q3AVzhIoqn6LoE34_1773720648____bb2b652757b6030a97e2782476d01fce.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -2428,7 +2428,7 @@ export const mockJobs = [
     "company": {
       "id": 74,
       "name": "CÔNG TY TNHH ĐẦU TƯ PREMIER PROPERTY HOLDINGS",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6ac36ec328a641791192771.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2461,7 +2461,7 @@ export const mockJobs = [
     "company": {
       "id": 75,
       "name": "CÔNG TY TNHH SẢN XUẤT VÀ THƯƠNG MẠI VĨNH KỲ",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6836de63534ec1748426339.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2494,7 +2494,7 @@ export const mockJobs = [
     "company": {
       "id": 76,
       "name": "CHI NHÁNH CÔNG TY TNHH SMC CORPORATION ( VIỆT NAM ) TẠI BẮC NINH",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/eQXaZ6Lnc9Riyrfh96HMenU7YyWN1b2o_1715057055____e34a636158ee8c6de5cd9ca0471832b3.jpeg"
+      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": true,
@@ -2527,7 +2527,7 @@ export const mockJobs = [
     "company": {
       "id": 77,
       "name": "CÔNG TY TNHH TÂY SG",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/6ac30fcb81f941791168459.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": true,
     "isUrgent": false,
@@ -2560,7 +2560,7 @@ export const mockJobs = [
     "company": {
       "id": 78,
       "name": "CÔNG TY CỔ PHẦN TẬP ĐOÀN MOTIF VIETNAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/D4T7uTKckDXYvJbNsH0Ovgirv9PyfkQt_1738808377____b0642458e0495b1c3069da85f0f8da6b.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2593,7 +2593,7 @@ export const mockJobs = [
     "company": {
       "id": 79,
       "name": "CÔNG TY TNHH INTRON LIFE SCIENCES VIỆT NAM",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-tnhh-intron-life-sciences-viet-nam-5f27bebec27a9.jpg"
+      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2626,7 +2626,7 @@ export const mockJobs = [
     "company": {
       "id": 80,
       "name": "CÔNG TY CỔ PHẦN CÔNG NGHỆ A.I-SOFT",
-      "logoUrl": "https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/yk2Kw0hANGYafOffdaFLmAJRiNmiS7Vg_1644931810____aa041e75f6927052a8ffb1bdccde1696.jpeg"
+      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
     },
     "isHot": false,
     "isUrgent": false,

@@ -87,7 +87,7 @@ export default function JobList() {
 
   return (
     <div className="job-list-page py-4">
-      {/* Container mở rộng sát 2 bên mép chuẩn TopCV */}
+      {/* Container mở rộng sát 2 bên mép */}
       <div className="container-fluid px-3 px-xl-5">
         {/* Nút bật/tắt bộ lọc trên mobile */}
         <div className="d-lg-none mb-3">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import {
   FaUsers,
@@ -14,6 +14,7 @@ import {
 } from 'react-icons/fa';
 import { showToast } from '../../components/common/ToastHost.jsx';
 import { VIOLATION_TYPES } from '../../constants.js';
+import reportApi from '../../api/reportApi.js';
 
 export default function AdminDashboard() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -86,52 +87,36 @@ export default function AdminDashboard() {
     { id: 5, username: 'viettel_telecom', fullName: 'Viettel Telecom', email: 'tuyendung@viettel.com.vn', role: 'EMPLOYER', joined: '15/09/2026', status: 'ACTIVE' },
   ]);
 
-  // Dữ liệu mock báo cáo vi phạm
-  const [reports, setReports] = useState([
-    {
-      id: 1,
-      targetType: 'JOB',
-      targetTitle: 'Việc nhẹ lương cao - Nhập liệu tại nhà 30tr/tháng',
-      violator: 'Công ty TNHH Đầu tư Thịnh Vượng 4.0',
-      reason: 'Tin tuyển dụng giả, lừa đảo hoặc thông tin sai lệch',
-      reasonCode: 'FAKE_JOB',
-      details: 'Yêu cầu ứng viên chuyển khoản trước 500.000đ tiền cọc tài liệu.',
-      reportedBy: 'nguyenvanhung',
-      date: '08/10/2026',
-    },
-    {
-      id: 2,
-      targetType: 'JOB',
-      targetTitle: 'Nhân viên lễ tân (Yêu cầu nữ độc thân, dưới 23 tuổi, cao > 1m65)',
-      violator: 'Quán Cafe SkyView',
-      reason: 'Nội dung phân biệt giới tính, tuổi, vùng miền, ngoại hình...',
-      reasonCode: 'DISCRIMINATION',
-      details: 'Phân biệt giới tính và yêu cầu ngoại hình trái quy định tuyển dụng.',
-      reportedBy: 'lethithu',
-      date: '07/10/2026',
-    },
-    {
-      id: 3,
-      targetType: 'USER',
-      targetTitle: 'Hồ sơ ứng viên: Bot spam tự động nộp hồ sơ',
-      violator: 'Tài khoản: bot_spammer_99',
-      reason: 'Thu thập dữ liệu hàng loạt, spam ứng viên / CV giả mạo',
-      reasonCode: 'DATA_CRAWL_SPAM',
-      details: 'Gửi 150 đơn ứng tuyển trong 2 phút với nội dung rác.',
-      reportedBy: 'fpt_recruitment',
-      date: '06/10/2026',
-    },
-  ]);
+  // Quản lý & Lịch sử báo cáo vi phạm qua reportApi
+  const [reports, setReports] = useState([]);
+  const [reportFilter, setReportFilter] = useState('ALL');
 
-  const handleResolveReport = (reportId, isActionTaken) => {
-    setReports((prev) => prev.filter((r) => r.id !== reportId));
-    showToast(
-      isActionTaken ? 'success' : 'info',
-      isActionTaken
-        ? `Đã xử lý vi phạm #${reportId}: Nội dung đã bị khóa và cảnh cáo tài khoản!`
-        : `Đã bác bỏ báo cáo #${reportId}: Nội dung được xác định là hợp lệ.`
-    );
+  useEffect(() => {
+    reportApi.getReports().then((data) => setReports(data || []));
+  }, []);
+
+  const handleUpdateReportStatus = async (reportId, newStatus, message) => {
+    const updated = await reportApi.updateStatus(reportId, newStatus);
+    setReports(updated);
+    showToast('success', message);
   };
+
+  const targetReportCounts = useMemo(() => {
+    return reports.reduce((acc, r) => {
+      const key = `${r.targetType}_${r.targetId}`;
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+  }, [reports]);
+
+  const filteredReports = useMemo(() => {
+    if (reportFilter === 'ALL') return reports;
+    return reports.filter((r) => r.status === reportFilter);
+  }, [reports, reportFilter]);
+
+  const pendingReportsCount = useMemo(() => {
+    return reports.filter((r) => r.status === 'PENDING').length;
+  }, [reports]);
 
   // Xử lý duyệt hoặc từ chối tin tuyển dụng
   const handleApproveJob = (jobId, approve) => {
@@ -199,7 +184,7 @@ export default function AdminDashboard() {
               className={`btn btn-sm ${currentTab === 'reports' ? 'btn-danger text-white' : 'btn-light text-danger'}`}
               onClick={() => setSearchParams({ tab: 'reports' })}
             >
-              <FaShieldAlt className="me-1" /> Báo cáo vi phạm ({reports.length})
+              <FaShieldAlt className="me-1" /> Báo cáo ({pendingReportsCount > 0 ? `${pendingReportsCount} mới` : reports.length})
             </button>
           </div>
         </div>
@@ -250,13 +235,13 @@ export default function AdminDashboard() {
               <div className="col-12 col-sm-6 col-lg-3">
                 <div className="card border-0 shadow-sm rounded-3 p-3 bg-white h-100">
                   <div className="d-flex align-items-center justify-content-between mb-2">
-                    <span className="text-muted small fw-semibold">Báo cáo vi phạm / CV</span>
+                    <span className="text-muted small fw-semibold">Báo cáo vi phạm</span>
                     <span className="p-2 rounded-circle bg-danger-subtle text-danger">
                       <FaShieldAlt size={16} />
                     </span>
                   </div>
-                  <h3 className="fw-bold mb-0 text-danger">{stats.reportedContent}</h3>
-                  <small className="text-danger mt-1 d-block">Cần xử lý kịp thời</small>
+                  <h3 className="fw-bold mb-0 text-danger">{pendingReportsCount}</h3>
+                  <small className="text-danger mt-1 d-block">{reports.length} bản ghi lịch sử</small>
                 </div>
               </div>
             </div>
@@ -287,7 +272,7 @@ export default function AdminDashboard() {
                           <td>{job.company}</td>
                           <td><span className="badge bg-warning-subtle text-dark">{job.salary}</span></td>
                           <td className="small text-muted">{job.date}</td>
-                          <td className="text-end">
+                          <td className="text-end text-nowrap">
                             <button
                               type="button"
                               className="btn btn-sm btn-success me-2"
@@ -463,91 +448,183 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* 5. KHỐI GIÁM SÁT VI PHẠM & XỬ LÝ (9 TIÊU CHÍ AN TOÀN HỆ THỐNG) */}
+        {/* 5. KHỐI QUẢN LÝ & LỊCH SỬ BÁO CÁO VI PHẠM */}
         {currentTab === 'reports' && (
           <div>
             <div className="card border-0 shadow-sm rounded-3 p-4 bg-white mb-4">
               <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                 <div>
                   <h2 className="h5 fw-bold mb-1 text-danger d-flex align-items-center gap-2">
-                    <FaShieldAlt /> Danh sách nội dung bị báo cáo vi phạm
+                    <FaShieldAlt /> Lịch sử & Quản lý báo cáo vi phạm
                   </h2>
                   <p className="small text-muted mb-0">
-                    Hệ thống kiểm duyệt theo 9 tiêu chuẩn cộng đồng và quy định pháp luật lao động.
+                    Lưu trữ toàn bộ báo cáo từ người dùng. Luồng xử lý: PENDING → REVIEWING → RESOLVED / REJECTED.
                   </p>
                 </div>
-                <span className="badge bg-danger-subtle text-danger fs-6 px-3 py-2">
-                  {reports.length} vụ việc chờ xử lý
-                </span>
+                <div className="d-flex gap-2">
+                  <span className="badge bg-warning-subtle text-warning-emphasis fs-6 px-3 py-2">
+                    {pendingReportsCount} chờ xử lý
+                  </span>
+                  <span className="badge bg-secondary-subtle text-secondary fs-6 px-3 py-2">
+                    {reports.length} tổng số
+                  </span>
+                </div>
               </div>
 
-              {reports.length === 0 ? (
+              {/* Bộ lọc trạng thái */}
+              <div className="d-flex gap-2 mb-3 flex-wrap">
+                {[
+                  { key: 'ALL', label: `Tất cả (${reports.length})` },
+                  { key: 'PENDING', label: `Chờ xử lý (${reports.filter((r) => r.status === 'PENDING').length})` },
+                  { key: 'REVIEWING', label: `Đang xem xét (${reports.filter((r) => r.status === 'REVIEWING').length})` },
+                  { key: 'RESOLVED', label: `Đã xử lý / Vi phạm (${reports.filter((r) => r.status === 'RESOLVED').length})` },
+                  { key: 'REJECTED', label: `Đã bác bỏ / Hợp lệ (${reports.filter((r) => r.status === 'REJECTED').length})` },
+                ].map((tab) => (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    className={`btn btn-sm ${reportFilter === tab.key ? 'btn-danger' : 'btn-outline-secondary'}`}
+                    onClick={() => setReportFilter(tab.key)}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {filteredReports.length === 0 ? (
                 <div className="p-5 text-center text-muted">
                   <FaCheckCircle size={36} className="text-success mb-2 d-block mx-auto" />
-                  Hệ thống an toàn! Không có nội dung vi phạm nào chưa được xử lý.
+                  Không có báo cáo nào ở trạng thái này.
                 </div>
               ) : (
                 <div className="table-responsive">
                   <table className="table table-hover align-middle">
                     <thead className="table-light">
                       <tr>
+                        <th>Mã</th>
                         <th>Đối tượng bị báo cáo</th>
-                        <th>Bên vi phạm</th>
-                        <th>Hành vi vi phạm</th>
-                        <th>Bằng chứng / Chi tiết</th>
-                        <th>Người tố cáo</th>
-                        <th className="text-end">Xử lý</th>
+                        <th>Bên bị tố cáo</th>
+                        <th>Lý do & Bằng chứng</th>
+                        <th>Người báo cáo</th>
+                        <th>Trạng thái</th>
+                        <th className="text-end">Hành động xử lý</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {reports.map((r) => (
-                        <tr key={r.id}>
-                          <td>
-                            <span className={`badge me-2 ${r.targetType === 'JOB' ? 'bg-info text-dark' : 'bg-secondary'}`}>
-                              {r.targetType === 'JOB' ? 'Tin tuyển dụng' : 'Tài khoản User'}
-                            </span>
-                            <div className="fw-bold mt-1">{r.targetTitle}</div>
-                          </td>
-                          <td>
-                            <code>{r.violator}</code>
-                          </td>
-                          <td>
-                            <span className="badge bg-danger-subtle text-danger text-wrap text-start" style={{ maxWidth: '200px' }}>
-                              🚫 {r.reason}
-                            </span>
-                          </td>
-                          <td className="small text-muted" style={{ maxWidth: '240px' }}>
-                            {r.details}
-                          </td>
-                          <td className="small">
-                            <div><code>{r.reportedBy}</code></div>
-                            <span className="text-muted">{r.date}</span>
-                          </td>
-                          <td className="text-end text-nowrap">
-                            <button
-                              type="button"
-                              className="btn btn-sm btn-danger me-2"
-                              onClick={() => handleResolveReport(r.id, true)}
-                            >
-                              Khóa vi phạm
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-sm btn-outline-secondary"
-                              onClick={() => handleResolveReport(r.id, false)}
-                            >
-                              Bỏ qua
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                      {filteredReports.map((r) => {
+                        const targetKey = `${r.targetType}_${r.targetId}`;
+                        const count = targetReportCounts[targetKey] || 1;
+                        return (
+                          <tr key={r.id}>
+                            <td className="text-muted small">#{r.id}</td>
+                            <td>
+                              <div className="d-flex align-items-center gap-1 flex-wrap">
+                                <span className={`badge ${r.targetType === 'JOB' ? 'bg-info text-dark' : 'bg-secondary'}`}>
+                                  {r.targetType === 'JOB' ? `Job #${r.targetId}` : `User #${r.targetId}`}
+                                </span>
+                                {count > 1 && (
+                                  <span className="badge bg-danger-subtle text-danger" title={`${count} lượt tố cáo cùng trỏ vào đối tượng này`}>
+                                    {count} lượt báo cáo
+                                  </span>
+                                )}
+                              </div>
+                              <div className="fw-bold mt-1 text-dark" style={{ maxWidth: '220px' }}>
+                                {r.targetTitle}
+                              </div>
+                            </td>
+                            <td>
+                              <code>{r.companyName || r.violator || 'N/A'}</code>
+                            </td>
+                            <td style={{ maxWidth: '240px' }}>
+                              <div className="badge bg-danger-subtle text-danger text-wrap text-start mb-1">
+                                {r.reasonLabel || r.reason}
+                              </div>
+                              {(r.description || r.details) && (
+                                <div className="small text-muted text-break">
+                                  {r.description || r.details}
+                                </div>
+                              )}
+                              {r.adminNote && (
+                                <div className="small text-info mt-1 fst-italic">
+                                  Ghi chú: {r.adminNote}
+                                </div>
+                              )}
+                            </td>
+                            <td className="small">
+                              <div><strong>{r.reporterName || r.reportedBy}</strong></div>
+                              {r.reporterUsername && <div className="text-muted">@{r.reporterUsername}</div>}
+                              <span className="text-muted" style={{ fontSize: '11px' }}>{r.createdAt || r.date}</span>
+                            </td>
+                            <td>
+                              {r.status === 'PENDING' && <span className="badge bg-warning text-dark">Chờ xử lý</span>}
+                              {r.status === 'REVIEWING' && <span className="badge bg-info text-dark">Đang xem xét</span>}
+                              {r.status === 'RESOLVED' && <span className="badge bg-danger">Đã xử lý (Vi phạm)</span>}
+                              {r.status === 'REJECTED' && <span className="badge bg-secondary">Đã bác bỏ (Hợp lệ)</span>}
+                            </td>
+                            <td className="text-end text-nowrap">
+                              {r.status === 'PENDING' && (
+                                <div className="btn-group btn-group-sm">
+                                  <button
+                                    type="button"
+                                    className="btn btn-outline-primary"
+                                    onClick={() => handleUpdateReportStatus(r.id, 'REVIEWING', `Chuyển #${r.id} sang đang xem xét`)}
+                                  >
+                                    Xem xét
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn btn-outline-danger"
+                                    onClick={() => handleUpdateReportStatus(r.id, 'RESOLVED', `Xác nhận vi phạm #${r.id}: Khóa nội dung`)}
+                                  >
+                                    Khóa vi phạm
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn btn-outline-secondary"
+                                    onClick={() => handleUpdateReportStatus(r.id, 'REJECTED', `Bác bỏ báo cáo #${r.id}`)}
+                                  >
+                                    Bác bỏ
+                                  </button>
+                                </div>
+                              )}
+                              {r.status === 'REVIEWING' && (
+                                <div className="btn-group btn-group-sm">
+                                  <button
+                                    type="button"
+                                    className="btn btn-danger"
+                                    onClick={() => handleUpdateReportStatus(r.id, 'RESOLVED', `Xác nhận vi phạm #${r.id}: Khóa nội dung`)}
+                                  >
+                                    Khóa vi phạm
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn btn-outline-secondary"
+                                    onClick={() => handleUpdateReportStatus(r.id, 'REJECTED', `Bác bỏ báo cáo #${r.id}`)}
+                                  >
+                                    Bác bỏ
+                                  </button>
+                                </div>
+                              )}
+                              {(r.status === 'RESOLVED' || r.status === 'REJECTED') && (
+                                <button
+                                  type="button"
+                                  className="btn btn-sm btn-outline-secondary"
+                                  onClick={() => handleUpdateReportStatus(r.id, 'REVIEWING', `Mở lại kiểm duyệt #${r.id}`)}
+                                >
+                                  Mở lại
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
               )}
             </div>
 
-            {/* Khung quy chuẩn 9 hành vi vi phạm chuẩn TopCV */}
+            {/* Khung quy chuẩn 9 hành vi vi phạm tiêu chuẩn cộng đồng */}
             <div className="card border-0 shadow-sm rounded-3 p-4 bg-white">
               <h3 className="h6 fw-bold mb-3 text-dark">
                 📋 9 Quy chuẩn đánh giá vi phạm hệ thống JobNest

@@ -22,7 +22,7 @@ export default function JobCard({ job, variant = 'card', extra }) {
   const companyLogo = company.logoUrl;
   const initialChar = companyName.trim().charAt(0).toUpperCase();
 
-  // TopCV Horizontal Format (dành cho trang Tìm việc làm /jobs)
+  // Layout danh sách dạng hàng ngang (dành cho trang Tìm việc làm /jobs)
   if (variant === 'search-item') {
     return (
       <article className={`job-search-item ${isTop ? 'job-search-item--top' : ''}`}>

@@ -146,7 +146,7 @@ export default function TopCompanies() {
             </div>
           </div>
 
-          {/* 2. Dải button tab lọc ngành nghề nằm bên dưới banner trên nền trắng chuẩn TopCV */}
+          {/* 2. Dải button tab lọc ngành nghề nằm bên dưới banner trên nền trắng */}
           <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
             <div className="company-tabs-track flex-grow-1" ref={scrollRef}>
               {COMPANY_TABS.map((tab) => (
@@ -219,7 +219,9 @@ export default function TopCompanies() {
                         </div>
 
                         <h3 className="company-card__name mt-2 mb-1" title={company.name}>
-                          {company.name}
+                          <Link to={`/companies?id=${company.id}`} className="text-dark text-decoration-none">
+                            {company.name}
+                          </Link>
                         </h3>
 
                         <div className="small text-muted mb-3 d-flex align-items-center gap-1">
@@ -233,9 +235,12 @@ export default function TopCompanies() {
                             {company.openJobs} việc làm đang tuyển
                           </span>
 
-                          <Link to="/jobs" className="btn btn-sm btn-outline-secondary">
-                            Xem ngay →
-                          </Link>
+                        <Link
+                          to={`/companies?id=${company.id}`}
+                          className="btn btn-sm btn-outline-secondary"
+                        >
+                          Xem ngay →
+                        </Link>
                         </div>
                       </div>
                     </div>

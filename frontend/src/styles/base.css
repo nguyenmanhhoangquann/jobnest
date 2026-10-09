@@ -1,4 +1,10 @@
 /* Base CSS overrides & helpers */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -8,6 +14,17 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* GPU hardware acceleration for smooth card hover & scrolling */
+.job-card,
+.company-card-premium,
+.category-directory-card,
+.category-showcase-card,
+.card,
+.zalo-floating-btn {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .table-responsive {
@@ -221,26 +238,48 @@ img {
 }
 
 /* ==========================================================================
-   Footer Styles (Section 6.2)
+   Footer Styles - Warm Orange Gradient Theme
    ========================================================================== */
 .app-footer {
-  background: #1f2937;
-  color: #d1d5db;
+  background: linear-gradient(135deg, #7C2D12 0%, #9A3412 25%, #C2410C 55%, #EA580C 85%, #F97316 100%);
+  color: #FFFFFF;
   margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 12% 18%, rgba(254, 215, 170, 0.18) 0%, transparent 40%),
+              radial-gradient(circle at 88% 82%, rgba(251, 146, 60, 0.22) 0%, transparent 45%),
+              radial-gradient(circle at 50% 50%, rgba(234, 88, 12, 0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.app-footer .container-app {
+  position: relative;
+  z-index: 1;
 }
 
 .footer-desc {
   font-size: 14px;
   line-height: 1.6;
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.9);
   max-width: 320px;
 }
 
 .footer-heading {
   font-size: 16px;
   font-weight: 700;
-  color: var(--color-primary);
+  color: #FFFFFF;
   margin-bottom: 20px;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .footer-links li,
@@ -251,55 +290,60 @@ img {
 
 .footer-links a,
 .footer-contact a {
-  color: #d1d5db;
-  transition: color 0.15s ease;
+  color: rgba(255, 255, 255, 0.88);
+  transition: all 0.15s ease;
 }
 
 .footer-links a:hover,
 .footer-contact a:hover {
-  color: var(--color-primary);
+  color: #FEF08A;
+  padding-left: 2px;
 }
 
 .social-btn {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #374151;
-  color: #d1d5db;
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
 }
 
 .social-btn:hover {
-  background: var(--color-primary);
-  color: var(--color-text);
+  background: #FFFFFF;
+  color: #C2410C;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .footer-bottom {
-  border-color: #374151 !important;
-  color: #9ca3af;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  color: rgba(255, 255, 255, 0.85);
   font-size: 13px;
 }
 
 .footer-sublink {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.85);
   transition: color 0.15s ease;
 }
 
 .footer-sublink:hover {
-  color: var(--color-primary);
+  color: #FEF08A;
 }
 
 .footer-hotline-box {
-  background: #111827;
-  border: 1px solid #374151;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
 }
 
 /* ==========================================================================
-   JobCard Styles (Section 8.1 - TopCV Optimized Compact Card)
+   JobCard Styles (Section 8.1 - JobNest Optimized Compact Card)
    ========================================================================== */
 .job-card {
   width: 100%;
@@ -513,7 +557,7 @@ img {
 }
 
 /* ==========================================================================
-   TopCV Horizontal Job Search Item (Dành cho trang /jobs)
+   Horizontal Job Search Item (Dành cho trang /jobs)
    ========================================================================== */
 .job-search-item {
   display: flex;
@@ -977,10 +1021,12 @@ img {
 
 .dashboard-sidebar {
   width: 260px;
-  min-height: 100vh;
-  flex-shrink: 0;
+  height: 100vh;
   position: sticky;
   top: 0;
+  flex-shrink: 0;
+  overflow-y: auto;
+  z-index: 100;
 }
 
 .dashboard-nav__link {
@@ -1049,4 +1095,93 @@ img {
   color: #d1d5db;
   user-select: none;
   margin: 0 4px;
+}
+
+/* ==========================================================================
+   Zalo Floating Contact Button
+   ========================================================================== */
+.zalo-floating-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1040;
+}
+
+.zalo-floating-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 104, 255, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.zalo-floating-btn:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0, 104, 255, 0.55);
+}
+
+.zalo-floating-btn__pulse {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid #0068FF;
+  animation: zalo-pulse 2s infinite ease-out;
+  pointer-events: none;
+}
+
+@keyframes zalo-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.zalo-floating-btn__tooltip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #111827;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.zalo-floating-btn__tooltip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -4px;
+  transform: translateY(-50%);
+  border-width: 4px 0 4px 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #111827;
+}
+
+.zalo-floating-btn:hover .zalo-floating-btn__tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(-4px);
 }

@@ -127,11 +127,11 @@ export default function FeaturedJobs() {
         </div>
 
         {/* Hàng 2: Dropdown Lọc theo: Địa điểm & Dải chip vùng miền/thành phố */}
-        <div className="topcv-filter-row mb-3">
-          <div className="topcv-filter-select-wrap">
+        <div className="jn-filter-row mb-3">
+          <div className="jn-filter-select-wrap">
             <FaSlidersH className="text-muted ms-2 me-1" size={12} />
             <select
-              className="topcv-filter-select"
+              className="jn-filter-select"
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
             >

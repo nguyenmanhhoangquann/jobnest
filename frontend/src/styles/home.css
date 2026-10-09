@@ -1,4 +1,4 @@
-/* Hero Section - Optimized Modern Layout (CodeNest / TopCV Reference) */
+/* Hero Section - Optimized Modern Layout (JobNest) */
 .hero-section {
   position: relative;
   padding: 46px 0 56px;
@@ -332,6 +332,122 @@
   padding: 5px 14px;
   border-radius: var(--radius-pill);
   margin-bottom: 14px;
+}
+
+/* ==========================================================================
+   Transparent Minimalist Clock Widget (No Black Frame)
+   ========================================================================== */
+.transparent-clock-wrapper {
+  width: 100%;
+  max-width: 600px;
+  background: transparent;
+  padding: 4px 0 10px;
+  margin-bottom: 6px;
+  user-select: none;
+  text-align: center;
+}
+
+.transparent-clock-status {
+  font-size: 11.5px;
+  letter-spacing: 0.5px;
+}
+
+.live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #16A34A;
+  position: relative;
+  display: inline-block;
+}
+
+.live-pulse-dot::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background-color: #16A34A;
+  animation: live-pulse-gpu 1.8s infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+@keyframes live-pulse-gpu {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+.transparent-clock-tag {
+  color: #92400E;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 10.5px;
+}
+
+.transparent-clock-zone {
+  color: #6B7280;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.transparent-time-digits {
+  font-family: 'Consolas', 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+  font-size: 60px;
+  font-weight: 900;
+  line-height: 1.05;
+  color: #111827;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin: 4px 0;
+}
+
+@media (max-width: 576px) {
+  .transparent-time-digits {
+    font-size: 38px;
+  }
+}
+
+.transparent-digit {
+  color: #111827;
+}
+
+.transparent-digit--sec {
+  color: #D97706;
+}
+
+.transparent-colon {
+  color: #9CA3AF;
+  margin: 0 3px;
+  font-weight: 700;
+}
+
+.transparent-ampm {
+  font-size: 15px;
+  font-weight: 800;
+  color: #92400E;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-left: 10px;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+.transparent-date-row {
+  font-size: 15px;
+  color: #4B5563;
+  letter-spacing: 0.3px;
 }
 
 .hero-title {
@@ -717,7 +833,7 @@
 }
 
 /* ==========================================================================
-   Home Main Content Background (Từ Việc làm nổi bật trở đi - Chuẩn TopCV #F4F5F7)
+   Home Main Content Background (Từ Việc làm nổi bật trở đi - #F4F5F7)
    ========================================================================== */
 .home-main-content-bg {
   background-color: #F4F5F7;
@@ -728,7 +844,7 @@
 
 /* Featured Jobs Controls */
 /* ==========================================================================
-   Featured Jobs Controls - JobNest Warm Theme (TopCV Form Layout)
+   Featured Jobs Controls - JobNest Warm Theme
    ========================================================================== */
 .section-title-jobnest {
   font-size: 22px;
@@ -783,13 +899,13 @@
   color: #8A6300;
 }
 
-.topcv-filter-row {
+.jn-filter-row {
   display: flex;
   gap: 12px;
   align-items: center;
 }
 
-.topcv-filter-select-wrap {
+.jn-filter-select-wrap {
   display: flex;
   align-items: center;
   background: #FFFFFF;
@@ -801,7 +917,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
-.topcv-filter-select {
+.jn-filter-select {
   border: 0;
   outline: 0;
   font-size: 13px;
@@ -911,7 +1027,7 @@
 }
 
 /* ==========================================================================
-   Top / Pro Companies Section (Mục Thương hiệu lớn tiêu biểu kiểu TopCV)
+   Top / Pro Companies Section (Mục Thương hiệu lớn tiêu biểu)
    ========================================================================== */
 .top-companies-box {
   background: #FFFFFF;
@@ -1227,4 +1343,650 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ==========================================================================
+   Companies Page Premium Redesign
+   ========================================================================== */
+.companies-page-root {
+  background-color: #F7F8FA;
+  min-height: 100vh;
+}
+
+.companies-hero-box {
+  position: relative;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF7 60%, #FEF9EB 100%);
+  border-bottom: 1px solid #ECEEF2;
+  padding: 32px 20px 28px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.companies-hero-decor-1 {
+  position: absolute;
+  top: -80px;
+  left: -80px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 184, 0, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.companies-hero-decor-2 {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 199, 37, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.companies-hero-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #172033;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.companies-hero-title .highlight-yellow {
+  color: #F5B800;
+}
+
+.companies-hero-subtitle {
+  font-size: 14.5px;
+  color: #5A6474;
+  max-width: 620px;
+  margin: 0 auto 20px;
+  line-height: 1.5;
+}
+
+.companies-search-bar {
+  max-width: 640px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E6ED;
+  border-radius: 14px;
+  padding: 5px 5px 5px 16px;
+  box-shadow: 0 6px 20px rgba(23, 32, 51, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.companies-search-bar:focus-within {
+  border-color: #F5B800;
+  box-shadow: 0 8px 24px rgba(245, 184, 0, 0.14);
+}
+
+.companies-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14.5px;
+  color: #172033;
+}
+
+.companies-search-input::placeholder {
+  color: #9AA3B0;
+}
+
+.companies-search-btn {
+  background: #F5B800;
+  color: #172033;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 22px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.companies-search-btn:hover {
+  background: #EAA700;
+  transform: translateY(-1px);
+}
+
+/* Category Filter Pills */
+.companies-filter-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0 6px;
+  scrollbar-width: none;
+}
+
+.companies-filter-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.companies-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+  border: 1px solid #E5E8EC;
+  background: #FFFFFF;
+  color: #4B5565;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.companies-pill-btn:hover {
+  border-color: #D3D8E0;
+  background: #F9FAFB;
+  color: #172033;
+  transform: translateY(-1px);
+}
+
+.companies-pill-btn--active {
+  background: #172033 !important;
+  color: #FFFFFF !important;
+  border-color: #172033 !important;
+  box-shadow: 0 4px 12px rgba(23, 32, 51, 0.18) !important;
+}
+
+.companies-pill-accent {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #F5B800;
+  display: inline-block;
+}
+
+/* Section Header */
+.companies-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.companies-section-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #172033;
+  margin-bottom: 3px;
+}
+
+.companies-section-subtitle {
+  font-size: 13.5px;
+  color: #64748B;
+  margin-bottom: 0;
+}
+
+/* Compact Premium Company Cards Grid */
+.company-card-premium {
+  background: #FFFFFF;
+  border: 1px solid #E8EBF0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  cursor: pointer;
+}
+
+.company-card-premium:hover {
+  transform: translateY(-3px);
+  border-color: #F5B800;
+  box-shadow: 0 10px 24px rgba(23, 32, 51, 0.08);
+}
+
+.company-card-cover-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  background: #F1F3F5;
+}
+
+.company-card-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.company-card-premium:hover .company-card-cover-img {
+  transform: scale(1.04);
+}
+
+.company-card-body {
+  padding: 0 14px 14px;
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.company-card-logo-overlap {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  margin-top: -26px;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.company-card-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.company-name-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.company-card-name {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #172033;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.company-card-industry {
+  font-size: 12.5px;
+  color: #64748B;
+  margin-bottom: 6px;
+}
+
+.company-card-location {
+  font-size: 12.5px;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.company-card-footer {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #F1F3F7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.company-jobs-badge {
+  background: #FFF8E1;
+  color: #B45309;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #FDE68A;
+}
+
+.company-card-cta {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #172033;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  transition: all 0.15s ease;
+}
+
+.company-card-premium:hover .company-card-cta {
+  color: #D97706;
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   Awwwards Inspired Editorial Blog Styling
+   ========================================================================== */
+.awwwards-blog-root {
+  background-color: #FAFAFB;
+  min-height: 100vh;
+  color: #121212;
+}
+
+.awwwards-header-section {
+  padding: 56px 20px 32px;
+  border-bottom: 1px solid #ECEEF2;
+  background: #FFFFFF;
+}
+
+.awwwards-tagline {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #B45309;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.awwwards-main-headline {
+  font-size: 42px;
+  font-weight: 850;
+  color: #111827;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.awwwards-sub-desc {
+  font-size: 16px;
+  color: #5A6474;
+  max-width: 680px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.awwwards-search-wrap {
+  max-width: 580px;
+  background: #F4F5F7;
+  border: 1px solid #E2E6ED;
+  border-radius: 999px;
+  padding: 5px 6px 5px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.awwwards-search-wrap:focus-within {
+  background: #FFFFFF;
+  border-color: #111827;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.awwwards-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14.5px;
+  color: #111827;
+  width: 100%;
+}
+
+.awwwards-search-btn {
+  background: #111827;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 13.5px;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 20px;
+  transition: all 0.15s ease;
+}
+
+.awwwards-search-btn:hover {
+  background: #F5B800;
+  color: #111827;
+}
+
+/* Category Filter Bar */
+.awwwards-filters-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 16px;
+  scrollbar-width: none;
+}
+.awwwards-filters-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.awwwards-pill {
+  padding: 7px 18px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  color: #4B5565;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.awwwards-pill:hover {
+  border-color: #111827;
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+.awwwards-pill--active {
+  background: #111827 !important;
+  color: #FFFFFF !important;
+  border-color: #111827 !important;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.15);
+}
+
+/* Featured Story (Awwwards Style) */
+.awwwards-featured-box {
+  background: #FFFFFF;
+  border: 1px solid #E8EBF0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 48px;
+  cursor: pointer;
+}
+
+.awwwards-featured-box:hover {
+  transform: translateY(-4px);
+  border-color: #D1D5DB;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
+
+.awwwards-featured-img-wrap {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  overflow: hidden;
+  position: relative;
+  background: #F1F3F5;
+}
+
+.awwwards-featured-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.awwwards-featured-box:hover .awwwards-featured-img {
+  transform: scale(1.04);
+}
+
+.awwwards-featured-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(8px);
+  color: #F5B800;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 184, 0, 0.3);
+}
+
+/* Grid Cards (Awwwards Style) */
+.awwwards-card {
+  background: #FFFFFF;
+  border: 1px solid #E8EBF0;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  cursor: pointer;
+}
+
+.awwwards-card:hover {
+  transform: translateY(-5px);
+  border-color: #CBD5E1;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+.awwwards-card-media {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+  background: #F1F3F5;
+}
+
+.awwwards-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.awwwards-card:hover .awwwards-card-img {
+  transform: scale(1.05);
+}
+
+.awwwards-card-category-floating {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  color: #111827;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.awwwards-card-body {
+  padding: 20px 20px 18px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.awwwards-meta-top {
+  font-size: 12px;
+  color: #64748B;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.awwwards-card-title {
+  font-size: 18.5px;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.35;
+  margin-bottom: 10px;
+  transition: color 0.15s ease;
+}
+
+.awwwards-card:hover .awwwards-card-title {
+  color: #B45309;
+}
+
+.awwwards-card-excerpt {
+  font-size: 13.5px;
+  color: #5A6474;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.awwwards-card-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #F1F3F7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.awwwards-author-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.awwwards-author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.awwwards-author-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.awwwards-post-date {
+  font-size: 11.5px;
+  color: #94A3B8;
+}
+
+/* Circular Arrow Button on Card Hover */
+.awwwards-arrow-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.awwwards-card:hover .awwwards-arrow-circle {
+  background: #111827;
+  color: #F5B800;
+  border-color: #111827;
+  transform: rotate(-45deg);
 }

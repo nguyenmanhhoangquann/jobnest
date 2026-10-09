@@ -1,26 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
 import HeroSearchBar from './HeroSearchBar.jsx';
 import CategorySidebar from './CategorySidebar.jsx';
 import CategoryBannerPreview from './CategoryBannerPreview.jsx';
+import FuturisticHudClock from './FuturisticHudClock.jsx';
 import { POPULAR_KEYWORDS } from '../../constants.js';
 import { mockCategories } from '../../mock/categories.js';
 
 export default function Hero() {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState(() => mockCategories[0]);
+  const timerRef = useRef(null);
+
+  const handleHoverCategory = useCallback((cat) => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setActiveCategory(cat);
+    }, 50);
+  }, []);
 
   return (
     <section className="hero-section">
       <div className="container-app">
         {/* Phần trên: Tiêu đề + Thanh tìm kiếm trung tâm */}
         <div className="hero-header-center mx-auto text-center mb-4 d-flex flex-column align-items-center">
-          <div className="d-flex align-items-center justify-content-center gap-2 mb-2">
-            <span className="hero-badge">
-              <FaStar className="me-2" color="#FBC725" size={13} />
-              Cơ hội nghề nghiệp hàng đầu
-            </span>
+          {/* ĐỒNG HỒ HUD SCI-FI KHỔ LỚN THEO MẪU */}
+          <div className="w-100 d-flex justify-content-center">
+            <FuturisticHudClock />
           </div>
 
           <h1 className="hero-title mb-2 text-center">
@@ -53,13 +59,13 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Phần dưới: Khối tương tác kiểu TopCV (Cột trái: Danh mục - Cột phải: Ảnh xem trước tương ứng) */}
+        {/* Phần dưới: Khối tương tác (Cột trái: Danh mục - Cột phải: Ảnh xem trước tương ứng) */}
         <div className="hero-showcase-grid mt-4">
           {/* Cột trái: Danh mục nghề nghiệp */}
           <div className="hero-showcase-sidebar">
             <CategorySidebar
               activeCategory={activeCategory}
-              onHoverCategory={(cat) => setActiveCategory(cat)}
+              onHoverCategory={handleHoverCategory}
             />
           </div>
 
