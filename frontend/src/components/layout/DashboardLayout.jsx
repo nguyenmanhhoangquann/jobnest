@@ -10,6 +10,7 @@ import {
   FaChartPie,
 } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext.jsx';
+import ZaloContactButton from '../common/ZaloContactButton.jsx';
 
 export default function DashboardLayout() {
   const { user, logout } = useAuth();
@@ -21,9 +22,20 @@ export default function DashboardLayout() {
   };
 
   return (
-    <div className="dashboard-container d-flex">
-      {/* Sidebar trái */}
-      <aside className="dashboard-sidebar d-flex flex-column justify-content-between p-3 border-end bg-white">
+    <div className="dashboard-container d-flex" style={{ minHeight: '100vh' }}>
+      {/* Sidebar trái cố định theo viewport khi cuộn trang */}
+      <aside
+        className="dashboard-sidebar d-flex flex-column justify-content-between p-3 border-end bg-white"
+        style={{
+          width: '260px',
+          height: '100vh',
+          position: 'sticky',
+          top: 0,
+          flexShrink: 0,
+          overflowY: 'auto',
+          zIndex: 1020,
+        }}
+      >
         <div>
           {/* Logo & Role Badge */}
           <div className="mb-4 pb-3 border-bottom">
@@ -123,9 +135,10 @@ export default function DashboardLayout() {
       </aside>
 
       {/* Vùng nội dung chính */}
-      <main className="dashboard-main flex-grow-1 bg-light p-4 overflow-auto">
+      <main className="dashboard-main flex-grow-1 bg-light p-4" style={{ minWidth: 0, minHeight: '100vh' }}>
         <Outlet />
       </main>
+      <ZaloContactButton />
     </div>
   );
 }

@@ -10,11 +10,11 @@ export default function CategoryBannerPreview({ category }) {
       {/* Ảnh thực tế làm Full Background toàn khung */}
       {category.image && (
         <img
-          key={category.slug}
           src={category.image}
           alt={category.name}
           className="showcase-bg-image"
-          loading="lazy"
+          loading="eager"
+          decoding="async"
         />
       )}
 

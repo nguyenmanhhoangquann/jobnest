@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ZaloContactButton from '../common/ZaloContactButton.jsx';
 
 export default function MainLayout() {
   const { pathname } = useLocation();
@@ -17,6 +18,7 @@ export default function MainLayout() {
         <Outlet />
       </main>
       <Footer />
+      <ZaloContactButton />
     </div>
   );
 }

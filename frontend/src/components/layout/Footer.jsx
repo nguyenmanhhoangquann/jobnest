@@ -12,6 +12,7 @@ import {
   FaCheckCircle,
 } from 'react-icons/fa';
 import BrandLogo from '../common/BrandLogo.jsx';
+import { ZaloIcon } from '../common/ZaloContactButton.jsx';
 import { APP_NAME, CONTACT_INFO } from '../../constants.js';
 
 export default function Footer() {
@@ -23,22 +24,30 @@ export default function Footer() {
           {/* Cột 1: Thông tin thương hiệu */}
           <div className="col-12 col-md-6 col-lg-4">
             <Link to="/" className="d-inline-flex align-items-center mb-3 text-decoration-none">
-              <BrandLogo />
+              <div className="bg-white p-2 px-3 rounded-3 shadow-sm d-inline-flex align-items-center">
+                <BrandLogo size="md" />
+              </div>
             </Link>
             <p className="footer-desc mb-3">
               Hệ sinh thái kết nối việc làm và phát triển sự nghiệp hàng đầu, tích hợp công nghệ AI
               hỗ trợ phân tích CV và gợi ý cơ hội nghề nghiệp tối ưu cho người Việt.
             </p>
 
-            <div className="footer-hotline-box p-3 rounded mb-3">
+            <div className="footer-hotline-box p-3 rounded-3 mb-3">
               <div className="d-flex align-items-center gap-2 mb-1">
-                <FaPhoneAlt className="text-warning" size={14} />
-                <span className="small text-muted">Tổng đài tư vấn miễn phí:</span>
+                <FaPhoneAlt style={{ color: '#FEF08A' }} size={13} />
+                <span className="small text-white" style={{ opacity: 0.9 }}>
+                  Tổng đài tư vấn miễn phí:
+                </span>
               </div>
-              <a href={`tel:${CONTACT_INFO.hotline}`} className="fs-5 fw-bold text-warning text-decoration-none">
+              <a
+                href={`tel:${CONTACT_INFO.hotline}`}
+                className="fs-5 fw-bold text-decoration-none"
+                style={{ color: '#FEF08A' }}
+              >
                 {CONTACT_INFO.hotline}
               </a>
-              <div className="small text-muted mt-1" style={{ fontSize: '11.5px' }}>
+              <div className="small mt-1" style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.75)' }}>
                 Thứ 2 - Thứ 6 (08:00 - 18:00) | Thứ 7 (08:00 - 12:00)
               </div>
             </div>
@@ -73,6 +82,16 @@ export default function Footer() {
                 title="YouTube"
               >
                 <FaYoutube size={14} />
+              </a>
+              <a
+                href={CONTACT_INFO.zalo || `https://zalo.me/${(CONTACT_INFO.hotline || '19006868').replace(/\s+/g, '')}`}
+                target="_blank"
+                rel="noreferrer"
+                className="social-btn"
+                aria-label="Zalo JobNest"
+                title="Zalo"
+              >
+                <ZaloIcon size={18} />
               </a>
               <a
                 href={CONTACT_INFO.githubRepo}
@@ -123,14 +142,14 @@ export default function Footer() {
             </ul>
 
             <h5 className="footer-heading fs-6 mb-2">Trụ sở làm việc</h5>
-            <ul className="footer-contact list-unstyled small text-muted mb-0">
+            <ul className="footer-contact list-unstyled small mb-0">
               <li className="d-flex align-items-start gap-2 mb-2">
-                <FaMapMarkerAlt className="text-warning mt-1 shrink-0" size={13} />
+                <FaMapMarkerAlt className="mt-1 shrink-0" style={{ color: '#FEF08A' }} size={13} />
                 <span>{CONTACT_INFO.address}</span>
               </li>
               <li className="d-flex align-items-center gap-2">
-                <FaEnvelope className="text-warning shrink-0" size={13} />
-                <a href={`mailto:${CONTACT_INFO.email}`} className="text-decoration-none">
+                <FaEnvelope className="shrink-0" style={{ color: '#FEF08A' }} size={13} />
+                <a href={`mailto:${CONTACT_INFO.email}`} className="text-decoration-none text-white">
                   {CONTACT_INFO.email}
                 </a>
               </li>
@@ -141,14 +160,14 @@ export default function Footer() {
         {/* Thanh bản quyền & Chứng nhận dưới cùng */}
         <div className="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center py-3 border-top">
           <div className="d-flex align-items-center gap-2 mb-2 mb-md-0">
-            <FaShieldAlt className="text-warning" size={14} />
+            <FaShieldAlt style={{ color: '#FEF08A' }} size={14} />
             <span>
               © 2026 {APP_NAME}. Bản quyền thuộc về Đồ án tốt nghiệp Công nghệ thông tin.
             </span>
           </div>
           <div className="d-flex align-items-center gap-3">
-            <span className="badge bg-secondary-subtle text-light border border-secondary small d-inline-flex align-items-center gap-1">
-              <FaCheckCircle className="text-success" size={10} /> Đã kiểm duyệt an toàn
+            <span className="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 small d-inline-flex align-items-center gap-1">
+              <FaCheckCircle style={{ color: '#FEF08A' }} size={10} /> Đã kiểm duyệt an toàn
             </span>
             <a href="#terms" className="footer-sublink">Điều khoản sử dụng</a>
             <span>·</span>

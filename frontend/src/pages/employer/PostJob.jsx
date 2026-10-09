@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { FaMagic, FaCheckCircle } from 'react-icons/fa';
+import { FaMagic, FaCheckCircle, FaArrowLeft } from 'react-icons/fa';
 import jobApi from '../../api/jobApi.js';
 import aiApi from '../../api/aiApi.js';
 import { showToast } from '../../components/common/ToastHost.jsx';
@@ -9,13 +9,17 @@ import { Spinner } from '../../components/common/Loading.jsx';
 
 export default function PostJob() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEdit = Boolean(id);
   const [submitting, setSubmitting] = useState(false);
   const [generatingAi, setGeneratingAi] = useState(false);
+  const [loadingJob, setLoadingJob] = useState(isEdit);
 
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     watch,
     formState: { errors },
   } = useForm({
@@ -33,6 +37,42 @@ export default function PostJob() {
       benefits: '',
     },
   });
+
+  useEffect(() => {
+    if (id) {
+      setLoadingJob(true);
+      jobApi
+        .getJobDetail(id)
+        .then((job) => {
+          let expVal = job.experience || '1-year';
+          if (expVal === '1-2') expVal = '1-year';
+          if (expVal === '2-5') expVal = '2-years';
+          if (expVal === 'gt5') expVal = '5-plus';
+          if (expVal === 'lt1' || expVal === 'none') expVal = 'none';
+
+          reset({
+            title: job.title || '',
+            category: job.category?.slug || (typeof job.category === 'string' ? job.category : 'cntt'),
+            location: job.location || '',
+            salaryText: job.salaryText || '',
+            position: job.position || 'staff',
+            jobType: job.jobType || 'FULL_TIME',
+            experience: expVal,
+            deadline: job.deadline ? String(job.deadline).split('T')[0] : '2026-12-31',
+            description: job.description || '',
+            requirements: job.requirements || '',
+            benefits: job.benefits || '',
+          });
+        })
+        .catch(() => {
+          showToast('error', 'Không tìm thấy tin tuyển dụng cần sửa.');
+          navigate('/employer/jobs');
+        })
+        .finally(() => {
+          setLoadingJob(false);
+        });
+    }
+  }, [id, reset, navigate]);
 
   const jobTitle = watch('title');
 
@@ -60,11 +100,17 @@ export default function PostJob() {
   const onSubmit = async (data) => {
     setSubmitting(true);
     try {
-      const newJob = await jobApi.createJob(data);
-      showToast('success', 'Đăng tin tuyển dụng thành công!');
-      navigate(`/jobs/${newJob.id}`);
+      if (isEdit) {
+        await jobApi.updateJob(id, data);
+        showToast('success', 'Cập nhật tin tuyển dụng thành công!');
+        navigate('/employer/jobs');
+      } else {
+        const newJob = await jobApi.createJob(data);
+        showToast('success', 'Đăng tin tuyển dụng thành công!');
+        navigate('/employer/jobs');
+      }
     } catch (err) {
-      showToast('error', err.message || 'Lỗi khi đăng tin tuyển dụng.');
+      showToast('error', err.message || 'Lỗi khi lưu tin tuyển dụng.');
     } finally {
       setSubmitting(false);
     }
@@ -72,10 +118,24 @@ export default function PostJob() {
 
   return (
     <div className="post-job-page">
+      <div className="mb-3">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="btn btn-link p-0 text-muted text-decoration-none small d-inline-flex align-items-center"
+        >
+          <FaArrowLeft className="me-1" /> Quay lại trang trước
+        </button>
+      </div>
+
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>
-          <h1 className="fs-4 fw-bold mb-1">Đăng tin tuyển dụng mới</h1>
-          <p className="text-muted small mb-0">Tiếp cận hàng nghìn ứng viên tiềm năng trên hệ thống JobNest</p>
+          <h1 className="fs-4 fw-bold mb-1">
+            {isEdit ? 'Chỉnh sửa tin tuyển dụng' : 'Đăng tin tuyển dụng mới'}
+          </h1>
+          <p className="text-muted small mb-0">
+            {isEdit ? 'Cập nhật thông tin bài đăng tuyển dụng trên hệ thống' : 'Tiếp cận hàng nghìn ứng viên tiềm năng trên hệ thống JobNest'}
+          </p>
         </div>
         <button
           type="button"
@@ -88,8 +148,14 @@ export default function PostJob() {
         </button>
       </div>
 
-      <div className="card border shadow-sm p-4 bg-white">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      {loadingJob ? (
+        <div className="text-center py-5 card border shadow-sm bg-white">
+          <Spinner size="lg" className="my-4 text-warning" />
+          <p className="text-muted">Đang tải thông tin tin tuyển dụng...</p>
+        </div>
+      ) : (
+        <div className="card border shadow-sm p-4 bg-white">
+          <form onSubmit={handleSubmit(onSubmit)}>
           {/* Hàng 1: Tiêu đề & Ngành nghề */}
           <div className="row g-3 mb-3">
             <div className="col-12 col-md-8">
@@ -217,7 +283,7 @@ export default function PostJob() {
             <button
               type="button"
               className="btn btn-outline-secondary"
-              onClick={() => navigate('/employer/dashboard')}
+              onClick={() => navigate(-1)}
             >
               Hủy bỏ
             </button>
@@ -226,11 +292,19 @@ export default function PostJob() {
               className="btn btn-brand px-4 py-2 fw-bold"
               disabled={submitting}
             >
-              {submitting ? <Spinner size="sm" /> : <><FaCheckCircle className="me-1" /> Xuất bản tin tuyển dụng</>}
+              {submitting ? (
+                <Spinner size="sm" />
+              ) : (
+                <>
+                  <FaCheckCircle className="me-1" />
+                  {isEdit ? 'Lưu thay đổi tin tuyển dụng' : 'Xuất bản tin tuyển dụng'}
+                </>
+              )}
             </button>
           </div>
         </form>
       </div>
+      )}
     </div>
   );
 }

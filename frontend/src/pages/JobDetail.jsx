@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   FaMapMarkerAlt,
   FaMoneyBillWave,
@@ -10,11 +10,15 @@ import {
   FaShareAlt,
   FaArrowLeft,
   FaCheckCircle,
+  FaFlag,
+  FaEdit,
+  FaTrash,
 } from 'react-icons/fa';
 import jobApi from '../api/jobApi.js';
 import SaveButton from '../components/job/SaveButton.jsx';
 import JobCard from '../components/job/JobCard.jsx';
 import ApplyModal from '../components/job/ApplyModal.jsx';
+import ReportModal from '../components/job/ReportModal.jsx';
 import { Spinner } from '../components/common/Loading.jsx';
 import { showToast } from '../components/common/ToastHost.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
@@ -22,13 +26,23 @@ import { useAuth } from '../context/AuthContext.jsx';
 export default function JobDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
+
+  const handleBack = () => {
+    if (location.state?.from) {
+      navigate(location.state.from);
+    } else {
+      navigate(-1);
+    }
+  };
 
   const [job, setJob] = useState(null);
   const [similarJobs, setSimilarJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [showApplyModal, setShowApplyModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
 
   useEffect(() => {
@@ -88,9 +102,9 @@ export default function JobDetail() {
       <div className="container-app py-5 text-center">
         <h2 className="fw-bold mb-3">Không tìm thấy công việc này</h2>
         <p className="text-muted mb-4">Tin tuyển dụng có thể đã hết hạn hoặc bị gỡ bỏ.</p>
-        <Link to="/jobs" className="btn btn-brand">
-          <FaArrowLeft className="me-2" /> Quay lại danh sách việc làm
-        </Link>
+        <button type="button" onClick={handleBack} className="btn btn-brand">
+          <FaArrowLeft className="me-2" /> Quay lại trang trước
+        </button>
       </div>
     );
   }
@@ -102,9 +116,13 @@ export default function JobDetail() {
       <div className="container-app">
         {/* Nút quay lại */}
         <div className="mb-3">
-          <Link to="/jobs" className="text-muted text-decoration-none small">
-            <FaArrowLeft className="me-1" /> Quay lại tìm việc
-          </Link>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="btn btn-link p-0 text-muted text-decoration-none small d-inline-flex align-items-center"
+          >
+            <FaArrowLeft className="me-1" /> Quay lại
+          </button>
         </div>
 
         {/* Khối Header Việc làm */}
@@ -157,6 +175,42 @@ export default function JobDetail() {
               >
                 <FaShareAlt size={16} />
               </button>
+              <button
+                type="button"
+                className="btn btn-outline-danger p-2"
+                onClick={() => setShowReportModal(true)}
+                aria-label="Báo cáo vi phạm"
+                title="Báo cáo tin tuyển dụng vi phạm"
+              >
+                <FaFlag size={15} />
+              </button>
+              {user?.role === 'EMPLOYER' && (
+                <>
+                  <Link
+                    to={`/employer/edit-job/${job.id}`}
+                    className="btn btn-outline-primary p-2"
+                    title="Chỉnh sửa tin này"
+                    aria-label="Chỉnh sửa tin"
+                  >
+                    <FaEdit size={15} />
+                  </Link>
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger p-2"
+                    onClick={async () => {
+                      if (window.confirm('Bạn có chắc muốn gỡ tin tuyển dụng này khỏi cộng đồng?')) {
+                        await jobApi.deleteJob(job.id);
+                        showToast('success', 'Đã gỡ tin tuyển dụng khỏi cộng đồng.');
+                        navigate('/employer/jobs');
+                      }
+                    }}
+                    title="Gỡ tin này khỏi cộng đồng"
+                    aria-label="Gỡ tin"
+                  >
+                    <FaTrash size={15} />
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -305,6 +359,12 @@ export default function JobDetail() {
         show={showApplyModal}
         onHide={() => setShowApplyModal(false)}
         onSuccess={() => setHasApplied(true)}
+      />
+
+      <ReportModal
+        job={job}
+        show={showReportModal}
+        onHide={() => setShowReportModal(false)}
       />
     </div>
   );

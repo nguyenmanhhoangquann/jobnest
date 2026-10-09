@@ -141,6 +141,10 @@ export const jobApi = {
     return axiosClient.get(`/jobs/${id}`);
   },
 
+  getJobById: async (id) => {
+    return jobApi.getJobDetail(id);
+  },
+
   // Đăng tin tuyển dụng (Mục 14.4)
   createJob: async (data) => {
     if (USE_MOCK) {
@@ -156,6 +160,41 @@ export const jobApi = {
     }
 
     return axiosClient.post('/jobs', data);
+  },
+
+  // Sửa tin tuyển dụng
+  updateJob: async (id, data) => {
+    if (USE_MOCK) {
+      await new Promise((r) => setTimeout(r, 300));
+      jobsState = jobsState.map((j) => {
+        if (String(j.id) === String(id)) {
+          return {
+            ...j,
+            ...data,
+            category:
+              typeof data.category === 'string'
+                ? { id: j.category?.id || 1, slug: data.category, name: data.category }
+                : data.category || j.category,
+            updatedAt: new Date().toISOString(),
+          };
+        }
+        return j;
+      });
+      return jobsState.find((j) => String(j.id) === String(id));
+    }
+
+    return axiosClient.put(`/jobs/${id}`, data);
+  },
+
+  // Gỡ / Xóa tin tuyển dụng
+  deleteJob: async (id) => {
+    if (USE_MOCK) {
+      await new Promise((r) => setTimeout(r, 300));
+      jobsState = jobsState.filter((j) => String(j.id) !== String(id));
+      return { success: true };
+    }
+
+    return axiosClient.delete(`/jobs/${id}`);
   },
 
   // Lưu tin tuyển dụng (Mục 8.2)

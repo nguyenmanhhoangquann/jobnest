@@ -15,6 +15,8 @@ import PostJob from './pages/employer/PostJob.jsx';
 import ReceivedApplications from './pages/employer/ReceivedApplications.jsx';
 import EmployerJobs from './pages/employer/EmployerJobs.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
+import Companies from './pages/Companies.jsx';
+import Blog from './pages/Blog.jsx';
 import Support from './pages/Support.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 import ToastHost from './components/common/ToastHost.jsx';
@@ -49,6 +51,7 @@ export default function App() {
             <Route index element={<Navigate to="/employer/dashboard" replace />} />
             <Route path="dashboard" element={<EmployerDashboard />} />
             <Route path="post-job" element={<PostJob />} />
+            <Route path="edit-job/:id" element={<PostJob />} />
             <Route path="applications" element={<ReceivedApplications />} />
             <Route path="jobs" element={<EmployerJobs />} />
           </Route>
@@ -59,6 +62,8 @@ export default function App() {
             <Route path="/jobs" element={<JobList />} />
             <Route path="/jobs/search" element={<JobList />} />
             <Route path="/jobs/:id" element={<JobDetail />} />
+            <Route path="/companies" element={<Companies />} />
+            <Route path="/blog" element={<Blog />} />
 
             {/* Tuyến đường Quản trị viên (ADMIN) */}
             <Route
