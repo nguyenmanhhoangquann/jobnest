@@ -1,7 +1,30 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, useMemo, memo } from 'react';
+
+function getSunTimes(date) {
+  const now = date || new Date();
+  const startOfYear = new Date(now.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((now - startOfYear) / 86400000);
+  const declination = -23.44 * (Math.PI / 180) * Math.cos((2 * Math.PI / 365) * (dayOfYear + 10));
+  const latRad = 21.0285 * (Math.PI / 180);
+  const cosH0 = (Math.sin(-0.833 * Math.PI / 180) - Math.sin(latRad) * Math.sin(declination)) / (Math.cos(latRad) * Math.cos(declination));
+  const h0 = Math.acos(Math.max(-1, Math.min(1, cosH0))) * (180 / Math.PI);
+  const solarNoonMinutes = 11 * 60 + 56;
+  const halfDayMinutes = Math.round((h0 / 15) * 60);
+  const rise = solarNoonMinutes - halfDayMinutes;
+  const set = solarNoonMinutes + halfDayMinutes;
+  const day = set - rise;
+  const pad = (n) => String(n).padStart(2, '0');
+
+  return {
+    rise: `${pad(Math.floor(rise / 60))}:${pad(rise % 60)}`,
+    set: `${pad(Math.floor(set / 60))}:${pad(set % 60)}`,
+    duration: `${Math.floor(day / 60)}h ${pad(day % 60)}m`,
+  };
+}
 
 function FuturisticHudClock() {
   const [time, setTime] = useState(() => new Date());
+  const [is24h, setIs24h] = useState(true);
 
   useEffect(() => {
     let timer = null;
@@ -31,52 +54,48 @@ function FuturisticHudClock() {
     };
   }, []);
 
-  const rawHours = time.getHours();
-  const ampm = rawHours >= 12 ? 'PM' : 'AM';
-  const hours12 = rawHours % 12 || 12;
-  const hoursStr = String(hours12).padStart(2, '0');
+  const hours = is24h ? time.getHours() : (time.getHours() % 12 || 12);
+  const hoursStr = String(hours).padStart(2, '0');
   const minutesStr = String(time.getMinutes()).padStart(2, '0');
   const secondsStr = String(time.getSeconds()).padStart(2, '0');
+  const timeStr = `${hoursStr}:${minutesStr}:${secondsStr}`;
 
-  const weekdays = [
-    'Chủ Nhật',
-    'Thứ Hai',
-    'Thứ Ba',
-    'Thứ Tư',
-    'Thứ Năm',
-    'Thứ Sáu',
-    'Thứ Bảy',
-  ];
-  const weekdayStr = weekdays[time.getDay()];
-  const dayStr = String(time.getDate()).padStart(2, '0');
-  const monthStr = String(time.getMonth() + 1).padStart(2, '0');
-  const yearStr = time.getFullYear();
+  const sun = useMemo(() => getSunTimes(time), [time.getDate()]);
+  const weekday = time.toLocaleDateString('en-US', { weekday: 'long' });
+  const month = time.toLocaleDateString('en-US', { month: 'short' });
+  const day = time.getDate();
+  const year = time.getFullYear();
 
   return (
-    <div className="transparent-clock-wrapper">
-      {/* Tag trạng thái nhẹ nhàng phía trên */}
-      <div className="transparent-clock-status d-flex align-items-center justify-content-center gap-2 mb-1">
-        <span className="live-pulse-dot" />
-        <span className="transparent-clock-tag">THỜI GIAN THỰC TẾ</span>
-        <span className="text-muted" style={{ opacity: 0.4 }}>•</span>
-        <span className="transparent-clock-zone">GMT+07 (VIỆT NAM)</span>
+    <div className="minimal-clock-card">
+      <div className="minimal-clock-time">{timeStr}</div>
+
+      <div className="minimal-clock-subinfo">
+        <div className="minimal-clock-sun">
+          {sun.rise} – {sun.set} ({sun.duration})
+        </div>
+        <div className="minimal-clock-date">
+          {weekday}, {month} {day} {year}
+        </div>
       </div>
 
-      {/* Hiển thị giờ số to trong suốt, sắc nét */}
-      <div className="transparent-time-digits">
-        <span className="transparent-digit">{hoursStr}</span>
-        <span className="transparent-colon">:</span>
-        <span className="transparent-digit">{minutesStr}</span>
-        <span className="transparent-colon">:</span>
-        <span className="transparent-digit transparent-digit--sec">{secondsStr}</span>
-        <span className="transparent-ampm">{ampm}</span>
-      </div>
-
-      {/* Dòng ngày tháng rõ ràng */}
-      <div className="transparent-date-row">
-        <span className="fw-bold text-dark">{weekdayStr}</span>
-        <span className="mx-1 text-muted">•</span>
-        <span>Ngày {dayStr}/{monthStr}/{yearStr}</span>
+      <div className="minimal-clock-footer">
+        <div className="minimal-clock-toggle" role="group" aria-label="Format">
+          <button
+            type="button"
+            className={`minimal-toggle-btn ${!is24h ? 'active' : ''}`}
+            onClick={() => setIs24h(false)}
+          >
+            12h
+          </button>
+          <button
+            type="button"
+            className={`minimal-toggle-btn ${is24h ? 'active' : ''}`}
+            onClick={() => setIs24h(true)}
+          >
+            24h
+          </button>
+        </div>
       </div>
     </div>
   );
