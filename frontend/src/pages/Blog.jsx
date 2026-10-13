@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   FaSearch,
@@ -13,6 +13,11 @@ import {
   FaFire,
 } from 'react-icons/fa';
 import mockBlogs from '../mock/blogs.js';
+
+const FALLBACK_BLOG_COVER =
+  'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80';
+const FALLBACK_AUTHOR_AVATAR =
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80';
 
 const BLOG_CATEGORIES = [
   'Tất cả',
@@ -105,6 +110,7 @@ export default function Blog() {
                   alt={selectedBlog.author.name}
                   className="rounded-circle object-fit-cover shadow-sm border"
                   style={{ width: '46px', height: '46px' }}
+                  onError={(e) => { e.currentTarget.src = FALLBACK_AUTHOR_AVATAR; }}
                 />
                 <div>
                   <div className="fw-bold text-dark" style={{ fontSize: '15px' }}>
@@ -126,6 +132,7 @@ export default function Blog() {
                 src={selectedBlog.cover}
                 alt={selectedBlog.title}
                 className="w-100 h-100 object-fit-cover"
+                onError={(e) => { e.currentTarget.src = FALLBACK_BLOG_COVER; }}
               />
             </div>
 
@@ -203,6 +210,7 @@ export default function Blog() {
                         src={b.cover}
                         alt={b.title}
                         className="awwwards-card-img"
+                        onError={(e) => { e.currentTarget.src = FALLBACK_BLOG_COVER; }}
                       />
                     </div>
                     <div className="p-3 d-flex flex-column flex-grow-1">
@@ -235,17 +243,17 @@ export default function Blog() {
         <div className="container" style={{ maxWidth: '1280px' }}>
           <div>
             <span className="awwwards-tagline">
-              <FaFire size={12} />
-              EDITORIAL INSIGHTS // CURATED STORIES
+              <FaFire size={13} />
+              CẨM NANG SỰ NGHIỆP // KINH NGHIỆM THỰC CHIẾN
             </span>
           </div>
 
           <h1 className="awwwards-main-headline">
-            Explore these popular posts.
+            Khám phá bài viết &amp; kinh nghiệm nổi bật
           </h1>
 
           <p className="awwwards-sub-desc">
-            Khám phá cẩm nang tối ưu CV chuẩn ATS, lộ trình kỹ thuật Full-Stack và các câu hỏi phỏng vấn thực chiến từ chuyên gia tuyển dụng.
+            Tổng hợp kiến thức tối ưu hồ sơ chuẩn ATS, lộ trình kỹ thuật Full-Stack và bí quyết phỏng vấn thực chiến từ các chuyên gia công nghệ.
           </p>
 
           {/* Modern Sleek Search Wrap */}
@@ -298,12 +306,13 @@ export default function Blog() {
               <div className="col-12 col-lg-7">
                 <div className="awwwards-featured-img-wrap">
                   <span className="awwwards-featured-badge">
-                    FEATURED STORY
+                    BÀI VIẾT NỔI BẬT
                   </span>
                   <img
                     src={featuredBlog.cover}
                     alt={featuredBlog.title}
                     className="awwwards-featured-img"
+                    onError={(e) => { e.currentTarget.src = FALLBACK_BLOG_COVER; }}
                   />
                 </div>
               </div>
@@ -333,6 +342,7 @@ export default function Blog() {
                       src={featuredBlog.author.avatar}
                       alt={featuredBlog.author.name}
                       className="awwwards-author-avatar"
+                      onError={(e) => { e.currentTarget.src = FALLBACK_AUTHOR_AVATAR; }}
                     />
                     <div>
                       <div className="awwwards-author-name">{featuredBlog.author.name}</div>
@@ -380,6 +390,7 @@ export default function Blog() {
                       src={post.cover}
                       alt={post.title}
                       className="awwwards-card-img"
+                      onError={(e) => { e.currentTarget.src = FALLBACK_BLOG_COVER; }}
                     />
                     <span className="awwwards-card-category-floating">
                       {post.category}
@@ -409,6 +420,7 @@ export default function Blog() {
                           src={post.author.avatar}
                           alt={post.author.name}
                           className="awwwards-author-avatar"
+                          onError={(e) => { e.currentTarget.src = FALLBACK_AUTHOR_AVATAR; }}
                         />
                         <span className="awwwards-author-name">
                           {post.author.name}

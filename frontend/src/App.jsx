@@ -18,8 +18,10 @@ import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 import Companies from './pages/Companies.jsx';
 import Blog from './pages/Blog.jsx';
 import Support from './pages/Support.jsx';
+import SalaryReport from './pages/SalaryReport.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 import ToastHost from './components/common/ToastHost.jsx';
+import ScrollToTop from './components/common/ScrollToTop.jsx';
 
 function NotFoundPlaceholder() {
   return (
@@ -35,6 +37,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -63,6 +66,7 @@ export default function App() {
             <Route path="/jobs/search" element={<JobList />} />
             <Route path="/jobs/:id" element={<JobDetail />} />
             <Route path="/companies" element={<Companies />} />
+            <Route path="/salary-report" element={<SalaryReport />} />
             <Route path="/blog" element={<Blog />} />
 
             {/* Tuyến đường Quản trị viên (ADMIN) */}

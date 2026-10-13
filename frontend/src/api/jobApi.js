@@ -14,30 +14,47 @@ export const jobApi = {
       let filtered = [...jobsState];
 
       // Lọc từ khóa (keyword)
-      if (params.keyword) {
-        const kw = params.keyword.toLowerCase();
+      if (params.keyword && params.keyword.trim()) {
+        const kw = params.keyword.trim().toLowerCase();
         filtered = filtered.filter(
           (j) =>
             j.title.toLowerCase().includes(kw) ||
-            j.company.name.toLowerCase().includes(kw) ||
-            (j.description && j.description.toLowerCase().includes(kw))
+            j.company?.name?.toLowerCase().includes(kw) ||
+            (j.description && j.description.toLowerCase().includes(kw)) ||
+            (j.requirements && j.requirements.toLowerCase().includes(kw))
         );
       }
 
       // Lọc ngành nghề (category)
       if (params.category && params.category !== 'all' && params.category !== 'Tất cả') {
-        filtered = filtered.filter((j) => j.category?.slug === params.category);
+        const catQ = params.category.toLowerCase();
+        filtered = filtered.filter(
+          (j) =>
+            j.category?.slug?.toLowerCase() === catQ ||
+            (j.category?.name && j.category.name.toLowerCase().includes(catQ))
+        );
       }
 
       // Lọc khu vực (area)
       if (params.area && params.area !== 'all' && params.area !== 'Tất cả') {
-        const a = params.area.toLowerCase();
-        filtered = filtered.filter(
-          (j) =>
-            (j.area && j.area.toLowerCase().includes(a)) ||
-            (j.location && j.location.toLowerCase().includes(a)) ||
-            (j.region && j.region.toLowerCase().includes(a))
-        );
+        const areaQ = params.area.toLowerCase().replace(/-/g, ' ').trim();
+        const areaSlug = params.area.toLowerCase().trim();
+        const normalize = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'd').toLowerCase();
+        const normQ = normalize(areaQ);
+
+        filtered = filtered.filter((j) => {
+          const loc = (j.location || '').toLowerCase();
+          const reg = (j.region || '').toLowerCase();
+          const ar = (j.area || '').toLowerCase();
+          return (
+            ar === areaSlug ||
+            ar.includes(areaSlug) ||
+            loc.includes(areaQ) ||
+            reg.includes(areaQ) ||
+            normalize(loc).includes(normQ) ||
+            normalize(reg).includes(normQ)
+          );
+        });
       }
 
       // Lọc kinh nghiệm (experience)
@@ -58,13 +75,13 @@ export const jobApi = {
 
       // Lọc mức lương (salary)
       if (params.salary && params.salary !== 'all') {
-        if (params.salary === 'under10') {
+        if (params.salary === 'under10' || params.salary === 'under-10') {
           filtered = filtered.filter((j) => (j.salaryMax || 0) > 0 && (j.salaryMax || 0) <= 10);
         } else if (params.salary === '10-20') {
           filtered = filtered.filter((j) => (j.salaryMax || 0) >= 10 && (j.salaryMin || 0) <= 20);
         } else if (params.salary === '20-30') {
           filtered = filtered.filter((j) => (j.salaryMax || 0) >= 20 && (j.salaryMin || 0) <= 30);
-        } else if (params.salary === 'over30') {
+        } else if (params.salary === 'over30' || params.salary === 'over-30') {
           filtered = filtered.filter((j) => (j.salaryMax || 0) >= 30);
         }
       }
@@ -107,13 +124,24 @@ export const jobApi = {
       }
 
       if (params.area && params.area !== 'all' && params.area !== 'Tất cả') {
-        const a = params.area.toLowerCase();
-        filtered = filtered.filter(
-          (j) =>
-            (j.area && j.area.toLowerCase().includes(a)) ||
-            (j.location && j.location.toLowerCase().includes(a)) ||
-            (j.region && j.region.toLowerCase().includes(a))
-        );
+        const areaQ = params.area.toLowerCase().replace(/-/g, ' ').trim();
+        const areaSlug = params.area.toLowerCase().trim();
+        const normalize = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'd').toLowerCase();
+        const normQ = normalize(areaQ);
+
+        filtered = filtered.filter((j) => {
+          const loc = (j.location || '').toLowerCase();
+          const reg = (j.region || '').toLowerCase();
+          const ar = (j.area || '').toLowerCase();
+          return (
+            ar === areaSlug ||
+            ar.includes(areaSlug) ||
+            loc.includes(areaQ) ||
+            reg.includes(areaQ) ||
+            normalize(loc).includes(normQ) ||
+            normalize(reg).includes(normQ)
+          );
+        });
       }
 
       // Shuffle random

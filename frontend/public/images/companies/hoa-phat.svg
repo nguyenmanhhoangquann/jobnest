@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(18, 24)">
+        <polygon points="42,10 64,28 42,46 20,28" fill="none" stroke="#003580" stroke-width="5"/>
+        <line x1="20" y1="28" x2="64" y2="28" stroke="#003580" stroke-width="4.5"/>
+        <text x="42" y="60" fill="#003580" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="12.5" font-weight="900" text-anchor="middle" letter-spacing="0.02em">HÒA PHÁT</text>
+      </g>
+    
+</svg>

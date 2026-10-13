@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(20, 24)">
+        <path d="M26 28 C26 16 38 16 40 28 C42 16 54 16 54 28 C54 38 40 44 40 44 C40 44 26 38 26 28 Z" fill="#004A98"/>
+        <text x="40" y="58" fill="#004A98" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" text-anchor="middle" letter-spacing="0.05em">VIB</text>
+      </g>
+    
+</svg>

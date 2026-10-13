@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(15, 22)">
+        <polygon points="45,8 52,22 68,22 55,32 60,46 45,36 30,46 35,32 22,22 38,22" fill="#E11D48"/>
+        <text x="45" y="54" fill="#E11D48" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" font-weight="900" text-anchor="middle">IELTS</text>
+        <text x="45" y="64" fill="#1E293B" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">MENTOR</text>
+      </g>
+    
+</svg>

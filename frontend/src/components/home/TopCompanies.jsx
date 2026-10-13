@@ -25,7 +25,10 @@ const MOCK_PRO_COMPANIES = [
     id: 1,
     name: 'TẬP ĐOÀN CÔNG NGHỆ FPT',
     industry: 'IT - Phần mềm',
-    logo: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=120&q=80',
+    size: '10,000+ nhân sự',
+    tagline: 'Tiên phong chuyển đổi số và phát triển giải pháp trí tuệ nhân tạo (AI)',
+    statusTag: 'Tăng trưởng nhanh',
+    logo: '/images/companies/fpt.svg',
     cover: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
     openJobs: 48,
     verified: true,
@@ -34,7 +37,10 @@ const MOCK_PRO_COMPANIES = [
     id: 2,
     name: 'NGÂN HÀNG THƯƠNG MẠI CỔ PHẦN QUÂN ĐỘI (MB)',
     industry: 'Ngân hàng',
-    logo: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=120&q=80',
+    size: '5,000+ nhân sự',
+    tagline: 'Ngân hàng số thông minh với hệ sinh thái tài chính toàn diện',
+    statusTag: 'Top tuyển dụng',
+    logo: '/images/companies/mb-bank.png',
     cover: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
     openJobs: 32,
     verified: true,
@@ -43,7 +49,10 @@ const MOCK_PRO_COMPANIES = [
     id: 3,
     name: 'CÔNG TY CỔ PHẦN MISA',
     industry: 'IT - Phần mềm',
-    logo: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=120&q=80',
+    size: '3,000+ nhân sự',
+    tagline: 'Giải pháp phần mềm kế toán và nền tảng quản trị SaaS cho doanh nghiệp',
+    statusTag: 'Tăng trưởng nhanh',
+    logo: '/images/companies/misa.svg',
     cover: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80',
     openJobs: 25,
     verified: true,
@@ -52,7 +61,10 @@ const MOCK_PRO_COMPANIES = [
     id: 4,
     name: 'TẬP ĐOÀN CÔNG NGHIỆP - VIỄN THÔNG QUÂN ĐỘI (VIETTEL)',
     industry: 'IT - Phần mềm',
-    logo: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=120&q=80',
+    size: '20,000+ nhân sự',
+    tagline: 'Hạ tầng viễn thông số 5G và hệ sinh thái giải pháp số quốc tế',
+    statusTag: 'Tập đoàn hàng đầu',
+    logo: '/images/companies/viettel.svg',
     cover: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
     openJobs: 64,
     verified: true,
@@ -61,7 +73,10 @@ const MOCK_PRO_COMPANIES = [
     id: 5,
     name: 'NGÂN HÀNG QUỐC TẾ VIB',
     industry: 'Ngân hàng',
-    logo: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=120&q=80',
+    size: '5,000+ nhân sự',
+    tagline: 'Dẫn đầu xu hướng công nghệ số hóa và thẻ tín dụng phong cách sống',
+    statusTag: 'Tuyển dụng sôi nổi',
+    logo: '/images/companies/vib.png',
     cover: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80',
     openJobs: 19,
     verified: true,
@@ -70,7 +85,10 @@ const MOCK_PRO_COMPANIES = [
     id: 6,
     name: 'CÔNG TY CỔ PHẦN VINAMILK',
     industry: 'Bán lẻ - Hàng tiêu dùng - FMCG',
-    logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=120&q=80',
+    size: '10,000+ nhân sự',
+    tagline: 'Thương hiệu sữa quốc gia với chuỗi cung ứng bền vững chuẩn Net Zero',
+    statusTag: 'Thương hiệu quốc gia',
+    logo: '/images/companies/vinamilk.svg',
     cover: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
     openJobs: 21,
     verified: true,
@@ -79,7 +97,10 @@ const MOCK_PRO_COMPANIES = [
     id: 7,
     name: 'TẬP ĐOÀN VINGROUP - VINHOMES',
     industry: 'Bất động sản',
-    logo: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=120&q=80',
+    size: '15,000+ nhân sự',
+    tagline: 'Nhà phát triển đại đô thị thông minh và hạ tầng dịch vụ tiêu chuẩn quốc tế',
+    statusTag: 'Quy mô hàng đầu',
+    logo: '/images/companies/vinhomes.svg',
     cover: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
     openJobs: 36,
     verified: true,
@@ -88,8 +109,11 @@ const MOCK_PRO_COMPANIES = [
     id: 8,
     name: 'TẬP ĐOÀN HÒA PHÁT',
     industry: 'Xây dựng, Sản xuất',
-    logo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=120&q=80',
-    cover: 'https://images.unsplash.com/photo-1541888946425-d0fbb186156f?auto=format&fit=crop&w=600&q=80',
+    size: '25,000+ nhân sự',
+    tagline: 'Tập đoàn sản xuất công nghiệp và chế tạo thép hàng đầu khu vực',
+    statusTag: 'Top ngành sản xuất',
+    logo: '/images/companies/hoa-phat.svg',
+    cover: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
     openJobs: 28,
     verified: true,
   },
@@ -97,7 +121,10 @@ const MOCK_PRO_COMPANIES = [
     id: 9,
     name: 'CÔNG TY CHỨNG KHOÁN SSI',
     industry: 'Tài chính',
-    logo: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=120&q=80',
+    size: '1,500+ nhân sự',
+    tagline: 'Định chế tài chính và dịch vụ đầu tư chứng khoán uy tín hàng đầu',
+    statusTag: 'Uy tín hàng đầu',
+    logo: '/images/companies/ssi.svg',
     cover: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
     openJobs: 17,
     verified: true,
@@ -224,23 +251,42 @@ export default function TopCompanies() {
                           </Link>
                         </h3>
 
-                        <div className="small text-muted mb-3 d-flex align-items-center gap-1">
-                          <FaCheckCircle className="text-primary" size={12} />
-                          <span>{company.industry}</span>
+                        {/* Wellfound style tags: size & status */}
+                        <div className="d-flex flex-wrap align-items-center gap-1 mb-2">
+                          {company.size && (
+                            <span className="badge-company-tag badge-company-tag--size">
+                              {company.size}
+                            </span>
+                          )}
+                          {company.statusTag && (
+                            <span className="badge-company-tag badge-company-tag--status">
+                              {company.statusTag}
+                            </span>
+                          )}
                         </div>
 
+                        {/* 1-line mission / tagline */}
+                        {company.tagline && (
+                          <p className="company-card__tagline text-muted small mb-3">
+                            {company.tagline}
+                          </p>
+                        )}
+
                         <div className="mt-auto pt-2 border-top d-flex align-items-center justify-content-between">
-                          <span className="badge bg-warning-subtle text-warning-emphasis font-monospace fw-semibold">
+                          <span
+                            className="badge font-monospace fw-semibold"
+                            style={{ backgroundColor: '#FEF3C7', color: '#92400E' }}
+                          >
                             <FaBriefcase className="me-1" size={10} />
                             {company.openJobs} việc làm đang tuyển
                           </span>
 
-                        <Link
-                          to={`/companies?id=${company.id}`}
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          Xem ngay →
-                        </Link>
+                          <Link
+                            to={`/companies?id=${company.id}`}
+                            className="btn btn-sm btn-outline-dark fw-semibold"
+                          >
+                            Xem việc làm →
+                          </Link>
                         </div>
                       </div>
                     </div>

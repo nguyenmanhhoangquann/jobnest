@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#003B94" stroke="#003B94" stroke-width="1"/>
+  
+      <g transform="translate(10, 36)">
+        <text x="50" y="32" fill="#FFFFFF" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="16" font-weight="900" text-anchor="middle" letter-spacing="-0.02em">vinamilk</text>
+        <circle cx="50" cy="46" r="3" fill="#FFFFFF"/>
+      </g>
+    
+</svg>

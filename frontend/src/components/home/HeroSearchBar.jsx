@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
 
-export default function HeroSearchBar() {
+export default function HeroSearchBar({ variant = 'default' }) {
   const [keyword, setKeyword] = useState('');
   const [area, setArea] = useState('');
   const navigate = useNavigate();
@@ -15,27 +15,42 @@ export default function HeroSearchBar() {
     navigate(`/jobs/search?${params.toString()}`);
   };
 
+  const isRefero = variant === 'refero';
+
   return (
-    <form className="hero-search-bar" onSubmit={handleSearch}>
+    <form
+      className={`hero-search-bar ${isRefero ? 'hero-search-bar--refero' : ''}`}
+      onSubmit={handleSearch}
+    >
       <div className="hero-search-bar__input-wrap">
-        <FaSearch className="text-muted ms-2" size={16} />
+        <FaSearch
+          className="ms-2 flex-shrink-0"
+          size={16}
+          style={{ color: isRefero ? '#FBBF24' : '#6B7280' }}
+        />
         <input
           type="text"
           className="hero-search-bar__input"
-          placeholder="Nhập vị trí công việc, kỹ năng hoặc tên công ty..."
+          placeholder="Vị trí, kỹ năng hoặc công ty..."
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
+          aria-label="Vị trí, kỹ năng hoặc tên công ty"
         />
       </div>
 
       <div className="hero-search-bar__divider d-none d-sm-block" />
 
       <div className="hero-search-bar__select-wrap">
-        <FaMapMarkerAlt className="text-muted ms-2" size={15} />
+        <FaMapMarkerAlt
+          className="ms-2 flex-shrink-0"
+          size={15}
+          style={{ color: isRefero ? '#FBBF24' : '#6B7280' }}
+        />
         <select
           className="hero-search-bar__select"
           value={area}
           onChange={(e) => setArea(e.target.value)}
+          aria-label="Chọn địa điểm làm việc"
         >
           <option value="">Tất cả địa điểm</option>
           <option value="ha-noi">Hà Nội</option>
@@ -46,9 +61,12 @@ export default function HeroSearchBar() {
         </select>
       </div>
 
-      <button type="submit" className="btn-brand hero-search-bar__btn">
+      <button
+        type="submit"
+        className={`hero-search-bar__btn ${isRefero ? 'hero-search-bar__btn--refero' : 'btn-brand'}`}
+      >
         <FaSearch className="me-2 d-none d-sm-inline" size={14} />
-        Tìm kiếm
+        Tìm việc
       </button>
     </form>
   );

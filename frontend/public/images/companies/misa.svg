@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(18, 26)">
+        <polygon points="28,14 42,26 28,38" fill="#0072BC"/>
+        <polygon points="56,14 42,26 56,38" fill="#FFD200"/>
+        <polygon points="28,38 42,26 42,50" fill="#ED1C24"/>
+        <polygon points="56,38 42,26 42,50" fill="#00A850"/>
+        <text x="42" y="58" fill="#0072BC" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="16" font-weight="900" text-anchor="middle" letter-spacing="0.08em">MISA</text>
+      </g>
+    
+</svg>

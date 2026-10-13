@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 28 92 62" width="120" height="120">
+  <rect x="16" y="28" width="92" height="62" fill="#FFFFFF"/>
+  
+      <g transform="translate(18, 30)">
+        <!-- 3 FPT brand color slashes -->
+        <path d="M6 34 L18 6 A8 8 0 0 1 30 6 L18 34 Z" fill="#0054A6"/>
+        <path d="M34 34 L46 6 A8 8 0 0 1 58 6 L46 34 Z" fill="#F37021"/>
+        <path d="M62 34 L74 6 A8 8 0 0 1 86 6 L74 34 Z" fill="#00A850"/>
+        <text x="42" y="55" fill="#0054A6" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" text-anchor="middle" letter-spacing="0.04em">FPT</text>
+      </g>
+    
+</svg>

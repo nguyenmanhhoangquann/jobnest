@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(16, 22)">
+        <circle cx="44" cy="24" r="12" fill="#FFB81C"/>
+        <path d="M44 4 L44 10 M44 38 L44 44 M24 24 L30 24 M58 24 L64 24 M30 10 L34 14 M54 34 L58 38 M30 38 L34 34 M54 14 L58 10" stroke="#FFB81C" stroke-width="3" stroke-linecap="round"/>
+        <text x="44" y="58" fill="#00263E" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" font-weight="800" text-anchor="middle">Sun Life</text>
+      </g>
+    
+</svg>

@@ -70,7 +70,7 @@ export default function CategoryBannerPreview({ category }) {
             <FaArrowRight size={13} />
           </Link>
 
-          <div className="d-flex align-items-center gap-2 text-white-50 small">
+          <div className="d-flex align-items-center gap-2 small" style={{ color: '#E2E8F0' }}>
             <FaBuilding className="text-warning" size={13} />
             <span>500+ Doanh nghiệp liên kết</span>
           </div>

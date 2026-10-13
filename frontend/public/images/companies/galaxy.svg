@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(12, 22)">
+        <ellipse cx="48" cy="24" rx="24" ry="10" fill="none" stroke="#6D28D9" stroke-width="4" transform="rotate(-20 48 24)"/>
+        <circle cx="48" cy="24" r="7" fill="#F59E0B"/>
+        <text x="48" y="54" fill="#6D28D9" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" font-weight="800" text-anchor="middle">GALAXY</text>
+        <text x="48" y="64" fill="#F59E0B" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="8" font-weight="700" text-anchor="middle">EDUCATION</text>
+      </g>
+    
+</svg>

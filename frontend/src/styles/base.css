@@ -1,6 +1,7 @@
 /* Base CSS overrides & helpers */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+  scrollbar-gutter: stable;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -72,14 +73,107 @@ img {
 }
 
 /* ==========================================================================
-   Navbar Styles (Section 6.1)
+   Navbar Styles (Section 6.1 - Upgraded Premium Header with Color Glow)
    ========================================================================== */
 .app-navbar {
-  background: #FFFFFF !important;
-  border-bottom: 1px solid #E5E7EB;
-  z-index: 1030;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1050 !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1.5px solid rgba(254, 215, 170, 0.6) !important;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 24px rgba(234, 88, 12, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Dải màu hiệu ứng ánh sáng gradient chạy ngang đỉnh Navbar */
+.app-navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #F59E0B 0%, #EA580C 25%, #EC4899 50%, #8B5CF6 75%, #F59E0B 100%);
+  background-size: 200% 100%;
+  animation: navGlowMove 4s linear infinite;
+  z-index: 1032;
+  box-shadow: 0 2px 14px rgba(234, 88, 12, 0.65);
+}
+
+@keyframes navGlowMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.nav-icon-action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #334155;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  text-decoration: none;
+  padding: 0;
+}
+
+.nav-icon-action-btn:hover {
+  background: #FFF7ED;
+  border-color: #FDBA74;
+  color: #EA580C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.15);
+}
+
+.nav-icon-action-btn:active {
+  transform: translateY(0);
+}
+
+.nav-ai-chip-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: linear-gradient(135deg, #EA580C 0%, #F97316 100%);
+  color: #FFFFFF;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1.5px 4.5px;
+  border-radius: 999px;
+  line-height: 1;
+  border: 1.5px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.35);
+  letter-spacing: 0.02em;
+}
+
+.notif-badge-modern {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  border: 1.5px solid #FFFFFF;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+  animation: pulseNotif 2s infinite;
+}
+
+@keyframes pulseNotif {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
 .navbar-brand-logo {
@@ -91,91 +185,156 @@ img {
 }
 
 .app-menu .app-nav-link {
-  font-size: 14.5px;
+  display: inline-flex !important;
+  align-items: center;
+  font-size: 14px;
   font-weight: 600;
-  color: #374151;
-  padding: 8px 14px !important;
+  color: #4B5563;
+  padding: 7px 16px !important;
+  margin: 0 2px;
   position: relative;
-  transition: all 0.15s ease;
-  border-radius: 6px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  border-radius: 999px;
 }
 
 .app-menu .app-nav-link:hover {
-  color: #111827;
-  background: #F9FAFB;
+  color: #B45309;
+  background: rgba(251, 191, 36, 0.14);
 }
 
 .app-menu .app-nav-link.active {
   font-weight: 700;
-  color: #111827;
+  color: #92400E !important;
+  background: rgba(251, 191, 36, 0.2) !important;
+  box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.5), 0 2px 8px rgba(251, 191, 36, 0.18);
 }
 
 .app-menu .app-nav-link.active::after {
-  content: '';
+  display: none !important;
+}
+
+/* HOT Badge on Nav Item - Tách xa chữ Việc làm để không bao giờ bị che khuất */
+.app-nav-link--hot {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-hot-badge {
+  position: static !important;
+  transform: none !important;
+  font-size: 8.5px;
+  font-weight: 900;
+  line-height: 1;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  padding: 2.5px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.45);
+  user-select: none;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+}
+
+@keyframes pulseBadge {
+  0% {
+    transform: translateY(-50%) scale(0.96);
+    filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.4));
+  }
+  100% {
+    transform: translateY(-50%) scale(1.05);
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.75));
+  }
+}
+
+.nav-hot-badge::before {
+  content: "";
   position: absolute;
-  bottom: 0px;
-  left: 14px;
-  right: 14px;
-  height: 2.5px;
-  background: var(--color-primary);
-  border-radius: 2px;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  animation: 2.6s ease-in-out infinite hotShine;
+}
+
+@keyframes hotShine {
+  0% {
+    left: -100%;
+  }
+  33.33% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 .btn-nav-employer {
   font-size: 13px;
   font-weight: 600;
-  color: #374151;
-  background: #F3F4F6;
-  border: 1px solid #E5E7EB;
-  border-radius: 6px;
-  padding: 6px 13px;
+  color: #334155;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 999px;
+  padding: 6px 15px;
   text-decoration: none;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .btn-nav-employer:hover {
-  background: #E5E7EB;
-  color: #111827;
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+  color: #0F172A;
+  transform: none;
 }
 
 .btn-nav-login {
   font-size: 13px;
   font-weight: 600;
   color: #1F2937;
-  border: 1px solid #D1D5DB;
-  border-radius: 6px;
-  padding: 6px 14px;
+  border: 1px solid #E2E8F0;
+  border-radius: 999px;
+  padding: 6px 16px;
   background: #FFFFFF;
   text-decoration: none;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .btn-nav-login:hover {
-  border-color: #9CA3AF;
-  background: #F9FAFB;
-  color: #111827;
+  border-color: #CBD5E1;
+  background: #F8FAFC;
+  color: #0F172A;
+  transform: none;
 }
 
 .btn-nav-register {
   font-size: 13px;
   font-weight: 700;
-  color: #1F2937;
-  background: var(--color-primary);
-  border: 1px solid var(--color-primary);
-  border-radius: 6px;
-  padding: 6px 16px;
+  color: #18181B;
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+  border: 0;
+  border-radius: 999px;
+  padding: 6.5px 18px;
   text-decoration: none;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   white-space: nowrap;
-  box-shadow: 0 1px 3px rgba(251, 199, 37, 0.3);
+  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.4);
 }
 
 .btn-nav-register:hover {
-  background: #F2B705;
-  border-color: #F2B705;
-  color: #111827;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #18181B;
+  transform: none;
+  box-shadow: 0 6px 18px rgba(251, 191, 36, 0.5);
 }
 
 .icon-btn {
@@ -317,7 +476,7 @@ img {
 .social-btn:hover {
   background: #FFFFFF;
   color: #C2410C;
-  transform: translateY(-2px);
+  transform: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -698,6 +857,35 @@ img {
   color: #111827;
 }
 
+.btn-apply-fast-sm {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #1F2937;
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: 6px;
+  padding: 3px 10px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-apply-fast-sm:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #111827;
+}
+
+.job-meta-line {
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.job-card__meta-line {
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .save-btn:hover {
   border-color: var(--color-primary);
   background: var(--color-surface-alt);
@@ -882,6 +1070,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fff;
+  flex-shrink: 0;
 }
 
 .job-detail-logo-sm img {
@@ -988,7 +1178,7 @@ img {
 
 .role-select-card:hover {
   border-color: var(--color-primary);
-  transform: translateY(-2px);
+  transform: none;
 }
 
 .role-select-card--active {
@@ -1121,7 +1311,7 @@ img {
 }
 
 .zalo-floating-btn:hover {
-  transform: scale(1.08) translateY(-2px);
+  transform: none;
   box-shadow: 0 6px 22px rgba(0, 104, 255, 0.55);
 }
 

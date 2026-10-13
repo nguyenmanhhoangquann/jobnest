@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(15, 22)">
+        <rect x="25" y="8" width="40" height="34" rx="4" fill="#0066B2"/>
+        <line x1="35" y1="18" x2="55" y2="18" stroke="#FFD200" stroke-width="3"/>
+        <line x1="35" y1="28" x2="55" y2="28" stroke="#FFD200" stroke-width="3"/>
+        <text x="45" y="56" fill="#0066B2" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="15" font-weight="900" text-anchor="middle">BCONS</text>
+      </g>
+    
+</svg>

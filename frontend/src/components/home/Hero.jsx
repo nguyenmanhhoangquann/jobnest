@@ -1,9 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaFire } from 'react-icons/fa';
 import HeroSearchBar from './HeroSearchBar.jsx';
+import ReferoConstellation from './ReferoConstellation.jsx';
 import CategorySidebar from './CategorySidebar.jsx';
 import CategoryBannerPreview from './CategoryBannerPreview.jsx';
-import FuturisticHudClock from './FuturisticHudClock.jsx';
 import { POPULAR_KEYWORDS } from '../../constants.js';
 import { mockCategories } from '../../mock/categories.js';
 
@@ -20,47 +21,81 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero-section">
-      <div className="container-app">
-        {/* Phần trên: Tiêu đề + Thanh tìm kiếm trung tâm */}
-        <div className="hero-header-center mx-auto text-center mb-4 d-flex flex-column align-items-center">
-          {/* ĐỒNG HỒ HUD SCI-FI KHỔ LỚN THEO MẪU */}
-          <div className="w-100 d-flex justify-content-center">
-            <FuturisticHudClock />
-          </div>
+    <section className="hero-section hero-section--refero">
+      <div className="container-app position-relative z-2">
+        {/* Phần trên: Bố cục 2 cột chuẩn Refero Dala */}
+        <div className="row align-items-center g-4 g-lg-5 hero-refero-row">
+          {/* Cột trái: Tiêu đề, phụ đề, thanh tìm kiếm & ticker */}
+          <div className="col-12 col-lg-7">
+            <div className="hero-refero-content text-start">
+              {/* Eyebrow tag phong cách Refero Dala */}
+              <div className="hero-eyebrow hero-eyebrow--refero mb-3">
+                <span className="hero-eyebrow-dot" />
+                JOBNEST WORKPLACE INTELLIGENCE
+              </div>
 
-          <h1 className="hero-title mb-2 text-center">
-            Tìm công việc mơ ước <span className="hero-title--highlight">phù hợp với bạn</span>
-          </h1>
+              {/* Tiêu đề display hoành tráng nhưng nét thanh nhẹ (Refero Monolithic Typography) */}
+              <h1 className="hero-title hero-title--refero mb-3">
+                Nơi sự nghiệp của bạn <br />
+                <span className="hero-title-accent">tìm thấy câu trả lời.</span>
+              </h1>
 
-          <p className="hero-desc mb-3 text-center mx-auto">
-            Hàng nghìn việc làm chất lượng cao từ các công ty công nghệ và tập đoàn uy tín.
-          </p>
+              {/* Phụ đề ultra-light, thoáng đạt */}
+              <p className="hero-desc hero-desc--refero mb-4">
+                Khám phá hơn 10,000+ cơ hội công nghệ chất lượng cao. Định vị mức lương, đo độ khớp hồ sơ và kết nối trực tiếp với các startup hàng đầu.
+              </p>
 
-          <div className="w-100 d-flex justify-content-center">
-            <HeroSearchBar />
-          </div>
+              {/* Thanh tìm kiếm phong cách Refero Obsidian */}
+              <div className="hero-search-wrap mb-3">
+                <HeroSearchBar variant="refero" />
+              </div>
 
-          {/* Dải từ khóa phổ biến căn giữa */}
-          <div className="hero-keywords mt-3 mb-0 justify-content-center">
-            <span className="hero-keywords__label">Từ khóa phổ biến:</span>
-            <div className="hero-keywords__list d-flex flex-wrap justify-content-center gap-1">
-              {POPULAR_KEYWORDS.map((kw) => (
-                <button
-                  key={kw}
-                  type="button"
-                  className="chip hero-keyword-chip"
-                  onClick={() => navigate(`/jobs/search?keyword=${encodeURIComponent(kw)}`)}
-                >
-                  {kw}
-                </button>
-              ))}
+              {/* Dải thông điệp chạy chữ ngọn lửa ITviec trên nền tối Refero */}
+              <div className="hero-ticker-marquee hero-ticker-marquee--refero mb-3">
+                <div className="hero-ticker-fire" title="Nóng">
+                  <FaFire className="text-warning" size={15} />
+                </div>
+                <div className="hero-ticker-track-wrap">
+                  <div className="hero-ticker-track">
+                    <span className="hero-ticker-text hero-ticker-text--refero">
+                      JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
+                    </span>
+                    <span className="hero-ticker-text hero-ticker-text--refero" aria-hidden="true">
+                      JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dải từ khóa phổ biến */}
+              <div className="hero-keywords hero-keywords--refero">
+                <span className="hero-keywords__label hero-keywords__label--refero">
+                  Từ khóa hàng đầu:
+                </span>
+                <div className="hero-keywords__list d-flex flex-wrap gap-1">
+                  {POPULAR_KEYWORDS.slice(0, 6).map((kw) => (
+                    <button
+                      key={kw}
+                      type="button"
+                      className="chip hero-keyword-chip hero-keyword-chip--refero"
+                      onClick={() => navigate(`/jobs/search?keyword=${encodeURIComponent(kw)}`)}
+                    >
+                      {kw}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
+          </div>
+
+          {/* Cột phải: Hình minh họa Constellation Neural Mesh Refero */}
+          <div className="col-12 col-lg-5">
+            <ReferoConstellation />
           </div>
         </div>
 
-        {/* Phần dưới: Khối tương tác (Cột trái: Danh mục - Cột phải: Ảnh xem trước tương ứng) */}
-        <div className="hero-showcase-grid mt-4">
+        {/* Phần dưới: Khối tương tác Danh mục nghề nghiệp */}
+        <div className="hero-showcase-grid mt-5">
           {/* Cột trái: Danh mục nghề nghiệp */}
           <div className="hero-showcase-sidebar">
             <CategorySidebar

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#002D72" stroke="#002D72" stroke-width="1"/>
+  
+      <g transform="translate(20, 24)">
+        <polygon points="40,8 44,18 55,18 46,25 50,36 40,29 30,36 34,25 25,18 36,18" fill="#EE3124"/>
+        <text x="40" y="58" fill="#FFFFFF" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="22" font-weight="900" text-anchor="middle" letter-spacing="0.08em">MB</text>
+      </g>
+    
+</svg>

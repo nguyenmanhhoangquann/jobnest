@@ -1,5 +1,305 @@
 export const mockJobs = [
   {
+    "id": 1011,
+    "title": "Senior Java Backend Engineer (Spring Boot / Cloud Microservices)",
+    "salaryText": "25 - 40 triệu",
+    "salaryMin": 25,
+    "salaryMax": 40,
+    "location": "Hà Nội",
+    "area": "ha-noi",
+    "region": "Miền Bắc",
+    "jobType": "FULL_TIME",
+    "experience": "2-5",
+    "position": "senior",
+    "category": {
+      "id": 1,
+      "slug": "cntt",
+      "name": "Công nghệ thông tin"
+    },
+    "company": {
+      "id": 1,
+      "name": "TẬP ĐOÀN CÔNG NGHỆ FPT",
+      "logoUrl": "/images/companies/fpt.svg"
+    },
+    "isHot": true,
+    "isUrgent": true,
+    "isTop": true,
+    "saved": false,
+    "description": "Tham gia phát triển các hệ thống Backend kiến trúc Microservices quy mô lớn trên AWS/GCP bằng Java Spring Boot.",
+    "requirements": "Tối thiểu 3 năm kinh nghiệm lập trình Java, thành thạo Spring Boot, Docker, Kafka, Redis và SQL/NoSQL.",
+    "benefits": "Lương 25 - 40 triệu/tháng + thưởng hiệu suất dự án. Bảo hiểm FPT Care cho nhân viên và người thân."
+  },
+  {
+    "id": 1021,
+    "title": "Chuyên viên Khách hàng Doanh nghiệp (SME Banker)",
+    "salaryText": "18 - 35 triệu",
+    "salaryMin": 18,
+    "salaryMax": 35,
+    "location": "Hà Nội",
+    "area": "ha-noi",
+    "region": "Miền Bắc",
+    "jobType": "FULL_TIME",
+    "experience": "1-2",
+    "position": "staff",
+    "category": {
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
+    },
+    "company": {
+      "id": 2,
+      "name": "NGÂN HÀNG THƯƠNG MẠI CỔ PHẦN QUÂN ĐỘI (MB)",
+      "logoUrl": "/images/companies/mb-bank.png"
+    },
+    "isHot": true,
+    "isUrgent": true,
+    "isTop": true,
+    "saved": true,
+    "description": "Tìm kiếm, phát triển quan hệ với khách hàng doanh nghiệp vừa và nhỏ, tư vấn các sản phẩm tín dụng và thanh toán số.",
+    "requirements": "Tốt nghiệp Đại học khối Kinh tế, Tài chính - Ngân hàng. Khả năng giao tiếp tốt, tư duy đàm phán sắc bén.",
+    "benefits": "Lương cạnh tranh + thưởng theo doanh số không giới hạn. Môi trường ngân hàng số hiện đại hàng đầu."
+  },
+  {
+    "id": 1041,
+    "title": "Kỹ sư Nghiên cứu và Phát triển Hệ thống 5G / IoT (Embedded & Cloud)",
+    "salaryText": "30 - 55 triệu",
+    "salaryMin": 30,
+    "salaryMax": 55,
+    "location": "Hà Nội",
+    "area": "ha-noi",
+    "region": "Miền Bắc",
+    "jobType": "FULL_TIME",
+    "experience": "2-5",
+    "position": "senior",
+    "category": {
+      "id": 1,
+      "slug": "cntt",
+      "name": "Công nghệ thông tin"
+    },
+    "company": {
+      "id": 4,
+      "name": "TẬP ĐOÀN CÔNG NGHIỆP - VIỄN THÔNG QUÂN ĐỘI (VIETTEL)",
+      "logoUrl": "/images/companies/viettel.svg"
+    },
+    "isHot": true,
+    "isUrgent": true,
+    "isTop": true,
+    "saved": false,
+    "description": "Nghiên cứu kiến trúc trạm thu phát sóng và thiết bị mạng 5G tiêu chuẩn quốc tế tại Viettel High Tech.",
+    "requirements": "Thành thạo C/C++, hệ điều hành Linux nhúng, nắm vững giao thức mạng viễn thông TCP/IP và 3GPP.",
+    "benefits": "Thu nhập 30 - 55 triệu/tháng, cơ hội làm chủ công nghệ cao tại tập đoàn viễn thông hàng đầu Việt Nam."
+  },
+  {
+    "id": 1061,
+    "title": "Giám sát Bán hàng Khu vực (Area Sales Supervisor - FMCG)",
+    "salaryText": "20 - 35 triệu",
+    "salaryMin": 20,
+    "salaryMax": 35,
+    "location": "TP. Hồ Chí Minh",
+    "area": "ho-chi-minh",
+    "region": "Miền Nam",
+    "jobType": "FULL_TIME",
+    "experience": "2-5",
+    "position": "leader",
+    "category": {
+      "id": 2,
+      "slug": "kinh-doanh",
+      "name": "Kinh doanh - Bán hàng (Sales)"
+    },
+    "company": {
+      "id": 6,
+      "name": "CÔNG TY CỔ PHẦN SỮA VIỆT NAM (VINAMILK)",
+      "logoUrl": "/images/companies/vinamilk.svg"
+    },
+    "isHot": true,
+    "isUrgent": false,
+    "isTop": true,
+    "saved": false,
+    "description": "Quản lý và điều phối hoạt động kinh doanh chuỗi nhà phân phối sản phẩm dinh dưỡng Vinamilk khu vực TP.HCM.",
+    "requirements": "Có từ 2 năm kinh nghiệm giám sát bán hàng ngành hàng tiêu dùng nhanh (FMCG), kỹ năng lãnh đạo đội ngũ.",
+    "benefits": "Lương thưởng hấp dẫn, phụ cấp công tác đầy đủ, chế độ phúc lợi thương hiệu quốc gia dẫn đầu."
+  },
+  {
+    "id": 1051,
+    "title": "Chuyên viên Tư vấn Tài chính & Thẻ Tín dụng (Credit Card Specialist)",
+    "salaryText": "15 - 30 triệu",
+    "salaryMin": 15,
+    "salaryMax": 30,
+    "location": "Hà Nội",
+    "area": "ha-noi",
+    "region": "Miền Bắc",
+    "jobType": "FULL_TIME",
+    "experience": "1-2",
+    "position": "staff",
+    "category": {
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
+    },
+    "company": {
+      "id": 5,
+      "name": "NGÂN HÀNG QUỐC TẾ VIB",
+      "logoUrl": "/images/companies/vib.png"
+    },
+    "isHot": true,
+    "isUrgent": true,
+    "isTop": true,
+    "saved": false,
+    "description": "Tư vấn và phát triển dòng sản phẩm thẻ tín dụng quốc tế dẫn đầu xu hướng MyVIB cho khách hàng cá nhân.",
+    "requirements": "Nhanh nhẹn, ngoại hình sáng, đam mê kinh doanh tài chính bán lẻ, kỹ năng chăm sóc khách hàng tốt.",
+    "benefits": "Lương cứng + hoa hồng cạnh tranh dẫn đầu thị trường tài chính, cơ hội thăng tiến rõ ràng sau 6 tháng."
+  },
+  {
+    "id": 1032,
+    "title": "Fullstack Developer (NodeJS / ReactJS / SQL Server)",
+    "salaryText": "20 - 35 triệu",
+    "salaryMin": 20,
+    "salaryMax": 35,
+    "location": "Hà Nội",
+    "area": "ha-noi",
+    "region": "Miền Bắc",
+    "jobType": "FULL_TIME",
+    "experience": "2-5",
+    "position": "middle",
+    "category": {
+      "id": 1,
+      "slug": "cntt",
+      "name": "Công nghệ thông tin"
+    },
+    "company": {
+      "id": 3,
+      "name": "CÔNG TY CỔ PHẦN MISA",
+      "logoUrl": "/images/companies/misa.svg"
+    },
+    "isHot": true,
+    "isUrgent": false,
+    "isTop": true,
+    "saved": false,
+    "description": "Tham gia phát triển các sản phẩm nền tảng quản trị tài chính doanh nghiệp SaaS phục vụ hàng trăm nghìn khách hàng.",
+    "requirements": "Thành thạo ReactJS, NodeJS, RESTful API và cơ sở dữ liệu quan hệ SQL Server/PostgreSQL.",
+    "benefits": "Môi trường công nghệ chuyên nghiệp, chế độ xét tăng lương định kỳ 2 lần/năm, thưởng dự án phong phú."
+  },
+  {
+    "id": 1091,
+    "title": "Chuyên viên Kinh doanh & Phân phối Bất động sản Vinhomes",
+    "salaryText": "30 - 80 triệu",
+    "salaryMin": 30,
+    "salaryMax": 80,
+    "location": "Hà Nội",
+    "area": "ha-noi",
+    "region": "Miền Bắc",
+    "jobType": "FULL_TIME",
+    "experience": "1-2",
+    "position": "staff",
+    "category": {
+      "id": 2,
+      "slug": "kinh-doanh",
+      "name": "Kinh doanh - Bán hàng (Sales)"
+    },
+    "company": {
+      "id": 7,
+      "name": "TẬP ĐOÀN VINGROUP - VINHOMES",
+      "logoUrl": "/images/companies/vinhomes.svg"
+    },
+    "isHot": true,
+    "isUrgent": true,
+    "isTop": true,
+    "saved": false,
+    "description": "Tư vấn các dự án đại đô thị thông minh Vinhomes Ocean Park, Smart City cho khách hàng đầu tư cao cấp.",
+    "requirements": "Đam mê lĩnh vực bất động sản, giao tiếp tự tin, có kinh nghiệm bán hàng phân khúc trung và cao cấp.",
+    "benefits": "Hoa hồng dẫn đầu thị trường bất động sản, đào tạo chuyên sâu bởi học viện Vingroup."
+  },
+  {
+    "id": 1101,
+    "title": "Kỹ sư Cơ điện & Quản lý Thiết bị Nhà máy Thép (Maintenance Engineer)",
+    "salaryText": "18 - 32 triệu",
+    "salaryMin": 18,
+    "salaryMax": 32,
+    "location": "Hà Nội",
+    "area": "ha-noi",
+    "region": "Miền Bắc",
+    "jobType": "FULL_TIME",
+    "experience": "2-5",
+    "position": "staff",
+    "category": {
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Kỹ thuật - Vận hành"
+    },
+    "company": {
+      "id": 8,
+      "name": "TẬP ĐOÀN HÒA PHÁT",
+      "logoUrl": "/images/companies/hoa-phat.svg"
+    },
+    "isHot": true,
+    "isUrgent": false,
+    "isTop": true,
+    "saved": false,
+    "description": "Vận hành, bảo dưỡng định kỳ các dây chuyền cán thép và hệ thống thiết bị tự động hóa công nghiệp nặng.",
+    "requirements": "Tốt nghiệp Đại học Bách Khoa chuyên ngành Cơ khí/Tự động hóa, đọc hiểu bản vẽ kỹ thuật thành thạo.",
+    "benefits": "Môi trường tập đoàn công nghiệp hàng đầu, thưởng tháng 13 + thưởng hoàn thành kế hoạch sản xuất năm."
+  },
+  {
+    "id": 1111,
+    "title": "Chuyên viên Môi giới Chứng khoán & Tư vấn Quản lý Tài sản Cá nhân",
+    "salaryText": "20 - 50 triệu",
+    "salaryMin": 20,
+    "salaryMax": 50,
+    "location": "TP. Hồ Chí Minh",
+    "area": "ho-chi-minh",
+    "region": "Miền Nam",
+    "jobType": "FULL_TIME",
+    "experience": "1-2",
+    "position": "staff",
+    "category": {
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
+    },
+    "company": {
+      "id": 9,
+      "name": "CÔNG TY CHỨNG KHOÁN SSI",
+      "logoUrl": "/images/companies/ssi.svg"
+    },
+    "isHot": true,
+    "isUrgent": true,
+    "isTop": true,
+    "saved": false,
+    "description": "Tư vấn chiến lược đầu tư cổ phiếu, trái phiếu và quản trị danh mục tài sản cho nhà đầu tư cá nhân VIP.",
+    "requirements": "Có chứng chỉ hành nghề chứng khoán (hoặc cam kết hoàn thành), am hiểu phân tích kỹ thuật và cơ bản.",
+    "benefits": "Tỷ lệ chia sẻ hoa hồng môi giới cao nhất thị trường, hệ thống dữ liệu và công cụ phân tích hiện đại."
+  },
+  {
+    "id": 1071,
+    "title": "Customer Support Specialist (Tiếng Anh lưu loát - Ca xoay linh hoạt)",
+    "salaryText": "12 - 20 triệu",
+    "salaryMin": 12,
+    "salaryMax": 20,
+    "location": "TP. Hồ Chí Minh",
+    "area": "ho-chi-minh",
+    "region": "Miền Nam",
+    "jobType": "FULL_TIME",
+    "experience": "none",
+    "position": "staff",
+    "category": {
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
+    },
+    "company": {
+      "id": 10,
+      "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
+      "logoUrl": "/images/companies/concentrix.svg"
+    },
+    "isHot": true,
+    "isUrgent": true,
+    "isTop": true,
+    "saved": false,
+    "description": "Hỗ trợ và chăm sóc khách hàng quốc tế qua kênh Chat/Email/Phone cho các tập đoàn công nghệ toàn cầu.",
+    "requirements": "Tiếng Anh giao tiếp tốt (IELTS 6.0+ hoặc tương đương), kỹ năng xử lý tình huống khéo léo.",
+    "benefits": "Môi trường quốc tế 100% tiếng Anh, đóng bảo hiểm full lương, cơ hội thăng tiến Team Leader sau 9 tháng."
+  },
+  {
     "id": 101,
     "title": "Nổi bật Account Manager/ Chuyên Viên Kinh Doanh - 3 Năm Kinh Nghiệm - Lương Cứng 15 - 25 Triệu - Thu Nhập Không Giới Hạn - Tại Hà Nội",
     "salaryText": "Thoả thuận",
@@ -12,14 +312,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 1,
       "name": "CÔNG TY CỔ PHẦN K&M HOLDINGS",
-      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-k-m-holdings.svg"
     },
     "isHot": true,
     "isUrgent": true,
@@ -52,7 +352,7 @@ export const mockJobs = [
     "company": {
       "id": 2,
       "name": "CHI NHÁNH CÔNG TY CỔ PHẦN CÔNG NGHỆ THÔNG TIN TRUYỀN THÔNG THIÊN HY LONG VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/chi-nhanh-cong-ty-co-phan-cong-nghe-thong-tin-truyen-thong-thien-hy-long-viet-nam.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -78,14 +378,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 1,
-      "slug": "cntt",
-      "name": "Công nghệ thông tin"
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Vận hành"
     },
     "company": {
       "id": 3,
       "name": "CÔNG TY CP SẢN XUẤT VÀ THƯƠNG MẠI AN VIỆT",
-      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-cp-san-xuat-va-thuong-mai-an-viet.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -111,14 +411,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 4,
       "name": "CÔNG TY CỔ PHẦN PHÁT TRIỂN ĐẦU TƯ XÂY DỰNG VIỆT NAM (VINADIC- THUỘC TẬP ĐOÀN AMACCAO)",
-      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-phat-trien-au-tu-xay-dung-viet-nam-vinadic-thuoc-tap-oan-amaccao.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -144,14 +444,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 2,
-      "slug": "marketing",
-      "name": "Marketing - Truyền thông"
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
     },
     "company": {
       "id": 5,
       "name": "CÔNG TY TNHH HP PRO ENTERTAINMENT",
-      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-hp-pro-entertainment.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -177,14 +477,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 7,
+      "id": 4,
       "slug": "tai-chinh",
       "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 6,
       "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
-      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/concentrix.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -210,14 +510,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
     },
     "company": {
       "id": 7,
       "name": "CÔNG TY TNHH AUSSMILE",
-      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-aussmile.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -243,14 +543,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 5,
-      "slug": "ke-toan",
-      "name": "Kế toán - Kiểm toán"
+      "id": 7,
+      "slug": "thiet-ke",
+      "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 8,
       "name": "CÔNG TY CỔ PHẦN KIẾN TRÚC - XÂY DỰNG XANH BABYLON",
-      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-kien-truc-xay-dung-xanh-babylon.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -283,7 +583,7 @@ export const mockJobs = [
     "company": {
       "id": 9,
       "name": "CÔNG TY TNHH TƯ VẤN THUÊ, KẾ TOÁN & KIỂM TOÁN VIỆT TÍN",
-      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-tu-van-thue-ke-toan-kiem-toan-viet-tin.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -309,14 +609,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 1,
-      "slug": "cntt",
-      "name": "Công nghệ thông tin"
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Kỹ thuật - Vận hành"
     },
     "company": {
       "id": 10,
       "name": "CÔNG TY TNHH SIMPSON STRONG-TIE VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/simpson.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -342,14 +642,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 11,
       "name": "CÔNG TY TNHH DIALECTICA VIETNAM",
-      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-dialectica-vietnam.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -376,13 +676,13 @@ export const mockJobs = [
     "position": "manager",
     "category": {
       "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "slug": "marketing",
+      "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 12,
       "name": "CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN BCONS PS",
-      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/bcons.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -408,14 +708,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
     },
     "company": {
       "id": 13,
       "name": "CÔNG TY TNHH ATB GLOBAL",
-      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-atb-global.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -441,14 +741,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 4,
+      "id": 7,
       "slug": "thiet-ke",
       "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 14,
       "name": "CÔNG TY TNHH THIẾT BỊ ĐIỆN SHIHLIN VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/shihlin.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -474,14 +774,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 5,
-      "slug": "ke-toan",
-      "name": "Kế toán - Kiểm toán"
+      "id": 7,
+      "slug": "thiet-ke",
+      "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 15,
       "name": "CÔNG TY CỔ PHẦN THƯƠNG MẠI H2T HÀ NỘI",
-      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/h2t.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -507,14 +807,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 1,
-      "slug": "cntt",
-      "name": "Công nghệ thông tin"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 16,
       "name": "CÔNG TY CỔ PHẦN ĐẦU TƯ XÂY DỰNG VÀ THƯƠNG MẠI BẢO TÍN",
-      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-au-tu-xay-dung-va-thuong-mai-bao-tin.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -540,14 +840,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 17,
       "name": "CÔNG TY CỔ PHẦN HỢP TÁC ĐẦU TƯ GIÁO DỤC QUỐC TẾ TÍN PHÁT",
-      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-hop-tac-au-tu-giao-duc-quoc-te-tin-phat.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -573,14 +873,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 18,
       "name": "CÔNG TY TNHH TM DV KẾT GIAO PHÁT TRIỂN QUỐC TẾ ( IDECO)",
-      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-tm-dv-ket-giao-phat-trien-quoc-te-ideco.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -606,14 +906,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Kỹ thuật - Vận hành"
     },
     "company": {
       "id": 19,
       "name": "CÔNG TY TNHH MỘT THÀNH VIÊN HA LE",
-      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-mot-thanh-vien-ha-le.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -639,14 +939,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 20,
       "name": "CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN MAXREAL",
-      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-bat-ong-san-maxreal.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -672,14 +972,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 21,
       "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
-      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/concentrix.svg"
     },
     "isHot": true,
     "isUrgent": true,
@@ -705,14 +1005,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 22,
       "name": "CÔNG TY CỔ PHẦN DỊCH VỤ VÀ ĐỊA ỐC KIẾN HƯNG",
-      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-dich-vu-va-ia-oc-kien-hung.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -738,14 +1038,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 23,
       "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
-      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/concentrix.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -771,14 +1071,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 10,
-      "slug": "bat-dong-san",
-      "name": "Bất động sản"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 24,
       "name": "CÔNG TY CỔ PHẦN ĐẦU TƯ THƯƠNG MẠI TÂY VIÊN HÀ NỘI",
-      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-au-tu-thuong-mai-tay-vien-ha-noi.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -804,14 +1104,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Kỹ thuật - Vận hành"
     },
     "company": {
       "id": 25,
       "name": "CÔNG TY TNHH BBQ VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/bbq.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -837,14 +1137,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 26,
       "name": "CÔNG TY TNHH BẢO HIỂM NHÂN THỌ SUN LIFE VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/sun-life.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -870,14 +1170,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Kỹ thuật - Vận hành"
     },
     "company": {
       "id": 27,
       "name": "CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ KỸ THUẬT BIA",
-      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-thuong-mai-dich-vu-ky-thuat-bia.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -903,14 +1203,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 28,
       "name": "CÔNG TY TNHH GIÁO DỤC IELTS MENTOR",
-      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/ielts-mentor.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -936,14 +1236,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 29,
       "name": "NOVALAND GROUP CORP",
-      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/novaland.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -969,14 +1269,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 7,
+      "slug": "thiet-ke",
+      "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 30,
       "name": "HỘ KINH DOANH BAO LÀNH",
-      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/ho-kinh-doanh-bao-lanh.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1002,14 +1302,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Kỹ thuật - Vận hành"
     },
     "company": {
       "id": 31,
       "name": "CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ Ý CƯỜNG THỊNH",
-      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-thuong-mai-dich-vu-y-cuong-thinh.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1042,7 +1342,7 @@ export const mockJobs = [
     "company": {
       "id": 32,
       "name": "CÔNG TY CỔ PHẦN THƯƠNG MẠI VÀ TỰ ĐỘNG HÓA ADI",
-      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-thuong-mai-va-tu-ong-hoa-adi.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1068,14 +1368,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 33,
       "name": "CHI NHÁNH CÔNG TY CỔ PHẦN TẬP ĐOÀN SUNHOUSE TẠI THÀNH PHỐ HỒ CHÍ MINH",
-      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/sunhouse.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1101,14 +1401,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 2,
+      "id": 3,
       "slug": "marketing",
       "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 34,
       "name": "CÔNG TY CỔ PHẦN HSC SMART RETAIL VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-hsc-smart-retail-viet-nam.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1134,14 +1434,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 35,
       "name": "CÔNG TY TNHH TM THIÊN THỦY MỘC",
-      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-tm-thien-thuy-moc.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1167,14 +1467,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
     },
     "company": {
       "id": 36,
       "name": "CÔNG TY CỔ PHẦN URI AESTHETIC GROUP",
-      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-uri-aesthetic-group.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1200,14 +1500,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
     },
     "company": {
       "id": 37,
       "name": "CÔNG TY TNHH KING VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-king-viet-nam.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1233,14 +1533,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 38,
       "name": "GOOD FOOD CO., LTD",
-      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/good-food-co-ltd.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1266,14 +1566,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 39,
       "name": "CÔNG TY TNHH FERTRADE VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-fertrade-viet-nam.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1296,17 +1596,17 @@ export const mockJobs = [
     "area": "ha-noi",
     "region": "Miền Bắc",
     "jobType": "FULL_TIME",
-    "experience": "lt1",
-    "position": "staff",
+    "experience": "gt5",
+    "position": "manager",
     "category": {
-      "id": 1,
-      "slug": "cntt",
-      "name": "Công nghệ thông tin"
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Vận hành"
     },
     "company": {
       "id": 40,
       "name": "CÔNG TY CỔ PHẦN COASIA CM VINA",
-      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/coasia.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1332,14 +1632,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 2,
+      "id": 3,
       "slug": "marketing",
       "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 41,
       "name": "CÔNG TY TNHH ANH NGỮ ENVIS SCHOOL",
-      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-anh-ngu-envis-school.svg"
     },
     "isHot": true,
     "isUrgent": true,
@@ -1365,14 +1665,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 1,
-      "slug": "cntt",
-      "name": "Công nghệ thông tin"
+      "id": 7,
+      "slug": "thiet-ke",
+      "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 42,
       "name": "CÔNG TY CỔ PHẦN ĐÀO TẠO VÀ THIẾT KẾ AWE",
-      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-ao-tao-va-thiet-ke-awe.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1398,14 +1698,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 2,
+      "id": 3,
       "slug": "marketing",
       "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 43,
       "name": "CÔNG TY CỔ PHẦN MISA",
-      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/misa.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1431,14 +1731,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 1,
-      "slug": "cntt",
-      "name": "Công nghệ thông tin"
+      "id": 7,
+      "slug": "thiet-ke",
+      "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 44,
       "name": "CÔNG TY TNHH TTSMART",
-      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-ttsmart.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1464,14 +1764,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 45,
       "name": "NGÂN HÀNG TMCP HÀNG HẢI VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/msb.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1504,7 +1804,7 @@ export const mockJobs = [
     "company": {
       "id": 46,
       "name": "CÔNG TY CỔ PHẦN THỰC PHẨM QUỐC TẾ C&C",
-      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-thuc-pham-quoc-te-c-c.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1530,14 +1830,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 2,
-      "slug": "marketing",
-      "name": "Marketing - Truyền thông"
+      "id": 7,
+      "slug": "thiet-ke",
+      "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 47,
       "name": "CÔNG TY CỔ PHẦN XHOME QUẢNG NINH",
-      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/xhome.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1563,14 +1863,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
     },
     "company": {
       "id": 48,
       "name": "GALAXY EDUCATION JOINT STOCK COMPANY",
-      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/galaxy.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1597,13 +1897,13 @@ export const mockJobs = [
     "position": "staff",
     "category": {
       "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "slug": "marketing",
+      "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 49,
       "name": "MAC MARKETING",
-      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/mac-marketing.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1629,14 +1929,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 50,
       "name": "CÔNG TY TNHH XE NÂNG PHÚC LÂM",
-      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-xe-nang-phuc-lam.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1662,14 +1962,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 51,
       "name": "CÔNG TY CỔ PHẦN DỊCH VỤ VÀ ĐỊA ỐC KIẾN HƯNG",
-      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-dich-vu-va-ia-oc-kien-hung.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1695,14 +1995,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 1,
-      "slug": "cntt",
-      "name": "Công nghệ thông tin"
+      "id": 7,
+      "slug": "thiet-ke",
+      "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 52,
       "name": "CÔNG TY TNHH TRUYỀN THÔNG VÀ GT CD MEDIA",
-      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-truyen-thong-va-gt-cd-media.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1728,14 +2028,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 8,
+      "slug": "san-xuat",
+      "name": "Sản xuất - Kỹ thuật - Vận hành"
     },
     "company": {
       "id": 53,
       "name": "CÔNG TY TNHH THƯƠNG MẠI SẢN XUẤT CÔNG NGHIỆP NHÔM VIỆT PHÁP SHAL",
-      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-thuong-mai-san-xuat-cong-nghiep-nhom-viet-phap-shal.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1762,13 +2062,13 @@ export const mockJobs = [
     "position": "manager",
     "category": {
       "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "slug": "marketing",
+      "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 54,
       "name": "CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN BCONS PS",
-      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/bcons.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1794,14 +2094,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
     },
     "company": {
       "id": 55,
       "name": "CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN BCONS PS",
-      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/bcons.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1834,7 +2134,7 @@ export const mockJobs = [
     "company": {
       "id": 56,
       "name": "CÔNG TY CỔ PHẦN SALTLUX TECHNOLOGY",
-      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/saltlux.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -1860,14 +2160,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 57,
       "name": "CÔNG TY CỔ PHẦN THỂ THAO KOJI",
-      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-the-thao-koji.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -1893,14 +2193,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 58,
       "name": "CÔNG TY TNHH TRẦN THÀNH",
-      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-tran-thanh.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1926,14 +2226,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 6,
-      "slug": "nhan-su",
-      "name": "Nhân sự - Hành chính"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 59,
       "name": "CÔNG TY CỔ PHẦN CHỨNG KHOÁN DẦU KHÍ (PSI)",
-      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/psi.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1966,7 +2266,7 @@ export const mockJobs = [
     "company": {
       "id": 60,
       "name": "CÔNG TY CỔ PHẦN GIẤY CP",
-      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-giay-cp.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -1993,13 +2293,13 @@ export const mockJobs = [
     "position": "staff",
     "category": {
       "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "slug": "marketing",
+      "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 61,
       "name": "CÔNG TY TNHH GIÁO DỤC HÁN NGỮ QUỐC TẾ HOA VIỆT HƯNG",
-      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-giao-duc-han-ngu-quoc-te-hoa-viet-hung.svg"
     },
     "isHot": true,
     "isUrgent": true,
@@ -2025,14 +2325,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 1,
-      "slug": "cntt",
-      "name": "Công nghệ thông tin"
+      "id": 3,
+      "slug": "marketing",
+      "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 62,
       "name": "CÔNG TY TNHH ĐÚC ĐỒNG ĐỆ NHẤT ĐỈNH",
-      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-uc-ong-e-nhat-inh.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2058,14 +2358,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 63,
       "name": "CÔNG TY TNHH TINA PET VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-tina-pet-viet-nam.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2091,14 +2391,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 64,
       "name": "CÔNG TY TNHH NHÂN HÒA VINA",
-      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/nhan-hoa.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2131,7 +2431,7 @@ export const mockJobs = [
     "company": {
       "id": 65,
       "name": "CÔNG TY TNHH ĐẦU TƯ CÔNG NGHỆ MÁY TÍNH VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-au-tu-cong-nghe-may-tinh-viet-nam.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -2164,7 +2464,7 @@ export const mockJobs = [
     "company": {
       "id": 66,
       "name": "CÔNG TY CỔ PHẦN XÂY DỰNG & THƯƠNG MẠI ĐẤT THÀNH",
-      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-xay-dung-thuong-mai-at-thanh.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -2190,14 +2490,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 67,
       "name": "CÔNG TY TNHH THƯƠNG MẠI NCA (VN)",
-      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-thuong-mai-nca-vn.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2223,14 +2523,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 7,
+      "slug": "thiet-ke",
+      "name": "Thiết kế - Sáng tạo"
     },
     "company": {
       "id": 68,
       "name": "CÔNG TY TNHH PRINTEK",
-      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-printek.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2257,13 +2557,13 @@ export const mockJobs = [
     "position": "specialist",
     "category": {
       "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "slug": "marketing",
+      "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 69,
       "name": "CÔNG TY CỔ PHẦN GIÁO DỤC EDUCA CORPORATION",
-      "logoUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/educa.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -2289,14 +2589,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 70,
       "name": "CÔNG TY TNHH THẨM MỸ AZ NOSE",
-      "logoUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-tham-my-az-nose.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2329,7 +2629,7 @@ export const mockJobs = [
     "company": {
       "id": 71,
       "name": "CÔNG TY TNHH THƯ KỲ ANH",
-      "logoUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-thu-ky-anh.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -2355,14 +2655,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 72,
       "name": "CÔNG TY TNHH DU LỊCH CROSSING VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/ssi.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2388,14 +2688,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 1,
+      "slug": "cntt",
+      "name": "Công nghệ thông tin"
     },
     "company": {
       "id": 73,
       "name": "CÔNG TY CỔ PHẦN CÔNG NGHỆ SỐ VCI",
-      "logoUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-cong-nghe-so-vci.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -2421,14 +2721,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 4,
+      "slug": "tai-chinh",
+      "name": "Tài chính - Ngân hàng"
     },
     "company": {
       "id": 74,
       "name": "CÔNG TY TNHH ĐẦU TƯ PREMIER PROPERTY HOLDINGS",
-      "logoUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-au-tu-premier-property-holdings.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2454,14 +2754,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "specialist",
     "category": {
-      "id": 3,
-      "slug": "kinh-doanh",
-      "name": "Kinh doanh - Bán hàng (Sales)"
+      "id": 6,
+      "slug": "nhan-su",
+      "name": "Nhân sự - Hành chính - CSKH"
     },
     "company": {
       "id": 75,
       "name": "CÔNG TY TNHH SẢN XUẤT VÀ THƯƠNG MẠI VĨNH KỲ",
-      "logoUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-san-xuat-va-thuong-mai-vinh-ky.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2487,14 +2787,14 @@ export const mockJobs = [
     "experience": "lt1",
     "position": "staff",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 76,
       "name": "CHI NHÁNH CÔNG TY TNHH SMC CORPORATION ( VIỆT NAM ) TẠI BẮC NINH",
-      "logoUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/smc.svg"
     },
     "isHot": false,
     "isUrgent": true,
@@ -2527,7 +2827,7 @@ export const mockJobs = [
     "company": {
       "id": 77,
       "name": "CÔNG TY TNHH TÂY SG",
-      "logoUrl": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-tay-sg.svg"
     },
     "isHot": true,
     "isUrgent": false,
@@ -2553,14 +2853,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 78,
       "name": "CÔNG TY CỔ PHẦN TẬP ĐOÀN MOTIF VIETNAM",
-      "logoUrl": "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-tap-oan-motif-vietnam.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2586,14 +2886,14 @@ export const mockJobs = [
     "experience": "1-2",
     "position": "staff",
     "category": {
-      "id": 2,
+      "id": 3,
       "slug": "marketing",
       "name": "Marketing - Truyền thông"
     },
     "company": {
       "id": 79,
       "name": "CÔNG TY TNHH INTRON LIFE SCIENCES VIỆT NAM",
-      "logoUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-tnhh-intron-life-sciences-viet-nam.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2619,14 +2919,14 @@ export const mockJobs = [
     "experience": "2-5",
     "position": "manager",
     "category": {
-      "id": 3,
+      "id": 2,
       "slug": "kinh-doanh",
       "name": "Kinh doanh - Bán hàng (Sales)"
     },
     "company": {
       "id": 80,
       "name": "CÔNG TY CỔ PHẦN CÔNG NGHỆ A.I-SOFT",
-      "logoUrl": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=160&q=80"
+      "logoUrl": "/images/companies/cong-ty-co-phan-cong-nghe-a-i-soft.svg"
     },
     "isHot": false,
     "isUrgent": false,
@@ -2640,5 +2940,3 @@ export const mockJobs = [
     "createdAt": "2026-10-24T09:00:00"
   }
 ];
-
-export default mockJobs;

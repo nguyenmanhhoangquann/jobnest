@@ -8,17 +8,17 @@
 }
 
 :root {
-  --color-primary: #FBC725;
-  --color-primary-hover: #F2B705;
-  --color-primary-dark: #B07F00;
-  --color-primary-soft: #FFF3C4;
-  --color-hero-bg: #FEFBF4;
-  --color-hero-blob: #FEF7E1;
-  --color-text: #1F2937;
-  --color-text-muted: #6B7280;
+  --color-primary: #FBBF24;
+  --color-primary-hover: #F59E0B;
+  --color-primary-dark: #D97706;
+  --color-primary-soft: #FEF3C7;
+  --color-page-bg: #F7F7F5;
+  --color-hero-bg: #0A0A0A;
+  --color-text: #18181B;
+  --color-text-muted: #71717A;
   --color-border: #E5E7EB;
   --color-surface: #FFFFFF;
-  --color-surface-alt: #F3F4F6;
+  --color-surface-alt: #F4F4F5;
   --color-top-bg: #FFFBEB;
   --color-hot: #DC2626;
   --color-hot-bg: #FEE2E2;
@@ -27,7 +27,7 @@
   --color-success: #16A34A;
   --color-danger: #DC2626;
 
-  --font-main: 'Plus Jakarta Sans', 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --font-main: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-hand: 'Caveat', cursive;
 
   --radius-sm: 8px;
@@ -43,17 +43,17 @@
   --container: 1320px;
 
   /* Ghi đè Bootstrap */
-  --bs-primary: #FBC725;
-  --bs-primary-rgb: 251,199,37;
+  --bs-primary: #FBBF24;
+  --bs-primary-rgb: 251,191,36;
   --bs-body-font-family: var(--font-main);
   --bs-body-color: var(--color-text);
   --bs-link-color: var(--color-primary-dark);
 }
 
-body {
+body, button, input, select, textarea {
   font-family: var(--font-main);
   color: var(--color-text);
-  background: #fff;
+  background-color: #F7F7F5;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(15, 16)">
+        <polygon points="45,10 52,26 69,26 55,36 60,52 45,42 30,52 35,36 21,26 38,26" fill="#4F46E5"/><circle cx="45" cy="31" r="5" fill="#FFFFFF"/>
+        <text x="45" y="74" fill="#4F46E5" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13.5" font-weight="900" text-anchor="middle" letter-spacing="0.03em">ĐẦU TƯ</text>
+      </g>
+    
+</svg>

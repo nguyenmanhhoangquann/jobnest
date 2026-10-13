@@ -169,7 +169,7 @@ export default function FeaturedJobs() {
           <div className="jobnest-tip-box mb-3">
             <div className="d-flex align-items-center gap-2">
               <FaLightbulb className="text-warning flex-shrink-0" size={14} />
-              <span className="small text-secondary" style={{ fontSize: '13px' }}>
+              <span className="small" style={{ fontSize: '13px', color: '#374151' }}>
                 <strong>Gợi ý:</strong> Di chuột vào tiêu đề việc làm để xem thêm thông tin chi tiết
               </span>
             </div>

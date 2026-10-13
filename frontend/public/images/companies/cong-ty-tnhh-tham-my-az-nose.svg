@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(15, 16)">
+        <polygon points="45,12 56,36 34,36" fill="#7C3AED"/><circle cx="45" cy="46" r="8" fill="#A78BFA"/>
+        <text x="45" y="74" fill="#7C3AED" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13.5" font-weight="900" text-anchor="middle" letter-spacing="0.03em">THẨM MỸ</text>
+      </g>
+    
+</svg>

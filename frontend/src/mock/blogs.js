@@ -181,7 +181,7 @@ Nguyên tắc bất di bất dịch trong đàm phán: **Chỉ thương lượng
     title: "Xây dựng Profile GitHub chuyên nghiệp: Đòn bẩy giúp Fresher ghi điểm tuyệt đối",
     slug: "xay-dung-profile-github-chuyen-nghiep",
     category: "Công nghệ & Lập trình",
-    cover: "https://images.unsplash.com/photo-1618401471353-b98aedd04e11?auto=format&fit=crop&w=1200&q=80",
+    cover: "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=1200&q=80",
     excerpt: "Từng bước thiết kế README cá nhân với animated typing banner, bảng công nghệ trực quan và cách tổ chức commit message chuẩn Convention giúp bạn nổi bật trong mắt Tech Lead.",
     readTime: "5 phút đọc",
     date: "25/09/2026",

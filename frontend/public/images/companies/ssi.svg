@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(20, 24)">
+        <rect x="22" y="10" width="36" height="36" rx="4" fill="#004A99"/>
+        <rect x="32" y="20" width="16" height="16" fill="#F8B133"/>
+        <text x="40" y="60" fill="#004A99" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="18" font-weight="900" text-anchor="middle">SSI</text>
+      </g>
+    
+</svg>

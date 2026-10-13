@@ -55,15 +55,13 @@ export default function JobFilterSidebar({ filters, onChange, onReset }) {
         >
           <option value="all">Tất cả ngành nghề</option>
           <option value="cntt">Công nghệ thông tin</option>
-          <option value="marketing">Marketing / Truyền thông</option>
           <option value="kinh-doanh">Kinh doanh / Bán hàng</option>
-          <option value="thiet-ke">Thiết kế / Đồ họa</option>
-          <option value="ke-toan">Kế toán / Kiểm toán</option>
-          <option value="nhan-su">Nhân sự / Hành chính</option>
+          <option value="marketing">Marketing / Truyền thông</option>
           <option value="tai-chinh">Tài chính / Ngân hàng</option>
-          <option value="devops">DevOps / Hệ thống</option>
-          <option value="cskh">Chăm sóc khách hàng</option>
-          <option value="bat-dong-san">Bất động sản</option>
+          <option value="ke-toan">Kế toán / Kiểm toán</option>
+          <option value="nhan-su">Nhân sự / Hành chính / CSKH</option>
+          <option value="thiet-ke">Thiết kế / Sáng tạo</option>
+          <option value="san-xuat">Sản xuất / Kỹ thuật / Vận hành</option>
         </select>
       </div>
 

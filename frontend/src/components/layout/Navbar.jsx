@@ -19,6 +19,7 @@ import {
 } from 'react-icons/fa';
 import { NAV_ITEMS } from '../../constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { showToast } from '../common/ToastHost.jsx';
 
 function NotificationBell({ isAuth }) {
   const navigate = useNavigate();
@@ -34,20 +35,22 @@ function NotificationBell({ isAuth }) {
     return (
       <button
         type="button"
-        className="icon-btn notif-btn"
+        className="nav-icon-action-btn"
         aria-label="Thông báo"
+        title="Thông báo tuyển dụng"
         onClick={() => navigate('/login')}
       >
-        <FaBell size={17} />
+        <FaBell size={15} />
+        <span className="notif-badge-modern" aria-label="Có thông báo mới" />
       </button>
     );
   }
 
   return (
     <Dropdown align="end">
-      <Dropdown.Toggle as="button" className="icon-btn notif-btn" aria-label="Thông báo">
-        <FaBell size={17} />
-        {unreadCount > 0 && <span className="notif-badge" aria-label={`${unreadCount} thông báo chưa đọc`} />}
+      <Dropdown.Toggle as="button" className="nav-icon-action-btn" aria-label="Thông báo" title="Thông báo tuyển dụng">
+        <FaBell size={15} />
+        {unreadCount > 0 && <span className="notif-badge-modern" aria-label={`${unreadCount} thông báo chưa đọc`} />}
       </Dropdown.Toggle>
 
       <Dropdown.Menu className="notif-menu shadow-lg border-0 py-2">
@@ -202,14 +205,19 @@ export default function Navbar() {
                 as={NavLink}
                 to={item.to}
                 end={item.to === '/'}
-                className="app-nav-link"
+                className={`app-nav-link ${item.to === '/jobs' ? 'app-nav-link--hot' : ''}`}
               >
                 {item.label}
+                {item.to === '/jobs' && (
+                  <span className="nav-hot-badge" title="Đang tuyển nhiều">
+                    HOT
+                  </span>
+                )}
               </Nav.Link>
             ))}
           </Nav>
 
-          {/* Right: Dành cho NTD, Tìm kiếm, Chuông & Nút Đăng nhập/Đăng ký */}
+          {/* Right: Dành cho NTD, Cụm Icons Tinh Tế, Đăng nhập/Đăng ký */}
           <div className="d-none d-lg-flex align-items-center gap-2 ms-auto">
             {!isAuth && (
               <Link to="/register?role=employer" className="btn-nav-employer me-1">
@@ -217,17 +225,29 @@ export default function Navbar() {
               </Link>
             )}
 
-            <button
-              type="button"
-              className="icon-btn"
-              aria-label="Tìm việc làm"
-              onClick={() => navigate('/jobs')}
-              title="Tìm kiếm việc làm"
-            >
-              <FaSearch size={15} />
-            </button>
+            {/* Cụm nút icon tiện ích */}
+            <div className="d-flex align-items-center gap-2">
+              {/* Nút Việc làm đã lưu */}
+              <button
+                type="button"
+                className="nav-icon-action-btn"
+                aria-label="Việc làm đã lưu"
+                title="Việc làm đã lưu"
+                onClick={() => {
+                  if (isAuth) {
+                    navigate('/candidate/saved-jobs');
+                  } else {
+                    showToast('info', 'Đăng nhập để xem danh sách việc làm đã lưu');
+                    navigate('/login');
+                  }
+                }}
+              >
+                <FaBookmark size={13} />
+              </button>
 
-            <NotificationBell isAuth={isAuth} />
+              {/* Chuông Thông báo */}
+              <NotificationBell isAuth={isAuth} />
+            </div>
 
             {!isAuth ? (
               <div className="d-flex align-items-center gap-2 ms-2">

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  
+      <g transform="translate(15, 24)">
+        <polygon points="45,8 66,24 45,40 24,24" fill="#0A5032"/>
+        <polygon points="45,15 57,24 45,33 33,24" fill="#C29B38"/>
+        <text x="45" y="56" fill="#0A5032" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13.5" font-weight="900" text-anchor="middle" letter-spacing="0.04em">NOVALAND</text>
+      </g>
+    
+</svg>

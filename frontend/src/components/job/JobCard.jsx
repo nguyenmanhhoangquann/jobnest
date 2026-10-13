@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGem, FaFire } from 'react-icons/fa';
 import SaveButton from './SaveButton.jsx';
 
 export default function JobCard({ job, variant = 'card', extra }) {
@@ -12,8 +11,6 @@ export default function JobCard({ job, variant = 'card', extra }) {
     company = {},
     salaryText,
     location,
-    isHot,
-    isUrgent,
     isTop,
     saved = false,
   } = job;
@@ -22,56 +19,81 @@ export default function JobCard({ job, variant = 'card', extra }) {
   const companyLogo = company.logoUrl;
   const initialChar = companyName.trim().charAt(0).toUpperCase();
 
-  // Layout danh sách dạng hàng ngang (dành cho trang Tìm việc làm /jobs)
+  // Layout danh sách dạng hàng ngang kiểu Wellfound (dành cho trang Tìm việc làm /jobs)
   if (variant === 'search-item') {
     return (
       <article className={`job-search-item ${isTop ? 'job-search-item--top' : ''}`}>
         <div className="job-search-item__logo-wrap">
           <Link to={`/jobs/${id}`} className="job-search-item__logo" aria-label={companyName}>
             {companyLogo ? (
-              <img src={companyLogo} alt="" loading="lazy" />
-            ) : (
-              <span className="job-search-item__logo-fallback">{initialChar}</span>
-            )}
+              <img
+                src={companyLogo}
+                alt={companyName}
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  if (e.currentTarget.nextElementSibling) {
+                    e.currentTarget.nextElementSibling.style.display = 'flex';
+                  }
+                }}
+              />
+            ) : null}
+            <span
+              className="job-search-item__logo-fallback"
+              style={{ display: companyLogo ? 'none' : 'flex' }}
+            >
+              {initialChar}
+            </span>
           </Link>
         </div>
 
         <div className="job-search-item__content">
-          <div className="d-flex flex-wrap align-items-center gap-2 mb-1">
-            {isTop && (
-              <span className="badge-inline badge-top">
-                <FaGem size={8} className="me-1" /> TOP
-              </span>
+          <h3 className="job-search-item__title mb-1">
+            <Link to={`/jobs/${id}`} title={title}>
+              {title}
+            </Link>
+          </h3>
+
+          <div className="job-meta-line text-muted small mb-2 d-flex flex-wrap align-items-center gap-2">
+            <span className="fw-semibold text-dark">{companyName}</span>
+            {location && (
+              <>
+                <span>•</span>
+                <span>{location}</span>
+              </>
             )}
-            {isHot && (
-              <span className="badge-inline badge-hot">
-                <FaFire size={8} className="me-1" /> HOT
-              </span>
+            {salaryText && (
+              <>
+                <span>•</span>
+                <span className="text-success fw-semibold">{salaryText}</span>
+              </>
             )}
-            {isUrgent && <span className="badge-inline badge-urgent">GẤP</span>}
-            <h3 className="job-search-item__title mb-0">
-              <Link to={`/jobs/${id}`} title={title}>
-                {title}
-              </Link>
-            </h3>
+            {job.experience && (
+              <>
+                <span>•</span>
+                <span>
+                  {job.experience === 'lt1'
+                    ? '< 1 năm kn'
+                    : job.experience === '1-2'
+                    ? '1 - 2 năm kn'
+                    : '2 - 5 năm kn'}
+                </span>
+              </>
+            )}
           </div>
 
-          <p className="job-search-item__company" title={companyName}>
-            {companyName}
-          </p>
-
           <div className="job-search-item__tags">
-            {salaryText && <span className="job-tag job-tag--salary">{salaryText}</span>}
-            {location && <span className="job-tag job-tag--location">{location}</span>}
-            {job.experience && (
-              <span className="job-tag job-tag--location">
-                {job.experience === 'lt1' ? '< 1 năm kinh nghiệm' : job.experience === '1-2' ? '1 - 2 năm kinh nghiệm' : '2 - 5 năm kinh nghiệm'}
-              </span>
-            )}
             {job.jobType && (
               <span className="job-tag job-tag--location">
-                {job.jobType === 'FULL_TIME' ? 'Toàn thời gian' : job.jobType === 'PART_TIME' ? 'Bán thời gian' : 'Thực tập'}
+                {job.jobType === 'FULL_TIME'
+                  ? 'Toàn thời gian'
+                  : job.jobType === 'PART_TIME'
+                  ? 'Bán thời gian'
+                  : 'Thực tập'}
               </span>
+            )}
+            {job.category?.name && (
+              <span className="job-tag job-tag--location">{job.category.name}</span>
             )}
           </div>
         </div>
@@ -88,33 +110,34 @@ export default function JobCard({ job, variant = 'card', extra }) {
     );
   }
 
-  // Mặc định: Dạng Card ô vuông nhỏ gọn (dành cho Trang chủ)
+  // Mặc định: Dạng Card ô vuông nhỏ gọn phong cách Wellfound (dành cho Trang chủ)
   return (
     <article className={`job-card ${isTop ? 'job-card--top' : ''}`}>
       <div className="job-card__main">
         <Link to={`/jobs/${id}`} className="job-card__logo" aria-label={companyName}>
           {companyLogo ? (
-            <img src={companyLogo} alt="" loading="lazy" />
-          ) : (
-            <span className="job-card__logo-fallback">{initialChar}</span>
-          )}
+            <img
+              src={companyLogo}
+              alt={companyName}
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                if (e.currentTarget.nextElementSibling) {
+                  e.currentTarget.nextElementSibling.style.display = 'flex';
+                }
+              }}
+            />
+          ) : null}
+          <span
+            className="job-card__logo-fallback"
+            style={{ display: companyLogo ? 'none' : 'flex' }}
+          >
+            {initialChar}
+          </span>
         </Link>
 
         <div className="job-card__content">
           <h3 className="job-card__title">
-            {isTop && (
-              <span className="badge-inline badge-top me-1">
-                <FaGem size={8} className="me-1" />
-                TOP
-              </span>
-            )}
-            {isHot && (
-              <span className="badge-inline badge-hot me-1">
-                <FaFire size={8} className="me-1" />
-                HOT
-              </span>
-            )}
-            {isUrgent && <span className="badge-inline badge-urgent me-1">GẤP</span>}
             <Link to={`/jobs/${id}`} title={title}>
               {title}
             </Link>
@@ -126,13 +149,29 @@ export default function JobCard({ job, variant = 'card', extra }) {
         </div>
       </div>
 
+      <div className="job-card__meta-line small text-muted my-2 d-flex align-items-center gap-1">
+        {location && <span>{location}</span>}
+        {location && salaryText && <span className="mx-1">•</span>}
+        {salaryText && <span className="text-success fw-semibold">{salaryText}</span>}
+      </div>
+
       <div className="job-card__footer">
         <div className="job-card__tags">
-          {salaryText && <span className="job-tag job-tag--salary">{salaryText}</span>}
-          {location && <span className="job-tag job-tag--location">{location}</span>}
+          {job.jobType && (
+            <span className="job-tag job-tag--location">
+              {job.jobType === 'FULL_TIME'
+                ? 'Full time'
+                : job.jobType === 'PART_TIME'
+                ? 'Part time'
+                : 'Thực tập'}
+            </span>
+          )}
         </div>
-        <div className="job-card__save">
+        <div className="d-flex align-items-center gap-2 ms-auto">
           <SaveButton jobId={id} initialSaved={saved} />
+          <Link to={`/jobs/${id}`} className="btn-apply-fast-sm">
+            Ứng tuyển
+          </Link>
         </div>
       </div>
 
