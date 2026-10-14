@@ -34,10 +34,15 @@ export default function Support() {
   const { isListening, isSpeaking, currentSpeakingId, startListening, stopListening, speak } =
     useSpeech();
 
-  const chatEndRef = useRef(null);
+  const chatBodyRef = useRef(null);
 
   const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTo({
+        top: chatBodyRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   };
 
   useEffect(() => {
@@ -117,7 +122,7 @@ export default function Support() {
           </div>
 
           {/* Vùng Tin nhắn */}
-          <div className="chat-body p-3 overflow-auto" style={{ height: '480px' }}>
+          <div className="chat-body p-3 overflow-auto" ref={chatBodyRef} style={{ height: '480px' }}>
             {messages.map((m) => {
               const isBot = m.sender === 'bot';
               return (
@@ -181,8 +186,6 @@ export default function Support() {
                 <span>Trợ lý AI đang soạn câu trả lời...</span>
               </div>
             )}
-
-            <div ref={chatEndRef} />
           </div>
 
           {/* Gợi ý câu hỏi mẫu */}
