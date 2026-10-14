@@ -234,8 +234,15 @@ export default function TopCompanies() {
                   <div key={company.id} className="col">
                     <div className="company-card h-100 d-flex flex-column">
                       {/* Ảnh bìa */}
-                      <div className="company-card__cover">
-                        <img src={company.cover} alt="" loading="lazy" />
+                      <div className="company-card__cover" style={{ background: 'linear-gradient(135deg, #1E293B 0%, #334155 100%)' }}>
+                        <img
+                          src={company.cover}
+                          alt=""
+                          loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
                         <div className="company-card__cover-overlay" />
                       </div>
 
