@@ -22,10 +22,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class JobService {
@@ -47,7 +49,8 @@ public class JobService {
                 Predicate pTitle = cb.like(cb.lower(root.get("title")), kw);
                 Predicate pDesc = cb.like(cb.lower(root.get("description")), kw);
                 Predicate pReq = cb.like(cb.lower(root.get("requirements")), kw);
-                predicates.add(cb.or(pTitle, pDesc, pReq));
+                Predicate pComp = cb.like(cb.lower(root.join("company", JoinType.LEFT).get("name")), kw);
+                predicates.add(cb.or(pTitle, pDesc, pReq, pComp));
             }
 
             if (category != null && !category.trim().isEmpty() && !"all".equalsIgnoreCase(category) && !"Tất cả".equalsIgnoreCase(category)) {
@@ -199,6 +202,21 @@ public class JobService {
         Job job = jobRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy công việc"));
 
+        log.info("SECURITY CHECK updateJob: employer={}, role={}, jobEmployer={}",
+                employer != null ? employer.getId() : "null",
+                employer != null ? employer.getRole() : "null",
+                job.getEmployer() != null ? job.getEmployer().getId() : "null");
+
+        if (employer == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập");
+        }
+
+        if (employer.getRole() != com.jobnest.entity.Role.ADMIN) {
+            if (job.getEmployer() == null || !job.getEmployer().getId().equals(employer.getId())) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Bạn không có quyền thao tác trên tin của công ty khác");
+            }
+        }
+
         if (request.getTitle() != null) job.setTitle(request.getTitle());
         if (request.getLocation() != null) job.setLocation(request.getLocation());
         if (request.getSalaryText() != null) job.setSalaryText(request.getSalaryText());
@@ -216,10 +234,19 @@ public class JobService {
 
     @Transactional
     public void deleteJob(Long id, User employer) {
-        if (!jobRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy công việc");
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy công việc"));
+
+        if (employer == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Vui lòng đăng nhập");
         }
-        jobRepository.deleteById(id);
+
+        if (employer.getRole() != com.jobnest.entity.Role.ADMIN) {
+            if (job.getEmployer() == null || !job.getEmployer().getId().equals(employer.getId())) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Bạn không có quyền xóa tin của công ty khác");
+            }
+        }
+        jobRepository.delete(job);
     }
 
     @Transactional

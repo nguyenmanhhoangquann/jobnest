@@ -3,6 +3,7 @@ package com.jobnest.controller;
 import com.jobnest.dto.JobCreateRequest;
 import com.jobnest.dto.JobDto;
 import com.jobnest.entity.User;
+import com.jobnest.repository.UserRepository;
 import com.jobnest.service.JobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class JobController {
 
     private final JobService jobService;
+    private final UserRepository userRepository;
 
     @GetMapping("/jobs")
     public ResponseEntity<Page<JobDto>> getJobs(
@@ -66,37 +68,52 @@ public class JobController {
         return ResponseEntity.ok(jobService.getJobDetail(id, currentUser));
     }
 
+    private User resolveUser(org.springframework.security.core.Authentication auth, User fallback) {
+        if (fallback != null) return fallback;
+        if (auth != null) {
+            if (auth.getPrincipal() instanceof User u) return u;
+            if (auth.getName() != null) {
+                return userRepository.findByUsername(auth.getName()).orElse(null);
+            }
+        }
+        return null;
+    }
+
     @PostMapping("/jobs")
     public ResponseEntity<JobDto> createJob(
             @RequestBody JobCreateRequest request,
-            @AuthenticationPrincipal User employer
+            @AuthenticationPrincipal User employer,
+            org.springframework.security.core.Authentication auth
     ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(jobService.createJob(request, employer));
+        return ResponseEntity.status(HttpStatus.CREATED).body(jobService.createJob(request, resolveUser(auth, employer)));
     }
 
     @PutMapping("/jobs/{id}")
     public ResponseEntity<JobDto> updateJob(
             @PathVariable Long id,
             @RequestBody JobCreateRequest request,
-            @AuthenticationPrincipal User employer
+            @AuthenticationPrincipal User employer,
+            org.springframework.security.core.Authentication auth
     ) {
-        return ResponseEntity.ok(jobService.updateJob(id, request, employer));
+        return ResponseEntity.ok(jobService.updateJob(id, request, resolveUser(auth, employer)));
     }
 
     @DeleteMapping("/jobs/{id}")
     public ResponseEntity<Map<String, Object>> deleteJob(
             @PathVariable Long id,
-            @AuthenticationPrincipal User employer
+            @AuthenticationPrincipal User employer,
+            org.springframework.security.core.Authentication auth
     ) {
-        jobService.deleteJob(id, employer);
+        jobService.deleteJob(id, resolveUser(auth, employer));
         return ResponseEntity.ok(Map.of("success", true, "message", "Đã xóa tin tuyển dụng"));
     }
 
     @GetMapping("/jobs/mine")
     public ResponseEntity<List<JobDto>> getMyJobs(
-            @AuthenticationPrincipal User employer
+            @AuthenticationPrincipal User employer,
+            org.springframework.security.core.Authentication auth
     ) {
-        return ResponseEntity.ok(jobService.getMyJobs(employer));
+        return ResponseEntity.ok(jobService.getMyJobs(resolveUser(auth, employer)));
     }
 
     // Saved Jobs Endpoints

@@ -198,7 +198,7 @@ export default function Login() {
                 onClick={() => handleQuickLogin('tuyendung', '123456', 'employer')}
               >
                 <FaBuilding size={11} />
-                <span>Nhà tuyển dụng</span>
+                <span>Nhà tuyển dụng (FPT)</span>
               </button>
 
               <button

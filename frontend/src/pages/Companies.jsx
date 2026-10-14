@@ -27,6 +27,7 @@ import {
   FaCheck,
 } from 'react-icons/fa';
 import mockCompanies from '../mock/companies.js';
+import companyApi from '../api/companyApi.js';
 import { showToast } from '../components/common/ToastHost.jsx';
 
 const COMPANY_EXTRAS = {
@@ -230,37 +231,46 @@ export default function Companies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCompanyId = searchParams.get('id');
 
+  const [companiesList, setCompaniesList] = useState(mockCompanies);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('all');
   const [activeIndustry, setActiveIndustry] = useState('ALL');
   const [companyTab, setCompanyTab] = useState('overview');
   const [isFollowed, setIsFollowed] = useState(false);
 
+  useEffect(() => {
+    companyApi.getCompanies().then((res) => {
+      if (Array.isArray(res) && res.length > 0) {
+        setCompaniesList(res);
+      }
+    });
+  }, []);
+
   const filteredCompanies = useMemo(() => {
-    return mockCompanies.filter((c) => {
-      if (activeIndustry !== 'ALL' && !c.industry.includes(activeIndustry)) {
+    return companiesList.filter((c) => {
+      if (activeIndustry !== 'ALL' && !c.industry?.includes(activeIndustry)) {
         return false;
       }
-      if (selectedLocation !== 'all' && !c.location.toLowerCase().includes(selectedLocation.toLowerCase())) {
+      if (selectedLocation !== 'all' && !c.location?.toLowerCase().includes(selectedLocation.toLowerCase())) {
         return false;
       }
       if (searchKeyword.trim()) {
         const kw = searchKeyword.toLowerCase();
         return (
-          c.name.toLowerCase().includes(kw) ||
-          c.shortName.toLowerCase().includes(kw) ||
-          c.industry.toLowerCase().includes(kw) ||
-          c.location.toLowerCase().includes(kw)
+          c.name?.toLowerCase().includes(kw) ||
+          c.shortName?.toLowerCase().includes(kw) ||
+          c.industry?.toLowerCase().includes(kw) ||
+          c.location?.toLowerCase().includes(kw)
         );
       }
       return true;
     });
-  }, [searchKeyword, activeIndustry, selectedLocation]);
+  }, [companiesList, searchKeyword, activeIndustry, selectedLocation]);
 
   const selectedCompany = useMemo(() => {
     if (!selectedCompanyId) return null;
-    return mockCompanies.find((c) => String(c.id) === String(selectedCompanyId));
-  }, [selectedCompanyId]);
+    return companiesList.find((c) => String(c.id) === String(selectedCompanyId));
+  }, [companiesList, selectedCompanyId]);
 
   const handleShare = () => {
     navigator.clipboard?.writeText(window.location.href);
@@ -311,15 +321,23 @@ export default function Companies() {
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-4">
               <div className="d-flex align-items-center" style={{ gap: '26px' }}>
                 {/* Logo Box */}
-                <div className="novatech-logo-box">
+                <div className="novatech-logo-box position-relative">
                   <img
                     src={selectedCompany.logo}
                     alt={selectedCompany.name}
                     className="novatech-logo-img"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
+                      if (e.currentTarget.nextElementSibling) {
+                        e.currentTarget.nextElementSibling.style.display = 'flex';
+                      }
                     }}
                   />
+                  <div
+                    className="fw-bold text-dark d-none align-items-center justify-content-center w-100 h-100 fs-3"
+                  >
+                    {(selectedCompany.shortName || selectedCompany.name).charAt(0).toUpperCase()}
+                  </div>
                 </div>
 
                 {/* Company Name & Meta */}
@@ -714,17 +732,29 @@ export default function Companies() {
                   {/* Body with overlapping logo */}
                   <div className="company-card-body">
                     {/* Company Logo Overlap */}
-                    <div className="company-card-logo-overlap">
+                    <div className="company-card-logo-overlap position-relative">
                       <img
                         src={comp.logo}
                         alt={comp.name}
                         className="company-card-logo-img"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          if (e.currentTarget.nextElementSibling) {
+                            e.currentTarget.nextElementSibling.style.display = 'flex';
+                          }
+                        }}
                       />
+                      <div
+                        className="fw-bold text-dark d-none align-items-center justify-content-center w-100 h-100 rounded-3 bg-light"
+                        style={{ fontSize: '18px' }}
+                      >
+                        {(comp.shortName || comp.name).charAt(0).toUpperCase()}
+                      </div>
                     </div>
 
                     {/* Company Name & Verified Badge */}
-                    <div className="company-name-row">
-                      <h3 className="company-card-name text-truncate" title={comp.name}>
+                    <div className="company-name-row d-flex align-items-center gap-1.5">
+                      <h3 className="company-card-name text-truncate mb-0" title={comp.name}>
                         {comp.shortName || comp.name}
                       </h3>
                       {comp.verified && (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaCheckCircle } from 'react-icons/fa';
 import SaveButton from './SaveButton.jsx';
 
 export default function JobCard({ job, variant = 'card', extra }) {
@@ -55,7 +56,10 @@ export default function JobCard({ job, variant = 'card', extra }) {
           </h3>
 
           <div className="job-meta-line text-muted small mb-2 d-flex flex-wrap align-items-center gap-2">
-            <span className="fw-semibold text-dark">{companyName}</span>
+            <span className="d-inline-flex align-items-center gap-1">
+              <span className="fw-semibold text-dark">{companyName}</span>
+              <FaCheckCircle className="text-success flex-shrink-0" size={12} title="Doanh nghiệp xác thực" />
+            </span>
             {location && (
               <>
                 <span>•</span>
@@ -72,10 +76,14 @@ export default function JobCard({ job, variant = 'card', extra }) {
               <>
                 <span>•</span>
                 <span>
-                  {job.experience === 'lt1'
+                  {job.experience === 'none'
+                    ? 'Không yêu cầu kn'
+                    : job.experience === 'lt1'
                     ? '< 1 năm kn'
                     : job.experience === '1-2'
                     ? '1 - 2 năm kn'
+                    : job.experience === 'gt5'
+                    ? 'Trên 5 năm kn'
                     : '2 - 5 năm kn'}
                 </span>
               </>
@@ -143,8 +151,9 @@ export default function JobCard({ job, variant = 'card', extra }) {
             </Link>
           </h3>
 
-          <p className="job-card__company" title={companyName}>
-            {companyName}
+          <p className="job-card__company d-flex align-items-center gap-1 mb-0" title={companyName}>
+            <span className="text-truncate">{companyName}</span>
+            <FaCheckCircle className="text-success flex-shrink-0" size={12} title="Doanh nghiệp xác thực" />
           </p>
         </div>
       </div>

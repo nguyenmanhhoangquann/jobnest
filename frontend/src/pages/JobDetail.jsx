@@ -198,7 +198,7 @@ export default function JobDetail() {
           <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-4">
             <div className="d-flex align-items-start align-items-sm-center" style={{ gap: '24px' }}>
               {/* Company Logo Box */}
-              <div className="job-hero-logo-box">
+              <div className="job-hero-logo-box position-relative">
                 {companyLogo || companyInfo.logo ? (
                   <img
                     src={companyLogo || companyInfo.logo}
@@ -206,11 +206,18 @@ export default function JobDetail() {
                     className="job-hero-logo-img"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
+                      if (e.currentTarget.nextElementSibling) {
+                        e.currentTarget.nextElementSibling.style.display = 'flex';
+                      }
                     }}
                   />
-                ) : (
-                  <div className="fw-bold text-dark fs-3">{initial}</div>
-                )}
+                ) : null}
+                <div
+                  className="fw-bold text-dark fs-3 align-items-center justify-content-center w-100 h-100"
+                  style={{ display: (companyLogo || companyInfo.logo) ? 'none' : 'flex' }}
+                >
+                  {initial}
+                </div>
               </div>
 
               {/* Title & Metadata Details */}
@@ -226,7 +233,7 @@ export default function JobDetail() {
                     style={{ fontSize: '15px' }}
                   >
                     <span>{companyName}</span>
-                    <FaCheckCircle className="text-primary" size={14} title="Doanh nghiệp xác thực" />
+                    <FaCheckCircle className="text-success" size={14} title="Doanh nghiệp xác thực" />
                   </Link>
 
                   {companyInfo.industry && (
@@ -297,26 +304,26 @@ export default function JobDetail() {
 
       {/* 2. BODY CONTENT - 2 COLUMN GRID */}
       <div className="container py-4 my-2" style={{ maxWidth: '1240px' }}>
-        <div className="row g-4 align-items-start">
+        <div className="row g-4.5 align-items-start" style={{ rowGap: '32px' }}>
           {/* CỘT TRÁI (~68% width): Main JD Content */}
           <div className="col-12 col-lg-8">
             <div className="job-detail-card mb-4">
               {/* Mô tả công việc */}
-              <section className="mb-4 pb-3 border-bottom">
+              <section className="mb-5 pb-4 border-bottom">
                 <h2 className="job-section-title">Mô tả công việc</h2>
-                <p className="text-secondary mb-3" style={{ lineHeight: '1.8', fontSize: '15px', color: '#334155' }}>
+                <p className="text-secondary" style={{ lineHeight: '1.85', fontSize: '15.5px', color: '#334155', marginBottom: '22px' }}>
                   {job.description || 'Chưa có mô tả chi tiết cho công việc này.'}
                 </p>
-                <div className="d-flex flex-column gap-2">
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                <div className="d-flex flex-column gap-3">
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Tham gia thiết kế và triển khai kiến trúc hệ thống quy mô lớn, chịu tải cao và đảm bảo tính sẵn sàng.</span>
                   </div>
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Phối hợp chặt chẽ cùng đội ngũ Product Owner, Frontend và QA để tối ưu hóa trải nghiệm sản phẩm.</span>
                   </div>
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Nghiên cứu và ứng dụng các giải pháp công nghệ mới nhằm nâng cao hiệu suất xử lý dữ liệu.</span>
                   </div>
@@ -324,9 +331,9 @@ export default function JobDetail() {
               </section>
 
               {/* Kỹ năng & Tech Stack */}
-              <section className="mb-4 pb-3 border-bottom">
+              <section className="mb-5 pb-4 border-bottom">
                 <h2 className="job-section-title">Kỹ năng chuyên môn &amp; Tech Stack</h2>
-                <div className="d-flex flex-wrap gap-2">
+                <div className="d-flex flex-wrap gap-2.5">
                   {skillsList.map((skill, idx) => (
                     <span key={idx} className="job-skill-chip">
                       {skill}
@@ -336,21 +343,21 @@ export default function JobDetail() {
               </section>
 
               {/* Yêu cầu ứng viên */}
-              <section className="mb-4 pb-3 border-bottom">
+              <section className="mb-5 pb-4 border-bottom">
                 <h2 className="job-section-title">Yêu cầu ứng viên</h2>
-                <p className="text-secondary mb-3" style={{ lineHeight: '1.8', fontSize: '15px', color: '#334155' }}>
+                <p className="text-secondary" style={{ lineHeight: '1.85', fontSize: '15.5px', color: '#334155', marginBottom: '22px' }}>
                   {job.requirements || 'Trao đổi chi tiết khi phỏng vấn.'}
                 </p>
-                <div className="d-flex flex-column gap-2">
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                <div className="d-flex flex-column gap-3">
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Tư duy lập trình vững chắc, am hiểu cấu trúc dữ liệu, giải thuật và các Design Patterns phổ biến.</span>
                   </div>
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Có tinh thần trách nhiệm cao, chủ động học hỏi công nghệ mới và khả năng giải quyết vấn đề độc lập.</span>
                   </div>
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Kỹ năng giao tiếp và làm việc nhóm tốt, đọc hiểu tài liệu kỹ thuật tiếng Anh thành thạo.</span>
                   </div>
@@ -358,21 +365,21 @@ export default function JobDetail() {
               </section>
 
               {/* Quyền lợi được hưởng */}
-              <section className="mb-4 pb-3 border-bottom">
+              <section className="mb-5 pb-4 border-bottom">
                 <h2 className="job-section-title">Quyền lợi &amp; Đãi ngộ</h2>
-                <p className="text-secondary mb-3" style={{ lineHeight: '1.8', fontSize: '15px', color: '#334155' }}>
+                <p className="text-secondary" style={{ lineHeight: '1.85', fontSize: '15.5px', color: '#334155', marginBottom: '22px' }}>
                   {job.benefits || 'Chế độ bảo hiểm và đãi ngộ theo quy định của công ty.'}
                 </p>
-                <div className="d-flex flex-column gap-2">
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                <div className="d-flex flex-column gap-3">
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Thu nhập cạnh tranh theo năng lực, thưởng lương tháng 13 và thưởng hiệu suất dự án hấp dẫn.</span>
                   </div>
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Gói bảo hiểm sức khỏe toàn diện cao cấp cho nhân viên và chính sách chăm sóc người thân.</span>
                   </div>
-                  <div className="d-flex align-items-start gap-2 text-secondary" style={{ fontSize: '14.5px' }}>
+                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                     <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
                     <span>Cấp phát laptop cấu hình cao, hỗ trợ 100% kinh phí thi các chứng chỉ quốc tế uy tín.</span>
                   </div>
@@ -382,7 +389,7 @@ export default function JobDetail() {
               {/* Địa điểm làm việc */}
               <section>
                 <h2 className="job-section-title">Địa điểm làm việc cụ thể</h2>
-                <p className="text-secondary mb-0 d-flex align-items-center gap-2" style={{ fontSize: '14.5px' }}>
+                <p className="text-secondary mb-0 d-flex align-items-center gap-2.5" style={{ fontSize: '15px', lineHeight: '1.7' }}>
                   <FaMapMarkerAlt className="text-danger flex-shrink-0" size={14} />
                   <span>{job.location} ({companyInfo.hq || 'Văn phòng hiện đại, trung tâm thành phố'})</span>
                 </p>
@@ -457,6 +464,7 @@ export default function JobDetail() {
 
                 <div className="d-flex align-items-center gap-3 mb-3">
                   <div
+                    className="position-relative"
                     style={{
                       width: '54px',
                       height: '54px',
@@ -475,15 +483,26 @@ export default function JobDetail() {
                         src={companyLogo || companyInfo.logo}
                         alt={companyName}
                         style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          if (e.currentTarget.nextElementSibling) {
+                            e.currentTarget.nextElementSibling.style.display = 'flex';
+                          }
+                        }}
                       />
-                    ) : (
-                      <div className="fw-bold text-dark">{initial}</div>
-                    )}
+                    ) : null}
+                    <div
+                      className="fw-bold text-dark align-items-center justify-content-center w-100 h-100"
+                      style={{ display: (companyLogo || companyInfo.logo) ? 'none' : 'flex' }}
+                    >
+                      {initial}
+                    </div>
                   </div>
 
                   <div>
-                    <h4 className="fw-bold mb-0 text-dark" style={{ fontSize: '16px', lineHeight: '1.3' }}>
-                      {companyName}
+                    <h4 className="fw-bold mb-0 text-dark d-inline-flex align-items-center gap-1.5" style={{ fontSize: '16px', lineHeight: '1.3' }}>
+                      <span>{companyName}</span>
+                      <FaCheckCircle className="text-success flex-shrink-0" size={13} title="Doanh nghiệp xác thực" />
                     </h4>
                     <small className="text-muted fw-semibold">Quy mô: {companyInfo.size || '10.000+ nhân viên'}</small>
                   </div>

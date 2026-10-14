@@ -22,7 +22,7 @@ export const adminApi = {
       await new Promise((r) => setTimeout(r, 200));
       return [
         { id: 1, username: 'admin', fullName: 'Ban Quản Trị Hệ Thống', email: 'admin@jobnest.vn', role: 'ADMIN' },
-        { id: 2, username: 'tuyendung', fullName: 'Nguyễn Quản Lý', companyName: 'Công ty TNHH Ánh Dương', email: 'tuyendung@anhduong.vn', role: 'EMPLOYER' },
+        { id: 2, username: 'tuyendung', fullName: 'Ban Tuyển Dụng FPT', companyName: 'TẬP ĐOÀN CÔNG NGHỆ FPT', email: 'tuyendung@fpt.com.vn', role: 'EMPLOYER' },
         { id: 3, username: 'ungvien', fullName: 'Nguyễn Văn Hùng', email: 'hung.nguyen@gmail.com', role: 'CANDIDATE' },
       ];
     }

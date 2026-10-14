@@ -53,17 +53,18 @@ public class DataInitializer implements CommandLineRunner {
 
         User employer = userRepository.findByUsername("tuyendung").orElse(null);
         if (employer == null) {
-            employer = userRepository.save(User.builder()
+            employer = User.builder()
                     .username("tuyendung")
                     .password(passwordEncoder.encode("123456"))
                     .role(Role.EMPLOYER)
-                    .fullName("Nguyễn Quản Lý")
-                    .displayName("Công ty TNHH Ánh Dương")
-                    .companyName("Công ty TNHH Ánh Dương")
-                    .email("tuyendung@anhduong.vn")
-                    .phone("0900000002")
-                    .build());
+                    .build();
         }
+        employer.setFullName("Ban Tuyển Dụng FPT");
+        employer.setDisplayName("FPT Software");
+        employer.setCompanyName("TẬP ĐOÀN CÔNG NGHỆ FPT");
+        employer.setEmail("tuyendung@fpt.com.vn");
+        employer.setPhone("0988668899");
+        employer = userRepository.save(employer);
 
         User candidate = userRepository.findByUsername("ungvien").orElse(null);
         if (candidate == null) {
@@ -162,7 +163,7 @@ public class DataInitializer implements CommandLineRunner {
                                 .position(node.has("position") ? node.get("position").asText() : "staff")
                                 .category(category)
                                 .company(company)
-                                .employer(employer)
+                                .employer(admin)
                                 .isHot(node.has("isHot") && node.get("isHot").asBoolean())
                                 .isUrgent(node.has("isUrgent") && node.get("isUrgent").asBoolean())
                                 .isTop(node.has("isTop") && node.get("isTop").asBoolean())
@@ -239,7 +240,7 @@ public class DataInitializer implements CommandLineRunner {
 
             notificationRepository.save(Notification.builder()
                     .user(candidate)
-                    .content("Hồ sơ ứng tuyển của bạn tại Công ty TNHH Ánh Dương đã được chuyển sang trạng thái Đã xem.")
+                    .content("Hồ sơ ứng tuyển của bạn tại Tập đoàn Công nghệ Hoàng Quân đã được chuyển sang trạng thái Đã xem.")
                     .isRead(false)
                     .createdAt(LocalDateTime.now().minusHours(1))
                     .build());
@@ -260,6 +261,146 @@ public class DataInitializer implements CommandLineRunner {
                     .createdAt("14/10/2026")
                     .status("PENDING")
                     .build());
+        }
+
+        // 7. Đảm bảo các tin đối tác lớn thuộc admin, riêng FPT Software thuộc employer tuyendung
+        final User adminOwner = admin;
+        final User fptEmployer = employer;
+        final Company fptCompany = companyRepository.findByName("TẬP ĐOÀN CÔNG NGHỆ FPT").orElse(null);
+
+        jobRepository.findAll().forEach(j -> {
+            if (j.getCompany() != null && j.getCompany().getName().contains("FPT")) {
+                j.setEmployer(fptEmployer);
+                jobRepository.save(j);
+            } else if (j.getEmployer() != null && j.getEmployer().getId().equals(fptEmployer.getId())) {
+                j.setEmployer(adminOwner);
+                jobRepository.save(j);
+            }
+        });
+
+        if (jobRepository.findByEmployerId(fptEmployer.getId()).isEmpty()) {
+            Category itCat = categoryRepository.findBySlug("cntt")
+                    .orElse(categoryRepository.findAll().stream().findFirst().orElse(null));
+
+            Job hqJob1 = jobRepository.save(Job.builder()
+                    .title("Senior Fullstack Developer (Java Spring Boot & ReactJS)")
+                    .company(fptCompany)
+                    .employer(fptEmployer)
+                    .category(itCat)
+                    .salaryText("25 - 40 triệu")
+                    .salaryMin(25)
+                    .salaryMax(40)
+                    .location("Cầu Giấy, Hà Nội")
+                    .area("ha-noi")
+                    .region("Miền Bắc")
+                    .jobType("FULL_TIME")
+                    .experience("2-5")
+                    .position("senior")
+                    .quantity(3)
+                    .deadline("2026-12-31")
+                    .isHot(true)
+                    .isUrgent(true)
+                    .isTop(true)
+                    .description("Tham gia thiết kế kiến trúc và phát triển các sản phẩm công nghệ trọng điểm của Tập đoàn Hoàng Quân.")
+                    .requirements("Tối thiểu 3 năm kinh nghiệm với Java Spring Boot, ReactJS/TypeScript, hiểu biết sâu về kiến trúc Microservices và Clean Code.")
+                    .benefits("Lương 25 - 40 triệu + thưởng hiệu suất quý. Gói bảo hiểm sức khỏe cao cấp và trang thiết bị làm việc hiện đại.")
+                    .build());
+
+            Job hqJob2 = jobRepository.save(Job.builder()
+                    .title("Frontend Software Engineer (ReactJS / TypeScript / UI-UX)")
+                    .company(fptCompany)
+                    .employer(fptEmployer)
+                    .category(itCat)
+                    .salaryText("18 - 28 triệu")
+                    .salaryMin(18)
+                    .salaryMax(28)
+                    .location("Cầu Giấy, Hà Nội")
+                    .area("ha-noi")
+                    .region("Miền Bắc")
+                    .jobType("FULL_TIME")
+                    .experience("1-2")
+                    .position("staff")
+                    .quantity(2)
+                    .deadline("2026-12-31")
+                    .isHot(true)
+                    .isUrgent(false)
+                    .isTop(true)
+                    .description("Xây dựng giao diện web ứng dụng hiện đại, tối ưu trải nghiệm người dùng theo các chuẩn thiết kế mới nhất.")
+                    .requirements("Thành thạo ReactJS, CSS/SCSS, Responsive, RESTful API và tư duy thẩm mỹ giao diện tốt.")
+                    .benefits("Thu nhập 18 - 28 triệu, xét tăng lương 2 lần/năm, trang bị máy Mac làm việc.")
+                    .build());
+
+            jobRepository.save(Job.builder()
+                    .title("Cloud DevOps Specialist (Docker, Kubernetes, AWS/GCP)")
+                    .company(fptCompany)
+                    .employer(fptEmployer)
+                    .category(itCat)
+                    .salaryText("22 - 35 triệu")
+                    .salaryMin(22)
+                    .salaryMax(35)
+                    .location("Cầu Giấy, Hà Nội")
+                    .area("ha-noi")
+                    .region("Miền Bắc")
+                    .jobType("FULL_TIME")
+                    .experience("2-5")
+                    .position("specialist")
+                    .quantity(2)
+                    .deadline("2026-12-31")
+                    .isHot(false)
+                    .isUrgent(true)
+                    .isTop(false)
+                    .description("Quản trị hạ tầng đám mây, tự động hóa quy trình CI/CD và giám sát hệ thống 24/7.")
+                    .requirements("Kinh nghiệm thực chiến với Docker, K8s, Linux, CI/CD Pipeline và quản trị bảo mật mạng.")
+                    .benefits("Lương thỏa thuận 22 - 35 triệu, chế độ đãi ngộ vượt trội.")
+                    .build());
+
+            jobRepository.save(Job.builder()
+                    .title("Thực tập sinh Lập trình Web Fullstack (Internship)")
+                    .company(fptCompany)
+                    .employer(fptEmployer)
+                    .category(itCat)
+                    .salaryText("6 - 10 triệu")
+                    .salaryMin(6)
+                    .salaryMax(10)
+                    .location("Cầu Giấy, Hà Nội")
+                    .area("ha-noi")
+                    .region("Miền Bắc")
+                    .jobType("INTERN")
+                    .experience("none")
+                    .position("intern")
+                    .quantity(5)
+                    .deadline("2026-12-31")
+                    .isHot(false)
+                    .isUrgent(false)
+                    .isTop(false)
+                    .description("Được kèm cặp trực tiếp bởi Senior Developer trong các dự án thực chiến tại tập đoàn.")
+                    .requirements("Sinh viên năm 3-4 chuyên ngành CNTT, nắm vững kiến thức lập trình cơ bản và có tinh thần cầu tiến.")
+                    .benefits("Trợ cấp thực tập 6 - 10 triệu/tháng, cơ hội chuyển lên nhân viên chính thức sau 3 tháng.")
+                    .build());
+
+            if (!applicationRepository.existsByCandidateIdAndJobId(candidate.getId(), hqJob1.getId())) {
+                List<String> strengths = Arrays.asList(
+                        "Kỹ năng Java Spring Boot và ReactJS rất vững chắc, khớp hoàn toàn với JD",
+                        "Có sản phẩm thực tế triển khai trên Docker và tư duy Clean Architecture tốt",
+                        "CV trình bày mạch lạc, định lượng rõ ràng các kết quả đạt được"
+                );
+                List<String> weaknesses = Arrays.asList(
+                        "Cần trau dồi thêm kỹ năng giao tiếp tiếng Anh chuyên ngành"
+                );
+
+                applicationRepository.save(Application.builder()
+                        .job(hqJob1)
+                        .candidate(candidate)
+                        .status("PENDING")
+                        .cvUrl("/files/cv_sample.pdf")
+                        .coverLetter("Kính gửi Ban Giám đốc Tập đoàn Hoàng Quân, tôi đã theo dõi các dự án công nghệ của tập đoàn và rất mong muốn được cống hiến năng lực Fullstack của mình vào đội ngũ.")
+                        .aiScore(94)
+                        .aiVerdict("SUITABLE")
+                        .aiSummary("Ứng viên Nguyễn Văn Hùng đạt 94/100 điểm tương thích cho vị trí Senior Fullstack Developer tại Tập đoàn Công nghệ Hoàng Quân. Rất phù hợp mời phỏng vấn ngay.")
+                        .aiStrengthsJson(objectMapper.writeValueAsString(strengths))
+                        .aiWeaknessesJson(objectMapper.writeValueAsString(weaknesses))
+                        .build());
+            }
         }
 
         log.info("Database initialization completed successfully!");

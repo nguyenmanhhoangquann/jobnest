@@ -22,5 +22,7 @@ public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificatio
 
     List<Job> findByEmployerId(Long employerId);
 
+    List<Job> findByCompanyId(Long companyId);
+
     long countByCategoryId(Long categoryId);
 }

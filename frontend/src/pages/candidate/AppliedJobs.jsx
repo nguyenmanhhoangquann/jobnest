@@ -72,7 +72,7 @@ export default function AppliedJobs() {
                           {app.jobTitle}
                         </Link>
                       </td>
-                      <td className="text-muted">{app.companyName || 'Công ty TNHH Ánh Dương'}</td>
+                      <td className="text-muted">{app.companyName || 'Tập đoàn Công nghệ Hoàng Quân'}</td>
                       <td className="text-muted small">
                         <FaCalendarAlt className="me-1 text-muted" size={12} />
                         {app.appliedAt || '25/10/2026'}

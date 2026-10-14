@@ -14,8 +14,8 @@ export const mockCompanies = [
     "description": "Tập đoàn công nghệ hàng đầu Việt Nam cung cấp dịch vụ công nghệ thông tin toàn cầu, chuyển đổi số và giải pháp viễn thông hiện đại.",
     "jobs": [
       {
-        "id": 1011,
-        "title": "Senior Java Backend Engineer (Spring Boot / Cloud)",
+        "id": 1,
+        "title": "Senior Java Backend Engineer (Spring Boot / Cloud Microservices)",
         "salaryText": "25 - 40 triệu",
         "location": "Cầu Giấy, Hà Nội",
         "jobType": "FULL_TIME",
@@ -23,28 +23,37 @@ export const mockCompanies = [
         "deadline": "30/11/2026"
       },
       {
-        "id": 1012,
-        "title": "Frontend Developer (ReactJS / Next.js / TypeScript)",
-        "salaryText": "18 - 30 triệu",
-        "location": "Nam Từ Liêm, Hà Nội",
+        "id": 95,
+        "title": "Senior Fullstack Developer (Java Spring Boot & ReactJS)",
+        "salaryText": "25 - 45 triệu",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "FULL_TIME",
+        "experience": "2-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 96,
+        "title": "Frontend Software Engineer (ReactJS / TypeScript / UI-UX)",
+        "salaryText": "18 - 28 triệu",
+        "location": "Cầu Giấy, Hà Nội",
         "jobType": "FULL_TIME",
         "experience": "1-2",
-        "deadline": "15/12/2026"
+        "deadline": "31/12/2026"
       },
       {
-        "id": 1013,
-        "title": "DevOps / Cloud Platform Engineer (AWS, Kubernetes)",
-        "salaryText": "30 - 50 triệu",
-        "location": "Quận 9, TP.HCM",
+        "id": 97,
+        "title": "Cloud DevOps Specialist (Docker, Kubernetes, AWS/GCP)",
+        "salaryText": "22 - 35 triệu",
+        "location": "Cầu Giấy, Hà Nội",
         "jobType": "FULL_TIME",
-        "experience": "gt5",
-        "deadline": "20/12/2026"
+        "experience": "2-5",
+        "deadline": "31/12/2026"
       },
       {
-        "id": 1014,
-        "title": "Thực tập sinh Lập trình viên AI / Data Science (Intern)",
+        "id": 98,
+        "title": "Thực tập sinh Lập trình Web Fullstack (Internship)",
         "salaryText": "6 - 10 triệu",
-        "location": "Đà Nẵng & Hà Nội",
+        "location": "Cầu Giấy, Hà Nội",
         "jobType": "INTERN",
         "experience": "none",
         "deadline": "31/12/2026"
@@ -57,7 +66,7 @@ export const mockCompanies = [
     "shortName": "MB Bank",
     "slug": "mb-bank",
     "industry": "Ngân hàng / Tài chính",
-    "logo": "/images/companies/mb-bank.png",
+    "logo": "/images/companies/mb-bank.svg",
     "cover": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
     "location": "Hà Nội & Toàn quốc",
     "size": "15.000+ nhân viên",
@@ -66,281 +75,141 @@ export const mockCompanies = [
     "description": "Một trong những ngân hàng thương mại cổ phần hàng đầu Việt Nam, tiên phong trong công nghệ ngân hàng số và dịch vụ tài chính hiện đại.",
     "jobs": [
       {
-        "id": 1021,
+        "id": 2,
         "title": "Chuyên viên Khách hàng Doanh nghiệp (SME Banker)",
         "salaryText": "18 - 35 triệu",
         "location": "Ba Đình, Hà Nội",
         "jobType": "FULL_TIME",
         "experience": "1-2",
         "deadline": "28/11/2026"
-      },
-      {
-        "id": 1022,
-        "title": "Kỹ sư An toàn Thông tin & Bảo mật Số (Security Engineer)",
-        "salaryText": "25 - 45 triệu",
-        "location": "Đống Đa, Hà Nội",
-        "jobType": "FULL_TIME",
-        "experience": "2-5",
-        "deadline": "10/12/2026"
-      },
-      {
-        "id": 1023,
-        "title": "Giao dịch viên Ngân hàng Số (Teller)",
-        "salaryText": "12 - 18 triệu",
-        "location": "Quận 1, TP.HCM",
-        "jobType": "FULL_TIME",
-        "experience": "none",
-        "deadline": "25/11/2026"
       }
     ]
   },
   {
     "id": 3,
-    "name": "CÔNG TY CỔ PHẦN MISA",
-    "shortName": "MISA JSC",
-    "slug": "misa-jsc",
-    "industry": "IT - Phần mềm / Fintech",
-    "logo": "/images/companies/misa.svg",
-    "cover": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80",
-    "location": "Hà Nội, TP.HCM, Đà Nẵng",
-    "size": "3.000+ nhân viên",
-    "website": "https://misa.vn",
-    "verified": true,
-    "description": "Doanh nghiệp công nghệ phát triển phần mềm kế toán, quản trị doanh nghiệp và giải pháp SaaS phục vụ hàng trăm nghìn tổ chức.",
-    "jobs": [
-      {
-        "id": 1031,
-        "title": "Nhân viên Tư vấn Triển khai Phần mềm Kế toán (Sales ERP)",
-        "salaryText": "15 - 30 triệu",
-        "location": "Cầu Giấy, Hà Nội",
-        "jobType": "FULL_TIME",
-        "experience": "1-2",
-        "deadline": "30/11/2026"
-      },
-      {
-        "id": 1032,
-        "title": "Fullstack Developer (NodeJS / ReactJS / SQL Server)",
-        "salaryText": "20 - 35 triệu",
-        "location": "Cầu Giấy, Hà Nội",
-        "jobType": "FULL_TIME",
-        "experience": "2-5",
-        "deadline": "15/12/2026"
-      },
-      {
-        "id": 1033,
-        "title": "Kế toán viên Hỗ trợ Khách hàng (Customer Success)",
-        "salaryText": "10 - 16 triệu",
-        "location": "Bình Thạnh, TP.HCM",
-        "jobType": "FULL_TIME",
-        "experience": "none",
-        "deadline": "20/12/2026"
-      }
-    ]
-  },
-  {
-    "id": 4,
     "name": "TẬP ĐOÀN CÔNG NGHIỆP - VIỄN THÔNG QUÂN ĐỘI (VIETTEL)",
-    "shortName": "Viettel Telecom",
+    "shortName": "Viettel Group",
     "slug": "viettel-group",
-    "industry": "IT - Viễn thông / Công nghệ cao",
+    "industry": "Viễn thông / Công nghệ cao",
     "logo": "/images/companies/viettel.svg",
-    "cover": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
-    "location": "Hà Nội, TP.HCM & 10 Quốc gia",
+    "cover": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+    "location": "Hà Nội & Toàn quốc",
     "size": "50.000+ nhân viên",
     "website": "https://viettel.com.vn",
     "verified": true,
-    "description": "Tập đoàn viễn thông và công nghệ hàng đầu khu vực, phát triển mạng 5G, giải pháp quốc phòng công nghệ cao và nền tảng số quốc gia.",
+    "description": "Tập đoàn công nghệ - viễn thông lớn nhất Việt Nam, hoạt động đa quốc gia trên 11 thị trường tại Châu Á, Châu Phi và Châu Mỹ.",
     "jobs": [
       {
-        "id": 1041,
-        "title": "Kỹ sư Nghiên cứu và Phát triển Hệ thống 5G / IoT",
+        "id": 3,
+        "title": "Kỹ sư Nghiên cứu và Phát triển Hệ thống 5G / IoT (Embedded & Cloud)",
         "salaryText": "30 - 55 triệu",
         "location": "Hòa Lạc, Hà Nội",
         "jobType": "FULL_TIME",
         "experience": "2-5",
         "deadline": "31/12/2026"
-      },
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "CÔNG TY CỔ PHẦN SỮA VIỆT NAM (VINAMILK)",
+    "shortName": "Vinamilk",
+    "slug": "vinamilk",
+    "industry": "Hàng tiêu dùng nhanh (FMCG)",
+    "logo": "/images/companies/vinamilk.svg",
+    "cover": "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1200&q=80",
+    "location": "TP. Hồ Chí Minh & Toàn quốc",
+    "size": "10.000+ nhân viên",
+    "website": "https://vinamilk.com.vn",
+    "verified": true,
+    "description": "Thương hiệu sữa quốc dân hàng đầu Việt Nam, top 40 công ty sữa lớn nhất thế giới với hệ thống trang trại chuẩn quốc tế.",
+    "jobs": [
       {
-        "id": 1042,
-        "title": "Chuyên viên Quản trị Hệ thống Dữ liệu lớn (Big Data Architect)",
-        "salaryText": "35 - 60 triệu",
-        "location": "Cầu Giấy, Hà Nội",
+        "id": 4,
+        "title": "Giám sát Bán hàng Khu vực (Area Sales Supervisor - FMCG)",
+        "salaryText": "20 - 35 triệu",
+        "location": "Quận 7, TP. Hồ Chí Minh",
         "jobType": "FULL_TIME",
-        "experience": "gt5",
-        "deadline": "15/12/2026"
-      },
-      {
-        "id": 1043,
-        "title": "Chuyên viên Kinh doanh Giải pháp Doanh nghiệp (B2B Solutions)",
-        "salaryText": "18 - 35 triệu",
-        "location": "Quận 10, TP.HCM",
-        "jobType": "FULL_TIME",
-        "experience": "1-2",
-        "deadline": "20/12/2026"
+        "experience": "2-5",
+        "deadline": "31/12/2026"
       }
     ]
   },
   {
     "id": 5,
     "name": "NGÂN HÀNG QUỐC TẾ VIB",
-    "shortName": "VIB Bank",
+    "shortName": "Ngân hàng VIB",
     "slug": "vib-bank",
-    "industry": "Ngân hàng / Bán lẻ",
-    "logo": "/images/companies/vib.png",
-    "cover": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
+    "industry": "Tài chính - Ngân hàng",
+    "logo": "/images/companies/vib.svg",
+    "cover": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
     "location": "Hà Nội & TP.HCM",
-    "size": "11.000+ nhân viên",
+    "size": "10.000+ nhân viên",
     "website": "https://vib.com.vn",
     "verified": true,
-    "description": "Ngân hàng hàng đầu về dịch vụ thẻ tín dụng số, cho vay mua nhà ô tô và ngân hàng số MyVIB tiện ích cho người tiêu dùng.",
+    "description": "Ngân hàng bán lẻ dẫn đầu xu thế ngân hàng số với tốc độ tăng trưởng thẻ tín dụng và dịch vụ số nhanh nhất thị trường.",
     "jobs": [
       {
-        "id": 1051,
+        "id": 5,
         "title": "Chuyên viên Tư vấn Tài chính & Thẻ Tín dụng (Credit Card Specialist)",
         "salaryText": "15 - 30 triệu",
         "location": "Hoàn Kiếm, Hà Nội",
         "jobType": "FULL_TIME",
-        "experience": "none",
-        "deadline": "30/11/2026"
-      },
-      {
-        "id": 1052,
-        "title": "Product Owner - Ứng dụng Ngân hàng số MyVIB",
-        "salaryText": "35 - 55 triệu",
-        "location": "Quận 1, TP.HCM",
-        "jobType": "FULL_TIME",
-        "experience": "2-5",
-        "deadline": "20/12/2026"
+        "experience": "1-2",
+        "deadline": "31/12/2026"
       }
     ]
   },
   {
     "id": 6,
-    "name": "CÔNG TY CỔ PHẦN SỮA VIỆT NAM (VINAMILK)",
-    "shortName": "Vinamilk",
-    "slug": "vinamilk",
-    "industry": "Sản xuất / FMCG / Hàng tiêu dùng",
-    "logo": "/images/companies/vinamilk.svg",
-    "cover": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
-    "location": "TP.HCM, Bình Dương, Hà Nội",
-    "size": "10.000+ nhân viên",
-    "website": "https://vinamilk.com.vn",
+    "name": "CÔNG TY CỔ PHẦN MISA",
+    "shortName": "MISA JSC",
+    "slug": "misa-corp",
+    "industry": "Phần mềm quản trị doanh nghiệp",
+    "logo": "/images/companies/misa.svg",
+    "cover": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+    "location": "Hà Nội, Đà Nẵng, TP.HCM",
+    "size": "3.000+ nhân viên",
+    "website": "https://misa.vn",
     "verified": true,
-    "description": "Thương hiệu quốc gia dẫn đầu ngành dinh dưỡng và sữa tại Việt Nam, sở hữu hệ thống trang trại chuẩn quốc tế và mạng lưới phân phối rộng khắp.",
+    "description": "Doanh nghiệp công nghệ tiên phong cung cấp giải pháp chuyển đổi số tài chính, kế toán và quản trị doanh nghiệp cho hơn 350.000 khách hàng.",
     "jobs": [
       {
-        "id": 1061,
-        "title": "Giám sát Bán hàng Khu vực (Area Sales Supervisor - FMCG)",
+        "id": 6,
+        "title": "Fullstack Developer (NodeJS / ReactJS / SQL Server)",
         "salaryText": "20 - 35 triệu",
-        "location": "Thủ Đức, TP.HCM",
+        "location": "Cầu Giấy, Hà Nội",
         "jobType": "FULL_TIME",
         "experience": "2-5",
-        "deadline": "15/12/2026"
+        "deadline": "31/12/2026"
       },
       {
-        "id": 1062,
-        "title": "Kỹ sư Vận hành Dây chuyền Tự động hóa Nhà máy",
-        "salaryText": "16 - 25 triệu",
-        "location": "Bến Cát, Bình Dương",
-        "jobType": "FULL_TIME",
+        "id": 53,
+        "title": "Product Manager - Sản Phẩm Quản Lý Khách Hàng, Bán Hàng (CRM)",
+        "salaryText": "Thỏa thuận",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "PART_TIME",
         "experience": "1-2",
-        "deadline": "30/11/2026"
-      },
-      {
-        "id": 1063,
-        "title": "Chuyên viên Marketing & Quản trị Thương hiệu (Brand Manager)",
-        "salaryText": "25 - 45 triệu",
-        "location": "Quận 7, TP.HCM",
-        "jobType": "FULL_TIME",
-        "experience": "2-5",
-        "deadline": "25/12/2026"
+        "deadline": "31/12/2026"
       }
     ]
   },
   {
     "id": 7,
-    "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
-    "shortName": "Concentrix Vietnam",
-    "slug": "concentrix-vietnam",
-    "industry": "Dịch vụ Khách hàng / BPO toàn cầu",
-    "logo": "/images/companies/concentrix.svg",
-    "cover": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
-    "location": "Quận 12, TP.HCM",
-    "size": "5.000+ nhân viên",
-    "website": "https://concentrix.com",
-    "verified": true,
-    "description": "Tập đoàn công nghệ dịch vụ khách hàng toàn cầu, quản trị trải nghiệm khách hàng (CX) cho các tập đoàn đa quốc gia lớn nhất thế giới.",
-    "jobs": [
-      {
-        "id": 1071,
-        "title": "Customer Support Specialist (Tiếng Anh lưu loát)",
-        "salaryText": "12 - 20 triệu",
-        "location": "Công viên phần mềm Quang Trung, TP.HCM",
-        "jobType": "FULL_TIME",
-        "experience": "none",
-        "deadline": "30/11/2026"
-      },
-      {
-        "id": 1072,
-        "title": "Team Leader Chăm sóc Khách hàng Quốc tế",
-        "salaryText": "22 - 35 triệu",
-        "location": "Quận 12, TP.HCM",
-        "jobType": "FULL_TIME",
-        "experience": "2-5",
-        "deadline": "10/12/2026"
-      }
-    ]
-  },
-  {
-    "id": 8,
-    "name": "CÔNG TY CỔ PHẦN K&M HOLDINGS",
-    "shortName": "K&M Holdings",
-    "slug": "km-holdings",
-    "industry": "Kinh doanh - Bán hàng / Đầu tư",
-    "logo": "/images/companies/km-holdings.svg",
-    "cover": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80",
-    "location": "Hà Nội",
-    "size": "500 - 1000 nhân viên",
-    "website": "https://kmholdings.vn",
-    "verified": true,
-    "description": "Tập đoàn đa ngành hoạt động trong lĩnh vực phân phối thiết bị cơ điện, chuỗi cung ứng vật liệu xây dựng và đầu tư bất động sản thương mại.",
-    "jobs": [
-      {
-        "id": 1081,
-        "title": "Account Manager / Chuyên Viên Kinh Doanh Kênh Dự Án",
-        "salaryText": "18 - 30 triệu",
-        "location": "Hai Bà Trưng, Hà Nội",
-        "jobType": "FULL_TIME",
-        "experience": "1-2",
-        "deadline": "31/12/2026"
-      },
-      {
-        "id": 1082,
-        "title": "Kế toán Tổng hợp Nội bộ (General Accountant)",
-        "salaryText": "14 - 20 triệu",
-        "location": "Hoàng Mai, Hà Nội",
-        "jobType": "FULL_TIME",
-        "experience": "1-2",
-        "deadline": "15/12/2026"
-      }
-    ]
-  },
-  {
-    "id": 9,
     "name": "TẬP ĐOÀN VINGROUP - VINHOMES",
     "shortName": "Vinhomes",
     "slug": "vinhomes",
-    "industry": "Bất động sản",
+    "industry": "Bất động sản / Phát triển đô thị",
     "logo": "/images/companies/vinhomes.svg",
     "cover": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
-    "location": "Hà Nội, TP.HCM",
-    "size": "15.000+ nhân viên",
+    "location": "Hà Nội & Toàn quốc",
+    "size": "20.000+ nhân viên",
     "website": "https://vinhomes.vn",
     "verified": true,
-    "description": "Nhà phát triển bất động sản thương mại và đại đô thị thông minh hàng đầu Việt Nam, kiến tạo chuẩn sống đẳng cấp quốc tế.",
+    "description": "Nhà phát triển bất động sản thương mại và nhà ở số 1 Việt Nam, kiến tạo các đại đô thị thông minh đẳng cấp quốc tế.",
     "jobs": [
       {
-        "id": 1091,
+        "id": 7,
         "title": "Chuyên viên Kinh doanh & Phân phối Bất động sản Vinhomes",
         "salaryText": "30 - 80 triệu",
         "location": "Gia Lâm, Hà Nội",
@@ -351,24 +220,24 @@ export const mockCompanies = [
     ]
   },
   {
-    "id": 10,
+    "id": 8,
     "name": "TẬP ĐOÀN HÒA PHÁT",
     "shortName": "Hòa Phát Group",
-    "slug": "hoa-phat-group",
-    "industry": "Xây dựng, Sản xuất",
+    "slug": "hoa-phat",
+    "industry": "Công nghiệp nặng / Sản xuất",
     "logo": "/images/companies/hoa-phat.svg",
     "cover": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
     "location": "Hà Nội, Quảng Ngãi, Hải Dương",
-    "size": "25.000+ nhân viên",
+    "size": "30.000+ nhân viên",
     "website": "https://hoaphat.com.vn",
     "verified": true,
-    "description": "Tập đoàn sản xuất công nghiệp và chế tạo thép hàng đầu Đông Nam Á, giữ thị phần số 1 tại Việt Nam về thép xây dựng.",
+    "description": "Tập đoàn sản xuất công nghiệp hàng đầu Việt Nam, top 50 doanh nghiệp thép lớn nhất thế giới.",
     "jobs": [
       {
-        "id": 1101,
+        "id": 8,
         "title": "Kỹ sư Cơ điện & Quản lý Thiết bị Nhà máy Thép (Maintenance Engineer)",
         "salaryText": "18 - 32 triệu",
-        "location": "Long Biên, Hà Nội",
+        "location": "Hai Bà Trưng, Hà Nội",
         "jobType": "FULL_TIME",
         "experience": "2-5",
         "deadline": "31/12/2026"
@@ -376,25 +245,102 @@ export const mockCompanies = [
     ]
   },
   {
-    "id": 11,
+    "id": 9,
     "name": "CÔNG TY CHỨNG KHOÁN SSI",
-    "shortName": "SSI Securities",
+    "shortName": "Chứng khoán SSI",
     "slug": "ssi-securities",
-    "industry": "Tài chính / Ngân hàng",
+    "industry": "Chứng khoán & Quản lý quỹ",
     "logo": "/images/companies/ssi.svg",
-    "cover": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80",
-    "location": "TP.HCM & Hà Nội",
-    "size": "1.500+ nhân viên",
+    "cover": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
+    "location": "Hà Nội & TP.HCM",
+    "size": "2.000+ nhân viên",
     "website": "https://ssi.com.vn",
     "verified": true,
-    "description": "Định chế tài chính và công ty chứng khoán hàng đầu Việt Nam, cung cấp dịch vụ ngân hàng đầu tư và quản lý tài sản chuyên nghiệp.",
+    "description": "Định chế tài chính và công ty chứng khoán hàng đầu Việt Nam, cung cấp giải pháp đầu tư toàn diện cho khách hàng cá nhân và tổ chức.",
     "jobs": [
       {
-        "id": 1111,
+        "id": 9,
         "title": "Chuyên viên Môi giới Chứng khoán & Quản lý Tài sản Cá nhân",
         "salaryText": "20 - 50 triệu",
-        "location": "Quận 1, TP.HCM",
+        "location": "Quận 1, TP. Hồ Chí Minh",
         "jobType": "FULL_TIME",
+        "experience": "1-2",
+        "deadline": "31/12/2026"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "CÔNG TY TNHH VIETNAM CONCENTRIX SERVICES",
+    "shortName": "Concentrix Vietnam",
+    "slug": "concentrix-vietnam",
+    "industry": "Dịch vụ BPO / Trải nghiệm khách hàng",
+    "logo": "/images/companies/concentrix.svg",
+    "cover": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
+    "location": "TP. Hồ Chí Minh",
+    "size": "5.000+ nhân viên",
+    "website": "https://concentrix.com",
+    "verified": true,
+    "description": "Tập đoàn công nghệ và giải pháp trải nghiệm khách hàng toàn cầu, vận hành trung tâm dịch vụ đa ngôn ngữ hàng đầu tại Việt Nam.",
+    "jobs": [
+      {
+        "id": 10,
+        "title": "Customer Support Specialist (Tiếng Anh lưu loát - Ca xoay linh hoạt)",
+        "salaryText": "12 - 20 triệu",
+        "location": "Quận 12, TP. Hồ Chí Minh",
+        "jobType": "FULL_TIME",
+        "experience": "none",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 16,
+        "title": "Nhân Viên Văn Phòng Theo Dõi Phí Định Kỳ Tại Ngân Hàng Quốc Tế",
+        "salaryText": "9 - 28 triệu",
+        "location": "Quận 12, TP. Hồ Chí Minh",
+        "jobType": "INTERN",
+        "experience": "2-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 31,
+        "title": "Nhân Viên Sale Làm Việc Tại Văn Phòng Quận 12",
+        "salaryText": "Tới 25 triệu",
+        "location": "Quận 12, TP. Hồ Chí Minh",
+        "jobType": "INTERN",
+        "experience": "1-2",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 33,
+        "title": "Nhân Viên Tư Vấn Gọi Điện Chốt Đơn Tại Văn Phòng Quận 12",
+        "salaryText": "12 - 21 triệu",
+        "location": "Quận 12, TP. Hồ Chí Minh",
+        "jobType": "FULL_TIME",
+        "experience": "1-2",
+        "deadline": "31/12/2026"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "CÔNG TY CỔ PHẦN K&M HOLDINGS",
+    "shortName": "K&M Holdings",
+    "slug": "km-holdings",
+    "industry": "Thương mại & Đầu tư đa ngành",
+    "logo": "/images/companies/km-holdings.svg",
+    "cover": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
+    "location": "Hà Nội",
+    "size": "500+ nhân viên",
+    "website": "https://kmholdings.vn",
+    "verified": true,
+    "description": "Tập đoàn đầu tư và phát triển kinh doanh đa lĩnh vực với các dự án phân phối và giải pháp thương mại quy mô toàn quốc.",
+    "jobs": [
+      {
+        "id": 11,
+        "title": "Nổi bật Account Manager/ Chuyên Viên Kinh Doanh",
+        "salaryText": "Thỏa thuận",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "INTERN",
         "experience": "1-2",
         "deadline": "31/12/2026"
       }

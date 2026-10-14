@@ -248,14 +248,31 @@ export default function TopCompanies() {
 
                       {/* Logo & Thông tin */}
                       <div className="company-card__body p-3 pt-0 flex-grow-1 d-flex flex-column">
-                        <div className="company-card__logo-wrap">
-                          <img src={company.logo} alt={company.name} className="company-card__logo" />
+                        <div className="company-card__logo-wrap position-relative">
+                          <img 
+                            src={company.logo} 
+                            alt={company.name} 
+                            className="company-card__logo" 
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              if (e.currentTarget.nextElementSibling) {
+                                e.currentTarget.nextElementSibling.style.display = 'flex';
+                              }
+                            }}
+                          />
+                          <div 
+                            className="company-card__logo-fallback fw-bold text-dark d-none align-items-center justify-content-center w-100 h-100 rounded-3 bg-light"
+                            style={{ fontSize: '18px' }}
+                          >
+                            {company.name.charAt(0).toUpperCase()}
+                          </div>
                         </div>
 
-                        <h3 className="company-card__name mt-2 mb-1" title={company.name}>
-                          <Link to={`/companies?id=${company.id}`} className="text-dark text-decoration-none">
+                        <h3 className="company-card__name mt-2 mb-1 d-inline-flex align-items-center gap-1.5" title={company.name}>
+                          <Link to={`/companies?id=${company.id}`} className="text-dark text-decoration-none text-truncate">
                             {company.name}
                           </Link>
+                          <FaCheckCircle className="text-success flex-shrink-0" size={13} title="Doanh nghiệp xác thực" />
                         </h3>
 
                         {/* Wellfound style tags: size & status */}

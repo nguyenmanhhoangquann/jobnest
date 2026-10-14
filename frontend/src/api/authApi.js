@@ -24,9 +24,9 @@ export const authApi = {
           id: isAdmin ? 999 : (isEmployer ? 1 : 201),
           username,
           role,
-          fullName: isAdmin ? 'Ban Quản Trị Hệ Thống' : (isEmployer ? 'Nguyễn Quản Lý' : 'Nguyễn Văn Hùng'),
-          displayName: isAdmin ? 'Admin JobNest' : (isEmployer ? 'Công ty TNHH Ánh Dương' : 'Nguyễn Văn Hùng'),
-          companyName: isEmployer ? 'Công ty TNHH Ánh Dương' : '',
+          fullName: isAdmin ? 'Ban Quản Trị Hệ Thống' : (isEmployer ? 'Ban Tuyển Dụng FPT' : 'Nguyễn Văn Hùng'),
+          displayName: isAdmin ? 'Admin JobNest' : (isEmployer ? 'FPT Software' : 'Nguyễn Văn Hùng'),
+          companyName: isEmployer ? 'TẬP ĐOÀN CÔNG NGHỆ FPT' : '',
           avatarUrl: '',
         },
       };

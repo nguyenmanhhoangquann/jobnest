@@ -111,7 +111,7 @@ export default function DashboardLayout() {
             </div>
             <div className="text-truncate">
               <div className="fw-semibold small text-truncate">
-                {user?.companyName || user?.fullName || 'Công ty TNHH Ánh Dương'}
+                {user?.companyName || user?.fullName || 'Tập đoàn Công nghệ Hoàng Quân'}
               </div>
               <div className="text-muted" style={{ fontSize: '11px' }}>
                 {user?.username}
