@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import {
   FaTimes,
@@ -8,7 +8,6 @@ import {
   FaFileAlt,
   FaBell,
   FaRobot,
-  FaBriefcase,
   FaInbox,
 } from 'react-icons/fa';
 import notificationApi from '../../api/notificationApi.js';
@@ -17,6 +16,53 @@ import '../../styles/notification-drawer.css';
 
 export default function NotificationDrawer({ isOpen, onClose, notifications = [], onUpdateList }) {
   const [filter, setFilter] = useState('ALL'); // ALL | UNREAD | APPLICATION
+  const [mounted, setMounted] = useState(false);
+  const [active, setActive] = useState(false);
+  const [closing, setClosing] = useState(false);
+
+  // Smooth GPU enter & exit transitions
+  useEffect(() => {
+    if (isOpen) {
+      setMounted(true);
+      setClosing(false);
+      // Next tick triggers hardware transform transition
+      const rAF = requestAnimationFrame(() => {
+        setActive(true);
+      });
+      document.body.style.overflow = 'hidden';
+      return () => cancelAnimationFrame(rAF);
+    } else if (mounted) {
+      setActive(false);
+      setClosing(true);
+      const timer = setTimeout(() => {
+        setMounted(false);
+        setClosing(false);
+        document.body.style.overflow = '';
+      }, 220);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  const handleClose = useCallback(() => {
+    setActive(false);
+    setClosing(true);
+    setTimeout(() => {
+      setMounted(false);
+      setClosing(false);
+      document.body.style.overflow = '';
+      onClose();
+    }, 220);
+  }, [onClose]);
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!mounted) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') handleClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mounted, handleClose]);
 
   const unreadCount = useMemo(() => {
     return notifications.filter((n) => !n.isRead).length;
@@ -33,28 +79,31 @@ export default function NotificationDrawer({ isOpen, onClose, notifications = []
     });
   }, [notifications, filter]);
 
-  if (!isOpen) return null;
+  if (!mounted) return null;
 
   const handleMarkAsRead = async (id, e) => {
     if (e) e.stopPropagation();
+    // Optimistic UI update
+    if (onUpdateList) {
+      onUpdateList(notifications.map((n) => (n.id === id ? { ...n, isRead: true } : n)));
+    }
     try {
       await notificationApi.markAsRead(id);
-      if (onUpdateList) {
-        onUpdateList(notifications.map((n) => (n.id === id ? { ...n, isRead: true } : n)));
-      }
     } catch {
+      // Revert if API fails
       showToast('error', 'Không thể cập nhật trạng thái.');
     }
   };
 
   const handleMarkAll = async () => {
     if (unreadCount === 0) return;
+    // Optimistic UI update
+    if (onUpdateList) {
+      onUpdateList(notifications.map((n) => ({ ...n, isRead: true })));
+    }
+    showToast('success', 'Đã đánh dấu đã đọc tất cả thông báo.', 'HOÀN TẤT');
     try {
       await notificationApi.markAllAsRead();
-      if (onUpdateList) {
-        onUpdateList(notifications.map((n) => ({ ...n, isRead: true })));
-      }
-      showToast('success', 'Đã đánh dấu đã đọc tất cả thông báo.', 'HOÀN TẤT');
     } catch {
       showToast('error', 'Có lỗi khi cập nhật.');
     }
@@ -62,11 +111,12 @@ export default function NotificationDrawer({ isOpen, onClose, notifications = []
 
   const handleDelete = async (id, e) => {
     if (e) e.stopPropagation();
+    // Optimistic UI update
+    if (onUpdateList) {
+      onUpdateList(notifications.filter((n) => n.id !== id));
+    }
     try {
       await notificationApi.deleteNotification(id);
-      if (onUpdateList) {
-        onUpdateList(notifications.filter((n) => n.id !== id));
-      }
       showToast('info', 'Đã xóa thông báo.', 'XÓA BỎ');
     } catch {
       showToast('error', 'Không thể xóa thông báo.');
@@ -119,10 +169,18 @@ export default function NotificationDrawer({ isOpen, onClose, notifications = []
   return createPortal(
     <>
       {/* Backdrop */}
-      <div className="notif-drawer-backdrop" onClick={onClose} aria-hidden="true" />
+      <div
+        className={`notif-drawer-backdrop ${active ? 'notif-drawer-backdrop--active' : ''} ${closing ? 'notif-drawer-backdrop--closing' : ''}`}
+        onClick={handleClose}
+        aria-hidden="true"
+      />
 
       {/* Slide-over Right Panel */}
-      <aside className="notif-drawer-panel" role="dialog" aria-modal="true">
+      <aside
+        className={`notif-drawer-panel ${active ? 'notif-drawer-panel--active' : ''} ${closing ? 'notif-drawer-panel--closing' : ''}`}
+        role="dialog"
+        aria-modal="true"
+      >
         {/* Header */}
         <div className="notif-drawer-header">
           <div className="notif-drawer-eyebrow">
@@ -134,7 +192,7 @@ export default function NotificationDrawer({ isOpen, onClose, notifications = []
             <button
               type="button"
               className="notif-drawer-close"
-              onClick={onClose}
+              onClick={handleClose}
               aria-label="Đóng"
             >
               <FaTimes size={12} />
