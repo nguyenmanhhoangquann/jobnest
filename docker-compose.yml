@@ -5,6 +5,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8080/api
+        - VITE_USE_MOCK=false
     container_name: jobnest-frontend
     ports:
       - '3000:80'
@@ -16,7 +19,9 @@ services:
       - backend
 
   backend:
-    image: openjdk:17-jdk-slim
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: jobnest-backend
     ports:
       - '8080:8080'

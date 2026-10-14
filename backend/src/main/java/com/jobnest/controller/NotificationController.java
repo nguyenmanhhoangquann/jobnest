@@ -1,0 +1,35 @@
+package com.jobnest.controller;
+
+import com.jobnest.entity.User;
+import com.jobnest.service.NotificationService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/notifications")
+@RequiredArgsConstructor
+public class NotificationController {
+
+    private final NotificationService notificationService;
+
+    @GetMapping
+    public ResponseEntity<List<NotificationService.NotificationDto>> getNotifications(
+            @AuthenticationPrincipal User user
+    ) {
+        return ResponseEntity.ok(notificationService.getNotifications(user));
+    }
+
+    @PatchMapping("/{id}/read")
+    public ResponseEntity<Map<String, Object>> markAsRead(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User user
+    ) {
+        notificationService.markAsRead(id, user);
+        return ResponseEntity.ok(Map.of("success", true));
+    }
+}

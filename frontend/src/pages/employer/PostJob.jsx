@@ -78,19 +78,28 @@ export default function PostJob() {
 
   // Tính năng AI tự động sinh JD (Mục 14.3 & 14.4 PDF)
   const handleGenerateAiJd = async () => {
-    if (!jobTitle.trim()) {
+    let titleVal = watch('title');
+    if (!titleVal || !titleVal.trim()) {
+      const inputEl = document.querySelector('input[placeholder*="Senior Frontend"]');
+      if (inputEl && inputEl.value) {
+        titleVal = inputEl.value;
+        setValue('title', titleVal);
+      }
+    }
+
+    if (!titleVal || !titleVal.trim()) {
       showToast('info', 'Vui lòng nhập Tiêu đề công việc trước khi tạo bằng AI!');
       return;
     }
 
     setGeneratingAi(true);
     try {
-      const generated = await aiApi.generateJd({ title: jobTitle });
-      setValue('description', generated.description);
-      setValue('requirements', generated.requirements);
-      setValue('benefits', generated.benefits);
+      const generated = await aiApi.generateJd({ title: titleVal });
+      setValue('description', generated.description, { shouldDirty: true, shouldValidate: true });
+      setValue('requirements', generated.requirements, { shouldDirty: true, shouldValidate: true });
+      setValue('benefits', generated.benefits, { shouldDirty: true, shouldValidate: true });
       showToast('success', 'AI đã tạo thành công bản mô tả công việc hoàn chỉnh!');
-    } catch {
+    } catch (err) {
       showToast('error', 'Không thể tạo nội dung từ AI lúc này.');
     } finally {
       setGeneratingAi(false);
