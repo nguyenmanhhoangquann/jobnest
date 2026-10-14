@@ -1,0 +1,218 @@
+/* ==========================================================================
+   Swiss Architectural Toast Notification (Anti-AI, Sharp Corners, Slide-in)
+   ========================================================================== */
+
+.swiss-toast-container {
+  position: fixed;
+  top: 82px;
+  right: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  max-width: 390px;
+  width: calc(100vw - 48px);
+}
+
+.swiss-toast-card {
+  pointer-events: auto;
+  position: relative;
+  background: #090D16;
+  color: #F8FAFC;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 3.5px solid #F59E0B;
+  border-radius: 0px !important; /* STRICTLY SQUARE CORNERS */
+  box-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.1),
+    0 8px 24px -4px rgba(0, 0, 0, 0.45),
+    0 20px 40px -10px rgba(0, 0, 0, 0.3);
+  padding: 13px 15px 14px;
+  font-family: var(--font-main, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  animation: swissSlideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+  overflow: hidden;
+}
+
+.swiss-toast-card--closing {
+  animation: swissSlideOutRight 0.25s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+/* Type variations */
+.swiss-toast-card--success {
+  border-left-color: #10B981;
+}
+
+.swiss-toast-card--error {
+  border-left-color: #EF4444;
+}
+
+.swiss-toast-card--info {
+  border-left-color: #F59E0B;
+}
+
+/* Header line (Eyebrow Tag + Close button) */
+.swiss-toast-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.swiss-toast-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94A3B8;
+}
+
+.swiss-toast-tag-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 0px; /* Square dot */
+  background: currentColor;
+}
+
+.swiss-toast-tag--success {
+  color: #34D399;
+}
+
+.swiss-toast-tag--error {
+  color: #F87171;
+}
+
+.swiss-toast-tag--info {
+  color: #FBBF24;
+}
+
+.swiss-toast-close {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94A3B8;
+  width: 20px;
+  height: 20px;
+  border-radius: 0px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1;
+  transition: all 0.12s ease;
+}
+
+.swiss-toast-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Body line */
+.swiss-toast-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.swiss-toast-icon-square {
+  width: 24px;
+  height: 24px;
+  border-radius: 0px !important; /* SQUARE */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.swiss-toast-icon-square--success {
+  color: #34D399;
+  border-color: rgba(52, 211, 153, 0.3);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.swiss-toast-icon-square--error {
+  color: #F87171;
+  border-color: rgba(248, 113, 113, 0.3);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.swiss-toast-icon-square--info {
+  color: #FBBF24;
+  border-color: rgba(251, 191, 36, 0.3);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.swiss-toast-message {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #F1F5F9;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+/* Progress countdown bar */
+.swiss-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform-origin: left;
+  animation: swissToastProgress linear forwards;
+}
+
+.swiss-toast-progress--success {
+  background: #10B981;
+}
+
+.swiss-toast-progress--error {
+  background: #EF4444;
+}
+
+.swiss-toast-progress--info {
+  background: #F59E0B;
+}
+
+/* Animation keyframes (From Right to Left) */
+@keyframes swissSlideInRight {
+  0% {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes swissSlideOutRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+}
+
+@keyframes swissToastProgress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}

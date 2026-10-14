@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar as BsNavbar, Nav, Dropdown } from 'react-bootstrap';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import {
@@ -20,16 +20,37 @@ import {
 import { NAV_ITEMS } from '../../constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { showToast } from '../common/ToastHost.jsx';
+import notificationApi from '../../api/notificationApi.js';
 
 function NotificationBell({ isAuth }) {
   const navigate = useNavigate();
-  const [notifications] = useState([
-    { id: 1, content: 'Hồ sơ ứng tuyển của bạn đã được Nhà tuyển dụng xem.', time: '10 phút trước', isRead: false },
-    { id: 2, content: 'Việc làm "Frontend Developer" mới phù hợp với bạn.', time: '1 giờ trước', isRead: false },
-    { id: 3, content: 'Chào mừng bạn đến với nền tảng việc làm JobNest!', time: '1 ngày trước', isRead: true },
-  ]);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
 
-  const unreadCount = notifications.filter((n) => !n.isRead).length;
+  useEffect(() => {
+    if (!isAuth) return;
+    notificationApi
+      .getNotifications()
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setNotifications(data.slice(0, 5));
+          const unread = data.filter((n) => !n.isRead);
+          setUnreadCount(unread.length);
+
+          // Tự động hiển thị thông báo mới nhất trượt từ phải sang trái
+          const sessionKey = 'jn_notif_alert_shown';
+          if (unread.length > 0 && !sessionStorage.getItem(sessionKey)) {
+            sessionStorage.setItem(sessionKey, 'true');
+            const latest = unread[0];
+            const tag = latest.content.toLowerCase().includes('ứng tuyển')
+              ? 'HỒ SƠ ỨNG TUYỂN'
+              : 'THÔNG BÁO MỚI';
+            showToast('info', latest.content, tag, 5000);
+          }
+        }
+      })
+      .catch(() => {});
+  }, [isAuth]);
 
   if (!isAuth) {
     return (
@@ -68,12 +89,13 @@ function NotificationBell({ isAuth }) {
           {notifications.map((item) => (
             <Dropdown.Item
               key={item.id}
+              onClick={() => navigate('/notifications')}
               className={`px-3 py-2 text-wrap ${!item.isRead ? 'notif-unread' : ''}`}
               style={{ fontSize: '13.5px', borderBottom: '1px solid #f3f4f6' }}
             >
               <div className="text-dark mb-1">{item.content}</div>
               <small className="text-muted" style={{ fontSize: '11px' }}>
-                {item.time}
+                {item.createdAt ? new Date(item.createdAt).toLocaleDateString('vi-VN') : (item.time || 'Gần đây')}
               </small>
             </Dropdown.Item>
           ))}
