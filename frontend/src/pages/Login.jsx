@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaEye, FaEyeSlash, FaUser, FaLock, FaBolt, FaArrowLeft } from 'react-icons/fa';
+import {
+  FaEye,
+  FaEyeSlash,
+  FaUser,
+  FaLock,
+  FaBolt,
+  FaArrowLeft,
+  FaArrowRight,
+  FaShieldAlt,
+  FaBuilding,
+  FaGraduationCap,
+  FaCheckCircle,
+} from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext.jsx';
 import { showToast } from '../components/common/ToastHost.jsx';
 import { Spinner } from '../components/common/Loading.jsx';
+import '../styles/auth.css';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -11,12 +24,11 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [activeQuickRole, setActiveQuickRole] = useState('');
 
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const redirectUrl = location.state?.from || '/';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,69 +59,98 @@ export default function Login() {
     }
   };
 
-  const handleQuickLogin = (quickUser, quickPass) => {
+  const handleQuickLogin = (quickUser, quickPass, roleKey) => {
     setUsername(quickUser);
     setPassword(quickPass);
+    setActiveQuickRole(roleKey);
     setErrorMsg('');
   };
 
   return (
-    <div className="auth-page py-5">
-      <div className="container-app">
-        <div className="auth-card mx-auto">
-          {/* Logo & Header */}
+    <div className="auth-ambient-wrapper">
+      {/* Background Ambience Layers */}
+      <div className="auth-ambient-grid" />
+      <div className="auth-glow-orb-1" />
+      <div className="auth-glow-orb-2" />
+
+      {/* Main Double-Bezel Card */}
+      <div className="auth-shell">
+        <div className="auth-core">
+          {/* Logo & Brand Identity */}
           <div className="text-center mb-4">
-            <Link to="/" className="text-decoration-none d-inline-flex align-items-center gap-2 mb-3">
-              <span className="brand-logo__circle">JN</span>
-              <span className="brand-logo__text">
-                Job<strong>Nest</strong>
-              </span>
+            <Link to="/" className="auth-logo-frame text-decoration-none">
+              <img
+                src="/images/jobnest-logo.png"
+                alt="JobNest"
+                style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
+              />
             </Link>
-            <h1 className="auth-title">Đăng nhập tài khoản</h1>
-            <p className="text-muted small">Chào mừng bạn quay trở lại với JobNest</p>
+
+            <div className="d-flex align-items-center justify-content-center gap-1.5 mb-1.5">
+              <span className="badge bg-warning-subtle text-warning-emphasis px-2.5 py-1 rounded-pill small fw-bold">
+                XÁC THỰC BẢO MẬT
+              </span>
+            </div>
+            <h1 className="h4 fw-bold text-dark mb-1" style={{ letterSpacing: '-0.02em' }}>
+              Chào mừng bạn trở lại
+            </h1>
+            <p className="text-muted small mb-0">Đăng nhập tài khoản JobNest để tiếp tục hành trình sự nghiệp</p>
           </div>
 
-          {/* Thông báo lỗi nếu có */}
-          {errorMsg && <div className="alert alert-danger py-2 small mb-3">{errorMsg}</div>}
+          {/* Error Banner */}
+          {errorMsg && (
+            <div className="alert alert-danger py-2.5 px-3 rounded-3 small mb-3.5 d-flex align-items-center gap-2">
+              <span className="flex-grow-1">{errorMsg}</span>
+            </div>
+          )}
 
-          {/* Form */}
+          {/* Login Form */}
           <form onSubmit={handleSubmit}>
+            {/* Input: Username */}
             <div className="mb-3">
-              <label className="form-label small fw-semibold">Tên đăng nhập</label>
-              <div className="input-group">
-                <span className="input-group-text bg-white">
-                  <FaUser size={13} className="text-muted" />
+              <label className="form-label small fw-semibold text-secondary mb-1.5">
+                Tên đăng nhập hoặc Email
+              </label>
+              <div className="auth-input-group">
+                <span className="auth-input-icon">
+                  <FaUser size={13} />
                 </span>
                 <input
                   type="text"
-                  className="form-control"
-                  placeholder="Nhập tên đăng nhập hoặc email"
+                  className="auth-input"
+                  placeholder="Ví dụ: ungvien, tuyendung..."
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                    setActiveQuickRole('');
+                  }}
                   disabled={loading}
                 />
               </div>
             </div>
 
-            <div className="mb-4">
-              <div className="d-flex justify-content-between align-items-center mb-1">
-                <label className="form-label small fw-semibold mb-0">Mật khẩu</label>
+            {/* Input: Password */}
+            <div className="mb-3.5">
+              <div className="d-flex justify-content-between align-items-center mb-1.5">
+                <label className="form-label small fw-semibold text-secondary mb-0">
+                  Mật khẩu
+                </label>
               </div>
-              <div className="input-group">
-                <span className="input-group-text bg-white">
-                  <FaLock size={13} className="text-muted" />
+              <div className="auth-input-group">
+                <span className="auth-input-icon">
+                  <FaLock size={13} />
                 </span>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  className="form-control"
-                  placeholder="Nhập mật khẩu"
+                  className="auth-input pe-5"
+                  placeholder="Nhập mật khẩu của bạn"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
                 />
                 <button
                   type="button"
-                  className="btn btn-outline-secondary"
+                  className="auth-eye-btn"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                 >
@@ -118,52 +159,70 @@ export default function Login() {
               </div>
             </div>
 
-            <button type="submit" className="btn btn-brand w-100 py-2 fw-bold mb-3" disabled={loading}>
-              {loading ? <Spinner size="sm" /> : 'Đăng nhập'}
+            {/* Submit Action */}
+            <button type="submit" className="auth-submit-btn mb-4" disabled={loading}>
+              {loading ? (
+                <>
+                  <Spinner size="sm" />
+                  <span>Đang xác thực...</span>
+                </>
+              ) : (
+                <>
+                  <span>Đăng nhập hệ thống</span>
+                  <FaArrowRight size={13} />
+                </>
+              )}
             </button>
           </form>
 
-          {/* Khối đăng nhập nhanh (Mục 12.3 PDF - Phục vụ chấm bài) */}
-          <div className="quick-login-box p-3 rounded mb-4">
-            <div className="d-flex align-items-center gap-1 text-warning fw-semibold small mb-2">
-              <FaBolt size={12} /> Tài khoản mẫu (Bấm để điền nhanh):
+          {/* Quick Login Segmented Control (Hỗ trợ kiểm thử chấm bài) */}
+          <div className="quick-login-container mb-3.5">
+            <div className="d-flex align-items-center justify-content-between mb-2">
+              <span className="small fw-bold text-dark d-flex align-items-center gap-1.5" style={{ fontSize: '12px' }}>
+                <FaBolt size={11} className="text-warning" /> Tài khoản mẫu (Bấm để điền nhanh):
+              </span>
             </div>
-            <div className="d-flex flex-wrap gap-2">
+            <div className="d-flex gap-2">
               <button
                 type="button"
-                className="btn btn-sm btn-outline-secondary flex-fill"
-                onClick={() => handleQuickLogin('ungvien', '123456')}
+                className={`quick-login-chip ${activeQuickRole === 'candidate' ? 'quick-login-chip--active' : ''}`}
+                onClick={() => handleQuickLogin('ungvien', '123456', 'candidate')}
               >
-                Ứng viên
+                <FaGraduationCap size={12} />
+                <span>Ứng viên</span>
               </button>
+
               <button
                 type="button"
-                className="btn btn-sm btn-outline-secondary flex-fill"
-                onClick={() => handleQuickLogin('tuyendung', '123456')}
+                className={`quick-login-chip ${activeQuickRole === 'employer' ? 'quick-login-chip--active' : ''}`}
+                onClick={() => handleQuickLogin('tuyendung', '123456', 'employer')}
               >
-                Nhà tuyển dụng
+                <FaBuilding size={11} />
+                <span>Nhà tuyển dụng</span>
               </button>
+
               <button
                 type="button"
-                className="btn btn-sm btn-outline-warning flex-fill fw-semibold text-dark"
-                onClick={() => handleQuickLogin('admin', '123456')}
+                className={`quick-login-chip ${activeQuickRole === 'admin' ? 'quick-login-chip--active' : ''}`}
+                onClick={() => handleQuickLogin('admin', '123456', 'admin')}
               >
-                Admin (Quản trị)
+                <FaShieldAlt size={11} />
+                <span>Admin</span>
               </button>
             </div>
           </div>
 
-          {/* Footer chuyển sang đăng ký */}
-          <div className="text-center small text-muted">
-            Chưa có tài khoản?{' '}
-            <Link to="/register" className="fw-semibold text-primary">
-              Đăng ký ngay
+          {/* Registration Redirect & Return Home */}
+          <div className="text-center small text-muted pt-2 border-top">
+            Chưa có tài khoản JobNest?{' '}
+            <Link to="/register" className="fw-bold text-dark text-decoration-none">
+              Đăng ký ngay <FaArrowRight size={10} className="ms-0.5 text-warning" />
             </Link>
           </div>
 
           <div className="text-center mt-3">
-            <Link to="/" className="text-muted small text-decoration-none">
-              <FaArrowLeft className="me-1" /> Về trang chủ
+            <Link to="/" className="text-secondary small text-decoration-none d-inline-flex align-items-center gap-1">
+              <FaArrowLeft size={11} /> Quay về Trang chủ
             </Link>
           </div>
         </div>
