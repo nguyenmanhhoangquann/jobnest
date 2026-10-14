@@ -30,8 +30,20 @@ import mockCompanies from '../mock/companies.js';
 import companyApi from '../api/companyApi.js';
 import { showToast } from '../components/common/ToastHost.jsx';
 
-const COMPANY_EXTRAS = {
-  1: {
+const COMPANY_EXTRAS_MAP = {
+  viettel: {
+    tagline: 'Tập đoàn công nghệ - viễn thông lớn nhất Việt Nam, hoạt động đa quốc gia trên 11 thị trường.',
+    founded: 1989,
+    offices: 'Hoạt động tại 11 Quốc gia',
+    officesCount: '11+',
+    activeUsers: '80M+',
+    funding: 'Tập đoàn Quốc gia',
+    ownership: 'Viễn thông & Công nghệ',
+    hq: 'Cầu Giấy, Hà Nội',
+    size: '50.000+ nhân sự',
+    industry: 'Viễn thông / Công nghệ cao',
+  },
+  fpt: {
     tagline: 'Tiên phong chuyển đổi số và kiến tạo tương lai bền vững cùng công nghệ AI.',
     founded: 1988,
     offices: '30+ Văn phòng toàn cầu',
@@ -40,8 +52,10 @@ const COMPANY_EXTRAS = {
     funding: 'Niêm yết HOSE (FPT)',
     ownership: 'Tập đoàn Công nghệ',
     hq: 'Cầu Giấy, Hà Nội',
+    size: '10.000+ nhân sự',
+    industry: 'IT - Phần mềm / Viễn thông',
   },
-  2: {
+  mb: {
     tagline: 'Ngân hàng số thông minh với hệ sinh thái tài chính toàn diện phục vụ hàng triệu khách hàng.',
     founded: 1994,
     offices: '300+ Chi nhánh toàn quốc',
@@ -50,38 +64,22 @@ const COMPANY_EXTRAS = {
     funding: 'Niêm yết HOSE (MBB)',
     ownership: 'Ngân hàng Thương mại',
     hq: 'Ba Đình, Hà Nội',
+    size: '15.000+ nhân sự',
+    industry: 'Ngân hàng / Tài chính',
   },
-  3: {
-    tagline: 'Nền tảng phần mềm SaaS và giải pháp quản trị doanh nghiệp phục vụ hơn 250.000 tổ chức.',
+  'quân đội': {
+    tagline: 'Ngân hàng số thông minh với hệ sinh thái tài chính toàn diện phục vụ hàng triệu khách hàng.',
     founded: 1994,
-    offices: '5 Văn phòng vùng',
-    officesCount: '5+',
-    activeUsers: '2.5M+',
-    funding: 'Cổ phần Công nghệ',
-    ownership: 'Doanh nghiệp SaaS',
-    hq: 'Cầu Giấy, Hà Nội',
-  },
-  4: {
-    tagline: 'Tập đoàn công nghệ - viễn thông hàng đầu khu vực, phát triển mạng 5G và nền tảng số quốc gia.',
-    founded: 1989,
-    offices: 'Hoạt động tại 11 Quốc gia',
-    officesCount: '11+',
-    activeUsers: '80M+',
-    funding: 'Tập đoàn Quốc gia',
-    ownership: 'Viễn thông & Công nghệ',
-    hq: 'Cầu Giấy, Hà Nội',
-  },
-  5: {
-    tagline: 'Dẫn đầu xu hướng ngân hàng bán lẻ và công nghệ thẻ số hóa phong cách sống.',
-    founded: 1996,
-    offices: '170+ Chi nhánh toàn quốc',
-    officesCount: '170+',
-    activeUsers: '5M+',
-    funding: 'Niêm yết HOSE (VIB)',
+    offices: '300+ Chi nhánh toàn quốc',
+    officesCount: '300+',
+    activeUsers: '28M+',
+    funding: 'Niêm yết HOSE (MBB)',
     ownership: 'Ngân hàng Thương mại',
-    hq: 'Hoàn Kiếm, Hà Nội',
+    hq: 'Ba Đình, Hà Nội',
+    size: '15.000+ nhân sự',
+    industry: 'Ngân hàng / Tài chính',
   },
-  6: {
+  vinamilk: {
     tagline: 'Thương hiệu sữa quốc gia với chuỗi cung ứng bền vững chuẩn quốc tế và cam kết Net Zero.',
     founded: 1976,
     offices: '15 Trang trại & 13 Nhà máy',
@@ -90,8 +88,70 @@ const COMPANY_EXTRAS = {
     funding: 'Niêm yết HOSE (VNM)',
     ownership: 'Tập đoàn Tiêu dùng',
     hq: 'Quận 7, TP.HCM',
+    size: '10.000+ nhân sự',
+    industry: 'Hàng tiêu dùng nhanh (FMCG)',
   },
-  7: {
+  misa: {
+    tagline: 'Nền tảng phần mềm SaaS và giải pháp quản trị doanh nghiệp phục vụ hơn 350.000 tổ chức.',
+    founded: 1994,
+    offices: '5 Văn phòng vùng',
+    officesCount: '5+',
+    activeUsers: '2.5M+',
+    funding: 'Cổ phần Công nghệ',
+    ownership: 'Doanh nghiệp SaaS',
+    hq: 'Cầu Giấy, Hà Nội',
+    size: '3.000+ nhân sự',
+    industry: 'Phần mềm quản trị doanh nghiệp',
+  },
+  vinhomes: {
+    tagline: 'Nhà phát triển đại đô thị thông minh và hệ sinh thái bất động sản đẳng cấp quốc tế.',
+    founded: 1993,
+    offices: 'Đại đô thị toàn quốc',
+    officesCount: '20+',
+    activeUsers: '8M+',
+    funding: 'Niêm yết HOSE (VHM)',
+    ownership: 'Bất động sản Đô thị',
+    hq: 'Gia Lâm, Hà Nội',
+    size: '20.000+ nhân sự',
+    industry: 'Bất động sản / Phát triển đô thị',
+  },
+  'hòa phát': {
+    tagline: 'Tập đoàn sản xuất công nghiệp và chế tạo thép hàng đầu Đông Nam Á.',
+    founded: 1992,
+    offices: 'Hệ thống khu liên hợp toàn quốc',
+    officesCount: '15+',
+    activeUsers: '10M+',
+    funding: 'Niêm yết HOSE (HPG)',
+    ownership: 'Tập đoàn Công nghiệp',
+    hq: 'Hai Bà Trưng, Hà Nội',
+    size: '30.000+ nhân sự',
+    industry: 'Công nghiệp nặng / Sản xuất',
+  },
+  vib: {
+    tagline: 'Dẫn đầu xu hướng ngân hàng bán lẻ và công nghệ thẻ số hóa phong cách sống.',
+    founded: 1996,
+    offices: '170+ Chi nhánh toàn quốc',
+    officesCount: '170+',
+    activeUsers: '5M+',
+    funding: 'Niêm yết HOSE (VIB)',
+    ownership: 'Ngân hàng Thương mại',
+    hq: 'Hoàn Kiếm, Hà Nội',
+    size: '10.000+ nhân sự',
+    industry: 'Tài chính - Ngân hàng',
+  },
+  ssi: {
+    tagline: 'Định chế tài chính và công ty chứng khoán hàng đầu Việt Nam, quản lý tài sản chuyên nghiệp.',
+    founded: 1999,
+    offices: 'Chi nhánh Hà Nội & TP.HCM',
+    officesCount: '10+',
+    activeUsers: '1.5M+',
+    funding: 'Niêm yết HOSE (SSI)',
+    ownership: 'Chứng khoán & Quỹ',
+    hq: 'Quận 1, TP.HCM',
+    size: '2.000+ nhân sự',
+    industry: 'Chứng khoán & Quản lý quỹ',
+  },
+  concentrix: {
     tagline: 'Dẫn đầu trải nghiệm khách hàng (CX) toàn cầu với giải pháp công nghệ đa kênh tiên tiến.',
     founded: 1973,
     offices: '275+ Trung tâm toàn cầu',
@@ -100,8 +160,10 @@ const COMPANY_EXTRAS = {
     funding: 'Niêm yết NASDAQ (CNXC)',
     ownership: 'Tập đoàn Đa quốc gia',
     hq: 'Quận 12, TP.HCM',
+    size: '5.000+ nhân sự',
+    industry: 'Dịch vụ BPO / Trải nghiệm khách hàng',
   },
-  8: {
+  'k&m': {
     tagline: 'Đầu tư đa ngành, phân phối thiết bị cơ điện và chuỗi cung ứng thương mại hiện đại.',
     founded: 2012,
     offices: '3 Trụ sở miền',
@@ -109,38 +171,42 @@ const COMPANY_EXTRAS = {
     activeUsers: '1.2M+',
     funding: 'Tư nhân Đầu tư',
     ownership: 'Thương mại Cơ điện',
-    hq: 'Hai Bà Trưng, Hà Nội',
+    hq: 'Cầu Giấy, Hà Nội',
+    size: '500 - 1.000 nhân sự',
+    industry: 'Thương mại & Đầu tư đa ngành',
   },
-  9: {
-    tagline: 'Nhà phát triển đại đô thị thông minh và hệ sinh thái dịch vụ tiêu chuẩn quốc tế.',
-    founded: 1993,
-    offices: 'Đại đô thị toàn quốc',
-    officesCount: '20+',
-    activeUsers: '8M+',
-    funding: 'Niêm yết HOSE (VHM)',
-    ownership: 'Bất động sản Đô thị',
-    hq: 'Gia Lâm, Hà Nội',
+  'a.i': {
+    tagline: 'Đơn vị tiên phong nghiên cứu và phát triển các giải pháp trí tuệ nhân tạo và chuyển đổi số doanh nghiệp.',
+    founded: 2020,
+    offices: 'Hà Nội & TP.HCM',
+    officesCount: '2+',
+    activeUsers: '500K+',
+    funding: 'Cổ phần Công nghệ',
+    ownership: 'Công nghệ AI',
+    hq: 'Cầu Giấy, Hà Nội',
+    size: '200 - 500 nhân sự',
+    industry: 'IT - Phần mềm / Trí tuệ nhân tạo',
   },
-  10: {
-    tagline: 'Tập đoàn sản xuất công nghiệp và chế tạo thép hàng đầu Đông Nam Á.',
-    founded: 1992,
-    offices: 'Hệ thống khu liên hợp toàn quốc',
-    officesCount: '15+',
-    activeUsers: '10M+',
-    funding: 'Niêm yết HOSE (HPG)',
-    ownership: 'Tập đoàn Công nghiệp',
-    hq: 'Long Biên, Hà Nội',
-  },
-  11: {
-    tagline: 'Định chế tài chính và dịch vụ chứng khoán uy tín số 1 trên thị trường vốn Việt Nam.',
-    founded: 1997,
-    offices: '12 Chi nhánh toàn quốc',
-    officesCount: '12+',
-    activeUsers: '2M+',
-    funding: 'Niêm yết HOSE (SSI)',
-    ownership: 'Tài chính Chứng khoán',
-    hq: 'Quận 1, TP.HCM',
-  },
+};
+
+const getCompanyExtras = (company) => {
+  if (!company) return {};
+  const name = (company.name || '').toLowerCase();
+  for (const [key, val] of Object.entries(COMPANY_EXTRAS_MAP)) {
+    if (name.includes(key)) return val;
+  }
+  return {
+    tagline: company.description || `${company.shortName || company.name} kiến tạo môi trường làm việc chuyên nghiệp, nuôi dưỡng nhân tài và phát triển bền vững.`,
+    founded: 2015,
+    offices: 'Chi nhánh toàn quốc',
+    officesCount: '2+',
+    activeUsers: '100K+',
+    funding: 'Doanh nghiệp Hàng đầu',
+    ownership: 'Doanh nghiệp Cổ phần',
+    hq: company.location || 'Hà Nội',
+    size: company.size || '500 - 1.000 nhân sự',
+    industry: company.industry || 'Đa ngành',
+  };
 };
 
 const DEFAULT_PERKS = [
@@ -284,16 +350,7 @@ export default function Companies() {
 
   // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ NOVATECH - JOBNEST
   if (selectedCompany) {
-    const extras = COMPANY_EXTRAS[selectedCompany.id] || {
-      tagline: `${selectedCompany.shortName} kiến tạo môi trường làm việc chuyên nghiệp, nuôi dưỡng nhân tài và phát triển bền vững.`,
-      founded: 1995,
-      offices: 'Chi nhánh toàn quốc',
-      officesCount: '6+',
-      activeUsers: '10M+',
-      funding: 'Doanh nghiệp Hàng đầu',
-      ownership: 'Doanh nghiệp Cổ phần',
-      hq: selectedCompany.location,
-    };
+    const extras = getCompanyExtras(selectedCompany);
     const jobsList = selectedCompany.jobs || [];
 
     return (
@@ -351,7 +408,7 @@ export default function Companies() {
                         <FaCheck size={9} />
                       </span>
                     )}
-                    <span className="novatech-badge-tag">{selectedCompany.industry}</span>
+                    <span className="novatech-badge-tag">{extras.industry || selectedCompany.industry}</span>
                     <span className="novatech-badge-tag">{extras.ownership || 'Enterprise Tech'}</span>
                   </div>
 
@@ -367,7 +424,7 @@ export default function Companies() {
                     <span>•</span>
                     <span className="d-inline-flex align-items-center gap-1.5 fw-medium">
                       <FaUsers size={13} className="text-secondary" />
-                      <span>{selectedCompany.size}</span>
+                      <span>{extras.size || selectedCompany.size}</span>
                     </span>
                     {selectedCompany.website && (
                       <>
