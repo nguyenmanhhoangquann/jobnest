@@ -32,4 +32,21 @@ public class NotificationController {
         notificationService.markAsRead(id, user);
         return ResponseEntity.ok(Map.of("success", true));
     }
+
+    @PatchMapping("/read-all")
+    public ResponseEntity<Map<String, Object>> markAllAsRead(
+            @AuthenticationPrincipal User user
+    ) {
+        notificationService.markAllAsRead(user);
+        return ResponseEntity.ok(Map.of("success", true, "message", "Đã đánh dấu đọc tất cả"));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteNotification(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User user
+    ) {
+        notificationService.deleteNotification(id, user);
+        return ResponseEntity.ok(Map.of("success", true, "message", "Đã xóa thông báo"));
+    }
 }

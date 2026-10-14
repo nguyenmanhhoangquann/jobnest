@@ -18,6 +18,7 @@ import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 import Companies from './pages/Companies.jsx';
 import Blog from './pages/Blog.jsx';
 import About from './pages/About.jsx';
+import Notifications from './pages/Notifications.jsx';
 import Support from './pages/Support.jsx';
 import SalaryReport from './pages/SalaryReport.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
@@ -70,6 +71,7 @@ export default function App() {
             <Route path="/salary-report" element={<SalaryReport />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/about" element={<About />} />
+            <Route path="/notifications" element={<Notifications />} />
 
             {/* Tuyến đường Quản trị viên (ADMIN) */}
             <Route

@@ -54,4 +54,24 @@ public class NotificationService {
         notification.setIsRead(true);
         notificationRepository.save(notification);
     }
+
+    @Transactional
+    public void markAllAsRead(User user) {
+        if (user == null || user.getId() == null) return;
+        List<Notification> list = notificationRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+        list.forEach(n -> n.setIsRead(true));
+        notificationRepository.saveAll(list);
+    }
+
+    @Transactional
+    public void deleteNotification(Long id, User user) {
+        Notification notification = notificationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy thông báo"));
+
+        if (!notification.getUser().getId().equals(user.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Không có quyền thao tác trên thông báo này");
+        }
+
+        notificationRepository.delete(notification);
+    }
 }
