@@ -87,4 +87,18 @@ public class AdminController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(jobs);
     }
+
+    @DeleteMapping("/jobs/{id}")
+    public ResponseEntity<Map<String, Object>> deleteJob(@PathVariable Long id) {
+        if (!jobRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy tin tuyển dụng");
+        }
+        jobRepository.deleteById(id);
+        return ResponseEntity.ok(Map.of("success", true, "message", "Đã xóa tin tuyển dụng thành công"));
+    }
+
+    @GetMapping("/companies")
+    public ResponseEntity<List<com.jobnest.entity.Company>> getCompanies() {
+        return ResponseEntity.ok(companyRepository.findAll());
+    }
 }

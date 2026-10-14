@@ -35,53 +35,11 @@ export default function AdminDashboard() {
   const [userList, setUserList] = useState([]);
   const [userSearch, setUserSearch] = useState('');
 
-  // Dữ liệu mock duyệt tin tuyển dụng
-  const [pendingJobs, setPendingJobs] = useState([
-    {
-      id: 1,
-      title: 'Senior Java Backend Engineer (Spring Boot)',
-      company: 'Công ty Cổ phần Công nghệ VNPT',
-      date: '08/10/2026',
-      salary: '25 - 35 triệu',
-      status: 'PENDING',
-    },
-    {
-      id: 2,
-      title: 'Frontend Developer (ReactJS / Vite)',
-      company: 'Tech Solutions Global',
-      date: '08/10/2026',
-      salary: '18 - 25 triệu',
-      status: 'PENDING',
-    },
-    {
-      id: 3,
-      title: 'Chuyên viên Tư vấn Tài chính Doanh nghiệp',
-      company: 'Ngân hàng TMCP Việt Á',
-      date: '07/10/2026',
-      salary: '15 - 20 triệu',
-      status: 'PENDING',
-    },
-  ]);
-
-  // Dữ liệu mock duyệt công ty
-  const [pendingEmployers, setPendingEmployers] = useState([
-    {
-      id: 101,
-      name: 'Tập đoàn Đầu tư & Công nghệ Hưng Thịnh',
-      email: 'tuyendung@hungthinhcorp.vn',
-      taxCode: '0108923412',
-      date: '08/10/2026',
-      status: 'PENDING',
-    },
-    {
-      id: 102,
-      name: 'Công ty Cổ phần Sáng tạo Truyền thông NextGen',
-      email: 'hr@nextgenmedia.vn',
-      taxCode: '0315894120',
-      date: '07/10/2026',
-      status: 'PENDING',
-    },
-  ]);
+  // Dữ liệu thực tế từ Backend
+  const [adminJobs, setAdminJobs] = useState([]);
+  const [jobSearch, setJobSearch] = useState('');
+  const [adminCompanies, setAdminCompanies] = useState([]);
+  const [companySearch, setCompanySearch] = useState('');
 
   // Quản lý & Lịch sử báo cáo vi phạm qua reportApi
   const [reports, setReports] = useState([]);
@@ -94,6 +52,12 @@ export default function AdminDashboard() {
     }).catch(() => {});
     adminApi.getUsers().then((data) => {
       if (Array.isArray(data)) setUserList(data);
+    }).catch(() => {});
+    adminApi.getAdminJobs().then((data) => {
+      if (Array.isArray(data)) setAdminJobs(data);
+    }).catch(() => {});
+    adminApi.getCompanies().then((data) => {
+      if (Array.isArray(data)) setAdminCompanies(data);
     }).catch(() => {});
   }, []);
 
@@ -110,6 +74,39 @@ export default function AdminDashboard() {
       showToast('error', err.response?.data?.message || 'Không thể xóa tài khoản này.');
     }
   };
+
+  const handleDeleteJob = async (jobId, title) => {
+    if (!window.confirm(`Bạn có chắc muốn gỡ bài tuyển dụng "${title || ''}" khỏi hệ thống không?`)) {
+      return;
+    }
+    try {
+      await adminApi.deleteJob(jobId);
+      setAdminJobs((prev) => prev.filter((j) => j.id !== jobId));
+      setStats((prev) => ({ ...prev, activeJobs: Math.max(0, prev.activeJobs - 1) }));
+      showToast('success', `Đã gỡ bài đăng #${jobId} thành công.`);
+    } catch {
+      showToast('error', 'Không thể gỡ bài đăng lúc này.');
+    }
+  };
+
+  const filteredJobs = useMemo(() => {
+    if (!jobSearch.trim()) return adminJobs;
+    const kw = jobSearch.toLowerCase();
+    return adminJobs.filter((j) =>
+      (j.title || '').toLowerCase().includes(kw) ||
+      (j.company?.name || '').toLowerCase().includes(kw) ||
+      (j.location || '').toLowerCase().includes(kw)
+    );
+  }, [adminJobs, jobSearch]);
+
+  const filteredCompanies = useMemo(() => {
+    if (!companySearch.trim()) return adminCompanies;
+    const kw = companySearch.toLowerCase();
+    return adminCompanies.filter((c) =>
+      (c.name || '').toLowerCase().includes(kw) ||
+      (c.location || '').toLowerCase().includes(kw)
+    );
+  }, [adminCompanies, companySearch]);
 
   const filteredUsers = useMemo(() => {
     if (!userSearch.trim()) return userList;
@@ -199,21 +196,21 @@ export default function AdminDashboard() {
               className={`btn btn-sm ${currentTab === 'jobs' ? 'btn-primary' : 'btn-light'}`}
               onClick={() => setSearchParams({ tab: 'jobs' })}
             >
-              <FaBriefcase className="me-1" /> Duyệt tin ({pendingJobs.length})
+              <FaBriefcase className="me-1" /> Quản lý tin ({adminJobs.length})
             </button>
             <button
               type="button"
               className={`btn btn-sm ${currentTab === 'companies' ? 'btn-primary' : 'btn-light'}`}
               onClick={() => setSearchParams({ tab: 'companies' })}
             >
-              <FaBuilding className="me-1" /> Duyệt NTD ({pendingEmployers.length})
+              <FaBuilding className="me-1" /> Doanh nghiệp ({adminCompanies.length})
             </button>
             <button
               type="button"
               className={`btn btn-sm ${currentTab === 'users' ? 'btn-primary' : 'btn-light'}`}
               onClick={() => setSearchParams({ tab: 'users' })}
             >
-              <FaUsers className="me-1" /> Quản lý User
+              <FaUsers className="me-1" /> Quản lý User ({userList.length})
             </button>
             <button
               type="button"
@@ -238,7 +235,7 @@ export default function AdminDashboard() {
                     </span>
                   </div>
                   <h3 className="fw-bold mb-0">{stats.totalUsers.toLocaleString('vi-VN')}</h3>
-                  <small className="text-success mt-1 d-block">+12% so với tháng trước</small>
+                  <small className="text-success mt-1 d-block">{userList.length} tài khoản trong hệ thống</small>
                 </div>
               </div>
 
@@ -251,7 +248,7 @@ export default function AdminDashboard() {
                     </span>
                   </div>
                   <h3 className="fw-bold mb-0">{stats.totalEmployers.toLocaleString('vi-VN')}</h3>
-                  <small className="text-muted mt-1 d-block">{stats.pendingCompanies} công ty chờ duyệt</small>
+                  <small className="text-muted mt-1 d-block">{adminCompanies.length} đối tác doanh nghiệp</small>
                 </div>
               </div>
 
@@ -264,7 +261,7 @@ export default function AdminDashboard() {
                     </span>
                   </div>
                   <h3 className="fw-bold mb-0">{stats.activeJobs.toLocaleString('vi-VN')}</h3>
-                  <small className="text-warning mt-1 d-block">{pendingJobs.length} tin cần duyệt</small>
+                  <small className="text-success mt-1 d-block">{adminJobs.length} tin đăng đang mở</small>
                 </div>
               </div>
 
@@ -282,46 +279,53 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Bảng việc cần duyệt nhanh */}
+            {/* Bảng việc làm mới nhất */}
             <div className="card border-0 shadow-sm rounded-3 p-4 bg-white mb-4">
-              <h2 className="h5 fw-bold mb-3 d-flex align-items-center gap-2">
-                <FaBriefcase className="text-primary" /> Tin tuyển dụng chờ duyệt gần đây
-              </h2>
-              {pendingJobs.length === 0 ? (
-                <div className="p-4 text-center text-muted">Không còn tin tuyển dụng nào chờ duyệt.</div>
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <h2 className="h5 fw-bold mb-0 d-flex align-items-center gap-2">
+                  <FaBriefcase className="text-primary" /> Tin tuyển dụng mới nhất trong hệ thống
+                </h2>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-link text-decoration-none"
+                  onClick={() => setSearchParams({ tab: 'jobs' })}
+                >
+                  Xem tất cả ({adminJobs.length})
+                </button>
+              </div>
+
+              {adminJobs.length === 0 ? (
+                <div className="p-4 text-center text-muted">Đang tải tin tuyển dụng...</div>
               ) : (
                 <div className="table-responsive">
                   <table className="table table-hover align-middle mb-0">
                     <thead className="table-light">
                       <tr>
+                        <th>Mã</th>
                         <th>Vị trí tuyển dụng</th>
-                        <th>Công ty</th>
+                        <th>Doanh nghiệp</th>
                         <th>Mức lương</th>
-                        <th>Ngày gửi</th>
+                        <th>Địa điểm</th>
                         <th className="text-end">Hành động</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {pendingJobs.map((job) => (
+                      {adminJobs.slice(0, 5).map((job) => (
                         <tr key={job.id}>
-                          <td className="fw-bold">{job.title}</td>
-                          <td>{job.company}</td>
-                          <td><span className="badge bg-warning-subtle text-dark">{job.salary}</span></td>
-                          <td className="small text-muted">{job.date}</td>
+                          <td><code>#{job.id}</code></td>
+                          <td className="fw-bold text-dark">{job.title}</td>
+                          <td>{job.company?.name || 'Doanh nghiệp'}</td>
+                          <td><span className="badge bg-warning-subtle text-dark">{job.salaryText || 'Thỏa thuận'}</span></td>
+                          <td className="small text-muted">{job.location}</td>
                           <td className="text-end text-nowrap">
                             <button
                               type="button"
-                              className="btn btn-sm btn-success me-2"
-                              onClick={() => handleApproveJob(job.id, true)}
-                            >
-                              <FaCheckCircle className="me-1" /> Duyệt
-                            </button>
-                            <button
-                              type="button"
                               className="btn btn-sm btn-outline-danger"
-                              onClick={() => handleApproveJob(job.id, false)}
+                              onClick={() => handleDeleteJob(job.id, job.title)}
+                              title="Gỡ tin này khỏi hệ thống"
+                              style={{ fontSize: '11px' }}
                             >
-                              <FaTimesCircle className="me-1" /> Từ chối
+                              <FaTrash size={10} className="me-1" /> Gỡ tin
                             </button>
                           </td>
                         </tr>
@@ -334,45 +338,58 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* 2. KHỐI DUYỆT TIN TUYỂN DỤNG */}
+        {/* 2. KHỐI QUẢN LÝ TIN TUYỂN DỤNG */}
         {currentTab === 'jobs' && (
           <div className="card border-0 shadow-sm rounded-3 p-4 bg-white">
-            <h2 className="h5 fw-bold mb-3">Danh sách tin tuyển dụng chờ phê duyệt</h2>
-            {pendingJobs.length === 0 ? (
-              <div className="p-5 text-center text-muted">Hiện tại không có tin nào chờ duyệt.</div>
+            <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div>
+                <h2 className="h5 fw-bold mb-1">Quản lý Tin tuyển dụng toàn hệ thống</h2>
+                <small className="text-muted">Tổng cộng {adminJobs.length} tin tuyển dụng thực tế</small>
+              </div>
+              <div className="d-flex gap-2">
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Tìm theo tiêu đề, công ty, địa điểm..."
+                  style={{ width: '280px' }}
+                  value={jobSearch}
+                  onChange={(e) => setJobSearch(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {filteredJobs.length === 0 ? (
+              <div className="p-5 text-center text-muted">Không tìm thấy tin tuyển dụng nào phù hợp.</div>
             ) : (
               <div className="table-responsive">
                 <table className="table table-hover align-middle">
                   <thead className="table-light">
                     <tr>
+                      <th>Mã</th>
                       <th>Tiêu đề tuyển dụng</th>
                       <th>Công ty</th>
                       <th>Mức lương</th>
-                      <th>Ngày nộp</th>
+                      <th>Khu vực</th>
                       <th className="text-end">Thao tác</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {pendingJobs.map((job) => (
+                    {filteredJobs.slice(0, 50).map((job) => (
                       <tr key={job.id}>
-                        <td className="fw-bold">{job.title}</td>
-                        <td>{job.company}</td>
-                        <td><span className="badge bg-warning-subtle text-dark">{job.salary}</span></td>
-                        <td>{job.date}</td>
-                        <td className="text-end">
+                        <td><code>#{job.id}</code></td>
+                        <td className="fw-bold text-dark">{job.title}</td>
+                        <td className="small text-muted">{job.company?.name || 'Doanh nghiệp'}</td>
+                        <td><span className="badge bg-warning-subtle text-dark">{job.salaryText || 'Thỏa thuận'}</span></td>
+                        <td className="small">{job.location}</td>
+                        <td className="text-end text-nowrap">
                           <button
                             type="button"
-                            className="btn btn-sm btn-success me-2"
-                            onClick={() => handleApproveJob(job.id, true)}
+                            className="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1"
+                            onClick={() => handleDeleteJob(job.id, job.title)}
+                            title="Gỡ tin này khỏi hệ thống"
+                            style={{ fontSize: '11px' }}
                           >
-                            <FaCheckCircle className="me-1" /> Duyệt tin
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-sm btn-danger"
-                            onClick={() => handleApproveJob(job.id, false)}
-                          >
-                            <FaTimesCircle className="me-1" /> Từ chối
+                            <FaTrash size={10} /> Gỡ bài
                           </button>
                         </td>
                       </tr>
@@ -384,46 +401,58 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* 3. KHỐI DUYỆT DOANH NGHIỆP / EMPLOYER */}
+        {/* 3. KHỐI DOANH NGHIỆP & ĐỐI TÁC */}
         {currentTab === 'companies' && (
           <div className="card border-0 shadow-sm rounded-3 p-4 bg-white">
-            <h2 className="h5 fw-bold mb-3">Hồ sơ doanh nghiệp / Nhà tuyển dụng chờ phê duyệt</h2>
-            {pendingEmployers.length === 0 ? (
-              <div className="p-5 text-center text-muted">Không có hồ sơ doanh nghiệp nào đang chờ duyệt.</div>
+            <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div>
+                <h2 className="h5 fw-bold mb-1">Doanh nghiệp & Đối tác tuyển dụng</h2>
+                <small className="text-muted">Tổng cộng {adminCompanies.length} doanh nghiệp đối tác</small>
+              </div>
+              <div className="d-flex gap-2">
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Tìm theo tên công ty, địa điểm..."
+                  style={{ width: '280px' }}
+                  value={companySearch}
+                  onChange={(e) => setCompanySearch(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {filteredCompanies.length === 0 ? (
+              <div className="p-5 text-center text-muted">Không tìm thấy doanh nghiệp nào phù hợp.</div>
             ) : (
               <div className="table-responsive">
                 <table className="table table-hover align-middle">
                   <thead className="table-light">
                     <tr>
+                      <th>Logo</th>
                       <th>Tên công ty / Doanh nghiệp</th>
-                      <th>Email liên hệ</th>
-                      <th>Mã số thuế</th>
-                      <th>Ngày gửi</th>
-                      <th className="text-end">Thao tác</th>
+                      <th>Địa điểm</th>
+                      <th>Trạng thái</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {pendingEmployers.map((emp) => (
-                      <tr key={emp.id}>
-                        <td className="fw-bold">{emp.name}</td>
-                        <td>{emp.email}</td>
-                        <td><code>{emp.taxCode}</code></td>
-                        <td>{emp.date}</td>
-                        <td className="text-end">
-                          <button
-                            type="button"
-                            className="btn btn-sm btn-success me-2"
-                            onClick={() => handleApproveCompany(emp.id, true)}
-                          >
-                            <FaCheckCircle className="me-1" /> Xác thực
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-sm btn-outline-danger"
-                            onClick={() => handleApproveCompany(emp.id, false)}
-                          >
-                            <FaTimesCircle className="me-1" /> Từ chối
-                          </button>
+                    {filteredCompanies.slice(0, 50).map((comp) => (
+                      <tr key={comp.id}>
+                        <td style={{ width: '60px' }}>
+                          <img
+                            src={comp.logoUrl || '/images/companies/fpt.svg'}
+                            alt={comp.name}
+                            style={{ height: '28px', maxWidth: '50px', objectFit: 'contain' }}
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        </td>
+                        <td className="fw-bold text-dark">{comp.name}</td>
+                        <td className="small text-muted">{comp.location || 'Toàn quốc'}</td>
+                        <td>
+                          <span className="badge bg-success-subtle text-success d-inline-flex align-items-center gap-1">
+                            <FaCheckCircle size={10} /> Đã xác thực
+                          </span>
                         </td>
                       </tr>
                     ))}

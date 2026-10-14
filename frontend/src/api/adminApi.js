@@ -44,6 +44,22 @@ export const adminApi = {
     }
     return axiosClient.get('/admin/jobs');
   },
+
+  deleteJob: async (id) => {
+    if (USE_MOCK) {
+      await new Promise((r) => setTimeout(r, 200));
+      return { success: true };
+    }
+    return axiosClient.delete(`/admin/jobs/${id}`);
+  },
+
+  getCompanies: async () => {
+    if (USE_MOCK) {
+      await new Promise((r) => setTimeout(r, 200));
+      return [];
+    }
+    return axiosClient.get('/admin/companies');
+  },
 };
 
 export default adminApi;
