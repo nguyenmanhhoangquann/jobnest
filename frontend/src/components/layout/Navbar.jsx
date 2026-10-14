@@ -21,11 +21,13 @@ import { NAV_ITEMS } from '../../constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { showToast } from '../common/ToastHost.jsx';
 import notificationApi from '../../api/notificationApi.js';
+import NotificationDrawer from './NotificationDrawer.jsx';
 
 function NotificationBell({ isAuth }) {
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   useEffect(() => {
     if (!isAuth) return;
@@ -33,7 +35,7 @@ function NotificationBell({ isAuth }) {
       .getNotifications()
       .then((data) => {
         if (Array.isArray(data)) {
-          setNotifications(data.slice(0, 5));
+          setNotifications(data);
           const unread = data.filter((n) => !n.isRead);
           setUnreadCount(unread.length);
 
@@ -68,49 +70,63 @@ function NotificationBell({ isAuth }) {
   }
 
   return (
-    <Dropdown align="end">
-      <Dropdown.Toggle as="button" className="nav-icon-action-btn" aria-label="Thông báo" title="Thông báo tuyển dụng">
-        <FaBell size={15} />
-        {unreadCount > 0 && <span className="notif-badge-modern" aria-label={`${unreadCount} thông báo chưa đọc`} />}
-      </Dropdown.Toggle>
+    <>
+      <Dropdown align="end">
+        <Dropdown.Toggle as="button" className="nav-icon-action-btn" aria-label="Thông báo" title="Thông báo tuyển dụng">
+          <FaBell size={15} />
+          {unreadCount > 0 && <span className="notif-badge-modern" aria-label={`${unreadCount} thông báo chưa đọc`} />}
+        </Dropdown.Toggle>
 
-      <Dropdown.Menu className="notif-menu shadow-lg border-0 py-2">
-        <div className="px-3 py-2 border-bottom d-flex justify-content-between align-items-center">
-          <span className="fw-bold" style={{ fontSize: '15px' }}>
-            Thông báo
-          </span>
-          {unreadCount > 0 && (
-            <span className="badge rounded-pill bg-warning text-dark font-monospace" style={{ fontSize: '11px' }}>
-              {unreadCount} mới
+        <Dropdown.Menu className="notif-menu shadow-lg border-0 py-2">
+          <div className="px-3 py-2 border-bottom d-flex justify-content-between align-items-center">
+            <span className="fw-bold" style={{ fontSize: '15px' }}>
+              Thông báo
             </span>
-          )}
-        </div>
-        <div className="notif-list" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-          {notifications.map((item) => (
-            <Dropdown.Item
-              key={item.id}
-              onClick={() => navigate('/notifications')}
-              className={`px-3 py-2 text-wrap ${!item.isRead ? 'notif-unread' : ''}`}
-              style={{ fontSize: '13.5px', borderBottom: '1px solid #f3f4f6' }}
+            {unreadCount > 0 && (
+              <span className="badge rounded-pill bg-warning text-dark font-monospace" style={{ fontSize: '11px' }}>
+                {unreadCount} mới
+              </span>
+            )}
+          </div>
+          <div className="notif-list" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+            {notifications.slice(0, 5).map((item) => (
+              <Dropdown.Item
+                key={item.id}
+                onClick={() => setIsDrawerOpen(true)}
+                className={`px-3 py-2 text-wrap ${!item.isRead ? 'notif-unread' : ''}`}
+                style={{ fontSize: '13.5px', borderBottom: '1px solid #f3f4f6' }}
+              >
+                <div className="text-dark mb-1">{item.content}</div>
+                <small className="text-muted" style={{ fontSize: '11px' }}>
+                  {item.createdAt ? new Date(item.createdAt).toLocaleDateString('vi-VN') : (item.time || 'Gần đây')}
+                </small>
+              </Dropdown.Item>
+            ))}
+          </div>
+          <div className="px-3 pt-2 text-center">
+            <button
+              type="button"
+              onClick={() => setIsDrawerOpen(true)}
+              className="btn btn-link p-0 text-decoration-none fw-semibold"
+              style={{ fontSize: '13px', color: 'var(--color-primary-dark)' }}
             >
-              <div className="text-dark mb-1">{item.content}</div>
-              <small className="text-muted" style={{ fontSize: '11px' }}>
-                {item.createdAt ? new Date(item.createdAt).toLocaleDateString('vi-VN') : (item.time || 'Gần đây')}
-              </small>
-            </Dropdown.Item>
-          ))}
-        </div>
-        <div className="px-3 pt-2 text-center">
-          <Link
-            to="/notifications"
-            className="text-decoration-none fw-semibold"
-            style={{ fontSize: '13px', color: 'var(--color-primary-dark)' }}
-          >
-            Xem tất cả
-          </Link>
-        </div>
-      </Dropdown.Menu>
-    </Dropdown>
+              Xem tất cả ({notifications.length}) →
+            </button>
+          </div>
+        </Dropdown.Menu>
+      </Dropdown>
+
+      {/* Right-Side Slide-Over Notification Drawer */}
+      <NotificationDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        notifications={notifications}
+        onUpdateList={(updated) => {
+          setNotifications(updated);
+          setUnreadCount(updated.filter((n) => !n.isRead).length);
+        }}
+      />
+    </>
   );
 }
 
