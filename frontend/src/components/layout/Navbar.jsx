@@ -21,7 +21,9 @@ import { NAV_ITEMS } from '../../constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { showToast } from '../common/ToastHost.jsx';
 import notificationApi from '../../api/notificationApi.js';
+import jobApi from '../../api/jobApi.js';
 import NotificationDrawer from './NotificationDrawer.jsx';
+import SavedJobsDrawer from './SavedJobsDrawer.jsx';
 
 function NotificationBell({ isAuth }) {
   const navigate = useNavigate();
@@ -207,6 +209,27 @@ export default function Navbar() {
   const { user, isAuth, logout } = useAuth();
   const navigate = useNavigate();
 
+  const [savedJobsOpen, setSavedJobsOpen] = useState(false);
+  const [savedJobs, setSavedJobs] = useState([]);
+
+  const handleOpenSavedJobs = () => {
+    if (!isAuth) {
+      showToast('info', 'Đăng nhập để xem danh sách việc làm đã lưu', 'YÊU CẦU ĐĂNG NHẬP');
+      navigate('/login');
+      return;
+    }
+    jobApi
+      .getSavedJobs()
+      .then((data) => {
+        const list = data?.content || (Array.isArray(data) ? data : []);
+        setSavedJobs(list);
+        setSavedJobsOpen(true);
+      })
+      .catch(() => {
+        setSavedJobsOpen(true);
+      });
+  };
+
   return (
     <BsNavbar expand="lg" sticky="top" className="app-navbar bg-white py-2">
       {/* Container chuẩn sát 2 biên */}
@@ -271,14 +294,7 @@ export default function Navbar() {
                 className="nav-icon-action-btn"
                 aria-label="Việc làm đã lưu"
                 title="Việc làm đã lưu"
-                onClick={() => {
-                  if (isAuth) {
-                    navigate('/candidate/saved-jobs');
-                  } else {
-                    showToast('info', 'Đăng nhập để xem danh sách việc làm đã lưu');
-                    navigate('/login');
-                  }
-                }}
+                onClick={handleOpenSavedJobs}
               >
                 <FaBookmark size={13} />
               </button>
@@ -351,6 +367,14 @@ export default function Navbar() {
           </div>
         </BsNavbar.Collapse>
       </div>
+
+      {/* Right-Side Slide-Over Saved Jobs Drawer */}
+      <SavedJobsDrawer
+        isOpen={savedJobsOpen}
+        onClose={() => setSavedJobsOpen(false)}
+        savedJobs={savedJobs}
+        onUpdateJobs={setSavedJobs}
+      />
     </BsNavbar>
   );
 }

@@ -1,0 +1,93 @@
+/* ==========================================================================
+   Saved Jobs Page Styling (Double-Bezel Architecture & Ambient Mesh)
+   ========================================================================== */
+
+.saved-jobs-page-root {
+  min-height: calc(100vh - 72px);
+  background: 
+    radial-gradient(circle 700px at 85% -10%, rgba(251, 191, 36, 0.12) 0%, transparent 70%),
+    radial-gradient(circle 500px at 10% 90%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
+    #F8FAFC;
+  padding: 48px 0 80px;
+  position: relative;
+  font-family: var(--font-main);
+}
+
+.saved-jobs-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  color: #B45309;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 5px 14px;
+  border-radius: 0px !important; /* SQUARE */
+  margin-bottom: 14px;
+}
+
+.saved-jobs-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 0px;
+  background: #F59E0B;
+}
+
+.saved-jobs-header-title {
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0F172A;
+  margin-bottom: 8px;
+}
+
+.saved-jobs-header-desc {
+  font-size: 15px;
+  color: #475569;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+/* Double-Bezel Shell */
+.saved-jobs-outer-shell {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    0 20px 40px -15px rgba(15, 23, 42, 0.05);
+  border-radius: 0px !important; /* STRICT SQUARE CORNERS */
+  padding: 10px;
+  margin-top: 28px;
+}
+
+.saved-jobs-inner-core {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 0px !important;
+  overflow: hidden;
+}
+
+.saved-jobs-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background: #090D16;
+  color: #FFFFFF;
+  border-bottom: 2px solid #F59E0B;
+}
+
+.saved-jobs-count-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  background: #F59E0B;
+  color: #000000;
+  padding: 4px 10px;
+  border-radius: 0px;
+  letter-spacing: 0.05em;
+}
