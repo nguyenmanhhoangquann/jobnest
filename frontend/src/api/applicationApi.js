@@ -116,6 +116,17 @@ export const applicationApi = {
 
     return axiosClient.patch(`/applications/${id}/status`, { status });
   },
+
+  // Nhà tuyển dụng gỡ bỏ hồ sơ ứng tuyển
+  deleteApplication: async (id) => {
+    if (USE_MOCK) {
+      await new Promise((r) => setTimeout(r, 300));
+      applicationsState = applicationsState.filter((a) => String(a.id) !== String(id));
+      return { success: true };
+    }
+
+    return axiosClient.delete(`/applications/${id}`);
+  },
 };
 
 export default applicationApi;

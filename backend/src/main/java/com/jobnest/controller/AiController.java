@@ -28,7 +28,8 @@ public class AiController {
     public ResponseEntity<AiJdResponse> generateJd(@RequestBody Map<String, String> body) {
         String title = body.get("title");
         String keywords = body.get("keywords");
-        return ResponseEntity.ok(aiService.generateJd(title, keywords));
+        String companyName = body.get("companyName");
+        return ResponseEntity.ok(aiService.generateJd(title, keywords, companyName));
     }
 
     @PostMapping("/chat")

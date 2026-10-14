@@ -122,6 +122,22 @@ public class JobService {
         return mapToDto(job, currentUser);
     }
 
+    public List<JobDto> getMyJobs(User employer) {
+        if (employer == null) return List.of();
+        List<Job> jobs;
+        if (employer.getRole() == com.jobnest.entity.Role.ADMIN) {
+            jobs = jobRepository.findAll();
+        } else {
+            jobs = jobRepository.findByEmployerId(employer.getId());
+            if (jobs.isEmpty() && employer.getCompanyName() != null && !employer.getCompanyName().isBlank()) {
+                jobs = jobRepository.findAll().stream()
+                        .filter(j -> j.getCompany() != null && employer.getCompanyName().equalsIgnoreCase(j.getCompany().getName()))
+                        .collect(Collectors.toList());
+            }
+        }
+        return jobs.stream().map(j -> mapToDto(j, employer)).collect(Collectors.toList());
+    }
+
     @Transactional
     public JobDto createJob(JobCreateRequest request, User employer) {
         Category category = null;

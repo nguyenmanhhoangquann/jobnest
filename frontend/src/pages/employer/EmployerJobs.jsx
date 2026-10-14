@@ -24,9 +24,10 @@ export default function EmployerJobs() {
   useEffect(() => {
     setLoading(true);
     jobApi
-      .getJobs({ size: 20 })
+      .getMyJobs()
       .then((data) => {
-        setJobs(data.content || []);
+        const list = Array.isArray(data) ? data : data?.content || [];
+        setJobs(list);
         setLoading(false);
       })
       .catch(() => {

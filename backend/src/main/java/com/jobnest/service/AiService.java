@@ -26,33 +26,36 @@ public class AiService {
     @Value("${app.gemini.api-key:}")
     private String geminiApiKey;
 
-    public AiJdResponse generateJd(String title, String keywords) {
+    public AiJdResponse generateJd(String title, String keywords, String companyName) {
         String safeTitle = (title != null && !title.isBlank()) ? title.trim() : "Chuyên viên phát triển";
         String safeKw = (keywords != null && !keywords.isBlank()) ? keywords.trim() : "chuyên môn, làm việc nhóm, trách nhiệm";
+        String safeCompany = (companyName != null && !companyName.isBlank()) ? companyName.trim() : "Công ty chúng tôi";
 
         String description = String.format(
-                "Chúng tôi đang tìm kiếm nhân sự tài năng cho vị trí %s tham gia vào đội ngũ nòng cốt:\n" +
-                "- Trực tiếp tham gia triển khai, tối ưu hóa các module và tính năng trong các dự án trọng điểm.\n" +
-                "- Phối hợp chặt chẽ cùng bộ phận sản phẩm, thiết kế và quản trị để đáp ứng tiến độ bàn giao.\n" +
-                "- Đề xuất các giải pháp kỹ thuật, cải tiến hiệu năng hệ thống và quy trình vận hành.\n" +
+                "Tại %s, chúng tôi đang tìm kiếm nhân sự tài năng cho vị trí %s tham gia vào đội ngũ nòng cốt:\n" +
+                "- Trực tiếp tham gia triển khai, tối ưu hóa các module và tính năng trong các dự án trọng điểm của doanh nghiệp.\n" +
+                "- Phối hợp chặt chẽ cùng bộ phận sản phẩm, thiết kế và quản trị để đáp ứng chất lượng và tiến độ bàn giao.\n" +
+                "- Đề xuất các giải pháp kỹ thuật sáng tạo, cải tiến hiệu năng hệ thống và quy trình vận hành.\n" +
                 "- Lập báo cáo tiến độ, tài liệu hóa kỹ thuật định kỳ cho cấp quản lý.",
-                safeTitle
+                safeCompany, safeTitle
         );
 
         String requirements = String.format(
                 "- Có kinh nghiệm thực chiến từ 1-3 năm liên quan đến các kỹ năng: %s.\n" +
-                "- Tư duy giải quyết vấn đề tốt, chủ động nghiên cứu và cập nhật công nghệ mới.\n" +
+                "- Tư duy giải quyết vấn đề tốt, chủ động nghiên cứu và cập nhật xu hướng công nghệ mới.\n" +
                 "- Kỹ năng làm việc nhóm, giao tiếp rõ ràng và khả năng chịu áp lực tiến độ cao.\n" +
                 "- Ưu tiên ứng viên có sản phẩm thực tế hoặc chứng chỉ chuyên môn liên quan.",
                 safeKw
         );
 
-        String benefits =
-                "- Thu nhập cạnh tranh theo năng lực, xét tăng lương định kỳ 1-2 lần/năm.\n" +
+        String benefits = String.format(
+                "- Thu nhập cạnh tranh theo năng lực, xét tăng lương định kỳ 1-2 lần/năm tại %s.\n" +
                 "- Thưởng dự án, thưởng tháng 13 và các ngày lễ tết theo quy chế doanh nghiệp.\n" +
                 "- Đóng đầy đủ BHXH, BHYT, BHTN và gói bảo hiểm sức khỏe cao cấp.\n" +
                 "- Cung cấp trang thiết bị làm việc hiện đại, môi trường làm việc trẻ trung, năng động và cởi mở.\n" +
-                "- Tham gia các khóa đào tạo nâng cao kỹ năng mềm và kỹ thuật chuyên sâu.";
+                "- Tham gia các khóa đào tạo nâng cao kỹ năng mềm và kỹ thuật chuyên sâu.",
+                safeCompany
+        );
 
         return AiJdResponse.builder()
                 .description(description)
@@ -68,12 +71,14 @@ public class AiService {
 
         String jobTitle = application.getJob() != null ? application.getJob().getTitle() : "Vị trí tuyển dụng";
         String candidateName = application.getCandidate() != null ? application.getCandidate().getFullName() : "Ứng viên";
+        String companyName = (application.getJob() != null && application.getJob().getCompany() != null)
+                ? application.getJob().getCompany().getName() : "Doanh nghiệp tuyển dụng";
 
         int score = 84 + (int) (applicationId % 11); // 84 - 94
         String verdict = score >= 80 ? "SUITABLE" : "CONSIDER";
 
         List<String> strengths = Arrays.asList(
-                "Kỹ năng chuyên môn và nền tảng công nghệ phù hợp cao với yêu cầu " + jobTitle,
+                "Kỹ năng chuyên môn và nền tảng công nghệ phù hợp cao với yêu cầu " + jobTitle + " tại " + companyName,
                 "Có trải nghiệm thực tế với các dự án tương tự và kỹ năng giải quyết bài toán thực tế tốt",
                 "Hồ sơ trình bày khoa học, bố cục rõ ràng, nhấn mạnh đúng năng lực cốt lõi"
         );
@@ -83,8 +88,8 @@ public class AiService {
         );
 
         String summary = String.format(
-                "Ứng viên %s thể hiện năng lực chuyên môn vững vàng, độ tương thích hồ sơ đạt %d%% so với tiêu chí của vị trí %s. Đề xuất mời tham gia phỏng vấn chuyên môn vòng 1.",
-                candidateName, score, jobTitle
+                "Ứng viên %s thể hiện năng lực chuyên môn vững vàng, độ tương thích hồ sơ đạt %d%% so với tiêu chí của vị trí %s tại %s. Đề xuất mời tham gia phỏng vấn chuyên môn vòng 1.",
+                candidateName, score, jobTitle, companyName
         );
 
         try {

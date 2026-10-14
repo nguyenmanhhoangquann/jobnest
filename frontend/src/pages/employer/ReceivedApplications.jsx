@@ -10,6 +10,9 @@ import {
   FaEnvelope,
   FaSearch,
   FaCheckCircle,
+  FaTrash,
+  FaDownload,
+  FaExternalLinkAlt,
 } from 'react-icons/fa';
 import applicationApi from '../../api/applicationApi.js';
 import aiApi from '../../api/aiApi.js';
@@ -31,6 +34,46 @@ export default function ReceivedApplications() {
   const [reviewingId, setReviewingId] = useState(null);
   const [selectedReview, setSelectedReview] = useState(null);
   const [selectedApp, setSelectedApp] = useState(null);
+  const [cvModal, setCvModal] = useState({
+    show: false,
+    url: '',
+    name: '',
+    jobTitle: '',
+  });
+
+  const getCvUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL)
+      ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '')
+      : 'http://localhost:8080';
+    return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+  };
+
+  const handleOpenCv = (url, name, jobTitle) => {
+    setCvModal({
+      show: true,
+      url: getCvUrl(url),
+      name: name || 'Ứng viên',
+      jobTitle: jobTitle || '',
+    });
+  };
+
+  const handleDeleteApplication = async (appId, candidateName) => {
+    if (!window.confirm(`Bạn có chắc chắn muốn gỡ bỏ hồ sơ của ứng viên "${candidateName || 'này'}" khỏi danh sách?`)) {
+      return;
+    }
+    try {
+      await applicationApi.deleteApplication(appId);
+      setApplications((prev) => prev.filter((a) => a.id !== appId));
+      showToast('success', `Đã gỡ hồ sơ của ứng viên "${candidateName || ''}" thành công.`);
+      if (selectedApp && selectedApp.id === appId) {
+        setSelectedApp(null);
+      }
+    } catch {
+      showToast('error', 'Không thể gỡ hồ sơ lúc này. Vui lòng thử lại!');
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -297,16 +340,16 @@ export default function ReceivedApplications() {
 
                         {/* Cột 4: File CV */}
                         <td className="py-2.5">
-                          <a
-                            href={candidate.cvUrl || app.cvUrl || '#'}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="btn btn-sm btn-light border py-1 px-2.5 d-inline-flex align-items-center gap-1.5 text-decoration-none text-dark"
+                          <button
+                            type="button"
+                            onClick={() => handleOpenCv(candidate.cvUrl || app.cvUrl, candidate.fullName, app.jobTitle)}
+                            className="btn btn-sm btn-light border py-1 px-2.5 d-inline-flex align-items-center gap-1.5 text-dark"
                             style={{ fontSize: '12px' }}
+                            title="Bấm để xem trực tiếp CV"
                           >
                             <FaFilePdf className="text-danger" size={13} />
                             <span>Xem CV</span>
-                          </a>
+                          </button>
                         </td>
 
                         {/* Cột 5: Cột AI đánh giá ghi rõ điểm số */}
@@ -388,6 +431,15 @@ export default function ReceivedApplications() {
                             >
                               <FaEye size={10} />
                             </button>
+                            <button
+                              type="button"
+                              className="btn btn-outline-danger py-1 px-2"
+                              onClick={() => handleDeleteApplication(app.id, candidate.fullName)}
+                              title="Gỡ bỏ hồ sơ này khỏi danh sách"
+                              style={{ fontSize: '11.5px' }}
+                            >
+                              <FaTrash size={10} />
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -442,15 +494,14 @@ export default function ReceivedApplications() {
                 <span className="small text-muted">Trạng thái hồ sơ:</span>
                 <StatusBadge status={selectedApp.status || 'PENDING'} />
               </div>
-              <a
-                href={selectedApp.candidate?.cvUrl || selectedApp.cvUrl || '#'}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
+                onClick={() => handleOpenCv(selectedApp.candidate?.cvUrl || selectedApp.cvUrl, selectedApp.candidate?.fullName, selectedApp.jobTitle)}
                 className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1.5 fw-semibold"
               >
                 <FaFilePdf className="text-danger" size={14} />
-                <span>Mở file CV đính kèm</span>
-              </a>
+                <span>Mở file CV trực tiếp</span>
+              </button>
             </div>
 
             {/* Thư giới thiệu / Lời nhắn của ứng viên */}
@@ -497,13 +548,23 @@ export default function ReceivedApplications() {
             )}
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-between align-items-center pt-2 border-top">
-            <button
-              type="button"
-              className="btn btn-sm btn-outline-secondary"
-              onClick={() => setSelectedApp(null)}
-            >
-              Đóng
-            </button>
+            <div className="d-flex gap-2">
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-secondary"
+                onClick={() => setSelectedApp(null)}
+              >
+                Đóng
+              </button>
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1"
+                onClick={() => handleDeleteApplication(selectedApp.id, selectedApp.candidate?.fullName)}
+                title="Gỡ hồ sơ khỏi danh sách"
+              >
+                <FaTrash size={11} /> Gỡ hồ sơ
+              </button>
+            </div>
             <div className="d-flex gap-2">
               <button
                 type="button"
@@ -529,6 +590,56 @@ export default function ReceivedApplications() {
           </Modal.Footer>
         </Modal>
       )}
+
+      {/* Modal xem CV trực tuyến tiện lợi */}
+      <Modal
+        show={cvModal.show}
+        onHide={() => setCvModal({ ...cvModal, show: false })}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton className="pb-2">
+          <div>
+            <Modal.Title className="h6 fw-bold mb-0 text-dark">Hồ sơ ứng viên: {cvModal.name}</Modal.Title>
+            <small className="text-muted">{cvModal.jobTitle}</small>
+          </div>
+        </Modal.Header>
+        <Modal.Body className="p-0 bg-light" style={{ height: '600px' }}>
+          {cvModal.url ? (
+            <iframe
+              src={cvModal.url}
+              title={`CV-${cvModal.name}`}
+              width="100%"
+              height="100%"
+              style={{ border: 'none' }}
+            />
+          ) : (
+            <div className="d-flex align-items-center justify-content-center h-100 text-muted">
+              Không tìm thấy file CV đính kèm
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer className="py-2 d-flex justify-content-between">
+          <span className="small text-muted">Tự động xem trước định dạng PDF / DOC</span>
+          <div className="d-flex gap-2">
+            <a
+              href={cvModal.url}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1"
+            >
+              <FaExternalLinkAlt size={11} /> Mở tab mới
+            </a>
+            <a
+              href={cvModal.url}
+              download
+              className="btn btn-sm btn-brand d-inline-flex align-items-center gap-1"
+            >
+              <FaDownload size={11} /> Tải file về máy
+            </a>
+          </div>
+        </Modal.Footer>
+      </Modal>
 
       {/* Modal chi tiết đánh giá tiêu chí */}
       <AiReviewModal

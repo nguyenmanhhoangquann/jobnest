@@ -25,11 +25,12 @@ export default function EmployerDashboard() {
 
   useEffect(() => {
     Promise.all([
-      jobApi.getJobs({ size: 10 }),
+      jobApi.getMyJobs(),
       applicationApi.getReceivedApplications({ size: 10 }),
     ])
       .then(([jobsRes, appsRes]) => {
-        setJobs(jobsRes?.content || []);
+        const myJobs = Array.isArray(jobsRes) ? jobsRes : jobsRes?.content || [];
+        setJobs(myJobs);
         const appsList = Array.isArray(appsRes) ? appsRes : appsRes?.content || [];
         setApplications(appsList);
       })

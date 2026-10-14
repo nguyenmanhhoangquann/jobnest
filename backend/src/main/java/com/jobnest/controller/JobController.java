@@ -92,6 +92,13 @@ public class JobController {
         return ResponseEntity.ok(Map.of("success", true, "message", "Đã xóa tin tuyển dụng"));
     }
 
+    @GetMapping("/jobs/mine")
+    public ResponseEntity<List<JobDto>> getMyJobs(
+            @AuthenticationPrincipal User employer
+    ) {
+        return ResponseEntity.ok(jobService.getMyJobs(employer));
+    }
+
     // Saved Jobs Endpoints
     @PostMapping("/saved-jobs/{jobId}")
     public ResponseEntity<Map<String, Object>> saveJob(

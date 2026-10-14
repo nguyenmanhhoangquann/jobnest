@@ -177,6 +177,26 @@ public class ApplicationService {
                 .build());
     }
 
+    @Transactional
+    public void deleteApplication(Long id, User user) {
+        Application app = applicationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy hồ sơ"));
+
+        if (user.getRole() != com.jobnest.entity.Role.ADMIN) {
+            boolean isOwner = app.getJob() != null && app.getJob().getEmployer() != null
+                    && app.getJob().getEmployer().getId().equals(user.getId());
+            boolean isCompanyMatch = user.getCompanyName() != null && !user.getCompanyName().isBlank()
+                    && app.getJob() != null && app.getJob().getCompany() != null
+                    && user.getCompanyName().equalsIgnoreCase(app.getJob().getCompany().getName());
+
+            if (!isOwner && !isCompanyMatch) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Bạn không có quyền xóa hồ sơ này");
+            }
+        }
+
+        applicationRepository.delete(app);
+    }
+
     public ApplicationResponse mapToResponse(Application app) {
         List<String> strengths = new ArrayList<>();
         List<String> weaknesses = new ArrayList<>();

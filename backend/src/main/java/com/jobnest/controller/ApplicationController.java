@@ -78,4 +78,13 @@ public class ApplicationController {
         applicationService.updateStatus(id, status, employer);
         return ResponseEntity.ok(Map.of("success", true, "message", "Cập nhật trạng thái thành công"));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteApplication(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User user
+    ) {
+        applicationService.deleteApplication(id, user);
+        return ResponseEntity.ok(Map.of("success", true, "message", "Đã gỡ hồ sơ ứng tuyển thành công"));
+    }
 }

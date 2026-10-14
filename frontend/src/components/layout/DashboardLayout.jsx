@@ -40,10 +40,11 @@ export default function DashboardLayout() {
           {/* Logo & Role Badge */}
           <div className="mb-4 pb-3 border-bottom">
             <Link to="/" className="text-decoration-none d-flex align-items-center gap-2 mb-2">
-              <span className="brand-logo__circle">JN</span>
-              <span className="brand-logo__text">
-                Job<strong>Nest</strong>
-              </span>
+              <img
+                src="/images/jobnest-logo.png"
+                alt="JobNest"
+                style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
+              />
             </Link>
             <span className="badge bg-warning text-dark py-1 px-2 fw-semibold">
               Nhà tuyển dụng

@@ -273,6 +273,15 @@ export const jobApi = {
 
     return axiosClient.get('/saved-jobs', { params });
   },
+
+  // Tin tuyển dụng của chính NTD
+  getMyJobs: async () => {
+    if (USE_MOCK) {
+      await new Promise((r) => setTimeout(r, 300));
+      return jobsState.slice(0, 5);
+    }
+    return axiosClient.get('/jobs/mine');
+  },
 };
 
 export default jobApi;

@@ -141,12 +141,21 @@ export default function AdminDashboard() {
       <div className="container-app">
         {/* Header trang Quản trị */}
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4 pb-3 border-bottom">
-          <div>
-            <div className="d-flex align-items-center gap-2 mb-1">
-              <span className="badge bg-danger px-2.5 py-1.5 fw-bold">ADMIN PANEL</span>
-              <span className="small text-muted fw-semibold">Hệ thống quản lý JobNest</span>
+          <div className="d-flex align-items-center gap-3">
+            <Link to="/" title="Về trang chủ JobNest">
+              <img
+                src="/images/jobnest-logo.png"
+                alt="JobNest"
+                style={{ height: '42px', width: 'auto', objectFit: 'contain' }}
+              />
+            </Link>
+            <div>
+              <div className="d-flex align-items-center gap-2 mb-1">
+                <span className="badge bg-danger px-2.5 py-1 fw-bold">ADMIN PANEL</span>
+                <span className="small text-muted fw-semibold">Hệ thống quản lý JobNest</span>
+              </div>
+              <h1 className="h4 fw-bold mb-0 text-dark">Bảng điều khiển Quản trị viên</h1>
             </div>
-            <h1 className="h3 fw-bold mb-0 text-dark">Bảng điều khiển Quản trị viên</h1>
           </div>
 
           {/* Dải Tab chuyển đổi nhanh */}
