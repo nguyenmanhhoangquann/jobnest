@@ -773,9 +773,9 @@ export default function Companies() {
           <div className="row g-3 g-lg-3.5">
             {filteredCompanies.map((comp) => (
               <div key={comp.id} className="col-12 col-sm-6 col-lg-3">
-                <div
-                  className="company-card-premium"
-                  onClick={() => setSearchParams({ id: comp.id })}
+                <Link
+                  to={`/companies?id=${comp.id}`}
+                  className="company-card-premium text-decoration-none d-block"
                 >
                   {/* 16:9 Cover Image with Rounded Top */}
                   <div className="company-card-cover-wrap">
@@ -783,6 +783,7 @@ export default function Companies() {
                       src={comp.cover}
                       alt={comp.name}
                       className="company-card-cover-img"
+                      loading="lazy"
                     />
                   </div>
 
@@ -802,8 +803,8 @@ export default function Companies() {
                         }}
                       />
                       <div
-                        className="fw-bold text-dark d-none align-items-center justify-content-center w-100 h-100 rounded-3 bg-light"
-                        style={{ fontSize: '18px' }}
+                        className="fw-bold text-dark align-items-center justify-content-center w-100 h-100 rounded-3 bg-light"
+                        style={{ display: 'none', fontSize: '18px' }}
                       >
                         {(comp.shortName || comp.name).charAt(0).toUpperCase()}
                       </div>
@@ -846,7 +847,7 @@ export default function Companies() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             ))}
           </div>

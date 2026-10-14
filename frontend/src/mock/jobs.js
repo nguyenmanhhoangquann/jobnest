@@ -49,7 +49,7 @@ export const mockJobs = [
     "company": {
       "id": 2,
       "name": "NGÂN HÀNG THƯƠNG MẠI CỔ PHẦN QUÂN ĐỘI (MB)",
-      "logoUrl": "/images/companies/mb-bank.png"
+      "logoUrl": "/images/companies/mb-bank.svg"
     },
     "isHot": true,
     "isUrgent": true,
@@ -139,7 +139,7 @@ export const mockJobs = [
     "company": {
       "id": 5,
       "name": "NGÂN HÀNG QUỐC TẾ VIB",
-      "logoUrl": "/images/companies/vib.png"
+      "logoUrl": "/images/companies/vib.svg"
     },
     "isHot": true,
     "isUrgent": true,
