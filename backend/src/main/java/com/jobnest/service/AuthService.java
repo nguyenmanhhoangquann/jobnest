@@ -23,7 +23,8 @@ public class AuthService {
     private final JwtService jwtService;
 
     public AuthResponse login(AuthRequest request) {
-        User user = userRepository.findByUsername(request.getUsername())
+        String identifier = request.getUsername() != null ? request.getUsername().trim() : "";
+        User user = userRepository.findByIdentifier(identifier)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Tên đăng nhập hoặc mật khẩu không chính xác"));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
@@ -38,8 +39,15 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
+        String uname = request.getUsername() != null ? request.getUsername().trim() : "";
+        if (uname.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tên đăng nhập không được để trống");
+        }
+        if (userRepository.existsByUsername(uname)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Tên đăng nhập đã tồn tại trong hệ thống");
+        }
+        if (request.getEmail() != null && !request.getEmail().trim().isEmpty() && userRepository.existsByEmail(request.getEmail().trim())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email đã được đăng ký trong hệ thống");
         }
 
         Role role = Role.CANDIDATE;
