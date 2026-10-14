@@ -23,12 +23,19 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(request));
     }
 
-    @PostMapping(value = "/register", consumes = {"application/json", "application/x-www-form-urlencoded", "multipart/form-data"})
-    public ResponseEntity<Map<String, Object>> register(
-            @ModelAttribute RegisterRequest modelReq,
-            @RequestBody(required = false) RegisterRequest bodyReq
-    ) {
-        RegisterRequest request = (bodyReq != null && bodyReq.getUsername() != null) ? bodyReq : modelReq;
+    @PostMapping(value = "/register", consumes = "application/json")
+    public ResponseEntity<Map<String, Object>> registerJson(@RequestBody RegisterRequest request) {
+        AuthResponse response = authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
+                "success", true,
+                "message", "Đăng ký tài khoản thành công",
+                "token", response.getToken(),
+                "user", response.getUser()
+        ));
+    }
+
+    @PostMapping(value = "/register", consumes = {"multipart/form-data", "application/x-www-form-urlencoded"})
+    public ResponseEntity<Map<String, Object>> registerForm(@ModelAttribute RegisterRequest request) {
         AuthResponse response = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
                 "success", true,

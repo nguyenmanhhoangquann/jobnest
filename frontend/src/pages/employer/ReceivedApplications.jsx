@@ -44,10 +44,7 @@ export default function ReceivedApplications() {
   const getCvUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
-    const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL)
-      ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '')
-      : 'http://localhost:8080';
-    return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+    return url.startsWith('/') ? url : `/${url}`;
   };
 
   const handleOpenCv = (url, name, jobTitle) => {

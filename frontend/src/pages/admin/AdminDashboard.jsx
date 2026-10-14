@@ -11,24 +11,29 @@ import {
   FaChartLine,
   FaSearch,
   FaFilter,
+  FaTrash,
 } from 'react-icons/fa';
 import { showToast } from '../../components/common/ToastHost.jsx';
 import { VIOLATION_TYPES } from '../../constants.js';
 import reportApi from '../../api/reportApi.js';
+import adminApi from '../../api/adminApi.js';
 
 export default function AdminDashboard() {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentTab = searchParams.get('tab') || 'overview';
 
-  // Thống kê nhanh hệ thống
-  const [stats] = useState({
-    totalUsers: 1420,
-    totalEmployers: 320,
-    activeJobs: 2450,
-    pendingJobs: 18,
-    pendingCompanies: 7,
-    reportedContent: 3,
+  // Thống kê thực tế từ Backend
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    totalEmployers: 0,
+    activeJobs: 0,
+    pendingJobs: 0,
+    pendingCompanies: 0,
+    reportedContent: 0,
   });
+
+  const [userList, setUserList] = useState([]);
+  const [userSearch, setUserSearch] = useState('');
 
   // Dữ liệu mock duyệt tin tuyển dụng
   const [pendingJobs, setPendingJobs] = useState([
@@ -78,22 +83,44 @@ export default function AdminDashboard() {
     },
   ]);
 
-  // Dữ liệu mock danh sách tài khoản User
-  const [userList] = useState([
-    { id: 1, username: 'nguyenvanhung', fullName: 'Nguyễn Văn Hùng', email: 'hung.nv@gmail.com', role: 'CANDIDATE', joined: '01/10/2026', status: 'ACTIVE' },
-    { id: 2, username: 'lethithu', fullName: 'Lê Thị Thu', email: 'thu.lt@gmail.com', role: 'CANDIDATE', joined: '03/10/2026', status: 'ACTIVE' },
-    { id: 3, username: 'tranminhduc', fullName: 'Trần Minh Đức', email: 'duc.tm@gmail.com', role: 'CANDIDATE', joined: '04/10/2026', status: 'ACTIVE' },
-    { id: 4, username: 'fpt_recruitment', fullName: 'FPT Software HR', email: 'hr@fpt.com', role: 'EMPLOYER', joined: '20/09/2026', status: 'ACTIVE' },
-    { id: 5, username: 'viettel_telecom', fullName: 'Viettel Telecom', email: 'tuyendung@viettel.com.vn', role: 'EMPLOYER', joined: '15/09/2026', status: 'ACTIVE' },
-  ]);
-
   // Quản lý & Lịch sử báo cáo vi phạm qua reportApi
   const [reports, setReports] = useState([]);
   const [reportFilter, setReportFilter] = useState('ALL');
 
   useEffect(() => {
     reportApi.getReports().then((data) => setReports(data || []));
+    adminApi.getStats().then((data) => {
+      if (data) setStats((prev) => ({ ...prev, ...data }));
+    }).catch(() => {});
+    adminApi.getUsers().then((data) => {
+      if (Array.isArray(data)) setUserList(data);
+    }).catch(() => {});
   }, []);
+
+  const handleDeleteUser = async (userId, username) => {
+    if (!window.confirm(`Bạn có chắc chắn muốn xóa tài khoản "${username}" không? Thao tác này không thể hoàn tác.`)) {
+      return;
+    }
+    try {
+      await adminApi.deleteUser(userId);
+      setUserList((prev) => prev.filter((u) => u.id !== userId));
+      setStats((prev) => ({ ...prev, totalUsers: Math.max(0, prev.totalUsers - 1) }));
+      showToast('success', `Đã xóa tài khoản "${username}" thành công.`);
+    } catch (err) {
+      showToast('error', err.response?.data?.message || 'Không thể xóa tài khoản này.');
+    }
+  };
+
+  const filteredUsers = useMemo(() => {
+    if (!userSearch.trim()) return userList;
+    const kw = userSearch.toLowerCase();
+    return userList.filter((u) =>
+      (u.fullName || '').toLowerCase().includes(kw) ||
+      (u.username || '').toLowerCase().includes(kw) ||
+      (u.email || '').toLowerCase().includes(kw) ||
+      (u.companyName || '').toLowerCase().includes(kw)
+    );
+  }, [userList, userSearch]);
 
   const handleUpdateReportStatus = async (reportId, newStatus, message) => {
     const updated = await reportApi.updateStatus(reportId, newStatus);
@@ -411,13 +438,18 @@ export default function AdminDashboard() {
         {currentTab === 'users' && (
           <div className="card border-0 shadow-sm rounded-3 p-4 bg-white">
             <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-              <h2 className="h5 fw-bold mb-0">Quản lý Tài khoản (User & Nhà tuyển dụng)</h2>
+              <div>
+                <h2 className="h5 fw-bold mb-1">Quản lý Tài khoản (User, NTD & Quản trị)</h2>
+                <small className="text-muted">Tổng cộng {userList.length} tài khoản trong cơ sở dữ liệu hệ thống</small>
+              </div>
               <div className="d-flex gap-2">
                 <input
                   type="text"
                   className="form-control form-control-sm"
-                  placeholder="Tìm kiếm tài khoản..."
-                  style={{ width: '220px' }}
+                  placeholder="Tìm theo tên, email, username..."
+                  style={{ width: '260px' }}
+                  value={userSearch}
+                  onChange={(e) => setUserSearch(e.target.value)}
                 />
               </div>
             </div>
@@ -426,31 +458,70 @@ export default function AdminDashboard() {
               <table className="table table-hover align-middle">
                 <thead className="table-light">
                   <tr>
-                    <th>Họ và tên</th>
+                    <th>Họ và tên / Doanh nghiệp</th>
                     <th>Tài khoản</th>
                     <th>Email</th>
                     <th>Vai trò</th>
-                    <th>Ngày tham gia</th>
                     <th>Trạng thái</th>
+                    <th className="text-end">Hành động</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {userList.map((u) => (
-                    <tr key={u.id}>
-                      <td className="fw-bold">{u.fullName}</td>
-                      <td><code>{u.username}</code></td>
-                      <td>{u.email}</td>
-                      <td>
-                        <span className={`badge ${u.role === 'EMPLOYER' ? 'bg-warning text-dark' : 'bg-primary'}`}>
-                          {u.role === 'EMPLOYER' ? 'Nhà tuyển dụng' : 'Người tìm việc'}
-                        </span>
-                      </td>
-                      <td className="small text-muted">{u.joined}</td>
-                      <td>
-                        <span className="badge bg-success-subtle text-success">Hoạt động</span>
+                  {filteredUsers.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="text-center py-4 text-muted">
+                        Không tìm thấy tài khoản nào phù hợp
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    filteredUsers.map((u) => (
+                      <tr key={u.id}>
+                        <td>
+                          <div className="fw-bold text-dark">{u.fullName || u.displayName || 'Người dùng'}</div>
+                          {u.companyName && (
+                            <small className="text-muted d-block">{u.companyName}</small>
+                          )}
+                        </td>
+                        <td><code>{u.username}</code></td>
+                        <td className="small">{u.email || 'Chưa cập nhật'}</td>
+                        <td>
+                          <span
+                            className={`badge ${
+                              u.role === 'ADMIN'
+                                ? 'bg-danger text-white'
+                                : u.role === 'EMPLOYER'
+                                ? 'bg-warning text-dark'
+                                : 'bg-primary text-white'
+                            }`}
+                          >
+                            {u.role === 'ADMIN'
+                              ? 'Quản trị viên'
+                              : u.role === 'EMPLOYER'
+                              ? 'Nhà tuyển dụng'
+                              : 'Người tìm việc'}
+                          </span>
+                        </td>
+                        <td>
+                          <span className="badge bg-success-subtle text-success">Hoạt động</span>
+                        </td>
+                        <td className="text-end">
+                          {u.role !== 'ADMIN' ? (
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1"
+                              onClick={() => handleDeleteUser(u.id, u.username)}
+                              title="Xóa tài khoản này khỏi hệ thống"
+                              style={{ fontSize: '11px' }}
+                            >
+                              <FaTrash size={10} /> Xóa
+                            </button>
+                          ) : (
+                            <span className="badge bg-light text-muted border">Bảo vệ</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
