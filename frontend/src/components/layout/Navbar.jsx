@@ -186,14 +186,9 @@ function UserMenu({ user, onLogout }) {
             </Dropdown.Item>
           </>
         ) : (
-          <>
-            <Dropdown.Item as={Link} to="/candidate/applied-jobs" className="d-flex align-items-center gap-2 py-2">
-              <FaFileAlt size={14} className="text-muted" /> Việc đã ứng tuyển
-            </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/candidate/saved-jobs" className="d-flex align-items-center gap-2 py-2">
-              <FaBookmark size={14} className="text-muted" /> Công việc đã lưu
-            </Dropdown.Item>
-          </>
+          <Dropdown.Item as={Link} to="/candidate/applied-jobs" className="d-flex align-items-center gap-2 py-2">
+            <FaFileAlt size={14} className="text-muted" /> Việc đã ứng tuyển
+          </Dropdown.Item>
         )}
 
         <Dropdown.Divider />
