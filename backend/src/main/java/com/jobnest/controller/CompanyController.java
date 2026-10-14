@@ -134,7 +134,43 @@ public class CompanyController {
             sizeStr = "200 - 500 nhân viên";
             descStr = "Đơn vị tiên phong nghiên cứu và ứng dụng các giải pháp trí tuệ nhân tạo và chuyển đổi số doanh nghiệp.";
             coverUrl = "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80";
-            websiteUrl = "https://ai-soft.vn";
+            websiteUrl = "https://aisoft.com.vn";
+        } else if (nameLower.contains("sunhouse")) {
+            industryStr = "Gia dụng & Sản xuất";
+            sizeStr = "5.000+ nhân sự";
+            descStr = "Tập đoàn gia dụng hàng đầu Việt Nam sở hữu chuỗi nhà máy hiện đại quy mô hàng đầu khu vực.";
+            coverUrl = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80";
+            websiteUrl = "https://sunhouse.com.vn";
+        } else if (nameLower.contains("novaland")) {
+            industryStr = "Bất động sản";
+            sizeStr = "2.000+ nhân sự";
+            descStr = "Tập đoàn đầu tư và phát triển bất động sản uy tín tại Việt Nam.";
+            coverUrl = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80";
+            websiteUrl = "https://novaland.com.vn";
+        } else if (nameLower.contains("msb") || nameLower.contains("hàng hải")) {
+            industryStr = "Ngân hàng / Tài chính";
+            sizeStr = "7.000+ nhân sự";
+            descStr = "Ngân hàng TMCP Hàng Hải Việt Nam - Ngân hàng tiên phong số hóa tài chính toàn diện.";
+            coverUrl = "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80";
+            websiteUrl = "https://msb.com.vn";
+        } else if (nameLower.contains("sun life")) {
+            industryStr = "Bảo hiểm nhân thọ / Tài chính";
+            sizeStr = "1.000+ nhân sự";
+            descStr = "Tập đoàn bảo hiểm tài chính quốc tế uy tín đến từ Canada.";
+            coverUrl = "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80";
+            websiteUrl = "https://sunlife.com.vn";
+        } else if (nameLower.contains("bcons")) {
+            industryStr = "Bất động sản / Xây dựng";
+            sizeStr = "1.000+ nhân sự";
+            descStr = "Tập đoàn đầu tư và phát triển bất động sản phân khúc căn hộ ở thực hàng đầu TP.HCM.";
+            coverUrl = "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80";
+            websiteUrl = "https://bcons.com.vn";
+        } else if (nameLower.contains("educa")) {
+            industryStr = "Giáo dục trực tuyến / EdTech";
+            sizeStr = "1.500+ nhân sự";
+            descStr = "Tập đoàn công nghệ giáo dục EdTech hàng đầu với các sản phẩm tiếng Anh trẻ em phổ biến nhất.";
+            coverUrl = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80";
+            websiteUrl = "https://educa.vn";
         } else {
             String[] covers = new String[]{
                 "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80",

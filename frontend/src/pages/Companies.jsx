@@ -42,6 +42,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Cầu Giấy, Hà Nội',
     size: '50.000+ nhân sự',
     industry: 'Viễn thông / Công nghệ cao',
+    website: 'https://viettel.com.vn',
   },
   fpt: {
     tagline: 'Tiên phong chuyển đổi số và kiến tạo tương lai bền vững cùng công nghệ AI.',
@@ -54,6 +55,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Cầu Giấy, Hà Nội',
     size: '10.000+ nhân sự',
     industry: 'IT - Phần mềm / Viễn thông',
+    website: 'https://fpt.com.vn',
   },
   mb: {
     tagline: 'Ngân hàng số thông minh với hệ sinh thái tài chính toàn diện phục vụ hàng triệu khách hàng.',
@@ -66,6 +68,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Ba Đình, Hà Nội',
     size: '15.000+ nhân sự',
     industry: 'Ngân hàng / Tài chính',
+    website: 'https://mbbank.com.vn',
   },
   'quân đội': {
     tagline: 'Ngân hàng số thông minh với hệ sinh thái tài chính toàn diện phục vụ hàng triệu khách hàng.',
@@ -78,6 +81,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Ba Đình, Hà Nội',
     size: '15.000+ nhân sự',
     industry: 'Ngân hàng / Tài chính',
+    website: 'https://mbbank.com.vn',
   },
   vinamilk: {
     tagline: 'Thương hiệu sữa quốc gia với chuỗi cung ứng bền vững chuẩn quốc tế và cam kết Net Zero.',
@@ -90,6 +94,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Quận 7, TP.HCM',
     size: '10.000+ nhân sự',
     industry: 'Hàng tiêu dùng nhanh (FMCG)',
+    website: 'https://vinamilk.com.vn',
   },
   misa: {
     tagline: 'Nền tảng phần mềm SaaS và giải pháp quản trị doanh nghiệp phục vụ hơn 350.000 tổ chức.',
@@ -102,6 +107,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Cầu Giấy, Hà Nội',
     size: '3.000+ nhân sự',
     industry: 'Phần mềm quản trị doanh nghiệp',
+    website: 'https://misa.vn',
   },
   vinhomes: {
     tagline: 'Nhà phát triển đại đô thị thông minh và hệ sinh thái bất động sản đẳng cấp quốc tế.',
@@ -114,6 +120,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Gia Lâm, Hà Nội',
     size: '20.000+ nhân sự',
     industry: 'Bất động sản / Phát triển đô thị',
+    website: 'https://vinhomes.vn',
   },
   'hòa phát': {
     tagline: 'Tập đoàn sản xuất công nghiệp và chế tạo thép hàng đầu Đông Nam Á.',
@@ -126,6 +133,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Hai Bà Trưng, Hà Nội',
     size: '30.000+ nhân sự',
     industry: 'Công nghiệp nặng / Sản xuất',
+    website: 'https://hoaphat.com.vn',
   },
   vib: {
     tagline: 'Dẫn đầu xu hướng ngân hàng bán lẻ và công nghệ thẻ số hóa phong cách sống.',
@@ -138,6 +146,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Hoàn Kiếm, Hà Nội',
     size: '10.000+ nhân sự',
     industry: 'Tài chính - Ngân hàng',
+    website: 'https://vib.com.vn',
   },
   ssi: {
     tagline: 'Định chế tài chính và công ty chứng khoán hàng đầu Việt Nam, quản lý tài sản chuyên nghiệp.',
@@ -150,6 +159,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Quận 1, TP.HCM',
     size: '2.000+ nhân sự',
     industry: 'Chứng khoán & Quản lý quỹ',
+    website: 'https://ssi.com.vn',
   },
   concentrix: {
     tagline: 'Dẫn đầu trải nghiệm khách hàng (CX) toàn cầu với giải pháp công nghệ đa kênh tiên tiến.',
@@ -162,6 +172,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Quận 12, TP.HCM',
     size: '5.000+ nhân sự',
     industry: 'Dịch vụ BPO / Trải nghiệm khách hàng',
+    website: 'https://concentrix.com',
   },
   'k&m': {
     tagline: 'Đầu tư đa ngành, phân phối thiết bị cơ điện và chuỗi cung ứng thương mại hiện đại.',
@@ -174,6 +185,7 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Cầu Giấy, Hà Nội',
     size: '500 - 1.000 nhân sự',
     industry: 'Thương mại & Đầu tư đa ngành',
+    website: 'https://kmholdings.vn',
   },
   'a.i': {
     tagline: 'Đơn vị tiên phong nghiên cứu và phát triển các giải pháp trí tuệ nhân tạo và chuyển đổi số doanh nghiệp.',
@@ -186,6 +198,46 @@ const COMPANY_EXTRAS_MAP = {
     hq: 'Cầu Giấy, Hà Nội',
     size: '200 - 500 nhân sự',
     industry: 'IT - Phần mềm / Trí tuệ nhân tạo',
+    website: 'https://aisoft.com.vn',
+  },
+  sunhouse: {
+    tagline: 'Tập đoàn gia dụng hàng đầu Việt Nam sở hữu chuỗi nhà máy hiện đại quy mô hàng đầu khu vực.',
+    founded: 2000,
+    offices: 'Chi nhánh toàn quốc',
+    officesCount: '10+',
+    activeUsers: '20M+',
+    funding: 'Tập đoàn Gia dụng',
+    ownership: 'Tập đoàn Sản xuất',
+    hq: 'Hà Nội & TP.HCM',
+    size: '5.000+ nhân sự',
+    industry: 'Gia dụng & Sản xuất',
+    website: 'https://sunhouse.com.vn',
+  },
+  novaland: {
+    tagline: 'Tập đoàn đầu tư và phát triển bất động sản uy tín tại Việt Nam.',
+    founded: 1992,
+    offices: 'TP.HCM & Toàn quốc',
+    officesCount: '15+',
+    activeUsers: '5M+',
+    funding: 'Niêm yết HOSE (NVL)',
+    ownership: 'Bất động sản',
+    hq: 'Quận 1, TP.HCM',
+    size: '2.000+ nhân sự',
+    industry: 'Bất động sản',
+    website: 'https://novaland.com.vn',
+  },
+  msb: {
+    tagline: 'Ngân hàng TMCP Hàng Hải Việt Nam - Tiên phong số hóa tài chính toàn diện.',
+    founded: 1991,
+    offices: '260+ Chi nhánh toàn quốc',
+    officesCount: '260+',
+    activeUsers: '6M+',
+    funding: 'Niêm yết HOSE (MSB)',
+    ownership: 'Ngân hàng Thương mại',
+    hq: 'Đống Đa, Hà Nội',
+    size: '7.000+ nhân sự',
+    industry: 'Ngân hàng / Tài chính',
+    website: 'https://msb.com.vn',
   },
 };
 
@@ -206,6 +258,7 @@ const getCompanyExtras = (company) => {
     hq: company.location || 'Hà Nội',
     size: company.size || '500 - 1.000 nhân sự',
     industry: company.industry || 'Đa ngành',
+    website: company.website || 'https://jobnest.vn',
   };
 };
 
@@ -352,6 +405,7 @@ export default function Companies() {
   if (selectedCompany) {
     const extras = getCompanyExtras(selectedCompany);
     const jobsList = selectedCompany.jobs || [];
+    const companyWebsite = extras.website || selectedCompany.website;
 
     return (
       <div className="novatech-page-wrap">
@@ -426,18 +480,18 @@ export default function Companies() {
                       <FaUsers size={13} className="text-secondary" />
                       <span>{extras.size || selectedCompany.size}</span>
                     </span>
-                    {selectedCompany.website && (
+                    {companyWebsite && (
                       <>
                         <span>•</span>
                         <a
-                          href={selectedCompany.website}
+                          href={companyWebsite}
                           target="_blank"
                           rel="noreferrer"
                           className="text-decoration-none d-inline-flex align-items-center gap-1 fw-bold"
                           style={{ color: '#0F172A' }}
                         >
                           <FaGlobe size={13} />
-                          <span>{selectedCompany.website.replace('https://', '')}</span>
+                          <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
                           <span style={{ fontSize: '11px', color: '#EA580C' }}>↗</span>
                         </a>
                       </>
@@ -600,17 +654,17 @@ export default function Companies() {
                       <strong style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCompany.size}</strong>
                     </div>
 
-                    {selectedCompany.website && (
+                    {companyWebsite && (
                       <div className="novatech-overview-row">
                         <span style={{ color: '#475569', fontWeight: 500 }}>Trang web</span>
                         <a
-                          href={selectedCompany.website}
+                          href={companyWebsite}
                           target="_blank"
                           rel="noreferrer"
                           className="fw-bold text-decoration-none d-inline-flex align-items-center gap-1"
                           style={{ color: '#EA580C', fontSize: '14.5px' }}
                         >
-                          <span>{selectedCompany.website.replace('https://', '')}</span>
+                          <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
                           <span style={{ fontSize: '11px' }}>↗</span>
                         </a>
                       </div>

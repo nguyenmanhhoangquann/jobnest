@@ -172,6 +172,23 @@ export default function JobDetail() {
       (c.slug && (job.company?.slug === c.slug || job.company?.name?.toLowerCase().includes(c.slug)))
   ) || {};
 
+  const targetCompanyId = job.company?.id || companyInfo.id;
+  const companyWebsite =
+    companyInfo.website ||
+    (companyName.toLowerCase().includes('a.i') ? 'https://aisoft.com.vn' :
+     companyName.toLowerCase().includes('fpt') ? 'https://fpt.com.vn' :
+     companyName.toLowerCase().includes('viettel') ? 'https://viettel.com.vn' :
+     companyName.toLowerCase().includes('mb') ? 'https://mbbank.com.vn' :
+     companyName.toLowerCase().includes('vinamilk') ? 'https://vinamilk.com.vn' :
+     companyName.toLowerCase().includes('misa') ? 'https://misa.vn' :
+     companyName.toLowerCase().includes('vinhomes') ? 'https://vinhomes.vn' :
+     companyName.toLowerCase().includes('hòa phát') ? 'https://hoaphat.com.vn' :
+     companyName.toLowerCase().includes('ssi') ? 'https://ssi.com.vn' :
+     companyName.toLowerCase().includes('vib') ? 'https://vib.com.vn' :
+     companyName.toLowerCase().includes('concentrix') ? 'https://concentrix.com' :
+     companyName.toLowerCase().includes('k&m') ? 'https://kmholdings.vn' :
+     null);
+
   const skillsList = getTechSkills(job, companyInfo.industry);
 
   return (
@@ -228,7 +245,7 @@ export default function JobDetail() {
 
                 <div className="d-flex flex-wrap align-items-center gap-2 mb-2.5">
                   <Link
-                    to={companyInfo.id ? `/companies?id=${companyInfo.id}` : '#'}
+                    to={targetCompanyId ? `/companies?id=${targetCompanyId}` : '#'}
                     className="fw-bold text-dark text-decoration-none d-inline-flex align-items-center gap-1.5"
                     style={{ fontSize: '15px' }}
                   >
@@ -514,25 +531,25 @@ export default function JobDetail() {
                     'Doanh nghiệp hàng đầu, tiên phong đổi mới công nghệ và kiến tạo môi trường làm việc chuẩn quốc tế.'}
                 </p>
 
-                {companyInfo.website && (
+                {companyWebsite && (
                   <div className="mb-3">
                     <a
-                      href={companyInfo.website}
+                      href={companyWebsite}
                       target="_blank"
                       rel="noreferrer"
                       className="text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1"
                       style={{ color: '#EA580C' }}
                     >
                       <FaGlobe size={13} />
-                      <span>{companyInfo.website.replace('https://', '')}</span>
+                      <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
                       <FaExternalLinkAlt size={10} />
                     </a>
                   </div>
                 )}
 
-                {companyInfo.id && (
+                {targetCompanyId && (
                   <Link
-                    to={`/companies?id=${companyInfo.id}`}
+                    to={`/companies?id=${targetCompanyId}`}
                     className="btn btn-outline-dark w-100 rounded-pill fw-bold py-2 d-inline-flex align-items-center justify-content-center gap-2"
                     style={{ fontSize: '13.5px' }}
                   >
