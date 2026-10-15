@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosClient = axios.create({
   baseURL: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'http://localhost:8080/api',
-  timeout: 30000,
+  timeout: 90000, // 90s để chịu được cold-start của Render free tier (thường mất 50-70s khởi động)
   headers: {
     'Content-Type': 'application/json',
   },
