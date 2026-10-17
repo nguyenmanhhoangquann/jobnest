@@ -23,9 +23,9 @@ export default function Hero() {
   return (
     <section className="hero-section hero-section--refero">
       <div className="container-app position-relative z-2">
-        {/* Phần trên: Bố cục 2 cột chuẩn Refero Dala */}
-        <div className="row align-items-center g-4 g-lg-5 hero-refero-row">
-          {/* Cột trái: Tiêu đề, phụ đề, thanh tìm kiếm & ticker */}
+        {/* Phần trên: Bố cục 2 cột - Tiêu đề & Hero 3D ở góc trên bên phải */}
+        <div className="row align-items-center g-4 g-lg-5 hero-refero-top-row">
+          {/* Cột trái: Tiêu đề & phụ đề */}
           <div className="col-12 col-lg-7">
             <div className="hero-refero-content text-start">
               {/* Eyebrow tag phong cách Refero Dala */}
@@ -41,56 +41,59 @@ export default function Hero() {
               </h1>
 
               {/* Phụ đề ultra-light, thoáng đạt */}
-              <p className="hero-desc hero-desc--refero mb-4">
+              <p className="hero-desc hero-desc--refero mb-0">
                 Khám phá hơn 10,000+ cơ hội công nghệ chất lượng cao. Định vị mức lương, đo độ khớp hồ sơ và kết nối trực tiếp với các startup hàng đầu.
               </p>
+            </div>
+          </div>
 
-              {/* Thanh tìm kiếm phong cách Refero Obsidian */}
-              <div className="hero-search-wrap mb-3">
-                <HeroSearchBar variant="refero" />
-              </div>
+          {/* Cột phải: Hình minh họa Constellation 3D ở phía trên góc phải */}
+          <div className="col-12 col-lg-5 d-flex justify-content-center justify-content-lg-end">
+            <ReferoConstellation />
+          </div>
+        </div>
 
-              {/* Dải thông điệp chạy chữ ngọn lửa ITviec trên nền tối Refero */}
-              <div className="hero-ticker-marquee hero-ticker-marquee--refero mb-3">
-                <div className="hero-ticker-fire" title="Nóng">
-                  <FaFire className="text-warning" size={15} />
-                </div>
-                <div className="hero-ticker-track-wrap">
-                  <div className="hero-ticker-track">
-                    <span className="hero-ticker-text hero-ticker-text--refero">
-                      JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
-                    </span>
-                    <span className="hero-ticker-text hero-ticker-text--refero" aria-hidden="true">
-                      JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
-                    </span>
-                  </div>
-                </div>
-              </div>
+        {/* Phần giữa: Thanh tìm kiếm, thanh chạy chữ & từ khóa được kéo dài */}
+        <div className="hero-search-extended-wrap mt-4">
+          {/* Thanh tìm kiếm phong cách Refero Obsidian */}
+          <div className="hero-search-wrap mb-3">
+            <HeroSearchBar variant="refero" />
+          </div>
 
-              {/* Dải từ khóa phổ biến */}
-              <div className="hero-keywords hero-keywords--refero">
-                <span className="hero-keywords__label hero-keywords__label--refero">
-                  Từ khóa hàng đầu:
+          {/* Dải thông điệp chạy chữ ngọn lửa ITviec trên nền tối Refero */}
+          <div className="hero-ticker-marquee hero-ticker-marquee--refero mb-3">
+            <div className="hero-ticker-fire" title="Nóng">
+              <FaFire className="text-warning" size={15} />
+            </div>
+            <div className="hero-ticker-track-wrap">
+              <div className="hero-ticker-track">
+                <span className="hero-ticker-text hero-ticker-text--refero">
+                  JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
                 </span>
-                <div className="hero-keywords__list d-flex flex-wrap gap-1">
-                  {POPULAR_KEYWORDS.slice(0, 6).map((kw) => (
-                    <button
-                      key={kw}
-                      type="button"
-                      className="chip hero-keyword-chip hero-keyword-chip--refero"
-                      onClick={() => navigate(`/jobs/search?keyword=${encodeURIComponent(kw)}`)}
-                    >
-                      {kw}
-                    </button>
-                  ))}
-                </div>
+                <span className="hero-ticker-text hero-ticker-text--refero" aria-hidden="true">
+                  JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Cột phải: Hình minh họa Constellation Neural Mesh Refero */}
-          <div className="col-12 col-lg-5">
-            <ReferoConstellation />
+          {/* Dải từ khóa phổ biến */}
+          <div className="hero-keywords hero-keywords--refero">
+            <span className="hero-keywords__label hero-keywords__label--refero">
+              Từ khóa hàng đầu:
+            </span>
+            <div className="hero-keywords__list d-flex flex-wrap gap-1">
+              {POPULAR_KEYWORDS.slice(0, 8).map((kw) => (
+                <button
+                  key={kw}
+                  type="button"
+                  className="chip hero-keyword-chip hero-keyword-chip--refero"
+                  onClick={() => navigate(`/jobs/search?keyword=${encodeURIComponent(kw)}`)}
+                >
+                  {kw}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
