@@ -23,45 +23,43 @@ export default function Hero() {
   return (
     <section className="hero-section hero-section--refero">
       <div className="container-app position-relative z-2">
-        {/* Phần trên: Bố cục 2 cột - Tiêu đề & Hero 3D ở góc trên bên phải */}
-        <div className="row align-items-center g-4 g-lg-5 hero-refero-top-row">
-          {/* Cột trái: Tiêu đề & phụ đề */}
-          <div className="col-12 col-lg-7">
-            <div className="hero-refero-content text-start">
-              {/* Eyebrow tag phong cách Refero Dala */}
-              <div className="hero-eyebrow hero-eyebrow--refero mb-3">
-                <span className="hero-eyebrow-dot" />
-                JOBNEST WORKPLACE INTELLIGENCE
-              </div>
-
-              {/* Tiêu đề display hoành tráng nhưng nét thanh nhẹ (Refero Monolithic Typography) */}
-              <h1 className="hero-title hero-title--refero mb-3">
-                Nơi sự nghiệp của bạn <br />
-                <span className="hero-title-accent">tìm thấy câu trả lời.</span>
-              </h1>
-
-              {/* Phụ đề ultra-light, thoáng đạt */}
-              <p className="hero-desc hero-desc--refero mb-0">
-                Khám phá hơn 10,000+ cơ hội công nghệ chất lượng cao. Định vị mức lương, đo độ khớp hồ sơ và kết nối trực tiếp với các startup hàng đầu.
-              </p>
-            </div>
+        {/* Phần trên: Tiêu đề căn giữa kéo dài & Hero 3D ở góc trên bên phải */}
+        <div className="hero-refero-top-area position-relative mb-4">
+          {/* Cột phải: Hình minh họa Constellation 3D ở phía trên góc phải */}
+          <div className="hero-refero-constellation-corner d-none d-lg-block">
+            <ReferoConstellation />
           </div>
 
-          {/* Cột phải: Hình minh họa Constellation 3D ở phía trên góc phải */}
-          <div className="col-12 col-lg-5 d-flex justify-content-center justify-content-lg-end">
-            <ReferoConstellation />
+          {/* Khung chữ chính: Kéo dài ra & căn giữa */}
+          <div className="hero-refero-content text-center mx-auto position-relative z-2">
+            {/* Eyebrow tag phong cách Refero Dala */}
+            <div className="hero-eyebrow hero-eyebrow--refero d-inline-flex mx-auto mb-3">
+              <span className="hero-eyebrow-dot" />
+              JOBNEST WORKPLACE INTELLIGENCE
+            </div>
+
+            {/* Tiêu đề display hoành tráng nhưng nét thanh nhẹ */}
+            <h1 className="hero-title hero-title--refero text-center mb-3">
+              Nơi sự nghiệp của bạn <br className="d-none d-md-block" />
+              <span className="hero-title-accent">tìm thấy câu trả lời.</span>
+            </h1>
+
+            {/* Phụ đề kéo dài thoáng đạt */}
+            <p className="hero-desc hero-desc--refero mx-auto mb-0">
+              Khám phá hơn 10,000+ cơ hội công nghệ chất lượng cao. Định vị mức lương, đo độ khớp hồ sơ và kết nối trực tiếp với các startup hàng đầu.
+            </p>
           </div>
         </div>
 
         {/* Phần giữa: Thanh tìm kiếm, thanh chạy chữ & từ khóa được kéo dài */}
-        <div className="hero-search-extended-wrap mt-4">
+        <div className="hero-search-extended-wrap mt-4 mx-auto">
           {/* Thanh tìm kiếm phong cách Refero Obsidian */}
           <div className="hero-search-wrap mb-3">
             <HeroSearchBar variant="refero" />
           </div>
 
           {/* Dải thông điệp chạy chữ ngọn lửa ITviec trên nền tối Refero */}
-          <div className="hero-ticker-marquee hero-ticker-marquee--refero mb-3">
+          <div className="hero-ticker-marquee hero-ticker-marquee--refero mx-auto mb-3">
             <div className="hero-ticker-fire" title="Nóng">
               <FaFire className="text-warning" size={15} />
             </div>
@@ -78,11 +76,11 @@ export default function Hero() {
           </div>
 
           {/* Dải từ khóa phổ biến */}
-          <div className="hero-keywords hero-keywords--refero">
+          <div className="hero-keywords hero-keywords--refero text-center">
             <span className="hero-keywords__label hero-keywords__label--refero">
               Từ khóa hàng đầu:
             </span>
-            <div className="hero-keywords__list d-flex flex-wrap gap-1">
+            <div className="hero-keywords__list d-flex flex-wrap gap-1 justify-content-center">
               {POPULAR_KEYWORDS.slice(0, 8).map((kw) => (
                 <button
                   key={kw}
