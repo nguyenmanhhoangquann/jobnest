@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaFire } from 'react-icons/fa';
 import HeroSearchBar from './HeroSearchBar.jsx';
-import Hero3DVisual from './Hero3DVisual.jsx';
+import ReferoConstellation from './ReferoConstellation.jsx';
 import CategorySidebar from './CategorySidebar.jsx';
 import CategoryBannerPreview from './CategoryBannerPreview.jsx';
 import { POPULAR_KEYWORDS } from '../../constants.js';
@@ -88,9 +88,9 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Cột phải: Hình minh họa 3D tương tác theo chuột (Character + Holographic HUD) */}
-          <div className="col-12 col-lg-5 d-flex align-items-center justify-content-center">
-            <Hero3DVisual />
+          {/* Cột phải: Chòm sao tri thức & Chữ 3D tương tác không gian đa chiều */}
+          <div className="col-12 col-lg-5">
+            <ReferoConstellation />
           </div>
         </div>
 
