@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { FaBolt, FaBriefcase, FaBuilding } from 'react-icons/fa';
 
 export default function ReferoConstellation() {
   const containerRef = useRef(null);
@@ -330,37 +329,6 @@ export default function ReferoConstellation() {
         className="refero-interactive-canvas position-relative z-1"
         style={{ width: '100%', height: '100%', display: 'block' }}
       />
-
-      {/* Floating Micro-Cards phong cách Refero (Kính mờ Dark Glassmorphism) */}
-      <div className="refero-chip refero-chip--top-right">
-        <div className="refero-chip__icon refero-chip__icon--amber">
-          <FaBolt size={12} />
-        </div>
-        <div>
-          <div className="refero-chip__title">AI MatchScore</div>
-          <div className="refero-chip__value text-warning">Độ khớp CV 98%</div>
-        </div>
-      </div>
-
-      <div className="refero-chip refero-chip--bottom-left">
-        <div className="refero-chip__icon refero-chip__icon--amber">
-          <FaBriefcase size={12} />
-        </div>
-        <div>
-          <div className="refero-chip__title">Cơ hội việc làm</div>
-          <div className="refero-chip__value text-warning">10,000+ Vị trí IT</div>
-        </div>
-      </div>
-
-      <div className="refero-chip refero-chip--bottom-right">
-        <div className="refero-chip__icon refero-chip__icon--emerald">
-          <FaBuilding size={12} />
-        </div>
-        <div>
-          <div className="refero-chip__title">Hệ sinh thái</div>
-          <div className="refero-chip__value text-emerald">500+ Doanh nghiệp</div>
-        </div>
-      </div>
     </div>
   );
 }
