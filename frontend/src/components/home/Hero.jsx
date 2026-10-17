@@ -50,6 +50,23 @@ export default function Hero() {
                 <HeroSearchBar variant="refero" />
               </div>
 
+              {/* Dải thông điệp chạy chữ ngọn lửa ITviec trên nền tối Refero */}
+              <div className="hero-ticker-marquee hero-ticker-marquee--refero mb-3">
+                <div className="hero-ticker-fire" title="Nóng">
+                  <FaFire className="text-warning" size={15} />
+                </div>
+                <div className="hero-ticker-track-wrap">
+                  <div className="hero-ticker-track">
+                    <span className="hero-ticker-text hero-ticker-text--refero">
+                      JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
+                    </span>
+                    <span className="hero-ticker-text hero-ticker-text--refero" aria-hidden="true">
+                      JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               {/* Dải từ khóa phổ biến */}
               <div className="hero-keywords hero-keywords--refero">
                 <span className="hero-keywords__label hero-keywords__label--refero">
@@ -71,26 +88,9 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Cột phải: Chòm sao tri thức & Thanh chữ chạy dưới chân hero */}
-          <div className="col-12 col-lg-5 d-flex flex-column align-items-center">
+          {/* Cột phải: Chòm sao tri thức & Chữ 3D tương tác không gian đa chiều */}
+          <div className="col-12 col-lg-5">
             <ReferoConstellation />
-
-            {/* Dải thông điệp chạy chữ ngọn lửa dưới chân hero */}
-            <div className="hero-ticker-marquee hero-ticker-marquee--refero mt-3 w-100">
-              <div className="hero-ticker-fire" title="Nóng">
-                <FaFire className="text-warning" size={15} />
-              </div>
-              <div className="hero-ticker-track-wrap">
-                <div className="hero-ticker-track">
-                  <span className="hero-ticker-text hero-ticker-text--refero">
-                    JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
-                  </span>
-                  <span className="hero-ticker-text hero-ticker-text--refero" aria-hidden="true">
-                    JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 

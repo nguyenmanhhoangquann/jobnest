@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { FaShieldAlt, FaBolt, FaMedal } from 'react-icons/fa';
 
 export default function ReferoConstellation() {
   const containerRef = useRef(null);
@@ -329,6 +330,40 @@ export default function ReferoConstellation() {
         className="refero-interactive-canvas position-relative z-1"
         style={{ width: '100%', height: '100%', display: 'block' }}
       />
+
+      {/* 3 Khung giá trị thương hiệu bố cục Tam giác lệch ôm quanh logo */}
+      {/* 1. Thẻ Uy tín: Góc trên - bên trái chếch phía trên chữ Job */}
+      <div className="refero-chip refero-chip--uytin">
+        <div className="refero-chip__icon refero-chip__icon--amber">
+          <FaShieldAlt size={14} />
+        </div>
+        <div>
+          <div className="refero-chip__title">Uy tín</div>
+          <div className="refero-chip__subtitle">Đối tác xác thực</div>
+        </div>
+      </div>
+
+      {/* 2. Thẻ Nhanh chóng: Góc trên/giữa - bên phải chếch ngang/thấp hơn Uy tín */}
+      <div className="refero-chip refero-chip--nhanhchong">
+        <div className="refero-chip__icon refero-chip__icon--emerald">
+          <FaBolt size={14} />
+        </div>
+        <div>
+          <div className="refero-chip__title text-emerald">Nhanh chóng</div>
+          <div className="refero-chip__subtitle">Khớp hồ sơ bằng AI</div>
+        </div>
+      </div>
+
+      {/* 3. Thẻ Chất lượng: Phía dưới - hơi lệch trái ngay dưới AI CAREER PLATFORM */}
+      <div className="refero-chip refero-chip--chatluong">
+        <div className="refero-chip__icon refero-chip__icon--violet">
+          <FaMedal size={14} />
+        </div>
+        <div>
+          <div className="refero-chip__title text-violet">Chất lượng</div>
+          <div className="refero-chip__subtitle">10.000+ cơ hội Tech</div>
+        </div>
+      </div>
     </div>
   );
 }
