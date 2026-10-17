@@ -1,0 +1,471 @@
+/* ==========================================================================
+   JOB DETAIL PAGE - EXECUTIVE HIGH-END DESIGN
+   Designed by 20-year UI/UX Senior Standard:
+   Effortless readability, modular typography, zero visual noise, perfect contrast.
+   ========================================================================== */
+
+.job-detail-page {
+  background-color: #F8FAFC;
+  color: #0F172A;
+  min-height: 100vh;
+  padding-bottom: 80px;
+  font-family: var(--font-main, 'Be Vietnam Pro', system-ui, -apple-system, sans-serif);
+}
+
+/* --------------------------------------------------------------------------
+   1. HERO BANNER - CLEAN EXECUTIVE CANVAS
+   -------------------------------------------------------------------------- */
+.job-hero-section {
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 32px 0 36px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+}
+
+.job-breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748B;
+  margin-bottom: 24px;
+}
+
+.job-breadcrumbs a {
+  color: #64748B;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.job-breadcrumbs a:hover {
+  color: #0F172A;
+}
+
+.job-breadcrumbs-sep {
+  color: #CBD5E1;
+  font-size: 11px;
+}
+
+.job-company-logo-frame {
+  width: 88px;
+  height: 88px;
+  border-radius: 18px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.job-company-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.job-main-title {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: #0F172A;
+  margin-bottom: 10px;
+}
+
+.job-company-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 14.5px;
+}
+
+.job-company-name-link {
+  color: #0F172A;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+
+.job-company-name-link:hover {
+  color: #D97706;
+}
+
+.job-sep-dot {
+  color: #CBD5E1;
+}
+
+.job-company-subtext {
+  color: #64748B;
+  font-weight: 500;
+}
+
+.job-company-website-link {
+  color: #0284C7;
+  font-weight: 600;
+  font-size: 13.5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.job-company-website-link:hover {
+  text-decoration: underline;
+}
+
+/* Metadata Chips */
+.job-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.job-badge-salary {
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 14.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.08);
+}
+
+.job-badge-pill {
+  background: #F1F5F9;
+  color: #334155;
+  border: 1px solid #E2E8F0;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Action Buttons Cluster */
+.job-actions-cluster {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-job-apply-cta {
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 12px;
+  background: #0F172A;
+  color: #FFFFFF !important;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  cursor: pointer;
+}
+
+.btn-job-apply-cta:hover {
+  background: #FBBF24;
+  color: #0F172A !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(251, 191, 36, 0.35);
+}
+
+.btn-job-outline-tool {
+  height: 48px;
+  padding: 0 18px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  color: #334155;
+  border: 1px solid #CBD5E1;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-job-outline-tool:hover {
+  background: #F8FAFC;
+  border-color: #0F172A;
+  color: #0F172A;
+  transform: translateY(-1px);
+}
+
+.btn-job-outline-tool--active {
+  background: #FFFBEB !important;
+  border-color: #FBBF24 !important;
+  color: #B45309 !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. CONTENT CARDS (LEFT & RIGHT COLUMNS)
+   -------------------------------------------------------------------------- */
+.job-content-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 36px 32px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+}
+
+.job-section-block {
+  margin-bottom: 36px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.job-section-block:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.job-block-heading {
+  font-size: 18.5px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.job-block-heading-bar {
+  width: 4px;
+  height: 18px;
+  background: #FBBF24;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.job-paragraph-text {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: #334155;
+  margin-bottom: 18px;
+}
+
+/* List with Hanging Indent & Custom Check Icon */
+.job-bullet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.job-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.68;
+  color: #334155;
+}
+
+.job-check-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ECFDF5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Tech Stack Tags */
+.job-tech-tag {
+  background: #F8FAFC;
+  color: #1E293B;
+  border: 1px solid #E2E8F0;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.job-tech-tag:hover {
+  background: #FFFBEB;
+  border-color: #FCD34D;
+  color: #B45309;
+}
+
+/* --------------------------------------------------------------------------
+   3. SIDEBAR MODULES
+   -------------------------------------------------------------------------- */
+.job-sidebar-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 26px 24px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+}
+
+.job-sidebar-card-title {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.015em;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.job-sidebar-spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #F8FAFC;
+  font-size: 14.5px;
+}
+
+.job-sidebar-spec-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.job-sidebar-spec-label {
+  color: #64748B;
+  font-weight: 500;
+}
+
+.job-sidebar-spec-value {
+  color: #0F172A;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* AI Assistant Card */
+.job-ai-card {
+  background: linear-gradient(145deg, #0F172A 0%, #1E293B 100%);
+  color: #FFFFFF;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.job-ai-card::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.job-ai-card-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FBBF24;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.job-ai-card-desc {
+  font-size: 13.5px;
+  color: #CBD5E1;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.btn-job-ai-action {
+  width: 100%;
+  padding: 10px 16px;
+  background: #FBBF24;
+  color: #0F172A;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-job-ai-action:hover {
+  background: #F59E0B;
+  color: #0F172A;
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   4. SKELETON SHIMMER LOADER
+   -------------------------------------------------------------------------- */
+.job-skeleton-wrap {
+  animation: jobSkeletonPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes jobSkeletonPulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.job-skeleton-box {
+  background: #E2E8F0;
+  border-radius: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   5. RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .job-main-title {
+    font-size: 24px;
+  }
+  .job-company-logo-frame {
+    width: 68px;
+    height: 68px;
+    border-radius: 14px;
+  }
+  .job-content-card {
+    padding: 24px 20px;
+  }
+  .job-actions-cluster {
+    width: 100%;
+  }
+  .btn-job-apply-cta {
+    flex: 1;
+    justify-content: center;
+  }
+}

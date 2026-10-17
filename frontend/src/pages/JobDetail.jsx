@@ -5,7 +5,6 @@ import {
   FaMoneyBillWave,
   FaCalendarAlt,
   FaBriefcase,
-  FaUserTie,
   FaBuilding,
   FaShareAlt,
   FaArrowLeft,
@@ -14,21 +13,23 @@ import {
   FaBookmark,
   FaRegBookmark,
   FaGlobe,
+  FaPaperPlane,
+  FaRobot,
+  FaArrowRight,
+  FaExternalLinkAlt,
+  FaUsers,
   FaFlag,
   FaEdit,
   FaTrash,
-  FaArrowRight,
-  FaExternalLinkAlt,
-  FaShieldAlt,
 } from 'react-icons/fa';
 import jobApi from '../api/jobApi.js';
 import mockCompanies from '../mock/companies.js';
 import JobCard from '../components/job/JobCard.jsx';
 import ApplyModal from '../components/job/ApplyModal.jsx';
 import ReportModal from '../components/job/ReportModal.jsx';
-import { Spinner } from '../components/common/Loading.jsx';
 import { showToast } from '../components/common/ToastHost.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
+import '../styles/job-detail.css';
 
 const getTechSkills = (job, industry) => {
   if (job.skills && job.skills.length > 0) return job.skills;
@@ -44,6 +45,14 @@ const getTechSkills = (job, industry) => {
   if (t.includes('marketing')) return ['Digital Marketing', 'SEO / SEM', 'Content Strategy', 'Social Ads'];
   if (t.includes('thiết kế') || t.includes('designer')) return ['Figma', 'UI/UX Design', 'Design System', 'Prototyping'];
   return [industry || 'Kỹ năng chuyên môn', 'Làm việc nhóm', 'Tư duy logic'];
+};
+
+const formatBulletPoints = (text) => {
+  if (!text) return [];
+  return text
+    .split(/\n|•|✔|\r/)
+    .map((s) => s.trim().replace(/^[•✔\-\*]\s*/, ''))
+    .filter((s) => s.length > 5);
 };
 
 export default function JobDetail() {
@@ -140,180 +149,261 @@ export default function JobDetail() {
     showToast('success', 'Đã sao chép liên kết công việc vào bộ nhớ tạm!');
   };
 
+  // 1. Shimmer Skeleton Loader (Thay thế spinner đơn độc, loại bỏ Cumulative Layout Shift)
   if (loading) {
     return (
-      <div className="container py-5 text-center">
-        <Spinner size="lg" className="my-5" />
-        <p className="text-muted fw-semibold">Đang tải thông tin chi tiết việc làm...</p>
+      <div className="job-detail-page">
+        <section className="job-hero-section job-skeleton-wrap">
+          <div className="container" style={{ maxWidth: '1240px' }}>
+            <div className="job-skeleton-box mb-4" style={{ width: '280px', height: '16px' }} />
+            <div className="d-flex align-items-center gap-4">
+              <div className="job-skeleton-box flex-shrink-0" style={{ width: '88px', height: '88px', borderRadius: '18px' }} />
+              <div className="flex-grow-1">
+                <div className="job-skeleton-box mb-2" style={{ width: '60%', height: '32px' }} />
+                <div className="job-skeleton-box mb-3" style={{ width: '40%', height: '18px' }} />
+                <div className="d-flex gap-2">
+                  <div className="job-skeleton-box" style={{ width: '120px', height: '28px', borderRadius: '99px' }} />
+                  <div className="job-skeleton-box" style={{ width: '140px', height: '28px', borderRadius: '99px' }} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="container py-4 my-2" style={{ maxWidth: '1240px' }}>
+          <div className="row g-4">
+            <div className="col-12 col-lg-8">
+              <div className="job-content-card job-skeleton-wrap p-4">
+                <div className="job-skeleton-box mb-4" style={{ width: '200px', height: '24px' }} />
+                <div className="job-skeleton-box mb-2" style={{ width: '100%', height: '16px' }} />
+                <div className="job-skeleton-box mb-2" style={{ width: '90%', height: '16px' }} />
+                <div className="job-skeleton-box mb-4" style={{ width: '75%', height: '16px' }} />
+                <div className="job-skeleton-box mb-4" style={{ width: '200px', height: '24px' }} />
+                <div className="job-skeleton-box mb-2" style={{ width: '100%', height: '16px' }} />
+                <div className="job-skeleton-box mb-2" style={{ width: '85%', height: '16px' }} />
+              </div>
+            </div>
+            <div className="col-12 col-lg-4">
+              <div className="job-sidebar-card job-skeleton-wrap p-4">
+                <div className="job-skeleton-box mb-3" style={{ width: '180px', height: '20px' }} />
+                <div className="job-skeleton-box mb-2" style={{ width: '100%', height: '36px' }} />
+                <div className="job-skeleton-box mb-2" style={{ width: '100%', height: '36px' }} />
+                <div className="job-skeleton-box" style={{ width: '100%', height: '36px' }} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error || !job) {
     return (
-      <div className="container py-5 text-center">
-        <h2 className="fw-bold mb-3 text-dark">Không tìm thấy công việc này</h2>
-        <p className="text-muted mb-4">Tin tuyển dụng có thể đã hết hạn hoặc bị gỡ bỏ khỏi hệ thống.</p>
-        <button type="button" onClick={handleBack} className="btn btn-dark rounded-pill px-4 py-2">
-          <FaArrowLeft className="me-2" /> Quay lại trang trước
-        </button>
+      <div className="job-detail-page py-5">
+        <div className="container py-5 text-center">
+          <div className="job-content-card mx-auto p-5" style={{ maxWidth: '600px' }}>
+            <h2 className="fw-bold mb-3 text-dark fs-3">Không tìm thấy công việc này</h2>
+            <p className="text-secondary mb-4">Tin tuyển dụng có thể đã hết hạn hoặc tạm dừng nhận hồ sơ.</p>
+            <button type="button" onClick={handleBack} className="btn-job-apply-cta mx-auto">
+              <FaArrowLeft size={13} />
+              <span>Quay lại danh sách việc làm</span>
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 
-  const companyName = job.company?.name || job.companyName || 'Doanh nghiệp uy tín';
+  const rawCompanyName = job.company?.name || job.companyName || 'Doanh nghiệp uy tín';
+  const companyName = rawCompanyName
+    .toLowerCase()
+    .replace(/(?:^|\s)\S/g, (a) => a.toUpperCase())
+    .replace('Fpt', 'FPT')
+    .replace('Mb', 'MB')
+    .replace('Vib', 'VIB')
+    .replace('Misa', 'MISA')
+    .replace('Viettel', 'Viettel')
+    .replace('Vinamilk', 'Vinamilk')
+    .replace('Ssi', 'SSI')
+    .replace('A.i', 'A.I')
+    .replace('Sme', 'SME');
+
   const companyLogo = job.company?.logoUrl || job.logoUrl;
   const initial = companyName.charAt(0).toUpperCase();
 
   const companyInfo = mockCompanies.find(
     (c) =>
-      c.name === companyName ||
-      (c.shortName && companyName.toLowerCase().includes(c.shortName.toLowerCase())) ||
+      c.name === rawCompanyName ||
+      (c.shortName && rawCompanyName.toLowerCase().includes(c.shortName.toLowerCase())) ||
       (c.slug && (job.company?.slug === c.slug || job.company?.name?.toLowerCase().includes(c.slug)))
   ) || {};
 
   const targetCompanyId = job.company?.id || companyInfo.id;
   const companyWebsite =
     companyInfo.website ||
-    (companyName.toLowerCase().includes('a.i') ? 'https://aisoft.com.vn' :
-     companyName.toLowerCase().includes('fpt') ? 'https://fpt.com.vn' :
-     companyName.toLowerCase().includes('viettel') ? 'https://viettel.com.vn' :
-     companyName.toLowerCase().includes('mb') ? 'https://mbbank.com.vn' :
-     companyName.toLowerCase().includes('vinamilk') ? 'https://vinamilk.com.vn' :
-     companyName.toLowerCase().includes('misa') ? 'https://misa.vn' :
-     companyName.toLowerCase().includes('vinhomes') ? 'https://vinhomes.vn' :
-     companyName.toLowerCase().includes('hòa phát') ? 'https://hoaphat.com.vn' :
-     companyName.toLowerCase().includes('ssi') ? 'https://ssi.com.vn' :
-     companyName.toLowerCase().includes('vib') ? 'https://vib.com.vn' :
-     companyName.toLowerCase().includes('concentrix') ? 'https://concentrix.com' :
-     companyName.toLowerCase().includes('k&m') ? 'https://kmholdings.vn' :
+    (rawCompanyName.toLowerCase().includes('fpt') ? 'https://fpt.com.vn' :
+     rawCompanyName.toLowerCase().includes('viettel') ? 'https://viettel.com.vn' :
+     rawCompanyName.toLowerCase().includes('mb') ? 'https://mbbank.com.vn' :
+     rawCompanyName.toLowerCase().includes('vinamilk') ? 'https://vinamilk.com.vn' :
+     rawCompanyName.toLowerCase().includes('misa') ? 'https://misa.vn' :
+     rawCompanyName.toLowerCase().includes('vib') ? 'https://vib.com.vn' :
      null);
 
   const skillsList = getTechSkills(job, companyInfo.industry);
 
+  const formatDeadline = (dl) => {
+    if (!dl) return '31/12/2026';
+    if (dl.includes('-')) {
+      const parts = dl.split('-');
+      if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    return dl;
+  };
+
+  const descBullets = formatBulletPoints(job.description);
+  const reqBullets = formatBulletPoints(job.requirements);
+  const benBullets = formatBulletPoints(job.benefits);
+
   return (
-    <div style={{ backgroundColor: '#FAFAFA', minHeight: '100vh', paddingBottom: '60px' }}>
-      {/* 1. HERO BANNER - WARM AMBIENT CANVAS */}
-      <section className="job-hero-wrap">
+    <div className="job-detail-page">
+      {/* 1. HERO BANNER - CHỈN CHU, SÁNG RÕ, PHONG CÁCH EXECUTIVE */}
+      <section className="job-hero-section">
         <div className="container" style={{ maxWidth: '1240px' }}>
           {/* Breadcrumbs Navigation */}
-          <div className="d-flex align-items-center gap-2 mb-3 text-muted small" style={{ fontSize: '13.5px' }}>
-            <Link to="/" className="text-muted text-decoration-none fw-semibold">
-              Trang chủ
+          <div className="job-breadcrumbs">
+            <Link to="/">Trang chủ</Link>
+            <span className="job-breadcrumbs-sep">/</span>
+            <Link to="/jobs">Việc làm</Link>
+            <span className="job-breadcrumbs-sep">/</span>
+            <Link to={`/jobs/search?category=${encodeURIComponent(job.category?.slug || 'cntt')}`}>
+              {job.category?.name || 'Công nghệ thông tin'}
             </Link>
-            <span>›</span>
-            <Link to="/jobs" className="text-muted text-decoration-none fw-semibold">
-              Việc làm
-            </Link>
-            <span>›</span>
-            <span className="text-muted fw-semibold">{job.category?.name || 'Công nghệ thông tin'}</span>
-            <span>›</span>
-            <span className="text-dark fw-bold">{companyInfo.shortName || companyName}</span>
+            <span className="job-breadcrumbs-sep">/</span>
+            <span className="text-dark fw-bold text-truncate" style={{ maxWidth: '300px' }}>
+              {job.title}
+            </span>
           </div>
 
-          {/* Job Identity & Header Cluster */}
-          <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-4">
-            <div className="d-flex align-items-start align-items-sm-center" style={{ gap: '24px' }}>
-              {/* Company Logo Box */}
-              <div className="job-hero-logo-box position-relative">
-                {companyLogo || companyInfo.logo ? (
-                  <img
-                    src={companyLogo || companyInfo.logo}
-                    alt={companyName}
-                    className="job-hero-logo-img"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      if (e.currentTarget.nextElementSibling) {
-                        e.currentTarget.nextElementSibling.style.display = 'flex';
-                      }
-                    }}
-                  />
-                ) : null}
-                <div
-                  className="fw-bold text-dark fs-3 align-items-center justify-content-center w-100 h-100"
-                  style={{ display: (companyLogo || companyInfo.logo) ? 'none' : 'flex' }}
-                >
-                  {initial}
-                </div>
-              </div>
-
-              {/* Title & Metadata Details */}
-              <div>
-                <h1 className="fw-bold text-dark mb-2" style={{ fontSize: '26px', letterSpacing: '-0.02em', lineHeight: '1.3' }}>
-                  {job.title}
-                </h1>
-
-                <div className="d-flex flex-wrap align-items-center gap-2 mb-2.5">
-                  <Link
-                    to={targetCompanyId ? `/companies?id=${targetCompanyId}` : '#'}
-                    className="fw-bold text-dark text-decoration-none d-inline-flex align-items-center gap-1.5"
-                    style={{ fontSize: '15px' }}
+          <div className="row align-items-center g-4">
+            {/* Cột trái: Logo, Tiêu đề, Công ty, Huy hiệu */}
+            <div className="col-12 col-lg-8">
+              <div className="d-flex align-items-start gap-3.5">
+                {/* Logo công ty trong khung squircle trang nhã */}
+                <div className="job-company-logo-frame">
+                  {companyLogo || companyInfo.logo ? (
+                    <img
+                      src={companyLogo || companyInfo.logo}
+                      alt={companyName}
+                      className="job-company-logo-img"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        if (e.currentTarget.nextElementSibling) {
+                          e.currentTarget.nextElementSibling.style.display = 'flex';
+                        }
+                      }}
+                    />
+                  ) : null}
+                  <div
+                    className="fw-bold text-dark fs-3 align-items-center justify-content-center w-100 h-100"
+                    style={{ display: companyLogo || companyInfo.logo ? 'none' : 'flex' }}
                   >
-                    <span>{companyName}</span>
-                    <FaCheckCircle className="text-success" size={14} title="Doanh nghiệp xác thực" />
-                  </Link>
-
-                  {companyInfo.industry && (
-                    <span className="badge bg-white text-secondary border fw-normal" style={{ fontSize: '12px' }}>
-                      {companyInfo.industry}
-                    </span>
-                  )}
+                    {initial}
+                  </div>
                 </div>
 
-                {/* Badges Stack */}
-                <div className="d-flex flex-wrap align-items-center gap-2.5">
-                  <span className="job-salary-chip">
-                    <FaMoneyBillWave size={13} />
-                    <span>{job.salaryText}</span>
-                  </span>
+                <div className="flex-grow-1">
+                  <h1 className="job-main-title">{job.title}</h1>
 
-                  <span className="job-meta-chip">
-                    <FaMapMarkerAlt size={12} className="text-secondary" />
-                    <span>{job.location}</span>
-                  </span>
+                  <div className="job-company-row">
+                    <Link
+                      to={targetCompanyId ? `/companies?id=${targetCompanyId}` : '#'}
+                      className="job-company-name-link"
+                    >
+                      <span>{companyName}</span>
+                      <FaCheckCircle className="text-success" size={14} title="Doanh nghiệp xác thực pháp nhân" />
+                    </Link>
 
-                  <span className="job-meta-chip">
-                    <FaBriefcase size={12} className="text-secondary" />
-                    <span>{job.jobType === 'FULL_TIME' ? 'Toàn thời gian' : job.jobType === 'INTERN' ? 'Thực tập' : 'Bán thời gian'}</span>
-                  </span>
+                    <span className="job-sep-dot">•</span>
+                    <span className="job-company-subtext">{companyInfo.industry || 'Công nghệ phần mềm'}</span>
 
-                  <span className="job-meta-chip">
-                    <FaCalendarAlt size={12} className="text-secondary" />
-                    <span>Hạn nộp: {job.deadline || '30/11/2026'}</span>
-                  </span>
+                    {companyWebsite && (
+                      <>
+                        <span className="job-sep-dot">•</span>
+                        <a
+                          href={companyWebsite}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="job-company-website-link"
+                        >
+                          Website <FaExternalLinkAlt size={10} />
+                        </a>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Dải badge thông số việc làm */}
+                  <div className="job-meta-row">
+                    <span className="job-badge-salary">
+                      <FaMoneyBillWave size={13} />
+                      <span>{job.salaryText}</span>
+                    </span>
+
+                    <span className="job-badge-pill">
+                      <FaMapMarkerAlt size={12} className="text-muted" />
+                      <span>{job.location}</span>
+                    </span>
+
+                    <span className="job-badge-pill">
+                      <FaBriefcase size={12} className="text-muted" />
+                      <span>
+                        {job.jobType === 'FULL_TIME'
+                          ? 'Toàn thời gian'
+                          : job.jobType === 'INTERN'
+                          ? 'Thực tập'
+                          : 'Bán thời gian'}
+                      </span>
+                    </span>
+
+                    <span className="job-badge-pill">
+                      <FaCalendarAlt size={12} className="text-muted" />
+                      <span>Hạn nộp: {formatDeadline(job.deadline)}</span>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* CTAs Cluster */}
-            <div className="d-flex align-items-center gap-2.5 flex-shrink-0 align-self-stretch align-self-lg-auto justify-content-start justify-content-lg-end">
-              <button
-                type="button"
-                className={`btn job-btn-action ${isSaved ? 'job-btn-action--active' : ''}`}
-                onClick={handleToggleSave}
-              >
-                {isSaved ? <FaBookmark size={14} /> : <FaRegBookmark size={14} />}
-                <span>{isSaved ? 'Đã lưu' : 'Lưu tin'}</span>
-              </button>
+            {/* Cột phải: Các nút hành động chính */}
+            <div className="col-12 col-lg-4 text-lg-end">
+              <div className="job-actions-cluster justify-content-lg-end">
+                <button
+                  type="button"
+                  className={`btn-job-outline-tool ${isSaved ? 'btn-job-outline-tool--active' : ''}`}
+                  onClick={handleToggleSave}
+                >
+                  {isSaved ? <FaBookmark size={14} /> : <FaRegBookmark size={14} />}
+                  <span>{isSaved ? 'Đã lưu' : 'Lưu tin'}</span>
+                </button>
 
-              <button
-                type="button"
-                className="btn job-btn-action"
-                onClick={handleShare}
-                title="Chia sẻ tin tuyển dụng"
-              >
-                <FaShareAlt size={14} />
-                <span>Chia sẻ</span>
-              </button>
+                <button
+                  type="button"
+                  className="btn-job-outline-tool"
+                  onClick={handleShare}
+                  title="Chia sẻ tin tuyển dụng"
+                >
+                  <FaShareAlt size={14} />
+                  <span>Chia sẻ</span>
+                </button>
 
-              <button
-                type="button"
-                className="btn job-btn-apply"
-                onClick={handleApplyClick}
-              >
-                <FaBriefcase size={14} />
-                <span>Ứng tuyển ngay</span>
-              </button>
+                <button
+                  type="button"
+                  className="btn-job-apply-cta"
+                  onClick={handleApplyClick}
+                >
+                  <span>{hasApplied ? 'Đã nộp đơn' : 'Ứng tuyển ngay'}</span>
+                  <FaPaperPlane size={13} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -321,38 +411,58 @@ export default function JobDetail() {
 
       {/* 2. BODY CONTENT - 2 COLUMN GRID */}
       <div className="container py-4 my-2" style={{ maxWidth: '1240px' }}>
-        <div className="row g-4.5 align-items-start" style={{ rowGap: '32px' }}>
+        <div className="row g-4 align-items-start">
           {/* CỘT TRÁI (~68% width): Main JD Content */}
           <div className="col-12 col-lg-8">
-            <div className="job-detail-card mb-4">
+            <div className="job-content-card">
               {/* Mô tả công việc */}
-              <section className="mb-5 pb-4 border-bottom">
-                <h2 className="job-section-title">Mô tả công việc</h2>
-                <p className="text-secondary" style={{ lineHeight: '1.85', fontSize: '15.5px', color: '#334155', marginBottom: '22px' }}>
+              <section className="job-section-block">
+                <h2 className="job-block-heading">
+                  <span className="job-block-heading-bar" />
+                  Mô tả công việc
+                </h2>
+                <p className="job-paragraph-text">
                   {job.description || 'Chưa có mô tả chi tiết cho công việc này.'}
                 </p>
-                <div className="d-flex flex-column gap-3">
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Tham gia thiết kế và triển khai kiến trúc hệ thống quy mô lớn, chịu tải cao và đảm bảo tính sẵn sàng.</span>
+
+                {descBullets.length > 0 ? (
+                  <div className="job-bullet-list">
+                    {descBullets.map((bullet, idx) => (
+                      <div key={idx} className="job-bullet-item">
+                        <span className="job-check-badge">
+                          <FaCheck size={10} />
+                        </span>
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Phối hợp chặt chẽ cùng đội ngũ Product Owner, Frontend và QA để tối ưu hóa trải nghiệm sản phẩm.</span>
+                ) : (
+                  <div className="job-bullet-list">
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Tham gia thiết kế và triển khai kiến trúc hệ thống quy mô lớn, đảm bảo tính sẵn sàng cao.</span>
+                    </div>
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Phối hợp chặt chẽ cùng đội ngũ Product Owner, Frontend và QA để tối ưu hóa trải nghiệm sản phẩm.</span>
+                    </div>
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Nghiên cứu và ứng dụng các giải pháp công nghệ mới nhằm nâng cao hiệu suất xử lý dữ liệu.</span>
+                    </div>
                   </div>
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Nghiên cứu và ứng dụng các giải pháp công nghệ mới nhằm nâng cao hiệu suất xử lý dữ liệu.</span>
-                  </div>
-                </div>
+                )}
               </section>
 
-              {/* Kỹ năng & Tech Stack */}
-              <section className="mb-5 pb-4 border-bottom">
-                <h2 className="job-section-title">Kỹ năng chuyên môn &amp; Tech Stack</h2>
-                <div className="d-flex flex-wrap gap-2.5">
+              {/* Kỹ năng chuyên môn & Tech Stack */}
+              <section className="job-section-block">
+                <h2 className="job-block-heading">
+                  <span className="job-block-heading-bar" />
+                  Kỹ năng chuyên môn &amp; Tech Stack
+                </h2>
+                <div className="d-flex flex-wrap gap-2">
                   {skillsList.map((skill, idx) => (
-                    <span key={idx} className="job-skill-chip">
+                    <span key={idx} className="job-tech-tag">
                       {skill}
                     </span>
                   ))}
@@ -360,80 +470,121 @@ export default function JobDetail() {
               </section>
 
               {/* Yêu cầu ứng viên */}
-              <section className="mb-5 pb-4 border-bottom">
-                <h2 className="job-section-title">Yêu cầu ứng viên</h2>
-                <p className="text-secondary" style={{ lineHeight: '1.85', fontSize: '15.5px', color: '#334155', marginBottom: '22px' }}>
+              <section className="job-section-block">
+                <h2 className="job-block-heading">
+                  <span className="job-block-heading-bar" />
+                  Yêu cầu ứng viên
+                </h2>
+                <p className="job-paragraph-text">
                   {job.requirements || 'Trao đổi chi tiết khi phỏng vấn.'}
                 </p>
-                <div className="d-flex flex-column gap-3">
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Tư duy lập trình vững chắc, am hiểu cấu trúc dữ liệu, giải thuật và các Design Patterns phổ biến.</span>
+
+                {reqBullets.length > 0 ? (
+                  <div className="job-bullet-list">
+                    {reqBullets.map((bullet, idx) => (
+                      <div key={idx} className="job-bullet-item">
+                        <span className="job-check-badge">
+                          <FaCheck size={10} />
+                        </span>
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Có tinh thần trách nhiệm cao, chủ động học hỏi công nghệ mới và khả năng giải quyết vấn đề độc lập.</span>
+                ) : (
+                  <div className="job-bullet-list">
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Tư duy lập trình vững chắc, am hiểu cấu trúc dữ liệu, giải thuật và các Design Patterns phổ biến.</span>
+                    </div>
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Có tinh thần trách nhiệm cao, chủ động học hỏi công nghệ mới và khả năng giải quyết vấn đề độc lập.</span>
+                    </div>
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Kỹ năng giao tiếp và làm việc nhóm tốt, đọc hiểu tài liệu kỹ thuật tiếng Anh thành thạo.</span>
+                    </div>
                   </div>
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Kỹ năng giao tiếp và làm việc nhóm tốt, đọc hiểu tài liệu kỹ thuật tiếng Anh thành thạo.</span>
-                  </div>
-                </div>
+                )}
               </section>
 
-              {/* Quyền lợi được hưởng */}
-              <section className="mb-5 pb-4 border-bottom">
-                <h2 className="job-section-title">Quyền lợi &amp; Đãi ngộ</h2>
-                <p className="text-secondary" style={{ lineHeight: '1.85', fontSize: '15.5px', color: '#334155', marginBottom: '22px' }}>
+              {/* Quyền lợi & Đãi ngộ */}
+              <section className="job-section-block">
+                <h2 className="job-block-heading">
+                  <span className="job-block-heading-bar" />
+                  Quyền lợi &amp; Đãi ngộ
+                </h2>
+                <p className="job-paragraph-text">
                   {job.benefits || 'Chế độ bảo hiểm và đãi ngộ theo quy định của công ty.'}
                 </p>
-                <div className="d-flex flex-column gap-3">
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Thu nhập cạnh tranh theo năng lực, thưởng lương tháng 13 và thưởng hiệu suất dự án hấp dẫn.</span>
+
+                {benBullets.length > 0 ? (
+                  <div className="job-bullet-list">
+                    {benBullets.map((bullet, idx) => (
+                      <div key={idx} className="job-bullet-item">
+                        <span className="job-check-badge">
+                          <FaCheck size={10} />
+                        </span>
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Gói bảo hiểm sức khỏe toàn diện cao cấp cho nhân viên và chính sách chăm sóc người thân.</span>
+                ) : (
+                  <div className="job-bullet-list">
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Thu nhập cạnh tranh theo năng lực, thưởng lương tháng 13 và thưởng hiệu suất dự án hấp dẫn.</span>
+                    </div>
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Gói bảo hiểm sức khỏe toàn diện cao cấp cho nhân viên và chính sách chăm sóc người thân.</span>
+                    </div>
+                    <div className="job-bullet-item">
+                      <span className="job-check-badge"><FaCheck size={10} /></span>
+                      <span>Cấp phát laptop cấu hình cao, hỗ trợ 100% kinh phí thi các chứng chỉ quốc tế uy tín.</span>
+                    </div>
                   </div>
-                  <div className="d-flex align-items-start gap-2.5 text-secondary" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                    <FaCheck className="text-success mt-1 flex-shrink-0" size={13} />
-                    <span>Cấp phát laptop cấu hình cao, hỗ trợ 100% kinh phí thi các chứng chỉ quốc tế uy tín.</span>
-                  </div>
-                </div>
+                )}
               </section>
 
               {/* Địa điểm làm việc */}
-              <section>
-                <h2 className="job-section-title">Địa điểm làm việc cụ thể</h2>
-                <p className="text-secondary mb-0 d-flex align-items-center gap-2.5" style={{ fontSize: '15px', lineHeight: '1.7' }}>
-                  <FaMapMarkerAlt className="text-danger flex-shrink-0" size={14} />
-                  <span>{job.location} ({companyInfo.hq || 'Văn phòng hiện đại, trung tâm thành phố'})</span>
-                </p>
+              <section className="job-section-block">
+                <h2 className="job-block-heading">
+                  <span className="job-block-heading-bar" />
+                  Địa điểm làm việc cụ thể
+                </h2>
+                <div className="d-flex align-items-center gap-2 text-secondary" style={{ fontSize: '15px' }}>
+                  <FaMapMarkerAlt className="text-danger flex-shrink-0" size={15} />
+                  <span>
+                    <strong>{job.location}</strong> ({companyInfo.hq || 'Văn phòng hiện đại, trung tâm công nghệ'})
+                  </span>
+                </div>
               </section>
             </div>
           </div>
 
           {/* CỘT PHẢI (~32% width): Executive Sidebar */}
           <div className="col-12 col-lg-4">
-            <div className="d-flex flex-column gap-3.5">
-              {/* Thẻ Thông tin tuyển dụng */}
+            <div className="d-flex flex-column gap-4">
+              {/* Card 1: Thông tin tuyển dụng tổng quan */}
               <div className="job-sidebar-card">
-                <h3 className="fw-bold mb-3" style={{ fontSize: '17px', color: '#0F172A' }}>
-                  Thông tin tuyển dụng
-                </h3>
+                <h3 className="job-sidebar-card-title">Thông tin chung</h3>
 
                 <div className="d-flex flex-column">
-                  <div className="job-sidebar-row">
-                    <span style={{ color: '#475569', fontWeight: 500 }}>Hình thức làm việc</span>
-                    <strong style={{ color: '#0F172A', fontWeight: 700 }}>
-                      {job.jobType === 'FULL_TIME' ? 'Toàn thời gian' : job.jobType === 'INTERN' ? 'Thực tập' : 'Bán thời gian'}
-                    </strong>
+                  <div className="job-sidebar-spec-row">
+                    <span className="job-sidebar-spec-label">Hình thức làm việc</span>
+                    <span className="job-sidebar-spec-value">
+                      {job.jobType === 'FULL_TIME'
+                        ? 'Toàn thời gian'
+                        : job.jobType === 'INTERN'
+                        ? 'Thực tập'
+                        : 'Bán thời gian'}
+                    </span>
                   </div>
 
-                  <div className="job-sidebar-row">
-                    <span style={{ color: '#475569', fontWeight: 500 }}>Cấp bậc</span>
-                    <strong style={{ color: '#0F172A', fontWeight: 700 }}>
+                  <div className="job-sidebar-spec-row">
+                    <span className="job-sidebar-spec-label">Cấp bậc</span>
+                    <span className="job-sidebar-spec-value">
                       {job.position === 'intern'
                         ? 'Thực tập sinh'
                         : job.position === 'senior'
@@ -441,12 +592,12 @@ export default function JobDetail() {
                         : job.position === 'lead'
                         ? 'Trưởng nhóm / Leader'
                         : 'Nhân viên'}
-                    </strong>
+                    </span>
                   </div>
 
-                  <div className="job-sidebar-row">
-                    <span style={{ color: '#475569', fontWeight: 500 }}>Kinh nghiệm</span>
-                    <strong style={{ color: '#0F172A', fontWeight: 700 }}>
+                  <div className="job-sidebar-spec-row">
+                    <span className="job-sidebar-spec-label">Kinh nghiệm</span>
+                    <span className="job-sidebar-spec-value">
                       {job.experience === 'none'
                         ? 'Không yêu cầu'
                         : job.experience === '1-year' || job.experience === '1-2'
@@ -454,34 +605,32 @@ export default function JobDetail() {
                         : job.experience === '2-5'
                         ? '2 - 5 năm'
                         : 'Trên 5 năm'}
-                    </strong>
+                    </span>
                   </div>
 
-                  <div className="job-sidebar-row">
-                    <span style={{ color: '#475569', fontWeight: 500 }}>Mức thu nhập</span>
-                    <strong className="text-success" style={{ fontWeight: 800 }}>
+                  <div className="job-sidebar-spec-row">
+                    <span className="job-sidebar-spec-label">Mức thu nhập</span>
+                    <span className="job-sidebar-spec-value text-success">
                       {job.salaryText}
-                    </strong>
+                    </span>
                   </div>
 
-                  <div className="job-sidebar-row">
-                    <span style={{ color: '#475569', fontWeight: 500 }}>Hạn nộp hồ sơ</span>
-                    <strong style={{ color: '#0F172A', fontWeight: 700 }}>
-                      {job.deadline || '30/11/2026'}
-                    </strong>
+                  <div className="job-sidebar-spec-row">
+                    <span className="job-sidebar-spec-label">Hạn nộp hồ sơ</span>
+                    <span className="job-sidebar-spec-value">
+                      {formatDeadline(job.deadline)}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Thẻ Về nhà tuyển dụng */}
+              {/* Card 2: Về doanh nghiệp tuyển dụng */}
               <div className="job-sidebar-card">
-                <h3 className="fw-bold mb-3" style={{ fontSize: '17px', color: '#0F172A' }}>
-                  Về nhà tuyển dụng
-                </h3>
+                <h3 className="job-sidebar-card-title">Về doanh nghiệp</h3>
 
                 <div className="d-flex align-items-center gap-3 mb-3">
                   <div
-                    className="position-relative"
+                    className="position-relative flex-shrink-0"
                     style={{
                       width: '54px',
                       height: '54px',
@@ -492,71 +641,68 @@ export default function JobDetail() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      flexShrink: 0,
                     }}
                   >
                     {companyLogo || companyInfo.logo ? (
                       <img
                         src={companyLogo || companyInfo.logo}
                         alt={companyName}
-                        style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          if (e.currentTarget.nextElementSibling) {
-                            e.currentTarget.nextElementSibling.style.display = 'flex';
-                          }
-                        }}
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                       />
-                    ) : null}
-                    <div
-                      className="fw-bold text-dark align-items-center justify-content-center w-100 h-100"
-                      style={{ display: (companyLogo || companyInfo.logo) ? 'none' : 'flex' }}
-                    >
-                      {initial}
-                    </div>
+                    ) : (
+                      <span className="fw-bold fs-5 text-dark">{initial}</span>
+                    )}
                   </div>
 
                   <div>
-                    <h4 className="fw-bold mb-0 text-dark d-inline-flex align-items-center gap-1.5" style={{ fontSize: '16px', lineHeight: '1.3' }}>
-                      <span>{companyName}</span>
-                      <FaCheckCircle className="text-success flex-shrink-0" size={13} title="Doanh nghiệp xác thực" />
-                    </h4>
-                    <small className="text-muted fw-semibold">Quy mô: {companyInfo.size || '10.000+ nhân viên'}</small>
+                    <h4 className="fw-bold mb-1 text-dark fs-6">{companyName}</h4>
+                    <span className="text-secondary small">{companyInfo.industry || 'Doanh nghiệp công nghệ'}</span>
                   </div>
                 </div>
 
-                <p className="text-secondary small mb-3" style={{ lineHeight: '1.6', fontSize: '13.5px' }}>
-                  {companyInfo.tagline ||
-                    companyInfo.description?.slice(0, 140) + '...' ||
-                    'Doanh nghiệp hàng đầu, tiên phong đổi mới công nghệ và kiến tạo môi trường làm việc chuẩn quốc tế.'}
-                </p>
-
-                {companyWebsite && (
-                  <div className="mb-3">
-                    <a
-                      href={companyWebsite}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-decoration-none fw-semibold small d-inline-flex align-items-center gap-1"
-                      style={{ color: '#EA580C' }}
-                    >
-                      <FaGlobe size={13} />
-                      <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
-                      <FaExternalLinkAlt size={10} />
-                    </a>
-                  </div>
-                )}
+                <div className="d-flex flex-column gap-2.5 mb-3 text-secondary small" style={{ lineHeight: '1.6' }}>
+                  {companyInfo.size && (
+                    <div className="d-flex align-items-center gap-2">
+                      <FaUsers size={13} className="text-muted flex-shrink-0" />
+                      <span>Quy mô: <strong>{companyInfo.size}</strong></span>
+                    </div>
+                  )}
+                  {companyInfo.hq && (
+                    <div className="d-flex align-items-center gap-2">
+                      <FaBuilding size={13} className="text-muted flex-shrink-0" />
+                      <span>Trụ sở: {companyInfo.hq}</span>
+                    </div>
+                  )}
+                </div>
 
                 {targetCompanyId && (
                   <Link
                     to={`/companies?id=${targetCompanyId}`}
-                    className="btn btn-outline-dark w-100 rounded-pill fw-bold py-2 d-inline-flex align-items-center justify-content-center gap-2"
-                    style={{ fontSize: '13.5px' }}
+                    className="btn btn-outline-dark btn-sm w-100 fw-bold py-2 rounded-3 text-decoration-none d-flex align-items-center justify-content-center gap-2"
                   >
                     <span>Khám phá trang công ty</span>
                     <FaArrowRight size={11} />
                   </Link>
                 )}
+              </div>
+
+              {/* Card 3: Trợ lý AI đo độ khớp CV */}
+              <div className="job-ai-card">
+                <div className="job-ai-card-title">
+                  <FaRobot size={18} />
+                  <span>AI MatchScore Assistant</span>
+                </div>
+                <p className="job-ai-card-desc">
+                  Kiểm tra độ tương thích của CV bạn với vị trí này trước khi nộp đơn để tăng 3x cơ hội được gọi phỏng vấn.
+                </p>
+                <button
+                  type="button"
+                  className="btn-job-ai-action"
+                  onClick={handleApplyClick}
+                >
+                  <span>Phân tích CV ngay</span>
+                  <FaArrowRight size={12} />
+                </button>
               </div>
 
               {/* Employer edit actions nếu là Employer */}
@@ -589,7 +735,7 @@ export default function JobDetail() {
                 </div>
               )}
 
-              {/* Discreet report link ở cuối */}
+              {/* Báo cáo tin vi phạm */}
               <div className="text-center pt-1">
                 <button
                   type="button"
@@ -604,28 +750,28 @@ export default function JobDetail() {
           </div>
         </div>
 
-        {/* Hàng việc làm tương tự cùng ngành dàn ngang 3 cột */}
+        {/* 3. SIMILAR JOBS WIDGET */}
         {similarJobs.length > 0 && (
-          <div id="similar-jobs-section" className="mt-5 pt-4 border-top">
+          <div className="mt-5 pt-4 border-top">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <div>
-                <div className="text-uppercase fw-bold" style={{ fontSize: '12px', letterSpacing: '0.06em', color: '#64748B' }}>
-                  CƠ HỘI NGHỀ NGHIỆP LIÊN QUAN
+                <div className="text-uppercase fw-bold" style={{ fontSize: '11px', letterSpacing: '0.08em', color: '#B45309' }}>
+                  CƠ HỘI NGHỀ NGHIỆP TƯƠNG ĐỒNG
                 </div>
-                <h3 className="fw-bold text-dark mb-0" style={{ fontSize: '20px', letterSpacing: '-0.02em' }}>
+                <h3 className="fw-bold text-dark mb-0 fs-5">
                   Việc làm tương tự cùng ngành ({similarJobs.length})
                 </h3>
               </div>
 
-              <Link to="/jobs" className="btn btn-link text-decoration-none fw-bold small p-0" style={{ color: '#EA580C' }}>
+              <Link to="/jobs" className="btn btn-link text-decoration-none fw-bold small p-0" style={{ color: '#0F172A' }}>
                 Xem tất cả việc làm →
               </Link>
             </div>
 
-            <div className="row g-3 align-items-stretch">
-              {similarJobs.map((item) => (
-                <div key={item.id} className="col-12 col-md-4">
-                  <JobCard job={item} />
+            <div className="row g-3">
+              {similarJobs.map((simJob) => (
+                <div key={simJob.id} className="col-12 col-md-4">
+                  <JobCard job={simJob} />
                 </div>
               ))}
             </div>
@@ -633,18 +779,25 @@ export default function JobDetail() {
         )}
       </div>
 
-      <ApplyModal
-        job={job}
-        show={showApplyModal}
-        onHide={() => setShowApplyModal(false)}
-        onSuccess={() => setHasApplied(true)}
-      />
+      {/* Apply Modal */}
+      {showApplyModal && (
+        <ApplyModal
+          show={showApplyModal}
+          job={job}
+          onHide={() => setShowApplyModal(false)}
+          onSuccess={() => setHasApplied(true)}
+        />
+      )}
 
-      <ReportModal
-        job={job}
-        show={showReportModal}
-        onHide={() => setShowReportModal(false)}
-      />
+      {/* Report Modal */}
+      {showReportModal && (
+        <ReportModal
+          show={showReportModal}
+          jobId={job.id}
+          jobTitle={job.title}
+          onHide={() => setShowReportModal(false)}
+        />
+      )}
     </div>
   );
 }

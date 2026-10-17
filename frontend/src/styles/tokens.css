@@ -46,17 +46,34 @@
   --bs-primary: #FBBF24;
   --bs-primary-rgb: 251,191,36;
   --bs-body-font-family: var(--font-main);
+  --bs-btn-font-family: var(--font-main);
   --bs-body-color: var(--color-text);
   --bs-link-color: var(--color-primary-dark);
 }
 
-body, button, input, select, textarea, option {
-  font-family: var(--font-main);
+/* Áp dụng chuẩn font chữ Be Vietnam Pro cho toàn bộ hệ thống web */
+html,
+body,
+button,
+input,
+select,
+textarea,
+optgroup,
+option,
+h1, h2, h3, h4, h5, h6,
+p, span, a, label, li, ul, ol,
+div, section, article, aside,
+.btn, .badge, .card, .form-control, .form-select, .modal {
+  font-family: var(--font-main) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
   color: var(--color-text);
-  background-color: #F7F7F5;
+  background-color: #F8FAFC;
   margin: 0;
   padding: 0;
-  -webkit-font-smoothing: antialiased;
 }
 
 :focus-visible {
