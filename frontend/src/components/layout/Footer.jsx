@@ -166,8 +166,8 @@ export default function Footer() {
             </span>
           </div>
           <div className="d-flex align-items-center gap-3">
-            <span className="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 small d-inline-flex align-items-center gap-1">
-              <FaCheckCircle style={{ color: '#FEF08A' }} size={10} /> Đã kiểm duyệt an toàn
+            <span className="text-white d-inline-flex align-items-center gap-1.5 fw-medium small">
+              <FaCheckCircle style={{ color: '#FEF08A' }} size={13} /> Đã kiểm duyệt an toàn
             </span>
             <a href="#terms" className="footer-sublink">Điều khoản sử dụng</a>
             <span>·</span>
