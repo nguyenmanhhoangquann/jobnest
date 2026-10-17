@@ -5,7 +5,7 @@
    ========================================================================== */
 
 .job-detail-page {
-  background-color: #F8FAFC;
+  background-color: #FFF9F3;
   color: #0F172A;
   min-height: 100vh;
   padding-bottom: 80px;
@@ -13,14 +13,18 @@
 }
 
 /* --------------------------------------------------------------------------
-   1. HERO BANNER - CLEAN EXECUTIVE CANVAS
+   1. HERO BANNER - SẮC CAM CHỦ ĐẠO RỰC RỠ, CAO CẤP (VIBRANT BRAND ORANGE)
    -------------------------------------------------------------------------- */
 .job-hero-section {
-  background: #FFFFFF;
-  border-bottom: 1px solid #E2E8F0;
-  padding: 32px 0 36px;
+  background: 
+    radial-gradient(circle 800px at 95% 10%, rgba(254, 215, 170, 0.25) 0%, transparent 60%),
+    radial-gradient(circle 600px at 5% 90%, rgba(194, 65, 12, 0.35) 0%, transparent 60%),
+    linear-gradient(135deg, #F97316 0%, #EA580C 45%, #C2410C 100%);
+  border-bottom: 2px solid #C2410C;
+  padding: 36px 0 40px;
   position: relative;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+  box-shadow: 0 6px 24px -4px rgba(234, 88, 12, 0.25);
+  color: #FFFFFF;
 }
 
 .job-breadcrumbs {
@@ -29,37 +33,37 @@
   flex-wrap: wrap;
   gap: 8px;
   font-size: 13px;
-  color: #64748B;
+  color: rgba(255, 255, 255, 0.82);
   margin-bottom: 24px;
 }
 
 .job-breadcrumbs a {
-  color: #64748B;
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.15s ease;
 }
 
 .job-breadcrumbs a:hover {
-  color: #0F172A;
+  color: #FFFFFF;
 }
 
 .job-breadcrumbs-sep {
-  color: #CBD5E1;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 11px;
 }
 
 .job-company-logo-frame {
-  width: 88px;
-  height: 88px;
-  border-radius: 18px;
+  width: 92px;
+  height: 92px;
+  border-radius: 20px;
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 2px solid rgba(255, 255, 255, 0.8);
   padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -72,11 +76,12 @@
 }
 
 .job-main-title {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.025em;
-  color: #0F172A;
+  color: #FFFFFF;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   margin-bottom: 10px;
 }
 
@@ -90,7 +95,7 @@
 }
 
 .job-company-name-link {
-  color: #0F172A;
+  color: #FFFFFF;
   font-weight: 700;
   text-decoration: none;
   display: inline-flex;
@@ -100,20 +105,20 @@
 }
 
 .job-company-name-link:hover {
-  color: #D97706;
+  color: #FEF08A;
 }
 
 .job-sep-dot {
-  color: #CBD5E1;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .job-company-subtext {
-  color: #64748B;
+  color: rgba(255, 255, 255, 0.88);
   font-weight: 500;
 }
 
 .job-company-website-link {
-  color: #0284C7;
+  color: #FEF08A;
   font-weight: 600;
   font-size: 13.5px;
   text-decoration: none;
@@ -123,10 +128,11 @@
 }
 
 .job-company-website-link:hover {
+  color: #FFFFFF;
   text-decoration: underline;
 }
 
-/* Metadata Chips */
+/* Metadata Chips on Orange Hero */
 .job-meta-row {
   display: flex;
   align-items: center;
@@ -135,24 +141,26 @@
 }
 
 .job-badge-salary {
-  background: #ECFDF5;
-  color: #047857;
-  border: 1px solid #A7F3D0;
-  padding: 6px 14px;
+  background: #FFFBEB;
+  color: #9A3412;
+  border: 1px solid #FDE68A;
+  padding: 7px 16px;
   border-radius: 9999px;
   font-size: 14.5px;
   font-weight: 800;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .job-badge-pill {
-  background: #F1F5F9;
-  color: #334155;
-  border: 1px solid #E2E8F0;
-  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 7px 15px;
   border-radius: 9999px;
   font-size: 13.5px;
   font-weight: 600;
@@ -171,35 +179,37 @@
 
 .btn-job-apply-cta {
   height: 48px;
-  padding: 0 28px;
+  padding: 0 30px;
   border-radius: 12px;
-  background: #0F172A;
-  color: #FFFFFF !important;
+  background: #FFFFFF;
+  color: #C2410C !important;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   border: none;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
 .btn-job-apply-cta:hover {
-  background: #FBBF24;
-  color: #0F172A !important;
+  background: #FEF3C7;
+  color: #9A3412 !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(251, 191, 36, 0.35);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
 }
 
 .btn-job-outline-tool {
   height: 48px;
   padding: 0 18px;
   border-radius: 12px;
-  background: #FFFFFF;
-  color: #334155;
-  border: 1px solid #CBD5E1;
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   font-size: 14px;
   font-weight: 600;
   display: inline-flex;
@@ -210,16 +220,16 @@
 }
 
 .btn-job-outline-tool:hover {
-  background: #F8FAFC;
-  border-color: #0F172A;
-  color: #0F172A;
+  background: rgba(255, 255, 255, 0.26);
+  border-color: #FFFFFF;
+  color: #FFFFFF;
   transform: translateY(-1px);
 }
 
 .btn-job-outline-tool--active {
-  background: #FFFBEB !important;
-  border-color: #FBBF24 !important;
-  color: #B45309 !important;
+  background: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  color: #EA580C !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -227,10 +237,10 @@
    -------------------------------------------------------------------------- */
 .job-content-card {
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #FED7AA;
   border-radius: 18px;
   padding: 36px 32px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+  box-shadow: 0 2px 10px rgba(234, 88, 12, 0.04);
 }
 
 .job-section-block {
@@ -259,7 +269,7 @@
 .job-block-heading-bar {
   width: 4px;
   height: 18px;
-  background: #FBBF24;
+  background: #EA580C;
   border-radius: 2px;
   display: inline-block;
 }
@@ -325,10 +335,10 @@
    -------------------------------------------------------------------------- */
 .job-sidebar-card {
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #FED7AA;
   border-radius: 18px;
   padding: 26px 24px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+  box-shadow: 0 2px 10px rgba(234, 88, 12, 0.04);
 }
 
 .job-sidebar-card-title {
