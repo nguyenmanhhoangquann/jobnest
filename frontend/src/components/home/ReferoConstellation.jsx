@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { FaShieldAlt, FaMedal, FaBolt } from 'react-icons/fa';
 
 export default function ReferoConstellation() {
   const containerRef = useRef(null);
@@ -329,6 +330,28 @@ export default function ReferoConstellation() {
         className="refero-interactive-canvas position-relative z-1"
         style={{ width: '100%', height: '100%', display: 'block' }}
       />
+
+      {/* 3 Khung giá trị thương hiệu xung quanh Hero */}
+      <div className="refero-chip refero-chip--top-right">
+        <div className="refero-chip__icon refero-chip__icon--amber">
+          <FaShieldAlt size={13} />
+        </div>
+        <div className="refero-chip__value text-warning text-nowrap">Uy tín</div>
+      </div>
+
+      <div className="refero-chip refero-chip--bottom-left">
+        <div className="refero-chip__icon refero-chip__icon--violet">
+          <FaMedal size={13} />
+        </div>
+        <div className="refero-chip__value text-nowrap" style={{ color: '#C4B5FD' }}>Chất lượng</div>
+      </div>
+
+      <div className="refero-chip refero-chip--bottom-right">
+        <div className="refero-chip__icon refero-chip__icon--emerald">
+          <FaBolt size={13} />
+        </div>
+        <div className="refero-chip__value text-nowrap" style={{ color: '#34D399' }}>Nhanh chóng</div>
+      </div>
     </div>
   );
 }
