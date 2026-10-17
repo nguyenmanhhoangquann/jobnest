@@ -31,7 +31,7 @@ export default function Hero() {
           </div>
 
           {/* Khung chữ chính: Kéo dài ra & căn giữa */}
-          <div className="hero-refero-content text-center mx-auto position-relative z-2">
+          <div className="hero-refero-content text-center mx-auto position-relative z-2" style={{ maxWidth: '740px' }}>
             {/* Eyebrow tag phong cách Refero Dala */}
             <div className="hero-eyebrow hero-eyebrow--refero d-inline-flex mx-auto mb-3">
               <span className="hero-eyebrow-dot" />
@@ -45,7 +45,7 @@ export default function Hero() {
             </h1>
 
             {/* Phụ đề kéo dài thoáng đạt */}
-            <p className="hero-desc hero-desc--refero mx-auto mb-0">
+            <p className="hero-desc hero-desc--refero mx-auto mb-0" style={{ maxWidth: '700px' }}>
               Khám phá hơn 10,000+ cơ hội công nghệ chất lượng cao. Định vị mức lương, đo độ khớp hồ sơ và kết nối trực tiếp với các startup hàng đầu.
             </p>
           </div>
@@ -76,7 +76,7 @@ export default function Hero() {
           </div>
 
           {/* Dải từ khóa phổ biến */}
-          <div className="hero-keywords hero-keywords--refero text-center">
+          <div className="hero-keywords hero-keywords--refero d-flex align-items-center justify-content-center flex-wrap gap-2 text-center">
             <span className="hero-keywords__label hero-keywords__label--refero">
               Từ khóa hàng đầu:
             </span>
