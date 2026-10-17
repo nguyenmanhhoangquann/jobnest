@@ -287,7 +287,7 @@ export default function JobDetail() {
           <div className="row align-items-center g-4">
             {/* Cột trái: Logo, Tiêu đề, Công ty, Huy hiệu */}
             <div className="col-12 col-lg-8">
-              <div className="d-flex align-items-start" style={{ gap: '28px' }}>
+              <div className="d-flex align-items-start" style={{ gap: '32px' }}>
                 {/* Logo công ty trong khung squircle trang nhã */}
                 <div className="job-company-logo-frame">
                   {companyLogo || companyInfo.logo ? (
