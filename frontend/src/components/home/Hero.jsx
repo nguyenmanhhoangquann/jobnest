@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaFire } from 'react-icons/fa';
 import HeroSearchBar from './HeroSearchBar.jsx';
+import Hero3DVisual from './Hero3DVisual.jsx';
 import CategorySidebar from './CategorySidebar.jsx';
 import CategoryBannerPreview from './CategoryBannerPreview.jsx';
 import { POPULAR_KEYWORDS } from '../../constants.js';
@@ -87,23 +88,9 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Cột phải: Hình minh họa 3D AI Career Platform (Character + Holographic HUD) */}
+          {/* Cột phải: Hình minh họa 3D tương tác theo chuột (Character + Holographic HUD) */}
           <div className="col-12 col-lg-5 d-flex align-items-center justify-content-center">
-            <div className="hero-3d-visual-container">
-              <div className="refero-glow refero-glow--amber" />
-              <div className="refero-glow refero-glow--cyan" />
-              <picture>
-                <source srcSet="/images/hero-3d-character.webp" type="image/webp" />
-                <img
-                  src="/images/hero-3d-character.png"
-                  alt="JobNest AI Career Platform"
-                  className="hero-3d-character-img"
-                  width="444"
-                  height="358"
-                  loading="eager"
-                />
-              </picture>
-            </div>
+            <Hero3DVisual />
           </div>
         </div>
 

@@ -904,12 +904,31 @@
 }
 
 /* ==========================================================================
-   Hero 3D Visual Character & Platform Illustration (Right Column)
+   Hero 3D Interactive Stage & Card (Mouse Parallax & Inertia)
    ========================================================================== */
-.hero-3d-visual-container {
+.hero-3d-interactive-stage {
   position: relative;
   width: 100%;
   max-width: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.hero-3d-interactive-stage:active {
+  cursor: grabbing;
+}
+
+.hero-3d-interactive-card {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  transform-style: preserve-3d;
+  will-change: transform;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -917,18 +936,23 @@
 
 .hero-3d-character-img {
   width: 100%;
-  max-width: 500px;
   height: auto;
   object-fit: contain;
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.45));
-  animation: heroFloat 5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 22px 42px rgba(0, 0, 0, 0.55));
+  pointer-events: none;
 }
 
-@keyframes heroFloat {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-8px); }
+.hero-3d-glare-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: overlay;
 }
 
 .refero-visual-wrapper {
