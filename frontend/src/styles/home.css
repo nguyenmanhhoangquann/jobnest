@@ -904,8 +904,33 @@
 }
 
 /* ==========================================================================
-   Refero Constellation Visual (Right Column)
+   Hero 3D Visual Character & Platform Illustration (Right Column)
    ========================================================================== */
+.hero-3d-visual-container {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-3d-character-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.45));
+  animation: heroFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes heroFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
 .refero-visual-wrapper {
   width: 100%;
   height: 460px;
