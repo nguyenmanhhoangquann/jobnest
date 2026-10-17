@@ -54,9 +54,9 @@
 /* Header */
 .saved-drawer-header {
   padding: 18px 22px;
-  background: #090D16;
-  color: #F8FAFC;
-  border-bottom: 2px solid #F59E0B;
+  background: linear-gradient(135deg, #FFEDD5 0%, #FED7AA 100%);
+  color: #0F172A;
+  border-bottom: 2px solid #FED7AA;
 }
 
 .saved-drawer-eyebrow {
@@ -72,7 +72,7 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #FBBF24;
+  color: #C2410C;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -81,14 +81,14 @@
 .saved-drawer-tag-dot {
   width: 6px;
   height: 6px;
-  background: #F59E0B;
+  background: #EA580C;
   border-radius: 0px;
 }
 
 .saved-drawer-close {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #94A3B8;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #0F172A;
   width: 26px;
   height: 26px;
   border-radius: 0px !important;
@@ -102,9 +102,9 @@
 }
 
 .saved-drawer-close:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
-  border-color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.1);
+  color: #000000;
+  border-color: #0F172A;
 }
 
 .saved-drawer-title-row {
@@ -119,7 +119,7 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   margin: 0;
-  color: #FFFFFF;
+  color: #0F172A;
 }
 
 /* Sub-bar */

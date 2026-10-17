@@ -5,9 +5,9 @@
 .saved-jobs-page-root {
   min-height: calc(100vh - 72px);
   background: 
-    radial-gradient(circle 700px at 85% -10%, rgba(251, 191, 36, 0.12) 0%, transparent 70%),
-    radial-gradient(circle 500px at 10% 90%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
-    #F8FAFC;
+    radial-gradient(circle 600px at 90% 10%, rgba(251, 146, 60, 0.35) 0%, transparent 65%),
+    radial-gradient(circle 500px at 10% 90%, rgba(253, 186, 116, 0.45) 0%, transparent 60%),
+    linear-gradient(180deg, #FFEDD5 0%, #FED7AA 45%, #FFF0DE 85%, #FFF8F1 100%);
   padding: 48px 0 80px;
   position: relative;
   font-family: var(--font-main);
