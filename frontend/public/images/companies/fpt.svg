@@ -1,13 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 28 92 62" width="120" height="120">
-  <rect x="16" y="28" width="92" height="62" fill="#FFFFFF"/>
-  
-      <g transform="translate(18, 30)">
-        <!-- 3 FPT brand color slashes -->
-        <path d="M6 34 L18 6 A8 8 0 0 1 30 6 L18 34 Z" fill="#0054A6"/>
-        <path d="M34 34 L46 6 A8 8 0 0 1 58 6 L46 34 Z" fill="#F37021"/>
-        <path d="M62 34 L74 6 A8 8 0 0 1 86 6 L74 34 Z" fill="#00A850"/>
-        <text x="42" y="55" fill="#0054A6" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" text-anchor="middle" letter-spacing="0.04em">FPT</text>
-      </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 54" width="170" height="54">
+  <!-- FPT Official 3-colored angled slashes with white letters -->
+  <g transform="translate(10, 5)">
+    <!-- Slash 1: Blue for F -->
+    <path d="M0,44 L16,0 L44,0 L28,44 Z" fill="#0054A6" />
+    <text x="21" y="32" fill="#FFFFFF" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="24" text-anchor="middle" font-style="italic">F</text>
     
+    <!-- Slash 2: Orange for P -->
+    <path d="M48,44 L64,0 L92,0 L76,44 Z" fill="#F37021" />
+    <text x="69" y="32" fill="#FFFFFF" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="24" text-anchor="middle" font-style="italic">P</text>
+    
+    <!-- Slash 3: Green for T -->
+    <path d="M96,44 L112,0 L140,0 L124,44 Z" fill="#00A850" />
+    <text x="117" y="32" fill="#FFFFFF" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="24" text-anchor="middle" font-style="italic">T</text>
+  </g>
 </svg>

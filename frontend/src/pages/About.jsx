@@ -46,19 +46,19 @@ export default function About() {
   const milestones = [
     {
       year: '2024',
-      badge: 'Khởi đầu',
+      badge: 'Khởi sinh',
       title: 'Bản commit đầu tiên & Báo cáo lương IT',
       desc: 'JobNest khởi sự như một dự án công nghệ nhằm giải quyết bài toán thiếu minh bạch về đãi ngộ và tin ảo trong ngành phần mềm.',
     },
     {
       year: '2025',
-      badge: 'Đột phá',
+      badge: 'Đột phá AI',
       title: 'Tích hợp AI MatchScore & Chuẩn hóa ATS',
       desc: 'Tiên phong đưa mô hình AI phân tích CV theo thời gian thực, hỗ trợ ứng viên biết chính xác điểm mạnh và cơ hội trúng tuyển trước khi nộp đơn.',
     },
     {
       year: '2026',
-      badge: 'Mở rộng',
+      badge: 'Hệ sinh thái',
       title: 'Hệ sinh thái nghề nghiệp toàn diện',
       desc: 'Cán mốc 150.000 doanh nghiệp tin cậy, mở rộng phân hệ tuyển dụng cho doanh nghiệp và quản trị cơ hội nghề nghiệp trên toàn quốc.',
     },
@@ -67,10 +67,10 @@ export default function About() {
   const partners = [
     { name: 'Tập đoàn FPT', logo: '/images/companies/fpt.svg' },
     { name: 'Viettel Telecom', logo: '/images/companies/viettel.svg' },
-    { name: 'Ngân hàng MB', logo: '/images/companies/mb-bank.svg' },
+    { name: 'Ngân hàng MB', logo: '/images/companies/mb-bank.png' },
     { name: 'Vinamilk', logo: '/images/companies/vinamilk.svg' },
     { name: 'MISA SaaS', logo: '/images/companies/misa.svg' },
-    { name: 'Ngân hàng VIB', logo: '/images/companies/vib.svg' },
+    { name: 'Ngân hàng VIB', logo: '/images/companies/vib.png' },
   ];
 
   return (
@@ -212,47 +212,51 @@ export default function About() {
         </div>
       </section>
 
-      {/* 5. TIMELINE: HÀNH TRÌNH PHÁT TRIỂN */}
+      {/* 5. TIMELINE: HÀNH TRÌNH PHÁT TRIỂN (BỐ CỤC TIẾN TRÌNH LIÊN TỤC, KHÔNG DÙNG THẺ HỘP) */}
       <section className="about-milestones-section">
-        <div className="container" style={{ maxWidth: '960px' }}>
-          <div className="text-center mb-5">
+        <div className="container" style={{ maxWidth: '1180px' }}>
+          <div className="text-start mb-5">
             <span className="about-section-kicker">HÀNH TRÌNH BỀN BỈ</span>
             <h2 className="about-section-heading mt-2">Các mốc son phát triển</h2>
           </div>
 
-          <div className="about-timeline-track">
-            {milestones.map((m, idx) => (
-              <div key={idx} className="about-timeline-node">
-                <div className="about-timeline-col-year">
-                  <span className="about-timeline-year">{m.year}</span>
-                  <span className="about-timeline-tag">{m.badge}</span>
+          <div className="about-milestones-rail">
+            <div className="about-milestones-line" />
+            <div className="row g-4 g-lg-5">
+              {milestones.map((m, idx) => (
+                <div key={idx} className="col-12 col-lg-4">
+                  <div className="about-milestone-step">
+                    <div className="about-milestone-head">
+                      <div className="about-milestone-dot" />
+                      <div className="about-milestone-year">{m.year}</div>
+                      <span className="about-milestone-pill">{m.badge}</span>
+                    </div>
+                    <h3 className="about-milestone-title">{m.title}</h3>
+                    <p className="about-milestone-desc">{m.desc}</p>
+                  </div>
                 </div>
-                <div className="about-timeline-col-content">
-                  <h3 className="about-timeline-title">{m.title}</h3>
-                  <p className="about-timeline-desc">{m.desc}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 6. PARTNERS: HỆ THỐNG DOANH NGHIỆP XÁC THỰC */}
+      {/* 6. PARTNERS: HỆ THỐNG DOANH NGHIỆP ĐỒNG HÀNH */}
       <section className="about-partners-section">
         <div className="container" style={{ maxWidth: '1180px' }}>
-          <div className="text-center mb-4">
+          <div className="text-center mb-5">
             <span className="about-section-kicker">ĐỐI TÁC CHIẾN LƯỢC</span>
             <h3 className="about-partners-title mt-2">Được tin chọn bởi những thương hiệu dẫn đầu</h3>
           </div>
 
-          <div className="row g-3 justify-content-center align-items-center">
+          <div className="row g-4 justify-content-center align-items-center">
             {partners.map((p, idx) => (
-              <div key={idx} className="col-4 col-sm-4 col-md-2 text-center">
-                <div className="about-partner-logo-wrap" title={p.name}>
+              <div key={idx} className="col-6 col-sm-4 col-lg-2 text-center">
+                <div className="about-partner-card" title={p.name}>
                   <img
                     src={p.logo}
                     alt={p.name}
-                    className="about-partner-logo"
+                    className="about-partner-logo-img"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
                     }}

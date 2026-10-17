@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
-  <rect width="120" height="120" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
-  
-      <g transform="translate(15, 25)">
-        <ellipse cx="45" cy="24" rx="36" ry="16" fill="none" stroke="#EE0033" stroke-width="4.5"/>
-        <text x="45" y="54" fill="#EE0033" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="16" font-weight="800" text-anchor="middle">viettel</text>
-      </g>
-    
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 54" width="170" height="54">
+  <!-- Viettel Modern Red Wordmark -->
+  <g transform="translate(10, 8)">
+    <text x="75" y="32" fill="#EE0033" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="34" text-anchor="middle" letter-spacing="-0.03em">viettel</text>
+  </g>
 </svg>

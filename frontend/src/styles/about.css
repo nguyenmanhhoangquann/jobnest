@@ -313,7 +313,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. TIMELINE SECTION
+   5. TIMELINE SECTION (CONTINUOUS CHRONOLOGICAL RAIL, NO CLUNKY BOXES)
    -------------------------------------------------------------------------- */
 .about-milestones-section {
   padding: 88px 0;
@@ -321,105 +321,123 @@
   border-bottom: 1px solid rgba(15, 23, 42, 0.07);
 }
 
-.about-timeline-track {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  margin-top: 36px;
+.about-milestones-rail {
+  position: relative;
+  margin-top: 48px;
 }
 
-.about-timeline-node {
-  display: flex;
-  gap: 40px;
-  padding: 28px 32px;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  transition: all 0.25s ease;
+.about-milestones-line {
+  position: absolute;
+  top: 7px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, #FBBF24 0%, #F59E0B 50%, #10B981 100%);
+  z-index: 0;
 }
 
-.about-timeline-node:hover {
-  border-color: #FBBF24;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-  transform: translateY(-2px);
+.about-milestone-step {
+  position: relative;
+  z-index: 1;
+  padding-top: 0;
 }
 
-.about-timeline-col-year {
+.about-milestone-head {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 100px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.about-milestone-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FBBF24;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 0 0 2px #F59E0B, 0 2px 6px rgba(245, 158, 11, 0.35);
   flex-shrink: 0;
 }
 
-.about-timeline-year {
-  font-size: 32px;
+.about-milestone-year {
+  font-size: 34px;
   font-weight: 800;
   color: #0F172A;
   letter-spacing: -0.03em;
   line-height: 1;
 }
 
-.about-timeline-tag {
+.about-milestone-pill {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   color: #B45309;
   background: #FEF3C7;
-  padding: 3px 8px;
-  border-radius: 6px;
-  margin-top: 8px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
-.about-timeline-title {
-  font-size: 18px;
+.about-milestone-title {
+  font-size: 17.5px;
   font-weight: 700;
   color: #0F172A;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  line-height: 1.35;
 }
 
-.about-timeline-desc {
+.about-milestone-desc {
   font-size: 14.5px;
-  line-height: 1.65;
+  line-height: 1.68;
   color: #475569;
   margin-bottom: 0;
 }
 
 /* --------------------------------------------------------------------------
-   6. PARTNERS SECTION
+   6. PARTNERS SECTION (REAL SCALE, FULL AUTHENTIC COLOR)
    -------------------------------------------------------------------------- */
 .about-partners-section {
-  padding: 64px 0;
+  padding: 72px 0;
   background: #FFFFFF;
   border-bottom: 1px solid rgba(15, 23, 42, 0.07);
 }
 
 .about-partners-title {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 800;
   color: #0F172A;
+  letter-spacing: -0.02em;
 }
 
-.about-partner-logo-wrap {
+.about-partner-card {
+  height: 84px;
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  padding: 14px 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
-  padding: 8px 12px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
 }
 
-.about-partner-logo {
-  max-height: 36px;
-  max-width: 110px;
+.about-partner-card:hover {
+  border-color: #FBBF24;
+  box-shadow: 0 8px 24px -4px rgba(251, 191, 36, 0.22), 0 2px 6px rgba(15, 23, 42, 0.04);
+  transform: translateY(-2px);
+}
+
+.about-partner-logo-img {
+  max-height: 48px;
+  max-width: 140px;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  opacity: 0.75;
-  filter: grayscale(80%);
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease;
 }
 
-.about-partner-logo-wrap:hover .about-partner-logo {
-  opacity: 1;
-  filter: grayscale(0%);
+.about-partner-card:hover .about-partner-logo-img {
   transform: scale(1.05);
 }
 
@@ -483,10 +501,22 @@
     position: static;
     margin-bottom: 24px;
   }
-  .about-timeline-node {
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px;
+  .about-milestones-line {
+    display: none;
+  }
+  .about-milestones-rail {
+    padding-left: 24px;
+    border-left: 2px solid #FCD34D;
+    margin-left: 12px;
+  }
+  .about-milestone-dot {
+    position: absolute;
+    left: -33px;
+    top: 6px;
+  }
+  .about-milestone-step {
+    position: relative;
+    margin-bottom: 32px;
   }
 }
 
