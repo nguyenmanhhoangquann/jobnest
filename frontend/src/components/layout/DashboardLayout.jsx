@@ -100,6 +100,16 @@ export default function DashboardLayout() {
               <FaBriefcase size={16} />
               <span>Tin tuyển dụng đã đăng</span>
             </NavLink>
+
+            <div className="border-top my-2 pt-2">
+              <NavLink
+                to="/jobs"
+                className="dashboard-nav__link d-flex align-items-center gap-2 px-3 py-2 rounded text-decoration-none text-secondary"
+              >
+                <FaHome size={16} />
+                <span>Xem sàn việc làm</span>
+              </NavLink>
+            </div>
           </nav>
         </div>
 

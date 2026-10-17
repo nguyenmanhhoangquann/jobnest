@@ -172,6 +172,8 @@ export default function Footer() {
             <a href="#terms" className="footer-sublink">Điều khoản sử dụng</a>
             <span>·</span>
             <a href="#privacy" className="footer-sublink">Bảo mật thông tin</a>
+            <span>·</span>
+            <Link to="/admin/dashboard" className="footer-sublink">Quản trị Admin</Link>
           </div>
         </div>
       </div>

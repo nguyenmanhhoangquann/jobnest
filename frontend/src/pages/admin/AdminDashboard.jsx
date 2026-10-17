@@ -182,8 +182,17 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          {/* Dải Tab chuyển đổi nhanh */}
-          <div className="btn-group shadow-sm bg-white p-1 rounded-3 border">
+          {/* Cụm liên kết nhanh và Dải Tab chuyển đổi */}
+          <div className="d-flex flex-wrap align-items-center gap-2">
+            <Link to="/" className="btn btn-sm btn-outline-secondary d-none d-xl-inline-flex align-items-center gap-1" title="Xem giao diện tìm việc của ứng viên">
+              <span>Trang Ứng viên</span>
+            </Link>
+            <Link to="/employer/dashboard" className="btn btn-sm btn-outline-secondary d-none d-xl-inline-flex align-items-center gap-1" title="Truy cập giao diện Nhà tuyển dụng">
+              <span>Kênh NTD</span>
+            </Link>
+
+            {/* Dải Tab chuyển đổi nhanh */}
+            <div className="btn-group shadow-sm bg-white p-1 rounded-3 border">
             <button
               type="button"
               className={`btn btn-sm ${currentTab === 'overview' ? 'btn-primary' : 'btn-light'}`}
@@ -219,6 +228,7 @@ export default function AdminDashboard() {
             >
               <FaShieldAlt className="me-1" /> Báo cáo ({pendingReportsCount > 0 ? `${pendingReportsCount} mới` : reports.length})
             </button>
+          </div>
           </div>
         </div>
 

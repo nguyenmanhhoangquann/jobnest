@@ -161,7 +161,7 @@ function UserMenu({ user, onLogout }) {
         {isAdmin ? (
           <>
             <Dropdown.Item as={Link} to="/admin/dashboard" className="d-flex align-items-center gap-2 py-2">
-              <FaChartBar size={14} className="text-muted" /> Tổng quan hệ thống
+              <FaChartBar size={14} className="text-muted" /> Tổng quan Admin
             </Dropdown.Item>
             <Dropdown.Item as={Link} to="/admin/dashboard?tab=users" className="d-flex align-items-center gap-2 py-2">
               <FaUsers size={14} className="text-muted" /> Quản lý User & NTD
@@ -172,9 +172,19 @@ function UserMenu({ user, onLogout }) {
             <Dropdown.Item as={Link} to="/admin/dashboard?tab=reports" className="d-flex align-items-center gap-2 py-2">
               <FaShieldAlt size={14} className="text-muted" /> Giám sát vi phạm / CV
             </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item as={Link} to="/employer/dashboard" className="d-flex align-items-center gap-2 py-2 small text-secondary">
+              <FaBuilding size={13} className="text-muted" /> Xem Kênh Nhà Tuyển Dụng
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/jobs" className="d-flex align-items-center gap-2 py-2 small text-secondary">
+              <FaBriefcase size={13} className="text-muted" /> Xem Giao diện Tìm việc
+            </Dropdown.Item>
           </>
         ) : isEmployer ? (
           <>
+            <Dropdown.Item as={Link} to="/employer/dashboard" className="d-flex align-items-center gap-2 py-2">
+              <FaChartBar size={14} className="text-muted" /> Bảng điều khiển NTD
+            </Dropdown.Item>
             <Dropdown.Item as={Link} to="/employer/applications" className="d-flex align-items-center gap-2 py-2">
               <FaUsers size={14} className="text-muted" /> Hồ sơ ứng tuyển (CV)
             </Dropdown.Item>
@@ -184,11 +194,23 @@ function UserMenu({ user, onLogout }) {
             <Dropdown.Item as={Link} to="/employer/jobs" className="d-flex align-items-center gap-2 py-2">
               <FaBriefcase size={14} className="text-muted" /> Tin đã đăng
             </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item as={Link} to="/jobs" className="d-flex align-items-center gap-2 py-2 small text-secondary">
+              <FaSearch size={13} className="text-muted" /> Xem việc làm phía Ứng viên
+            </Dropdown.Item>
           </>
         ) : (
-          <Dropdown.Item as={Link} to="/candidate/applied-jobs" className="d-flex align-items-center gap-2 py-2">
-            <FaFileAlt size={14} className="text-muted" /> Việc đã ứng tuyển
-          </Dropdown.Item>
+          <>
+            <Dropdown.Item as={Link} to="/candidate/applied-jobs" className="d-flex align-items-center gap-2 py-2">
+              <FaFileAlt size={14} className="text-muted" /> Việc đã ứng tuyển
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/candidate/saved-jobs" className="d-flex align-items-center gap-2 py-2">
+              <FaBookmark size={14} className="text-muted" /> Công việc đã lưu
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/jobs" className="d-flex align-items-center gap-2 py-2">
+              <FaBriefcase size={14} className="text-muted" /> Khám phá việc làm mới
+            </Dropdown.Item>
+          </>
         )}
 
         <Dropdown.Divider />
@@ -275,11 +297,19 @@ export default function Navbar() {
 
           {/* Right: Dành cho NTD, Cụm Icons Tinh Tế, Đăng nhập/Đăng ký */}
           <div className="d-none d-lg-flex align-items-center gap-2 ms-auto">
-            {!isAuth && (
+            {!isAuth ? (
               <Link to="/register?role=employer" className="btn-nav-employer me-1">
                 Dành cho nhà tuyển dụng
               </Link>
-            )}
+            ) : user?.role === 'EMPLOYER' ? (
+              <Link to="/employer/dashboard" className="btn-nav-employer me-1">
+                <FaBuilding className="me-1.5" size={12} /> Kênh Nhà Tuyển Dụng
+              </Link>
+            ) : user?.role === 'ADMIN' ? (
+              <Link to="/admin/dashboard" className="btn-nav-employer me-1 border-danger text-danger">
+                <FaShieldAlt className="me-1.5" size={12} /> Quản trị Admin
+              </Link>
+            ) : null}
 
             {/* Cụm nút icon tiện ích */}
             <div className="d-flex align-items-center gap-2">
@@ -335,13 +365,28 @@ export default function Navbar() {
                     <small className="text-muted">{user?.role === 'EMPLOYER' ? 'Nhà tuyển dụng' : 'Người tìm việc'}</small>
                   </div>
                 </div>
-                {user?.role === 'EMPLOYER' ? (
+                {user?.role === 'ADMIN' ? (
                   <>
+                    <Link to="/admin/dashboard" className="btn btn-light text-start py-2">
+                      <FaChartBar className="me-2" /> Bảng điều khiển Quản trị
+                    </Link>
+                    <Link to="/employer/dashboard" className="btn btn-light text-start py-2">
+                      <FaBuilding className="me-2" /> Kênh Nhà Tuyển Dụng
+                    </Link>
+                  </>
+                ) : user?.role === 'EMPLOYER' ? (
+                  <>
+                    <Link to="/employer/dashboard" className="btn btn-light text-start py-2">
+                      <FaChartBar className="me-2" /> Bảng điều khiển NTD
+                    </Link>
                     <Link to="/employer/applications" className="btn btn-light text-start py-2">
                       <FaUsers className="me-2" /> Hồ sơ ứng tuyển (CV)
                     </Link>
                     <Link to="/employer/post-job" className="btn btn-light text-start py-2">
                       <FaPlusCircle className="me-2" /> Đăng bài tuyển dụng
+                    </Link>
+                    <Link to="/employer/jobs" className="btn btn-light text-start py-2">
+                      <FaBriefcase className="me-2" /> Tin đã đăng
                     </Link>
                   </>
                 ) : (
