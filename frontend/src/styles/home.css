@@ -1465,124 +1465,137 @@
   letter-spacing: -0.01em;
 }
 
-.tab-pill-group {
-  display: flex;
-  gap: 8px;
+/* Dải Tab dạng Segmented Control chuẩn ITviec (K tròn, bo góc 6px) */
+.jn-tab-segmented {
+  display: inline-flex;
   align-items: center;
+  background: #E5E7EB;
+  border-radius: 6px;
+  padding: 3px;
+  gap: 3px;
+  border: 1px solid #D1D5DB;
 }
 
-.tab-pill-btn {
-  border: 1px solid #D1D5DB;
-  border-radius: 999px;
-  padding: 6px 18px;
+.jn-tab-item {
+  border: none;
+  background: transparent;
+  color: #4B5563;
   font-size: 13.5px;
   font-weight: 600;
-  background: #FFFFFF;
-  color: #374151;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  padding: 5px 16px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
-.tab-pill-btn:hover {
-  background: #F9FAFB;
-  border-color: #9CA3AF;
+.jn-tab-item:hover {
   color: #111827;
+  background: rgba(255, 255, 255, 0.7);
 }
 
-.tab-pill-btn--active {
-  background: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
-  color: #1F2937 !important;
+.jn-tab-item--active {
+  background: #FFFFFF !important;
+  color: #EA580C !important;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(251, 199, 37, 0.35);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .view-all-link-jobnest {
   font-size: 13.5px;
   font-weight: 600;
-  color: var(--color-primary-dark);
+  color: #EA580C;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .view-all-link-jobnest:hover {
   text-decoration: underline;
-  color: #8A6300;
+  color: #C2410C;
 }
 
-.jn-filter-row {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.jn-filter-select-wrap {
-  display: flex;
-  align-items: center;
+/* Nav Square Buttons (K tròn, 6px) */
+.jn-nav-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #D1D5DB;
   background: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
-  padding: 4px 10px;
-  width: 185px;
-  flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+  color: #4B5563;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
-.jn-filter-select {
-  border: 0;
-  outline: 0;
-  font-size: 13px;
-  font-weight: 500;
-  width: 100%;
-  background: transparent;
+.jn-nav-btn:hover {
+  background: #F9FAFB;
+  border-color: #9CA3AF;
   color: #111827;
 }
 
-.chips-scroll-container {
-  flex: 1;
-  min-width: 0;
-}
-
-.chips-scroll-track {
+/* Hàng lọc địa điểm kỹ thuật không trùng lặp (K tròn) */
+.jn-filter-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
   align-items: center;
-}
-
-.chips-scroll-track::-webkit-scrollbar {
-  display: none;
-}
-
-.jobnest-chip {
-  border: 0;
-  border-radius: 999px;
-  padding: 5px 14px;
-  font-size: 13px;
-  font-weight: 500;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 14px;
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
-  color: #4B5563;
-  white-space: nowrap;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: all 0.15s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
-.jobnest-chip:hover {
+.jn-filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6B7280;
+  padding-right: 10px;
+  border-right: 1.5px solid #E5E7EB;
+  white-space: nowrap;
+}
+
+.jn-filter-chips-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jn-tech-filter-chip {
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  color: #4B5563;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.jn-tech-filter-chip:hover {
   background: #F3F4F6;
   border-color: #D1D5DB;
-  color: #1F2937;
+  color: #111827;
 }
 
-.jobnest-chip--selected {
-  background: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
-  color: #1F2937 !important;
+.jn-tech-filter-chip--active {
+  background: #FFF7ED !important;
+  border-color: #F97316 !important;
+  color: #EA580C !important;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(251, 199, 37, 0.35);
+  box-shadow: 0 1px 2px rgba(234, 88, 12, 0.1);
 }
 
 .jobnest-tip-box {

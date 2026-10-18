@@ -94,18 +94,18 @@ export default function FeaturedJobs() {
   return (
     <section className="featured-jobs-section py-4">
       <div className="container-app">
-        {/* Hàng 1: Tiêu đề, Tab gốc vàng thương hiệu & Xem tất cả */}
+        {/* Hàng 1: Tiêu đề, Tab dạng Segmented Control k tròn & Xem tất cả */}
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
           <div className="d-flex flex-wrap align-items-center gap-3">
             <h2 className="section-title-jobnest mb-0">Việc làm nổi bật</h2>
 
-            {/* Dải tab dạng pill màu vàng thương hiệu JobNest */}
-            <div className="tab-pill-group">
+            {/* Dải tab dạng Segmented Control hình chữ nhật chuẩn ITviec */}
+            <div className="jn-tab-segmented">
               {TABS.map((tab) => (
                 <button
                   key={tab.id}
                   type="button"
-                  className={`tab-pill-btn ${activeTab === tab.id ? 'tab-pill-btn--active' : ''}`}
+                  className={`jn-tab-item ${activeTab === tab.id ? 'jn-tab-item--active' : ''}`}
                   onClick={() => setActiveTab(tab.id)}
                 >
                   {tab.label}
@@ -121,59 +121,47 @@ export default function FeaturedJobs() {
             <div className="d-flex gap-1">
               <button
                 type="button"
-                className="circle-nav-btn circle-nav-btn--sm"
+                className="jn-nav-btn"
                 onClick={loadJobs}
                 aria-label="Tải trước"
+                title="Tải trước"
               >
-                <FaChevronLeft size={10} />
+                <FaChevronLeft size={11} />
               </button>
               <button
                 type="button"
-                className="circle-nav-btn circle-nav-btn--sm"
+                className="jn-nav-btn"
                 onClick={loadJobs}
                 aria-label="Tải sau"
+                title="Tải sau"
               >
-                <FaChevronRight size={10} />
+                <FaChevronRight size={11} />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Hàng 2: Dropdown Lọc theo: Địa điểm & Dải chip vùng miền/thành phố */}
+        {/* Hàng 2: Thanh lọc địa điểm dạng thẻ kỹ thuật k tròn (không trùng lặp) */}
         <div className="jn-filter-row mb-3">
-          <div className="jn-filter-select-wrap">
-            <FaSlidersH className="text-muted ms-2 me-1" size={12} />
-            <select
-              className="jn-filter-select"
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-            >
-              <option value="Tất cả">Lọc theo: Địa điểm</option>
-              <option value="Miền Bắc">Miền Bắc</option>
-              <option value="Miền Trung">Miền Trung</option>
-              <option value="Miền Nam">Miền Nam</option>
-              <option value="Hà Nội">Hà Nội</option>
-              <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
-              <option value="Đà Nẵng">Đà Nẵng</option>
-            </select>
+          <div className="jn-filter-label">
+            <FaSlidersH size={12} />
+            <span>Lọc theo:</span>
           </div>
 
-          <div className="chips-scroll-container">
-            <div className="chips-scroll-track" ref={scrollRef}>
-              {LOCATION_CHIPS.map((chip) => {
-                const isSelected = selectedLocation === chip;
-                return (
-                  <button
-                    key={chip}
-                    type="button"
-                    className={`jobnest-chip ${isSelected ? 'jobnest-chip--selected' : ''}`}
-                    onClick={() => setSelectedLocation(chip)}
-                  >
-                    {chip}
-                  </button>
-                );
-              })}
-            </div>
+          <div className="jn-filter-chips-wrap">
+            {LOCATION_CHIPS.map((chip) => {
+              const isSelected = selectedLocation === chip;
+              return (
+                <button
+                  key={chip}
+                  type="button"
+                  className={`jn-tech-filter-chip ${isSelected ? 'jn-tech-filter-chip--active' : ''}`}
+                  onClick={() => setSelectedLocation(chip)}
+                >
+                  {chip}
+                </button>
+              );
+            })}
           </div>
         </div>
 

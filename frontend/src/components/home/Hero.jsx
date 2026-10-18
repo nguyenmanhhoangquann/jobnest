@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaMapMarkerAlt, FaChevronDown, FaFire } from 'react-icons/fa';
-import { FaWandMagicSparkles } from 'react-icons/fa6';
 
 const SUGGESTED_TAGS = [
   'AI',
@@ -44,19 +43,12 @@ export default function Hero() {
   return (
     <section className="hero-section--itsearch">
       <div className="itsearch-container">
-        {/* 1. AI Eyebrow Badge - Chuẩn phong cách AI Intelligence */}
-        <div className="itsearch-ai-badge">
-          <FaWandMagicSparkles className="itsearch-ai-badge-icon" size={13} />
-          <span>AI-POWERED JOB INTELLIGENCE</span>
-          <span className="itsearch-ai-badge-pulse" />
-        </div>
-
-        {/* 2. Tiêu đề chính chuẩn ITviec */}
+        {/* 1. Tiêu đề chính chuẩn ITviec */}
         <h1 className="itsearch-headline">
           1,250+ IT Jobs For <span className="itsearch-headline-highlight">"Chất"</span> Developers
         </h1>
 
-        {/* 3. Thanh tìm kiếm khung chuẩn ITviec (K tròn, bo góc kỹ thuật 6px) */}
+        {/* 2. Thanh tìm kiếm khung chuẩn ITviec (K tròn, bo góc kỹ thuật 6px) */}
         <form className="itsearch-bar itsearch-bar--tech" onSubmit={handleSearch}>
           {/* Dropdown địa điểm */}
           <div className="itsearch-location-wrap itsearch-location-wrap--tech">
@@ -88,10 +80,6 @@ export default function Hero() {
               onChange={(e) => setKeyword(e.target.value)}
               aria-label="Nhập từ khóa kỹ năng, chức danh hoặc công ty"
             />
-            <span className="itsearch-ai-tag">
-              <FaWandMagicSparkles size={11} className="me-1" />
-              AI Match
-            </span>
           </div>
 
           {/* Nút Tìm kiếm cam chuẩn ITviec bo góc nhẹ 6px (K tròn) */}
