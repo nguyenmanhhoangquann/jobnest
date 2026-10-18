@@ -55,8 +55,21 @@ export default function FeaturedJobs() {
         setLoading(false);
       })
       .catch(() => {
-        setError(true);
-        setLoading(false);
+        // Dự phòng dữ liệu mẫu nếu API backend chưa bật
+        import('../../mock/jobs.js')
+          .then(({ mockJobs }) => {
+            const filtered = mockJobs.filter((j) => {
+              const matchType = activeTab === 'ALL' || j.jobType === activeTab;
+              const matchArea = selectedLocation === 'Tất cả' || j.area === selectedLocation || j.region === selectedLocation || j.location.includes(selectedLocation);
+              return matchType && matchArea;
+            });
+            setJobs((filtered.length > 0 ? filtered : mockJobs).slice(0, 6));
+            setLoading(false);
+          })
+          .catch(() => {
+            setError(true);
+            setLoading(false);
+          });
       });
   };
 

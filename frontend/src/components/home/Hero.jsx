@@ -1,112 +1,123 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaFire } from 'react-icons/fa';
-import HeroSearchBar from './HeroSearchBar.jsx';
-import ReferoConstellation from './ReferoConstellation.jsx';
-import CategorySidebar from './CategorySidebar.jsx';
-import CategoryBannerPreview from './CategoryBannerPreview.jsx';
-import { POPULAR_KEYWORDS } from '../../constants.js';
-import { mockCategories } from '../../mock/categories.js';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { FaSearch, FaMapMarkerAlt, FaChevronDown, FaFire } from 'react-icons/fa';
+
+const SUGGESTED_TAGS = [
+  'AI',
+  'Cloud',
+  'SQL',
+  'Security',
+  'Java',
+  'AWS',
+  'Design',
+  'Tester',
+  'React',
+];
+
+const CITIES = [
+  { value: 'all', label: 'All Cities' },
+  { value: 'ha-noi', label: 'Hà Nội' },
+  { value: 'ho-chi-minh', label: 'TP. Hồ Chí Minh' },
+  { value: 'da-nang', label: 'Đà Nẵng' },
+  { value: 'hai-phong', label: 'Hải Phòng' },
+  { value: 'can-tho', label: 'Cần Thơ' },
+];
 
 export default function Hero() {
+  const [keyword, setKeyword] = useState('');
+  const [area, setArea] = useState('all');
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState(() => mockCategories[0]);
-  const timerRef = useRef(null);
 
-  const handleHoverCategory = useCallback((cat) => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      setActiveCategory(cat);
-    }, 50);
-  }, []);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (keyword.trim()) params.append('keyword', keyword.trim());
+    if (area && area !== 'all') params.append('area', area);
+    navigate(`/jobs/search?${params.toString()}`);
+  };
+
+  const handleTagClick = (tag) => {
+    navigate(`/jobs/search?keyword=${encodeURIComponent(tag)}`);
+  };
 
   return (
-    <section className="hero-section hero-section--refero">
-      <div className="container-app position-relative z-2">
-        {/* Phần trên: Bố cục 2 cột chuẩn Refero Dala */}
-        <div className="row align-items-center g-4 g-lg-5 hero-refero-row">
-          {/* Cột trái: Tiêu đề, phụ đề, thanh tìm kiếm & ticker */}
-          <div className="col-12 col-lg-7">
-            <div className="hero-refero-content text-start">
-              {/* Eyebrow tag phong cách Refero Dala */}
-              <div className="hero-eyebrow hero-eyebrow--refero mb-3">
-                <span className="hero-eyebrow-dot" />
-                JOBNEST WORKPLACE INTELLIGENCE
-              </div>
+    <section className="hero-section--itsearch">
+      <div className="itsearch-container">
+        {/* 1. Tiêu đề chính chuẩn ITviec */}
+        <h1 className="itsearch-headline">
+          1,250+ IT Jobs For <span className="itsearch-headline-highlight">"Chất"</span> Developers
+        </h1>
 
-              {/* Tiêu đề display hoành tráng nhưng nét thanh nhẹ (Refero Monolithic Typography) */}
-              <h1 className="hero-title hero-title--refero mb-3">
-                Nơi sự nghiệp của bạn <br />
-                <span className="hero-title-accent">tìm thấy câu trả lời.</span>
-              </h1>
-
-              {/* Phụ đề ultra-light, thoáng đạt */}
-              <p className="hero-desc hero-desc--refero mb-4">
-                Khám phá hơn 10,000+ cơ hội công nghệ chất lượng cao. Định vị mức lương, đo độ khớp hồ sơ và kết nối trực tiếp với các startup hàng đầu.
-              </p>
-
-              {/* Thanh tìm kiếm phong cách Refero Obsidian */}
-              <div className="hero-search-wrap mb-3">
-                <HeroSearchBar variant="refero" />
-              </div>
-
-              {/* Dải thông điệp chạy chữ ngọn lửa ITviec trên nền tối Refero */}
-              <div className="hero-ticker-marquee hero-ticker-marquee--refero mb-3">
-                <div className="hero-ticker-fire" title="Nóng">
-                  <FaFire className="text-warning" size={15} />
-                </div>
-                <div className="hero-ticker-track-wrap">
-                  <div className="hero-ticker-track">
-                    <span className="hero-ticker-text hero-ticker-text--refero">
-                      JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
-                    </span>
-                    <span className="hero-ticker-text hero-ticker-text--refero" aria-hidden="true">
-                      JobNest – Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Dải từ khóa phổ biến */}
-              <div className="hero-keywords hero-keywords--refero">
-                <span className="hero-keywords__label hero-keywords__label--refero">
-                  Từ khóa hàng đầu:
-                </span>
-                <div className="hero-keywords__list d-flex flex-wrap gap-1">
-                  {POPULAR_KEYWORDS.slice(0, 6).map((kw) => (
-                    <button
-                      key={kw}
-                      type="button"
-                      className="chip hero-keyword-chip hero-keyword-chip--refero"
-                      onClick={() => navigate(`/jobs/search?keyword=${encodeURIComponent(kw)}`)}
-                    >
-                      {kw}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+        {/* 2. Thanh tìm kiếm chính 3 phần: Địa điểm - Từ khóa - Nút Search */}
+        <form className="itsearch-bar" onSubmit={handleSearch}>
+          {/* Dropdown địa điểm */}
+          <div className="itsearch-location-wrap">
+            <FaMapMarkerAlt className="itsearch-location-icon" />
+            <select
+              className="itsearch-location-select"
+              value={area}
+              onChange={(e) => setArea(e.target.value)}
+              aria-label="Chọn thành phố"
+            >
+              {CITIES.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+            <FaChevronDown className="itsearch-location-chevron" />
           </div>
 
-          {/* Cột phải: Chòm sao tri thức & Chữ 3D tương tác không gian đa chiều */}
-          <div className="col-12 col-lg-5">
-            <ReferoConstellation />
-          </div>
-        </div>
+          <div className="itsearch-divider" />
 
-        {/* Phần dưới: Khối tương tác Danh mục nghề nghiệp */}
-        <div className="hero-showcase-grid mt-5">
-          {/* Cột trái: Danh mục nghề nghiệp */}
-          <div className="hero-showcase-sidebar">
-            <CategorySidebar
-              activeCategory={activeCategory}
-              onHoverCategory={handleHoverCategory}
+          {/* Ô nhập từ khóa kỹ năng / chức danh / công ty */}
+          <div className="itsearch-input-wrap">
+            <input
+              type="text"
+              className="itsearch-input"
+              placeholder="Enter keyword skill (Java, iOS...), job title, company..."
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              aria-label="Nhập từ khóa kỹ năng, chức danh hoặc công ty"
             />
           </div>
 
-          {/* Cột phải: Banner ảnh tương ứng với ngành đang hover */}
-          <div className="hero-showcase-preview">
-            <CategoryBannerPreview category={activeCategory} />
+          {/* Nút Tìm kiếm cam chuẩn JobNest */}
+          <button type="submit" className="itsearch-btn">
+            <FaSearch size={15} />
+            <span>Search</span>
+          </button>
+        </form>
+
+        {/* 3. Dải từ khóa gợi ý (Suggestions for you) */}
+        <div className="itsearch-suggestions">
+          <span className="itsearch-suggestions-label">Suggestions for you:</span>
+          <div className="d-flex flex-wrap gap-2">
+            {SUGGESTED_TAGS.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                className="itsearch-tag-chip"
+                onClick={() => handleTagClick(tag)}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 4. Dải thông báo / Khuyến mãi nhận quà 500K khi upload CV */}
+        <div className="itsearch-ticker-bar">
+          <div className="itsearch-ticker-icon" title="Chương trình quà tặng">
+            <FaFire className="itsearch-fire-svg" size={17} />
+          </div>
+          <div className="itsearch-ticker-text">
+            <span>
+              Be the lucky winner of 500K when upload CV & update job search status.{' '}
+            </span>
+            <Link to="/profile" className="itsearch-ticker-link">
+              Join now!
+            </Link>
           </div>
         </div>
       </div>
