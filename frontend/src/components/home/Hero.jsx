@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaMapMarkerAlt, FaChevronDown, FaFire } from 'react-icons/fa';
 
 const SUGGESTED_TAGS = [
@@ -48,10 +48,10 @@ export default function Hero() {
           1,250+ IT Jobs For <span className="itsearch-headline-highlight">"Chất"</span> Developers
         </h1>
 
-        {/* 2. Thanh tìm kiếm chính 3 phần: Địa điểm - Từ khóa - Nút Search */}
-        <form className="itsearch-bar" onSubmit={handleSearch}>
+        {/* 2. Thanh tìm kiếm dạng viên thuốc (Pill shape mềm mại, không góc vuông) */}
+        <form className="itsearch-bar itsearch-bar--pill" onSubmit={handleSearch}>
           {/* Dropdown địa điểm */}
-          <div className="itsearch-location-wrap">
+          <div className="itsearch-location-wrap itsearch-location-wrap--pill">
             <FaMapMarkerAlt className="itsearch-location-icon" />
             <select
               className="itsearch-location-select"
@@ -82,14 +82,14 @@ export default function Hero() {
             />
           </div>
 
-          {/* Nút Tìm kiếm cam chuẩn JobNest */}
-          <button type="submit" className="itsearch-btn">
+          {/* Nút Tìm kiếm cam chuẩn JobNest bo tròn viên thuốc */}
+          <button type="submit" className="itsearch-btn itsearch-btn--pill">
             <FaSearch size={15} />
             <span>Search</span>
           </button>
         </form>
 
-        {/* 3. Dải từ khóa gợi ý (Suggestions for you) */}
+        {/* 3. Dải từ khóa gợi ý (Suggestions for you dạng Pill bo tròn) */}
         <div className="itsearch-suggestions">
           <span className="itsearch-suggestions-label">Suggestions for you:</span>
           <div className="d-flex flex-wrap gap-2">
@@ -106,18 +106,20 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* 4. Dải thông báo / Khuyến mãi nhận quà 500K khi upload CV */}
-        <div className="itsearch-ticker-bar">
-          <div className="itsearch-ticker-icon" title="Chương trình quà tặng">
+        {/* 4. Dải thông điệp chạy chữ ngọn lửa hiệu ứng Marquee (Chữ cũ, khung viên thuốc không vuông) */}
+        <div className="itsearch-ticker-pill">
+          <div className="itsearch-ticker-fire" title="Nóng">
             <FaFire className="itsearch-fire-svg" size={17} />
           </div>
-          <div className="itsearch-ticker-text">
-            <span>
-              Be the lucky winner of 500K when upload CV & update job search status.{' '}
-            </span>
-            <Link to="/profile" className="itsearch-ticker-link">
-              Join now!
-            </Link>
+          <div className="itsearch-ticker-track-wrap">
+            <div className="itsearch-ticker-track">
+              <span className="itsearch-ticker-text">
+                JobNest - Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
+              </span>
+              <span className="itsearch-ticker-text" aria-hidden="true">
+                JobNest - Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
+              </span>
+            </div>
           </div>
         </div>
       </div>
