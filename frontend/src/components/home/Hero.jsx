@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaMapMarkerAlt, FaChevronDown, FaFire } from 'react-icons/fa';
+import { FaWandMagicSparkles } from 'react-icons/fa6';
 
 const SUGGESTED_TAGS = [
   'AI',
@@ -43,15 +44,22 @@ export default function Hero() {
   return (
     <section className="hero-section--itsearch">
       <div className="itsearch-container">
-        {/* 1. Tiêu đề chính chuẩn ITviec */}
+        {/* 1. AI Eyebrow Badge - Chuẩn phong cách AI Intelligence */}
+        <div className="itsearch-ai-badge">
+          <FaWandMagicSparkles className="itsearch-ai-badge-icon" size={13} />
+          <span>AI-POWERED JOB INTELLIGENCE</span>
+          <span className="itsearch-ai-badge-pulse" />
+        </div>
+
+        {/* 2. Tiêu đề chính chuẩn ITviec */}
         <h1 className="itsearch-headline">
           1,250+ IT Jobs For <span className="itsearch-headline-highlight">"Chất"</span> Developers
         </h1>
 
-        {/* 2. Thanh tìm kiếm dạng viên thuốc (Pill shape mềm mại, không góc vuông) */}
-        <form className="itsearch-bar itsearch-bar--pill" onSubmit={handleSearch}>
+        {/* 3. Thanh tìm kiếm khung chuẩn ITviec (K tròn, bo góc kỹ thuật 6px) */}
+        <form className="itsearch-bar itsearch-bar--tech" onSubmit={handleSearch}>
           {/* Dropdown địa điểm */}
-          <div className="itsearch-location-wrap itsearch-location-wrap--pill">
+          <div className="itsearch-location-wrap itsearch-location-wrap--tech">
             <FaMapMarkerAlt className="itsearch-location-icon" />
             <select
               className="itsearch-location-select"
@@ -80,16 +88,20 @@ export default function Hero() {
               onChange={(e) => setKeyword(e.target.value)}
               aria-label="Nhập từ khóa kỹ năng, chức danh hoặc công ty"
             />
+            <span className="itsearch-ai-tag">
+              <FaWandMagicSparkles size={11} className="me-1" />
+              AI Match
+            </span>
           </div>
 
-          {/* Nút Tìm kiếm cam chuẩn JobNest bo tròn viên thuốc */}
-          <button type="submit" className="itsearch-btn itsearch-btn--pill">
-            <FaSearch size={15} />
+          {/* Nút Tìm kiếm cam chuẩn ITviec bo góc nhẹ 6px (K tròn) */}
+          <button type="submit" className="itsearch-btn itsearch-btn--tech">
+            <FaSearch size={14} />
             <span>Search</span>
           </button>
         </form>
 
-        {/* 3. Dải từ khóa gợi ý (Suggestions for you dạng Pill bo tròn) */}
+        {/* 4. Dải từ khóa gợi ý (Suggestions for you dạng Tech Chips k tròn) */}
         <div className="itsearch-suggestions">
           <span className="itsearch-suggestions-label">Suggestions for you:</span>
           <div className="d-flex flex-wrap gap-2">
@@ -97,7 +109,7 @@ export default function Hero() {
               <button
                 key={tag}
                 type="button"
-                className="itsearch-tag-chip"
+                className="itsearch-tag-chip itsearch-tag-chip--tech"
                 onClick={() => handleTagClick(tag)}
               >
                 {tag}
@@ -106,10 +118,10 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* 4. Dải thông điệp chạy chữ ngọn lửa hiệu ứng Marquee (Chữ cũ, khung viên thuốc không vuông) */}
-        <div className="itsearch-ticker-pill">
+        {/* 5. Dải thông điệp chạy chữ ngọn lửa hiệu ứng Marquee (Khung k tròn, viền công nghệ AI) */}
+        <div className="itsearch-ticker-bar itsearch-ticker-bar--tech">
           <div className="itsearch-ticker-fire" title="Nóng">
-            <FaFire className="itsearch-fire-svg" size={17} />
+            <FaFire className="itsearch-fire-svg" size={16} />
           </div>
           <div className="itsearch-ticker-track-wrap">
             <div className="itsearch-ticker-track">
