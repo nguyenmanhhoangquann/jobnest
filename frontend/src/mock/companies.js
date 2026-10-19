@@ -1,5 +1,31 @@
 export const mockCompanies = [
   {
+    "id": 12,
+    "name": "Toshiba Software Development (Viet Nam) Co, Ltd",
+    "shortName": "Toshiba Software Development",
+    "slug": "toshiba-software-development-viet-nam-co-ltd",
+    "industry": "IT - Phần mềm",
+    "logo": "/images/companies/toshiba.svg",
+    "cover": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
+    "location": "Ha Noi",
+    "size": "500 - 1.000 nhân viên",
+    "website": "https://toshiba.com.vn",
+    "verified": true,
+    "skills": ["C++", "QA QC", "Java", "C#", "C language", "Embedded"],
+    "description": "Toshiba Software Development (Viet Nam) Co., Ltd (TSDV) là công ty công nghệ thuộc Tập đoàn Toshiba (Nhật Bản), tiên phong trong phát triển hệ thống nhúng và phần mềm công nghệ cao.",
+    "jobs": [
+      {
+        "id": 101,
+        "title": "Senior Embedded Software Engineer (C / C++ / Embedded Linux)",
+        "salaryText": "25 - 45 triệu",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "FULL_TIME",
+        "experience": "2-5",
+        "deadline": "31/12/2026"
+      }
+    ]
+  },
+  {
     "id": 1,
     "name": "TẬP ĐOÀN CÔNG NGHỆ FPT",
     "shortName": "FPT Software & Telecom",

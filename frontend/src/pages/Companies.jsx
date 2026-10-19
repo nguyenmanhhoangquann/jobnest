@@ -25,12 +25,26 @@ import {
   FaBolt,
   FaUserFriends,
   FaCheck,
+  FaChevronRight,
 } from 'react-icons/fa';
 import mockCompanies from '../mock/companies.js';
 import companyApi from '../api/companyApi.js';
 import { showToast } from '../components/common/ToastHost.jsx';
 
 const COMPANY_EXTRAS_MAP = {
+  toshiba: {
+    tagline: 'Tiên phong phát triển hệ thống phần mềm nhúng và giải pháp công nghệ cao chuẩn Nhật Bản.',
+    founded: 2007,
+    offices: 'Keangnam Hanoi Landmark Tower',
+    officesCount: '2+',
+    activeUsers: '10M+',
+    funding: '100% Vốn Tập đoàn Toshiba (Nhật Bản)',
+    ownership: 'Doanh nghiệp FDI',
+    hq: 'Nam Từ Liêm, Hà Nội',
+    size: '500 - 1.000 nhân sự',
+    industry: 'IT - Phần mềm / Hệ thống nhúng',
+    website: 'https://toshiba.com.vn',
+  },
   viettel: {
     tagline: 'Tập đoàn công nghệ - viễn thông lớn nhất Việt Nam, hoạt động đa quốc gia trên 11 thị trường.',
     founded: 1989,
@@ -328,7 +342,45 @@ const CATEGORY_TABS = [
   { id: 'Bất động sản', label: 'Bất động sản' },
 ];
 
-const SEARCH_HINTS = ['FPT', 'Ngân hàng', 'IT', 'Marketing', 'Hà Nội', 'TP.HCM'];
+const SEARCH_HINTS = ['Toshiba', 'FPT', 'Viettel', 'MB Bank', 'Vinamilk', 'MISA', 'Hà Nội', 'TP.HCM'];
+
+const getCompanySkills = (comp) => {
+  if (comp.skills && Array.isArray(comp.skills) && comp.skills.length > 0) {
+    return comp.skills;
+  }
+  const name = (comp.name || comp.shortName || '').toLowerCase();
+  if (name.includes('toshiba')) return ['C++', 'QA QC', 'Java', 'C#', 'C language', 'Embedded'];
+  if (name.includes('fpt')) return ['Java', 'Spring Boot', 'ReactJS', 'AWS', 'TypeScript', 'NodeJS'];
+  if (name.includes('viettel')) return ['5G / IoT', 'Embedded', 'Java', 'Linux', 'Security', 'Cloud'];
+  if (name.includes('misa')) return ['NodeJS', 'ReactJS', 'SQL Server', 'C# .NET', 'Product', 'CRM'];
+  if (name.includes('mb') || name.includes('quân đội')) return ['Tài chính DN', 'Ngân hàng số', 'SME', 'B2B', 'Fintech'];
+  if (name.includes('vinamilk')) return ['FMCG', 'Quản lý bán hàng', 'Chuỗi cung ứng', 'Marketing', 'ERP'];
+  if (name.includes('vib')) return ['Tài chính', 'Thẻ tín dụng', 'Bán lẻ', 'CSKH', 'Đàm phán'];
+  if (name.includes('ssi')) return ['Chứng khoán', 'Quản lý tài sản', 'Phân tích tài chính', 'Fintech', 'Đầu tư'];
+  if (name.includes('vinhomes')) return ['Bất động sản', 'Kinh doanh', 'Phân phối DA', 'Tư vấn KH', 'B2C'];
+  if (name.includes('hòa phát')) return ['Cơ điện', 'Quản lý thiết bị', 'Bảo trì', 'Sản xuất thép', 'Công nghiệp'];
+  if (name.includes('concentrix')) return ['Customer Support', 'Tiếng Anh', 'BPO', 'Tư vấn KH', 'Call Center'];
+  if (name.includes('k&m')) return ['B2B Sales', 'Cơ điện', 'Thương mại', 'Quản lý DA', 'Chuỗi cung ứng'];
+  return ['Chuyên môn cao', 'Môi trường tốt', 'Đãi ngộ cao'];
+};
+
+const getCompanyLocation = (comp) => {
+  const loc = comp.location || 'Ha Noi';
+  const l = loc.toLowerCase();
+  if (l.includes('hà nội') && (l.includes('tp.hcm') || l.includes('hồ chí minh'))) {
+    return 'Ha Noi - Ho Chi Minh';
+  }
+  if (l.includes('hà nội') || l.includes('ha nei') || l.includes('ha noi')) {
+    return 'Ha Noi';
+  }
+  if (l.includes('hồ chí minh') || l.includes('tp.hcm') || l.includes('ho chi minh')) {
+    return 'Ho Chi Minh';
+  }
+  if (l.includes('đà nẵng') || l.includes('da nang')) {
+    return 'Da Nang';
+  }
+  return loc.split(',')[0].trim();
+};
 
 const getJobSkills = (job, industry) => {
   if (job.skills && job.skills.length > 0) return job.skills;
@@ -806,7 +858,7 @@ export default function Companies() {
           </div>
         </div>
 
-        {/* 4. COMPANY CARDS (3-COLUMN RESPONSIVE GRID) */}
+        {/* 4. COMPANY CARDS (3-COLUMN RESPONSIVE GRID - ITVIEC STYLE) */}
         {filteredCompanies.length === 0 ? (
           <div className="card border-0 shadow-sm rounded-4 p-5 text-center bg-white my-4">
             <FaBuilding size={42} className="text-muted mb-2 mx-auto" />
@@ -824,86 +876,92 @@ export default function Companies() {
             </button>
           </div>
         ) : (
-          <div className="row g-3 g-lg-3.5">
-            {filteredCompanies.map((comp) => (
-              <div key={comp.id} className="col-12 col-sm-6 col-lg-3">
-                <Link
-                  to={`/companies?id=${comp.id}`}
-                  className="company-card-premium text-decoration-none d-block"
-                >
-                  {/* 16:9 Cover Image with Rounded Top */}
-                  <div className="company-card-cover-wrap">
-                    <img
-                      src={comp.cover}
-                      alt={comp.name}
-                      className="company-card-cover-img"
-                      loading="lazy"
-                    />
-                  </div>
+          <div className="row g-4 top-employers-container">
+            {filteredCompanies.map((comp) => {
+              const compSkills = getCompanySkills(comp);
+              const jobsCount = comp.jobs?.length || 0;
+              const locationText = getCompanyLocation(comp);
 
-                  {/* Body with overlapping logo */}
-                  <div className="company-card-body">
-                    {/* Company Logo Overlap */}
-                    <div className="company-card-logo-overlap position-relative">
+              return (
+                <div key={comp.id} className="col-12 col-md-6 col-xl-4">
+                  <Link
+                    to={`/companies?id=${comp.id}`}
+                    className="top-employer-item text-decoration-none"
+                  >
+                    {/* Background ripple vector */}
+                    <div className="top-employer-bg-pattern">
+                      <img src="/images/bg-top-emp.svg" alt="" aria-hidden="true" />
+                    </div>
+
+                    {/* Elevated Logo Card */}
+                    <div className="top-employer-img-wrap">
                       <img
                         src={comp.logo}
                         alt={comp.name}
-                        className="company-card-logo-img"
+                        className="top-employer-logo-img"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                           if (e.currentTarget.nextElementSibling) {
-                            e.currentTarget.nextElementSibling.style.display = 'flex';
+                            e.currentTarget.style.display = 'flex';
                           }
                         }}
                       />
-                      <div
-                        className="fw-bold text-dark align-items-center justify-content-center w-100 h-100 rounded-3 bg-light"
-                        style={{ display: 'none', fontSize: '18px' }}
-                      >
+                      <div className="top-employer-logo-fallback">
                         {(comp.shortName || comp.name).charAt(0).toUpperCase()}
                       </div>
                     </div>
 
-                    {/* Company Name & Verified Badge */}
-                    <div className="company-name-row d-flex align-items-center gap-1.5">
-                      <h3 className="company-card-name text-truncate mb-0" title={comp.name}>
-                        {comp.shortName || comp.name}
+                    {/* Centered Title & Skill Tags */}
+                    <div className="top-employer-content">
+                      <h3 className="top-employer-name" title={comp.name}>
+                        {comp.name}
                       </h3>
-                      {comp.verified && (
-                        <FaCheckCircle
-                          className="text-success flex-shrink-0"
-                          size={14}
-                          title="Doanh nghiệp đã xác thực"
-                        />
-                      )}
-                    </div>
 
-                    {/* Industry */}
-                    <div className="company-card-industry text-truncate">
-                      {comp.industry}
-                    </div>
-
-                    {/* Location */}
-                    <div className="company-card-location">
-                      <FaMapMarkerAlt size={13} className="text-secondary flex-shrink-0" />
-                      <span className="text-truncate">{comp.location}</span>
-                    </div>
-
-                    {/* Footer: Yellow Job Count Badge + CTA */}
-                    <div className="company-card-footer">
-                      <span className="company-jobs-badge">
-                        {comp.jobs?.length || 0} việc làm đang tuyển
-                      </span>
-
-                      <div className="company-card-cta">
-                        <span>Khám phá công ty</span>
-                        <FaArrowRight size={11} />
+                      <div className="top-employer-tags">
+                        {compSkills.map((skill, sIdx) => (
+                          <span key={sIdx} className="top-employer-tag">
+                            {skill}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
+
+                    {/* Split Footer: Location + Jobs Count */}
+                    <div className="top-employer-footer">
+                      <div className="top-employer-location text-truncate" title={locationText}>
+                        {locationText}
+                      </div>
+
+                      <div className="top-employer-jobs-count">
+                        <span className="top-employer-online-dot">
+                          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle opacity="0.2" cx="10" cy="10" r="10" fill="#0AB305" />
+                            <circle opacity="0.5" cx="10" cy="10" r="6" fill="#0AB305" />
+                            <circle cx="10" cy="10" r="4" fill="#0AB305" />
+                          </svg>
+                        </span>
+                        <span>
+                          {jobsCount} {jobsCount === 1 ? 'Job' : 'Jobs'}
+                        </span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="top-employer-chevron"
+                        >
+                          <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
