@@ -918,13 +918,13 @@ export default function Companies() {
                   setPage(1);
                 }}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="7" />
                   <line x1="12" y1="1" x2="12" y2="5" />
                   <line x1="12" y1="19" x2="12" y2="23" />
                   <line x1="5" y1="12" x2="1" y2="12" />
                   <line x1="23" y1="12" x2="19" y2="12" />
-                  <circle cx="12" cy="12" r="2" fill="#2563EB" />
+                  <circle cx="12" cy="12" r="2" fill="#EA580C" />
                 </svg>
               </button>
             </div>
