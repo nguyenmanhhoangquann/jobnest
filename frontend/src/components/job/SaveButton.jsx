@@ -62,11 +62,18 @@ export default function SaveButton({ jobId, initialSaved = false, onToggle, vari
         disabled={loading}
         title={saved ? 'Đã lưu việc làm' : 'Lưu việc làm'}
       >
-        {saved ? (
-          <FaStar size={16} color="#F59E0B" />
-        ) : (
-          <FaRegStar size={16} color="#94A3B8" />
-        )}
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 24 24"
+          fill={saved ? '#F59E0B' : 'none'}
+          stroke={saved ? '#F59E0B' : '#94A3B8'}
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
       </button>
     );
   }

@@ -725,13 +725,14 @@ img {
   display: flex;
   align-items: flex-start;
   gap: 18px;
-  padding: 20px 24px;
+  padding: 22px 24px;
   background: #FFFFFF;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #E2E8F0;
   border-radius: 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   position: relative;
+  margin-bottom: 14px;
 }
 
 .himalayas-job-card:hover {
@@ -749,9 +750,9 @@ img {
 }
 
 .himalayas-card__logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   border: 1px solid #E5E7EB;
   background: #FFFFFF;
   display: flex;
@@ -760,7 +761,7 @@ img {
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   text-decoration: none;
-  padding: 6px;
+  padding: 5px;
 }
 
 .himalayas-card__logo img {
@@ -798,7 +799,7 @@ img {
 }
 
 .himalayas-card__title {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: #111827;
   margin: 0;
@@ -812,7 +813,7 @@ img {
 }
 
 .himalayas-job-card:hover .himalayas-card__title a {
-  color: #EA580C;
+  color: #0F172A;
 }
 
 .himalayas-card__time {
@@ -827,10 +828,11 @@ img {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
   font-size: 13.5px;
   color: #4B5563;
-  margin-bottom: 12px;
+  margin-top: 6px;
+  margin-bottom: 14px;
 }
 
 .himalayas-card__company {
@@ -842,29 +844,34 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: -6px;
-  margin-right: 2px;
+  margin-left: -8px;
+  margin-right: -4px;
 }
 
 .himalayas-meta-pill {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   color: #4B5563;
 }
 
-.himalayas-salary-symbol {
+.himalayas-meta-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  border: 1px solid #94A3B8;
-  font-size: 11px;
-  font-weight: 700;
-  color: #475569;
-  line-height: 1;
+  gap: 5px;
+  color: #4B5563;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.himalayas-meta-link:hover {
+  color: #111827;
+}
+
+.himalayas-underlined-text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
 .himalayas-card__footer {
@@ -886,11 +893,11 @@ img {
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 500;
   color: #334155;
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #D1D5DB;
   border-radius: 6px;
   line-height: 1.4;
   white-space: nowrap;
@@ -913,45 +920,23 @@ img {
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .himalayas-star-btn {
   background: transparent;
   border: none;
-  padding: 6px;
+  padding: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 6px;
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 .himalayas-star-btn:hover {
-  background: #F8FAFC;
-  transform: scale(1.1);
-}
-
-.btn-himalayas-apply {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #1F2937;
-  background: #FFFBEB;
-  border: 1px solid #FCD34D;
-  border-radius: 9999px;
-  text-decoration: none;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-}
-
-.btn-himalayas-apply:hover {
-  background: #FEF3C7;
-  border-color: #F59E0B;
-  color: #B45309;
+  transform: scale(1.15);
 }
 
 /* ==========================================================================

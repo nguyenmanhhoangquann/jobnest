@@ -91,7 +91,7 @@ export default function JobCard({ job, variant = 'card', extra }) {
             <span className="himalayas-card__time">{timeAgo}</span>
           </div>
 
-          {/* Row 2: Company details, Verified Badge, Size, Salaries, Location */}
+          {/* Row 2: Company details, Verified Badge, Size, Benefits, Tech stack, Salaries */}
           <div className="himalayas-card__meta">
             <span className="himalayas-card__company">{companyName}</span>
 
@@ -114,30 +114,57 @@ export default function JobCard({ job, variant = 'card', extra }) {
 
             {/* Company Size */}
             <span className="himalayas-meta-pill" title="Quy mô công ty">
-              <FaUsers size={12} className="text-secondary" />
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-secondary">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
               <span>{companySize}</span>
             </span>
 
-            {/* Salaries Indicator */}
-            {salaryText && (
-              <span className="himalayas-meta-pill himalayas-meta-pill--salary" title="Mức thu nhập">
-                <span className="himalayas-salary-symbol">₫</span>
-                <span className="fw-semibold text-dark">{salaryText}</span>
-              </span>
-            )}
+            {/* Benefits link */}
+            <Link to={`/jobs/${id}`} className="himalayas-meta-link" title="Xem chế độ đãi ngộ & phúc lợi">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
+              </svg>
+              <span className="himalayas-underlined-text">Phúc lợi</span>
+            </Link>
 
-            {/* Location */}
-            {location && (
-              <span className="himalayas-meta-pill" title="Địa điểm làm việc">
-                <FaMapMarkerAlt size={11} className="text-secondary" />
-                <span>{location}</span>
-              </span>
-            )}
+            {/* Tech stack link */}
+            <Link to={`/jobs/${id}`} className="himalayas-meta-link" title="Xem ngăn xếp công nghệ">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 2 10 5-10 5-10-5Z" />
+                <path d="m2 12 10 5 10-5" />
+                <path d="m2 17 10 5 10-5" />
+              </svg>
+              <span className="himalayas-underlined-text">Công nghệ</span>
+            </Link>
+
+            {/* Salaries Indicator */}
+            <span className="himalayas-meta-pill himalayas-meta-pill--salary" title="Mức thu nhập">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v12M15 9.5a2.5 2.5 0 0 0-5 0c0 4 6 2 6 6a2.5 2.5 0 0 1-5 0" />
+              </svg>
+              <Link to={`/jobs/${id}`} className="himalayas-meta-link">
+                <span className="himalayas-underlined-text">Mức lương</span>
+              </Link>
+              {salaryText && <span className="fw-semibold text-dark ms-1.5">{salaryText}</span>}
+            </span>
           </div>
 
-          {/* Row 3: Tags on left, Star Save + Apply buttons on right */}
+          {/* Row 3: Tags on left, Star Bookmark on right (NO apply button) */}
           <div className="himalayas-card__footer">
             <div className="himalayas-card__tags">
+              {/* Location / Country Tag */}
+              {location && (
+                <span className="himalayas-tag-pill himalayas-tag-pill--loc">
+                  <span className="me-1">🇻🇳</span>
+                  <span>{location === 'Toàn quốc' ? 'Việt Nam only' : `${location} only`}</span>
+                </span>
+              )}
+
               {/* Employment Type Tag */}
               <span className="himalayas-tag-pill">{jobTypeLabel}</span>
 
@@ -147,11 +174,6 @@ export default function JobCard({ job, variant = 'card', extra }) {
                   <span className="himalayas-purple-dot" />
                   <span>{job.category.name}</span>
                 </span>
-              )}
-
-              {/* Experience Tag */}
-              {job.experience && (
-                <span className="himalayas-tag-pill">{expLabel}</span>
               )}
 
               {/* Tech Skill Tags */}
@@ -165,9 +187,6 @@ export default function JobCard({ job, variant = 'card', extra }) {
 
             <div className="himalayas-card__actions">
               <SaveButton jobId={id} initialSaved={saved} variant="star" />
-              <Link to={`/jobs/${id}`} className="btn-himalayas-apply">
-                Ứng tuyển
-              </Link>
             </div>
           </div>
         </div>
