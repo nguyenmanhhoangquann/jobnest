@@ -53,7 +53,7 @@ export const mockJobs = [
     "company": {
       "id": 1,
       "name": "TẬP ĐOÀN CÔNG NGHỆ FPT",
-      "logoUrl": "/images/companies/fpt.svg"
+      "logoUrl": "/images/companies/fpt.png"
     },
     "isHot": true,
     "isUrgent": true,
