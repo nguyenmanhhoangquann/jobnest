@@ -30,6 +30,7 @@ import {
 import mockCompanies from '../mock/companies.js';
 import companyApi from '../api/companyApi.js';
 import { showToast } from '../components/common/ToastHost.jsx';
+import Pagination from '../components/common/Pagination.jsx';
 
 const COMPANY_EXTRAS_MAP = {
   toshiba: {
@@ -420,6 +421,24 @@ const matchIndustry = (compIndustry, categoryId) => {
   }
 };
 
+const matchSize = (compSize, filterSize) => {
+  if (!filterSize || filterSize === 'all') return true;
+  const s = (compSize || '').toLowerCase();
+  if (filterSize === 'small') return s.includes('50') || s.includes('100') || s.includes('200');
+  if (filterSize === 'medium') return s.includes('500') || s.includes('1.000') || s.includes('1000');
+  if (filterSize === 'large') return s.includes('3.000') || s.includes('5.000') || s.includes('10.000') || s.includes('20.000') || s.includes('50.000') || s.includes('1.000+');
+  return true;
+};
+
+const matchOfficeType = (comp, filterOffice) => {
+  if (!filterOffice || filterOffice === 'all') return true;
+  const text = `${comp.location || ''} ${comp.description || ''}`.toLowerCase();
+  if (filterOffice === 'remote') return text.includes('remote') || text.includes('từ xa');
+  if (filterOffice === 'hybrid') return text.includes('linh hoạt') || text.includes('hybrid') || text.includes('toàn quốc');
+  if (filterOffice === 'onsite') return !text.includes('remote');
+  return true;
+};
+
 const getJobSkills = (job, industry) => {
   if (job.skills && job.skills.length > 0) return job.skills;
   const t = (job.title || '').toLowerCase();
@@ -443,7 +462,13 @@ export default function Companies() {
   const [companiesList, setCompaniesList] = useState(mockCompanies);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('all');
+  const [activeOfficeType, setActiveOfficeType] = useState('all');
   const [activeIndustry, setActiveIndustry] = useState('ALL');
+  const [selectedSize, setSelectedSize] = useState('all');
+  const [showAllFilters, setShowAllFilters] = useState(false);
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 12;
+
   const [companyTab, setCompanyTab] = useState('overview');
   const [isFollowed, setIsFollowed] = useState(() => {
     if (!selectedCompanyId) return false;
@@ -481,6 +506,12 @@ export default function Companies() {
       if (!matchLocation(c.location, selectedLocation)) {
         return false;
       }
+      if (!matchOfficeType(c, activeOfficeType)) {
+        return false;
+      }
+      if (!matchSize(c.size, selectedSize)) {
+        return false;
+      }
       if (searchKeyword.trim()) {
         const kw = searchKeyword.toLowerCase().trim();
         const skills = getCompanySkills(c).map((s) => s.toLowerCase());
@@ -496,7 +527,31 @@ export default function Companies() {
       }
       return true;
     });
-  }, [companiesList, searchKeyword, activeIndustry, selectedLocation]);
+  }, [companiesList, searchKeyword, activeIndustry, selectedLocation, activeOfficeType, selectedSize]);
+
+  const totalElements = filteredCompanies.length;
+  const totalPages = Math.ceil(totalElements / PAGE_SIZE) || 1;
+
+  const paginatedCompanies = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE;
+    return filteredCompanies.slice(start, start + PAGE_SIZE);
+  }, [filteredCompanies, page, PAGE_SIZE]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    const el = document.getElementById('companies-list-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleResetFilters = () => {
+    setSelectedLocation('all');
+    setActiveOfficeType('all');
+    setActiveIndustry('ALL');
+    setSelectedSize('all');
+    setSearchKeyword('');
+    setShowAllFilters(false);
+    setPage(1);
+  };
 
   const selectedCompany = useMemo(() => {
     if (!selectedCompanyId) return null;
@@ -816,79 +871,173 @@ export default function Companies() {
   // GIAO DIỆN CHÍNH: DANH SÁCH DOANH NGHIỆP HÀNG ĐẦU
   return (
     <div className="companies-page-root">
-      {/* 1. HERO SECTION */}
-      <section className="companies-hero-box">
-        <div className="companies-hero-dots-left" />
-        <div className="companies-hero-dots-right" />
-
-        <div className="container position-relative" style={{ maxWidth: '860px', zIndex: 2 }}>
-          {/* Large headline */}
-          <h1 className="companies-hero-title">
-            Khám phá văn hóa &amp; <span className="highlight-orange">Cơ hội việc làm</span>
+      {/* 1. HERO SECTION (Built In Style - Compact Contained Banner) */}
+      <section className="builtin-companies-hero-wrap">
+        <div className="builtin-hero-card">
+          <h1 className="builtin-hero-title">
+            Explore top tech companies
           </h1>
 
-          {/* Subtitle */}
-          <p className="companies-hero-subtitle">
-            Tìm hiểu môi trường làm việc, chế độ đãi ngộ và cơ hội phát triển sự nghiệp từ những doanh nghiệp uy tín hàng đầu.
-          </p>
-
-          {/* Modern Split Search Bar */}
-          <form className="companies-search-bar" onSubmit={handleSearchSubmit}>
-            <FaSearch className="text-secondary flex-shrink-0" size={17} />
-            <input
-              type="text"
-              className="companies-search-input"
-              placeholder="Tìm theo tên công ty, từ khóa, công nghệ..."
-              value={searchKeyword}
-              onChange={(e) => setSearchKeyword(e.target.value)}
-            />
-
-            <div className="companies-search-divider" />
-
-            <div className="d-flex align-items-center gap-1.5 flex-shrink-0 pe-2">
-              <FaMapMarkerAlt className="text-secondary" size={14} />
-              <select
-                className="companies-search-select"
-                value={selectedLocation}
-                onChange={(e) => setSelectedLocation(e.target.value)}
-              >
-                <option value="all">Tất cả địa điểm</option>
-                <option value="Hà Nội">Hà Nội</option>
-                <option value="Hồ Chí Minh">TP. Hồ Chí Minh</option>
-                <option value="Đà Nẵng">Đà Nẵng</option>
-              </select>
-            </div>
-
-            <button
-              type="submit"
-              className="companies-search-btn"
-            >
-              <FaSearch size={13} />
-              <span>Tìm kiếm</span>
-            </button>
-          </form>
-
-          {/* Popular Search Text Links (Clean Human Design) */}
-          <div className="companies-trending-bar">
-            <span className="companies-trending-label">Tìm kiếm phổ biến:</span>
-            {SEARCH_HINTS.map((hint, index, arr) => (
-              <React.Fragment key={hint}>
-                <button
-                  type="button"
-                  className="companies-trending-item"
-                  onClick={() => {
-                    setSearchKeyword(hint);
-                    if (activeIndustry !== 'ALL') setActiveIndustry('ALL');
-                    const el = document.getElementById('companies-list-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+          <div className="builtin-filter-bar">
+            {/* Location Box (White card with GPS locator) */}
+            <div className="builtin-location-box">
+              <div className="builtin-location-content">
+                <span className="builtin-location-label">Location</span>
+                <select
+                  className="builtin-location-select"
+                  value={selectedLocation}
+                  onChange={(e) => {
+                    setSelectedLocation(e.target.value);
+                    setPage(1);
                   }}
                 >
-                  {hint}
-                </button>
-                {index < arr.length - 1 && <span className="companies-trending-dot">·</span>}
-              </React.Fragment>
-            ))}
+                  <option value="all">Viet Nam</option>
+                  <option value="Hà Nội">Hà Nội</option>
+                  <option value="Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                  <option value="Đà Nẵng">Đà Nẵng</option>
+                </select>
+              </div>
+
+              <button
+                type="button"
+                className="builtin-gps-btn"
+                title="Đặt lại vị trí mặc định"
+                onClick={() => {
+                  setSelectedLocation('all');
+                  setPage(1);
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="7" />
+                  <line x1="12" y1="1" x2="12" y2="5" />
+                  <line x1="12" y1="19" x2="12" y2="23" />
+                  <line x1="5" y1="12" x2="1" y2="12" />
+                  <line x1="23" y1="12" x2="19" y2="12" />
+                  <circle cx="12" cy="12" r="2" fill="#2563EB" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Office Type Dropdown Pill */}
+            <div className="builtin-pill-wrap">
+              <select
+                className="builtin-pill-select"
+                value={activeOfficeType}
+                onChange={(e) => {
+                  setActiveOfficeType(e.target.value);
+                  setPage(1);
+                }}
+              >
+                <option value="all">Office Type</option>
+                <option value="onsite">Tại văn phòng</option>
+                <option value="hybrid">Linh hoạt (Hybrid)</option>
+                <option value="remote">Làm việc từ xa</option>
+              </select>
+              <span className="builtin-pill-caret">▼</span>
+            </div>
+
+            {/* Industry Dropdown Pill */}
+            <div className="builtin-pill-wrap">
+              <select
+                className="builtin-pill-select"
+                value={activeIndustry}
+                onChange={(e) => {
+                  setActiveIndustry(e.target.value);
+                  setPage(1);
+                }}
+              >
+                <option value="ALL">Industry</option>
+                <option value="IT - Phần mềm">Công nghệ thông tin</option>
+                <option value="Kinh doanh">Kinh doanh - Bán hàng</option>
+                <option value="Ngân hàng">Tài chính - Ngân hàng</option>
+                <option value="Sản xuất">Sản xuất - Vận hành</option>
+                <option value="Bất động sản">Bất động sản</option>
+                <option value="Dịch vụ Khách hàng">Dịch vụ - CSKH</option>
+              </select>
+              <span className="builtin-pill-caret">▼</span>
+            </div>
+
+            {/* Company Size Dropdown Pill */}
+            <div className="builtin-pill-wrap">
+              <select
+                className="builtin-pill-select"
+                value={selectedSize}
+                onChange={(e) => {
+                  setSelectedSize(e.target.value);
+                  setPage(1);
+                }}
+              >
+                <option value="all">Company Size</option>
+                <option value="small">50 - 200 nhân sự</option>
+                <option value="medium">501 - 1.000 nhân sự</option>
+                <option value="large">1.000+ nhân sự</option>
+              </select>
+              <span className="builtin-pill-caret">▼</span>
+            </div>
+
+            {/* Vertical Divider */}
+            <div className="builtin-divider" />
+
+            {/* All Filters Button */}
+            <button
+              type="button"
+              className={`builtin-all-filters-btn ${showAllFilters || searchKeyword ? 'builtin-all-filters-btn--active' : ''}`}
+              onClick={() => setShowAllFilters(!showAllFilters)}
+              title="Tìm kiếm từ khóa & bộ lọc chi tiết"
+            >
+              <span>All Filters</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14" />
+                <line x1="4" y1="10" x2="4" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12" y2="3" />
+                <line x1="20" y1="21" x2="20" y2="16" />
+                <line x1="20" y1="12" x2="20" y2="3" />
+                <line x1="1" y1="14" x2="7" y2="14" />
+                <line x1="9" y1="8" x2="15" y2="8" />
+                <line x1="17" y1="16" x2="23" y2="16" />
+              </svg>
+            </button>
+
+            {/* Reset Button */}
+            <button
+              type="button"
+              className="builtin-reset-btn"
+              onClick={handleResetFilters}
+            >
+              Reset
+            </button>
           </div>
+
+          {/* Keyword Search Drawer when All Filters is open */}
+          {(showAllFilters || searchKeyword) && (
+            <div className="builtin-keyword-drawer">
+              <FaSearch size={14} className="text-secondary ms-1 flex-shrink-0" />
+              <input
+                type="text"
+                className="builtin-keyword-input"
+                placeholder="Tìm theo tên công ty, từ khóa, công nghệ (Toshiba, FPT, Java, C++...)..."
+                value={searchKeyword}
+                onChange={(e) => {
+                  setSearchKeyword(e.target.value);
+                  setPage(1);
+                }}
+                autoFocus
+              />
+              {searchKeyword && (
+                <button
+                  type="button"
+                  className="btn btn-sm btn-link text-muted p-0 me-1 text-decoration-none"
+                  onClick={() => {
+                    setSearchKeyword('');
+                    setPage(1);
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -903,7 +1052,10 @@ export default function Companies() {
                 key={tab.id}
                 type="button"
                 className={`companies-pill-btn ${isActive ? 'companies-pill-btn--active' : ''}`}
-                onClick={() => setActiveIndustry(tab.id)}
+                onClick={() => {
+                  setActiveIndustry(tab.id);
+                  setPage(1);
+                }}
               >
                 {isActive && <span className="companies-pill-accent" />}
                 <span>{tab.label}</span>
@@ -922,20 +1074,17 @@ export default function Companies() {
           </div>
 
           <div>
-            {activeIndustry !== 'ALL' || searchKeyword ? (
+            {activeIndustry !== 'ALL' || searchKeyword || selectedLocation !== 'all' || activeOfficeType !== 'all' || selectedSize !== 'all' ? (
               <button
                 type="button"
                 className="btn btn-link text-decoration-none p-0 text-secondary small fw-semibold"
-                onClick={() => {
-                  setActiveIndustry('ALL');
-                  setSearchKeyword('');
-                }}
+                onClick={handleResetFilters}
               >
                 Xem tất cả →
               </button>
             ) : (
               <span className="small text-muted fw-semibold">
-                Hiển thị {filteredCompanies.length} doanh nghiệp
+                Hiển thị {(page - 1) * PAGE_SIZE + 1} - {Math.min(page * PAGE_SIZE, totalElements)} trên {totalElements} doanh nghiệp
               </span>
             )}
           </div>
@@ -950,113 +1099,122 @@ export default function Companies() {
             <button
               type="button"
               className="btn btn-sm btn-outline-secondary mx-auto"
-              onClick={() => {
-                setSearchKeyword('');
-                setActiveIndustry('ALL');
-              }}
+              onClick={handleResetFilters}
             >
               Xem tất cả doanh nghiệp
             </button>
           </div>
         ) : (
-          <div className="row g-4 top-employers-container">
-            {filteredCompanies.map((comp) => {
-              const compSkills = getCompanySkills(comp);
-              const jobsCount = comp.jobs?.length || 0;
-              const locationText = getCompanyLocation(comp);
+          <>
+            <div className="row g-4 top-employers-container">
+              {paginatedCompanies.map((comp) => {
+                const compSkills = getCompanySkills(comp);
+                const jobsCount = comp.jobs?.length || 0;
+                const locationText = getCompanyLocation(comp);
 
-              return (
-                <div key={comp.id} className="col-12 col-md-6 col-xl-4">
-                  <Link
-                    to={`/companies?id=${comp.id}`}
-                    className="top-employer-item text-decoration-none"
-                  >
-                    {/* Background ripple vector */}
-                    <div className="top-employer-bg-pattern">
-                      <img src="/images/bg-top-emp.svg" alt="" aria-hidden="true" />
-                    </div>
-
-                    {/* Elevated Logo Card */}
-                    <div className="top-employer-img-wrap">
-                      <img
-                        src={comp.logo}
-                        alt={comp.name}
-                        className="top-employer-logo-img"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          if (e.currentTarget.nextElementSibling) {
-                            e.currentTarget.style.display = 'flex';
-                          }
-                        }}
-                      />
-                      <div className="top-employer-logo-fallback">
-                        {(comp.shortName || comp.name).charAt(0).toUpperCase()}
+                return (
+                  <div key={comp.id} className="col-12 col-md-6 col-xl-4">
+                    <Link
+                      to={`/companies?id=${comp.id}`}
+                      className="top-employer-item text-decoration-none"
+                    >
+                      {/* Background ripple vector */}
+                      <div className="top-employer-bg-pattern">
+                        <img src="/images/bg-top-emp.svg" alt="" aria-hidden="true" />
                       </div>
-                    </div>
 
-                    {/* Centered Title & Skill Tags */}
-                    <div className="top-employer-content">
-                      <h3 className="top-employer-name" title={comp.name}>
-                        {comp.name}
-                      </h3>
+                      {/* Elevated Logo Card */}
+                      <div className="top-employer-img-wrap">
+                        <img
+                          src={comp.logo}
+                          alt={comp.name}
+                          className="top-employer-logo-img"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            if (e.currentTarget.nextElementSibling) {
+                              e.currentTarget.nextElementSibling.style.display = 'flex';
+                            }
+                          }}
+                        />
+                        <div className="top-employer-logo-fallback">
+                          {(comp.shortName || comp.name).charAt(0).toUpperCase()}
+                        </div>
+                      </div>
 
-                      <div className="top-employer-tags">
-                        {compSkills.map((skill, sIdx) => (
-                          <span
-                            key={sIdx}
-                            className="top-employer-tag"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setSearchKeyword(skill);
-                              const el = document.getElementById('companies-list-section');
-                              if (el) el.scrollIntoView({ behavior: 'smooth' });
-                            }}
-                            title={`Tìm các công ty với kỹ năng ${skill}`}
-                          >
-                            {skill}
+                      {/* Centered Title & Skill Tags */}
+                      <div className="top-employer-content">
+                        <h3 className="top-employer-name" title={comp.name}>
+                          {comp.name}
+                        </h3>
+
+                        <div className="top-employer-tags">
+                          {compSkills.map((skill, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className="top-employer-tag"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setSearchKeyword(skill);
+                                setPage(1);
+                                const el = document.getElementById('companies-list-section');
+                                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                              }}
+                              title={`Tìm các công ty với kỹ năng ${skill}`}
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Split Footer: Location + Jobs Count */}
+                      <div className="top-employer-footer">
+                        <div className="top-employer-location text-truncate" title={locationText}>
+                          {locationText}
+                        </div>
+
+                        <div className="top-employer-jobs-count">
+                          <span className="top-employer-online-dot">
+                            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle opacity="0.2" cx="10" cy="10" r="10" fill="#0AB305" />
+                              <circle opacity="0.5" cx="10" cy="10" r="6" fill="#0AB305" />
+                              <circle cx="10" cy="10" r="4" fill="#0AB305" />
+                            </svg>
                           </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Split Footer: Location + Jobs Count */}
-                    <div className="top-employer-footer">
-                      <div className="top-employer-location text-truncate" title={locationText}>
-                        {locationText}
-                      </div>
-
-                      <div className="top-employer-jobs-count">
-                        <span className="top-employer-online-dot">
-                          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle opacity="0.2" cx="10" cy="10" r="10" fill="#0AB305" />
-                            <circle opacity="0.5" cx="10" cy="10" r="6" fill="#0AB305" />
-                            <circle cx="10" cy="10" r="4" fill="#0AB305" />
+                          <span>
+                            {jobsCount} {jobsCount === 1 ? 'Job' : 'Jobs'}
+                          </span>
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="top-employer-chevron"
+                          >
+                            <polyline points="9 18 15 12 9 6" />
                           </svg>
-                        </span>
-                        <span>
-                          {jobsCount} {jobsCount === 1 ? 'Job' : 'Jobs'}
-                        </span>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="top-employer-chevron"
-                        >
-                          <polyline points="9 18 15 12 9 6" />
-                        </svg>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Phân trang chuẩn 10-20 công ty/trang */}
+            <div className="d-flex justify-content-center mt-5 mb-2">
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onChange={handlePageChange}
+              />
+            </div>
+          </>
         )}
       </div>
     </div>
