@@ -1998,6 +1998,147 @@
 }
 
 /* ==========================================================================
+   Jobs Hero Box (Himalayas Style)
+   ========================================================================== */
+.jobs-hero-box {
+  background: 
+    radial-gradient(circle 500px at 90% 10%, rgba(251, 146, 60, 0.22) 0%, transparent 65%),
+    linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%);
+  border-bottom: 1px solid #F1F5F9;
+  padding: 24px 16px 20px;
+  text-align: center;
+}
+
+.jobs-hero-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.jobs-hero-title .highlight-orange {
+  color: #EA580C;
+}
+
+.jobs-hero-subtitle {
+  font-size: 14px;
+  color: #475569;
+  max-width: 640px;
+  margin: 0 auto 16px;
+  line-height: 1.5;
+}
+
+.jobs-search-bar {
+  max-width: 760px;
+  margin: 0 auto 12px;
+  background: #FFFFFF;
+  border: 1.5px solid #FED7AA;
+  border-radius: 16px;
+  padding: 6px 6px 6px 18px;
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.jobs-search-bar:focus-within {
+  border-color: #EA580C;
+  box-shadow: 0 8px 28px rgba(234, 88, 12, 0.16);
+}
+
+.jobs-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  font-size: 15px;
+  color: #0F172A;
+  font-weight: 500;
+}
+
+.jobs-search-divider {
+  width: 1px;
+  height: 28px;
+  background: #E2E8F0;
+  flex-shrink: 0;
+}
+
+.jobs-search-select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.jobs-search-btn {
+  background-color: #EA580C;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 14.5px;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.jobs-search-btn:hover {
+  background-color: #C2410C;
+}
+
+.jobs-trending-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #334155;
+  margin-top: 6px;
+}
+
+.jobs-trending-label {
+  font-weight: 700;
+  color: #1E293B;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.jobs-trending-item {
+  color: #334155;
+  font-weight: 600;
+  font-size: 13.5px;
+  background: transparent;
+  border: none;
+  padding: 3px 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.jobs-trending-item:hover {
+  color: #EA580C;
+  background: rgba(234, 88, 12, 0.08);
+}
+
+.jobs-trending-dot {
+  color: #CBD5E1;
+  font-size: 14px;
+  user-select: none;
+}
+
+/* ==========================================================================
    Companies Page Premium Redesign
    ========================================================================== */
 .companies-page-root {

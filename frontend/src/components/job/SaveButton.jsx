@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaStar, FaRegStar } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { showToast } from '../common/ToastHost.jsx';
 import jobApi from '../../api/jobApi.js';
 
-export default function SaveButton({ jobId, initialSaved = false, onToggle }) {
+export default function SaveButton({ jobId, initialSaved = false, onToggle, variant = 'heart' }) {
   const [saved, setSaved] = useState(initialSaved);
   const [loading, setLoading] = useState(false);
   const { user, isAuth } = useAuth();
@@ -50,6 +50,26 @@ export default function SaveButton({ jobId, initialSaved = false, onToggle }) {
       setLoading(false);
     }
   };
+
+  if (variant === 'star') {
+    return (
+      <button
+        type="button"
+        className={`himalayas-star-btn ${saved ? 'himalayas-star-btn--active' : ''}`}
+        aria-label={saved ? 'Bỏ lưu việc làm' : 'Lưu việc làm'}
+        aria-pressed={saved}
+        onClick={handleToggle}
+        disabled={loading}
+        title={saved ? 'Đã lưu việc làm' : 'Lưu việc làm'}
+      >
+        {saved ? (
+          <FaStar size={16} color="#F59E0B" />
+        ) : (
+          <FaRegStar size={16} color="#94A3B8" />
+        )}
+      </button>
+    );
+  }
 
   return (
     <button

@@ -1,5 +1,39 @@
 export const mockJobs = [
   {
+    "id": 1001,
+    "title": "Senior Embedded Software Engineer (C / C++ / Embedded Linux)",
+    "salaryText": "25 - 45 triệu",
+    "salaryMin": 25,
+    "salaryMax": 45,
+    "location": "Hà Nội",
+    "area": "ha-noi",
+    "region": "Miền Bắc",
+    "jobType": "FULL_TIME",
+    "experience": "2-5",
+    "position": "senior",
+    "category": {
+      "id": 1,
+      "slug": "cntt",
+      "name": "Công nghệ thông tin"
+    },
+    "company": {
+      "id": 12,
+      "name": "Toshiba Software Development (Viet Nam) Co, Ltd",
+      "logoUrl": "/images/companies/toshiba.svg",
+      "size": "500 - 1.000 nhân sự",
+      "verified": true
+    },
+    "skills": ["C++", "C language", "Embedded", "Linux", "QA QC"],
+    "isHot": true,
+    "isUrgent": false,
+    "isTop": true,
+    "saved": false,
+    "timeAgo": "2 ngày trước",
+    "description": "Nghiên cứu và phát triển phần mềm nhúng (Embedded Linux / RTOS), firmware và hệ thống IoT chất lượng cao theo tiêu chuẩn tập đoàn Toshiba Nhật Bản.",
+    "requirements": "Thành thạo lập trình C/C++, có kinh nghiệm làm việc với hệ điều hành Linux nhúng, RTOS, cấu trúc dữ liệu và giải thuật.",
+    "benefits": "Thu nhập 25 - 45 triệu + thưởng 2 lần/năm (tháng lương 13, 14), bảo hiểm sức khỏe quốc tế cao cấp, phụ cấp tiếng Nhật."
+  },
+  {
     "id": 1011,
     "title": "Senior Java Backend Engineer (Spring Boot / Cloud Microservices)",
     "salaryText": "25 - 40 triệu",

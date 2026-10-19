@@ -1,7 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaUsers, FaMapMarkerAlt } from 'react-icons/fa';
 import SaveButton from './SaveButton.jsx';
+
+const getCompanySize = (comp) => {
+  if (comp?.size) return comp.size;
+  const name = (comp?.name || '').toLowerCase();
+  if (name.includes('viettel') || name.includes('fpt') || name.includes('hòa phát') || name.includes('vinhomes')) return '10.000+ nhân sự';
+  if (name.includes('mb') || name.includes('quân đội') || name.includes('vinamilk') || name.includes('vib')) return '5.000 - 10.000';
+  if (name.includes('misa') || name.includes('concentrix') || name.includes('novaland') || name.includes('sunhouse')) return '1.000 - 5.000';
+  if (name.includes('toshiba') || name.includes('ssi') || name.includes('k&m')) return '501 - 1.000';
+  return '51 - 200 nhân sự';
+};
 
 export default function JobCard({ job, variant = 'card', extra }) {
   if (!job) return null;
@@ -20,12 +30,33 @@ export default function JobCard({ job, variant = 'card', extra }) {
   const companyLogo = company.logoUrl;
   const initialChar = companyName.trim().charAt(0).toUpperCase();
 
-  // Layout danh sách dạng hàng ngang kiểu Wellfound (dành cho trang Tìm việc làm /jobs)
+  // Layout danh sách dạng hàng ngang chuẩn phong cách Himalayas (dành cho trang Tìm việc làm /jobs)
   if (variant === 'search-item') {
+    const companySize = getCompanySize(company);
+    const timeAgo = job.timeAgo || '2 ngày trước';
+    const jobTypeLabel =
+      job.jobType === 'FULL_TIME'
+        ? 'Toàn thời gian'
+        : job.jobType === 'PART_TIME'
+        ? 'Bán thời gian'
+        : 'Thực tập / Hợp đồng';
+
+    const expLabel =
+      job.experience === 'none'
+        ? 'Không yêu cầu kn'
+        : job.experience === 'lt1' || job.experience === '1-year'
+        ? '< 1 năm kn'
+        : job.experience === '1-2' || job.experience === '2-years'
+        ? '1 - 2 năm kn'
+        : job.experience === 'gt5'
+        ? 'Trên 5 năm kn'
+        : '2 - 5 năm kn';
+
     return (
-      <article className={`job-search-item ${isTop ? 'job-search-item--top' : ''}`}>
-        <div className="job-search-item__logo-wrap">
-          <Link to={`/jobs/${id}`} className="job-search-item__logo" aria-label={companyName}>
+      <article className={`himalayas-job-card ${isTop ? 'himalayas-job-card--top' : ''}`}>
+        {/* Left: Circular Company Logo (Himalayas Style) */}
+        <div className="himalayas-card__logo-wrap">
+          <Link to={`/jobs/${id}`} className="himalayas-card__logo" aria-label={companyName}>
             {companyLogo ? (
               <img
                 src={companyLogo}
@@ -40,7 +71,7 @@ export default function JobCard({ job, variant = 'card', extra }) {
               />
             ) : null}
             <span
-              className="job-search-item__logo-fallback"
+              className="himalayas-card__logo-fallback"
               style={{ display: companyLogo ? 'none' : 'flex' }}
             >
               {initialChar}
@@ -48,69 +79,100 @@ export default function JobCard({ job, variant = 'card', extra }) {
           </Link>
         </div>
 
-        <div className="job-search-item__content">
-          <h3 className="job-search-item__title mb-1">
-            <Link to={`/jobs/${id}`} title={title}>
-              {title}
-            </Link>
-          </h3>
-
-          <div className="job-meta-line text-muted small mb-2 d-flex flex-wrap align-items-center gap-2">
-            <span className="d-inline-flex align-items-center gap-1">
-              <span className="fw-semibold text-dark">{companyName}</span>
-              <FaCheckCircle className="text-success flex-shrink-0" size={12} title="Doanh nghiệp xác thực" />
-            </span>
-            {location && (
-              <>
-                <span>•</span>
-                <span>{location}</span>
-              </>
-            )}
-            {salaryText && (
-              <>
-                <span>•</span>
-                <span className="text-success fw-semibold">{salaryText}</span>
-              </>
-            )}
-            {job.experience && (
-              <>
-                <span>•</span>
-                <span>
-                  {job.experience === 'none'
-                    ? 'Không yêu cầu kn'
-                    : job.experience === 'lt1'
-                    ? '< 1 năm kn'
-                    : job.experience === '1-2'
-                    ? '1 - 2 năm kn'
-                    : job.experience === 'gt5'
-                    ? 'Trên 5 năm kn'
-                    : '2 - 5 năm kn'}
-                </span>
-              </>
-            )}
+        {/* Center / Main Content */}
+        <div className="himalayas-card__main">
+          {/* Row 1: Title (left) & Time Posted + Star Save (right) */}
+          <div className="himalayas-card__header">
+            <h3 className="himalayas-card__title">
+              <Link to={`/jobs/${id}`} title={title}>
+                {title}
+              </Link>
+            </h3>
+            <div className="d-flex align-items-center gap-2 flex-shrink-0">
+              <span className="himalayas-card__time">{timeAgo}</span>
+              <SaveButton jobId={id} initialSaved={saved} variant="star" />
+            </div>
           </div>
 
-          <div className="job-search-item__tags">
-            {job.jobType && (
-              <span className="job-tag job-tag--location">
-                {job.jobType === 'FULL_TIME'
-                  ? 'Toàn thời gian'
-                  : job.jobType === 'PART_TIME'
-                  ? 'Bán thời gian'
-                  : 'Thực tập'}
+          {/* Row 2: Company details, Verified Badge, Size, Salaries, Location */}
+          <div className="himalayas-card__meta">
+            <span className="himalayas-card__company">{companyName}</span>
+
+            {/* Blue scalloped verified badge */}
+            <span className="himalayas-verified-badge" title="Doanh nghiệp đã xác thực">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2L14.4 4.8L18.1 4.5L19.2 8L22.6 9.6L21.7 13.3L23.4 16.7L20 18.4L19.4 22.1L15.7 22.3L13.7 25.4L12 23L10.3 25.4L8.3 22.3L4.6 22.1L4 18.4L0.6 16.7L2.3 13.3L1.4 9.6L4.8 8L5.9 4.5L9.6 4.8L12 2Z"
+                  fill="#2563EB"
+                />
+                <path
+                  d="M9 12L11 14L15 9"
+                  stroke="#FFFFFF"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+
+            {/* Company Size */}
+            <span className="himalayas-meta-pill" title="Quy mô công ty">
+              <FaUsers size={12} className="text-secondary" />
+              <span>{companySize}</span>
+            </span>
+
+            {/* Salaries Indicator */}
+            {salaryText && (
+              <span className="himalayas-meta-pill himalayas-meta-pill--salary" title="Mức thu nhập">
+                <span className="himalayas-salary-symbol">₫</span>
+                <span className="fw-semibold text-dark">{salaryText}</span>
               </span>
             )}
-            {job.category?.name && (
-              <span className="job-tag job-tag--location">{job.category.name}</span>
+
+            {/* Location */}
+            {location && (
+              <span className="himalayas-meta-pill" title="Địa điểm làm việc">
+                <FaMapMarkerAlt size={11} className="text-secondary" />
+                <span>{location}</span>
+              </span>
             )}
           </div>
-        </div>
 
-        <div className="job-search-item__actions">
-          <SaveButton jobId={id} initialSaved={saved} />
-          <Link to={`/jobs/${id}`} className="btn-apply-fast">
-            Ứng tuyển
-          </Link>
+          {/* Row 3: Tags on left, Star Save + Apply buttons on right */}
+          <div className="himalayas-card__footer">
+            <div className="himalayas-card__tags">
+              {/* Employment Type Tag */}
+              <span className="himalayas-tag-pill">{jobTypeLabel}</span>
+
+              {/* Role / Category Tag with Purple Dot */}
+              {job.category?.name && (
+                <span className="himalayas-tag-pill himalayas-tag-pill--role">
+                  <span className="himalayas-purple-dot" />
+                  <span>{job.category.name}</span>
+                </span>
+              )}
+
+              {/* Experience Tag */}
+              {job.experience && (
+                <span className="himalayas-tag-pill">{expLabel}</span>
+              )}
+
+              {/* Tech Skill Tags */}
+              {job.skills &&
+                job.skills.slice(0, 3).map((skill, sIdx) => (
+                  <span key={sIdx} className="himalayas-tag-pill himalayas-tag-pill--skill">
+                    {skill}
+                  </span>
+                ))}
+            </div>
+
+            <div className="himalayas-card__actions">
+              <SaveButton jobId={id} initialSaved={saved} variant="star" />
+              <Link to={`/jobs/${id}`} className="btn-himalayas-apply">
+                Ứng tuyển
+              </Link>
+            </div>
+          </div>
         </div>
 
         {extra && <div className="job-card__extra">{extra}</div>}
