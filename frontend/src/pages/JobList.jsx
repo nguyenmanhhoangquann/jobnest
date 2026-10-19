@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FaFilter, FaSortAmountDown, FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaFilter, FaSortAmountDown } from 'react-icons/fa';
 import jobApi from '../api/jobApi.js';
 import JobCard from '../components/job/JobCard.jsx';
 import JobFilterSidebar from '../components/job/JobFilterSidebar.jsx';
@@ -15,7 +15,6 @@ export default function JobList() {
   const [totalElements, setTotalElements] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showMobileFilter, setShowMobileFilter] = useState(false);
-  const [localKeyword, setLocalKeyword] = useState('');
 
   // Đọc filters trực tiếp từ URL query params
   const filters = useMemo(() => {
@@ -30,10 +29,6 @@ export default function JobList() {
       page: parseInt(searchParams.get('page') || '1', 10),
     };
   }, [searchParams]);
-
-  useEffect(() => {
-    setLocalKeyword(filters.keyword);
-  }, [filters.keyword]);
 
   // Cập nhật URL khi người dùng thay đổi bộ lọc
   const updateFilters = (newFilters) => {
@@ -91,82 +86,9 @@ export default function JobList() {
       });
   }, [filters]);
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    updateFilters({ keyword: localKeyword, page: 1 });
-    const el = document.getElementById('jobs-results-anchor');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <div className="job-list-page">
-      {/* 1. HERO SEARCH BANNER (Himalayas Style) */}
-      <section className="jobs-hero-box">
-        <div className="container" style={{ maxWidth: '860px' }}>
-          <h1 className="jobs-hero-title">
-            Tìm việc làm mơ ước cùng <span className="highlight-orange">JobNest</span>
-          </h1>
-          <p className="jobs-hero-subtitle">
-            Khám phá cơ hội nghề nghiệp chất lượng cao từ các doanh nghiệp uy tín trên toàn quốc.
-          </p>
-
-          <form className="itviec-search-bar mx-auto" style={{ maxWidth: '820px' }} onSubmit={handleSearchSubmit}>
-            <div className="itviec-search-location">
-              <FaMapMarkerAlt size={15} className="text-secondary flex-shrink-0" />
-              <select
-                className="itviec-search-location-select"
-                value={filters.area}
-                onChange={(e) => updateFilters({ area: e.target.value, page: 1 })}
-              >
-                <option value="all">Tất cả thành phố</option>
-                <option value="ha-noi">Hà Nội</option>
-                <option value="ho-chi-minh">TP. Hồ Chí Minh</option>
-                <option value="da-nang">Đà Nẵng</option>
-              </select>
-              <span className="itviec-search-location-caret">▼</span>
-            </div>
-
-            <input
-              type="text"
-              className="itviec-search-input"
-              placeholder="Nhập từ khóa kỹ năng (Java, iOS...), chức danh, công ty..."
-              value={localKeyword}
-              onChange={(e) => setLocalKeyword(e.target.value)}
-            />
-
-            <button type="submit" className="itviec-search-btn">
-              <FaSearch size={14} />
-              <span>Tìm kiếm</span>
-            </button>
-          </form>
-
-          {/* Popular Search Text Links */}
-          <div className="jobs-trending-bar">
-            <span className="jobs-trending-label">Tìm kiếm phổ biến:</span>
-            {['Toshiba', 'FPT', 'Java', 'ReactJS', 'Embedded', 'C++', 'Marketing', 'Kinh doanh', 'Hà Nội', 'TP.HCM'].map(
-              (hint, idx, arr) => (
-                <React.Fragment key={hint}>
-                  <button
-                    type="button"
-                    className="jobs-trending-item"
-                    onClick={() => {
-                      setLocalKeyword(hint);
-                      updateFilters({ keyword: hint, page: 1 });
-                      const el = document.getElementById('jobs-results-anchor');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                  >
-                    {hint}
-                  </button>
-                  {idx < arr.length - 1 && <span className="jobs-trending-dot">·</span>}
-                </React.Fragment>
-              )
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* 2. MAIN JOBS LISTING SECTION */}
+    <div className="job-list-page pt-3">
+      {/* MAIN JOBS LISTING SECTION */}
       <div className="container-fluid px-3 px-xl-5 py-4" id="jobs-results-anchor">
         {/* Nút bật/tắt bộ lọc trên mobile */}
         <div className="d-lg-none mb-3">
