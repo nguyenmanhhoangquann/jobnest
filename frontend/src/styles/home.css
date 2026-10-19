@@ -2000,6 +2000,10 @@
 /* ==========================================================================
    Jobs Hero Box (Himalayas Style)
    ========================================================================== */
+.job-list-page {
+  padding-bottom: 64px;
+}
+
 .jobs-hero-box {
   background: 
     radial-gradient(circle 500px at 90% 10%, rgba(251, 146, 60, 0.22) 0%, transparent 65%),
