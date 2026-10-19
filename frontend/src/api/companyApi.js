@@ -6,7 +6,10 @@ const companyApi = {
     try {
       const res = await axiosClient.get('/companies', { params });
       if (Array.isArray(res) && res.length > 0) {
-        return res;
+        const toshiba = mockCompanies.find((c) => String(c.id) === '12');
+        const existingIds = new Set(res.map((c) => String(c.id)));
+        const list = toshiba && !existingIds.has('12') ? [toshiba, ...res] : res;
+        return list;
       }
       return mockCompanies;
     } catch {

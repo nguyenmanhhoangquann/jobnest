@@ -439,6 +439,17 @@ const matchOfficeType = (comp, filterOffice) => {
   return true;
 };
 
+const resolveCompanyLogo = (comp) => {
+  const name = (comp?.name || comp?.shortName || '').toLowerCase();
+  const url = comp?.logo || comp?.logoUrl || '';
+  if (name.includes('fpt')) return '/images/companies/fpt.png';
+  if (name.includes('mb') || name.includes('quân đội')) return '/images/companies/mb-bank.png';
+  if (name.includes('vinamilk')) return '/images/companies/vinamilk.png';
+  if (name.includes('toshiba')) return '/images/companies/toshiba.svg';
+  if (name.includes('viettel')) return '/images/companies/viettel.svg';
+  return url || '/images/companies/fpt.png';
+};
+
 const getJobSkills = (job, industry) => {
   if (job.skills && job.skills.length > 0) return job.skills;
   const t = (job.title || '').toLowerCase();
@@ -1126,7 +1137,7 @@ export default function Companies() {
                       {/* Elevated Logo Card */}
                       <div className="top-employer-img-wrap">
                         <img
-                          src={comp.logo}
+                          src={resolveCompanyLogo(comp)}
                           alt={comp.name}
                           className="top-employer-logo-img"
                           onError={(e) => {
