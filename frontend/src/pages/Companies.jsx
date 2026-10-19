@@ -366,19 +366,19 @@ const getCompanySkills = (comp) => {
 };
 
 const getCompanyLocation = (comp) => {
-  const loc = comp.location || 'Ha Noi';
+  const loc = comp.location || 'Hà Nội';
   const l = loc.toLowerCase();
   if (l.includes('hà nội') && (l.includes('tp.hcm') || l.includes('hồ chí minh'))) {
-    return 'Ha Noi - Ho Chi Minh';
+    return 'Hà Nội - TP.HCM';
   }
-  if (l.includes('hà nội') || l.includes('ha nei') || l.includes('ha noi')) {
-    return 'Ha Noi';
+  if (l.includes('hà nội') || l.includes('ha noi')) {
+    return 'Hà Nội';
   }
   if (l.includes('hồ chí minh') || l.includes('tp.hcm') || l.includes('ho chi minh')) {
-    return 'Ho Chi Minh';
+    return 'TP. Hồ Chí Minh';
   }
   if (l.includes('đà nẵng') || l.includes('da nang')) {
-    return 'Da Nang';
+    return 'Đà Nẵng';
   }
   return loc.split(',')[0].trim();
 };
