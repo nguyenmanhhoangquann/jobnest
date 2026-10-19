@@ -6,10 +6,11 @@ const companyApi = {
     try {
       const res = await axiosClient.get('/companies', { params });
       if (Array.isArray(res) && res.length > 0) {
-        const toshiba = mockCompanies.find((c) => String(c.id) === '12');
-        const existingIds = new Set(res.map((c) => String(c.id)));
-        const list = toshiba && !existingIds.has('12') ? [toshiba, ...res] : res;
-        return list;
+        const toshiba = mockCompanies.find(
+          (c) => c.slug === 'toshiba-software-development-viet-nam-co-ltd' || c.name?.toLowerCase().includes('toshiba')
+        );
+        const withoutToshiba = res.filter((c) => !c.name?.toLowerCase().includes('toshiba'));
+        return toshiba ? [toshiba, ...withoutToshiba] : res;
       }
       return mockCompanies;
     } catch {
