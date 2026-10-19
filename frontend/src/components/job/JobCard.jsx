@@ -13,6 +13,17 @@ const getCompanySize = (comp) => {
   return '51 - 200 nhân sự';
 };
 
+const resolveCompanyLogo = (company) => {
+  const name = (company?.name || '').toLowerCase();
+  const url = company?.logoUrl || company?.logo || '';
+  if (name.includes('fpt')) return '/images/companies/fpt.png';
+  if (name.includes('mb') || name.includes('quân đội')) return '/images/companies/mb-bank.png';
+  if (name.includes('vinamilk')) return '/images/companies/vinamilk.png';
+  if (name.includes('toshiba')) return '/images/companies/toshiba.svg';
+  if (name.includes('viettel')) return '/images/companies/viettel.svg';
+  return url || '/images/companies/fpt.png';
+};
+
 export default function JobCard({ job, variant = 'card', extra }) {
   if (!job) return null;
 
@@ -27,7 +38,7 @@ export default function JobCard({ job, variant = 'card', extra }) {
   } = job;
 
   const companyName = company.name || 'Công ty ẩn danh';
-  const companyLogo = company.logoUrl;
+  const companyLogo = resolveCompanyLogo(company);
   const initialChar = companyName.trim().charAt(0).toUpperCase();
 
   // Layout danh sách dạng hàng ngang chuẩn phong cách Himalayas (dành cho trang Tìm việc làm /jobs)
