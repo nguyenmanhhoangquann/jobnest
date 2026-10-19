@@ -110,34 +110,32 @@ export default function JobList() {
             Khám phá cơ hội nghề nghiệp chất lượng cao từ các doanh nghiệp uy tín trên toàn quốc.
           </p>
 
-          <form className="jobs-search-bar" onSubmit={handleSearchSubmit}>
-            <FaSearch className="text-secondary flex-shrink-0" size={17} />
-            <input
-              type="text"
-              className="jobs-search-input"
-              placeholder="Chức danh, kỹ năng, công ty..."
-              value={localKeyword}
-              onChange={(e) => setLocalKeyword(e.target.value)}
-            />
-
-            <div className="jobs-search-divider" />
-
-            <div className="d-flex align-items-center gap-1.5 flex-shrink-0 pe-2">
-              <FaMapMarkerAlt className="text-secondary" size={14} />
+          <form className="itviec-search-bar mx-auto" style={{ maxWidth: '820px' }} onSubmit={handleSearchSubmit}>
+            <div className="itviec-search-location">
+              <FaMapMarkerAlt size={15} className="text-secondary flex-shrink-0" />
               <select
-                className="jobs-search-select"
+                className="itviec-search-location-select"
                 value={filters.area}
                 onChange={(e) => updateFilters({ area: e.target.value, page: 1 })}
               >
-                <option value="all">Tất cả địa điểm</option>
+                <option value="all">Tất cả thành phố</option>
                 <option value="ha-noi">Hà Nội</option>
                 <option value="ho-chi-minh">TP. Hồ Chí Minh</option>
                 <option value="da-nang">Đà Nẵng</option>
               </select>
+              <span className="itviec-search-location-caret">▼</span>
             </div>
 
-            <button type="submit" className="jobs-search-btn">
-              <FaSearch size={13} />
+            <input
+              type="text"
+              className="itviec-search-input"
+              placeholder="Nhập từ khóa kỹ năng (Java, iOS...), chức danh, công ty..."
+              value={localKeyword}
+              onChange={(e) => setLocalKeyword(e.target.value)}
+            />
+
+            <button type="submit" className="itviec-search-btn">
+              <FaSearch size={14} />
               <span>Tìm kiếm</span>
             </button>
           </form>
