@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-export default function Pagination({ page = 1, totalPages = 1, onChange }) {
-  if (totalPages <= 1) return null;
+export default function Pagination({ page = 1, totalPages = 1, onChange, alwaysShow = false }) {
+  if (totalPages <= 1 && !alwaysShow) return null;
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages || newPage === page) return;

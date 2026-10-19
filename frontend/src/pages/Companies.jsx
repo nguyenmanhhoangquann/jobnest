@@ -882,9 +882,9 @@ export default function Companies() {
   // GIAO DIỆN CHÍNH: DANH SÁCH DOANH NGHIỆP HÀNG ĐẦU
   return (
     <div className="companies-page-root">
-      {/* 1. HERO SECTION (Built In Style - Compact Contained Banner) */}
+      {/* 1. HERO SECTION (Built In Style - Full Width Orange Bleed) */}
       <section className="builtin-companies-hero-wrap">
-        <div className="builtin-hero-card">
+        <div className="builtin-hero-inner">
           <h1 className="builtin-hero-title">
             Explore top tech companies
           </h1>
@@ -1223,6 +1223,7 @@ export default function Companies() {
                 page={page}
                 totalPages={totalPages}
                 onChange={handlePageChange}
+                alwaysShow
               />
             </div>
           </>
