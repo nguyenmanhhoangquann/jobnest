@@ -1163,7 +1163,7 @@ export default function Companies() {
                             </svg>
                           </span>
                           <span>
-                            {jobsCount} {jobsCount === 1 ? 'Job' : 'Jobs'}
+                            {jobsCount} Việc làm
                           </span>
                           <svg
                             width="14"
