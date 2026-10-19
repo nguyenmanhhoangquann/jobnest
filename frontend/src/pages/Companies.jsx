@@ -382,6 +382,44 @@ const getCompanyLocation = (comp) => {
   return loc.split(',')[0].trim();
 };
 
+const matchLocation = (compLocation, filterLocation) => {
+  if (!filterLocation || filterLocation === 'all') return true;
+  const c = (compLocation || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const f = filterLocation.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  if (f.includes('ha noi') || f === 'hn') {
+    return c.includes('ha noi') || c.includes('hn');
+  }
+  if (f.includes('ho chi minh') || f.includes('hcm') || f.includes('sai gon')) {
+    return c.includes('ho chi minh') || c.includes('hcm') || c.includes('sai gon') || c.includes('tp.hcm');
+  }
+  if (f.includes('da nang') || f === 'dn') {
+    return c.includes('da nang');
+  }
+  return c.includes(f);
+};
+
+const matchIndustry = (compIndustry, categoryId) => {
+  if (!categoryId || categoryId === 'ALL') return true;
+  const ind = (compIndustry || '').toLowerCase();
+  switch (categoryId) {
+    case 'IT - Phần mềm':
+      return ind.includes('it') || ind.includes('phần mềm') || ind.includes('công nghệ') || ind.includes('viễn thông');
+    case 'Kinh doanh':
+      return ind.includes('kinh doanh') || ind.includes('bán hàng') || ind.includes('thương mại') || ind.includes('fmcg') || ind.includes('tiêu dùng');
+    case 'Ngân hàng':
+      return ind.includes('ngân hàng') || ind.includes('tài chính') || ind.includes('chứng khoán');
+    case 'Sản xuất':
+      return ind.includes('sản xuất') || ind.includes('công nghiệp') || ind.includes('chế tạo') || ind.includes('cơ điện') || ind.includes('gia dụng');
+    case 'Dịch vụ Khách hàng':
+      return ind.includes('dịch vụ') || ind.includes('bpo') || ind.includes('cskh') || ind.includes('khách hàng');
+    case 'Bất động sản':
+      return ind.includes('bất động sản') || ind.includes('đô thị') || ind.includes('địa ốc');
+    default:
+      return ind.includes(categoryId.toLowerCase());
+  }
+};
+
 const getJobSkills = (job, industry) => {
   if (job.skills && job.skills.length > 0) return job.skills;
   const t = (job.title || '').toLowerCase();
@@ -407,7 +445,15 @@ export default function Companies() {
   const [selectedLocation, setSelectedLocation] = useState('all');
   const [activeIndustry, setActiveIndustry] = useState('ALL');
   const [companyTab, setCompanyTab] = useState('overview');
-  const [isFollowed, setIsFollowed] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(() => {
+    if (!selectedCompanyId) return false;
+    try {
+      const saved = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
+      return saved.includes(Number(selectedCompanyId));
+    } catch {
+      return false;
+    }
+  });
 
   useEffect(() => {
     companyApi.getCompanies().then((res) => {
@@ -417,21 +463,35 @@ export default function Companies() {
     });
   }, []);
 
+  useEffect(() => {
+    if (!selectedCompanyId) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
+      setIsFollowed(saved.includes(Number(selectedCompanyId)));
+    } catch {
+      setIsFollowed(false);
+    }
+  }, [selectedCompanyId]);
+
   const filteredCompanies = useMemo(() => {
     return companiesList.filter((c) => {
-      if (activeIndustry !== 'ALL' && !c.industry?.includes(activeIndustry)) {
+      if (!matchIndustry(c.industry, activeIndustry)) {
         return false;
       }
-      if (selectedLocation !== 'all' && !c.location?.toLowerCase().includes(selectedLocation.toLowerCase())) {
+      if (!matchLocation(c.location, selectedLocation)) {
         return false;
       }
       if (searchKeyword.trim()) {
-        const kw = searchKeyword.toLowerCase();
+        const kw = searchKeyword.toLowerCase().trim();
+        const skills = getCompanySkills(c).map((s) => s.toLowerCase());
+        const jobs = (c.jobs || []).map((j) => (j.title || '').toLowerCase());
         return (
           c.name?.toLowerCase().includes(kw) ||
           c.shortName?.toLowerCase().includes(kw) ||
           c.industry?.toLowerCase().includes(kw) ||
-          c.location?.toLowerCase().includes(kw)
+          c.location?.toLowerCase().includes(kw) ||
+          skills.some((s) => s.includes(kw)) ||
+          jobs.some((j) => j.includes(kw))
         );
       }
       return true;
@@ -449,8 +509,30 @@ export default function Companies() {
   };
 
   const handleToggleFollow = () => {
-    setIsFollowed(!isFollowed);
-    showToast('success', !isFollowed ? 'Đã lưu và theo dõi tin tuyển dụng của công ty!' : 'Đã hủy theo dõi công ty.');
+    if (!selectedCompany) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
+      const compId = Number(selectedCompany.id);
+      let updated;
+      if (saved.includes(compId)) {
+        updated = saved.filter((id) => id !== compId);
+        setIsFollowed(false);
+        showToast('info', 'Đã hủy theo dõi công ty.');
+      } else {
+        updated = [...saved, compId];
+        setIsFollowed(true);
+        showToast('success', 'Đã lưu và theo dõi tin tuyển dụng của công ty!');
+      }
+      localStorage.setItem('jn_followed_companies', JSON.stringify(updated));
+    } catch {
+      setIsFollowed(!isFollowed);
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const el = document.getElementById('companies-list-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ NOVATECH - JOBNEST
@@ -751,7 +833,7 @@ export default function Companies() {
           </p>
 
           {/* Modern Split Search Bar */}
-          <div className="companies-search-bar">
+          <form className="companies-search-bar" onSubmit={handleSearchSubmit}>
             <FaSearch className="text-secondary flex-shrink-0" size={17} />
             <input
               type="text"
@@ -778,19 +860,18 @@ export default function Companies() {
             </div>
 
             <button
-              type="button"
+              type="submit"
               className="companies-search-btn"
-              onClick={() => {}}
             >
               <FaSearch size={13} />
               <span>Tìm kiếm</span>
             </button>
-          </div>
+          </form>
 
           {/* Popular Search Text Links (Clean Human Design) */}
           <div className="companies-trending-bar">
             <span className="companies-trending-label">Tìm kiếm phổ biến:</span>
-            {['FPT', 'Viettel', 'MB Bank', 'Vinamilk', 'MISA', 'Ngân hàng', 'SaaS', 'Hà Nội'].map((hint, index, arr) => (
+            {SEARCH_HINTS.map((hint, index, arr) => (
               <React.Fragment key={hint}>
                 <button
                   type="button"
@@ -798,6 +879,8 @@ export default function Companies() {
                   onClick={() => {
                     setSearchKeyword(hint);
                     if (activeIndustry !== 'ALL') setActiveIndustry('ALL');
+                    const el = document.getElementById('companies-list-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
                   {hint}
@@ -810,7 +893,7 @@ export default function Companies() {
       </section>
 
       {/* 2. CATEGORY FILTER & 3. COMPANY SECTION */}
-      <div className="container py-4" style={{ maxWidth: '1280px' }}>
+      <div className="container py-4" id="companies-list-section" style={{ maxWidth: '1280px' }}>
         {/* Category Filter Buttons (Pill shaped) */}
         <div className="companies-filter-nav mb-4">
           {CATEGORY_TABS.map((tab) => {
@@ -919,7 +1002,18 @@ export default function Companies() {
 
                       <div className="top-employer-tags">
                         {compSkills.map((skill, sIdx) => (
-                          <span key={sIdx} className="top-employer-tag">
+                          <span
+                            key={sIdx}
+                            className="top-employer-tag"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSearchKeyword(skill);
+                              const el = document.getElementById('companies-list-section');
+                              if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            title={`Tìm các công ty với kỹ năng ${skill}`}
+                          >
                             {skill}
                           </span>
                         ))}
