@@ -81,17 +81,14 @@ export default function JobCard({ job, variant = 'card', extra }) {
 
         {/* Center / Main Content */}
         <div className="himalayas-card__main">
-          {/* Row 1: Title (left) & Time Posted + Star Save (right) */}
+          {/* Row 1: Title (left) & Time Posted (right) */}
           <div className="himalayas-card__header">
             <h3 className="himalayas-card__title">
               <Link to={`/jobs/${id}`} title={title}>
                 {title}
               </Link>
             </h3>
-            <div className="d-flex align-items-center gap-2 flex-shrink-0">
-              <span className="himalayas-card__time">{timeAgo}</span>
-              <SaveButton jobId={id} initialSaved={saved} variant="star" />
-            </div>
+            <span className="himalayas-card__time">{timeAgo}</span>
           </div>
 
           {/* Row 2: Company details, Verified Badge, Size, Salaries, Location */}

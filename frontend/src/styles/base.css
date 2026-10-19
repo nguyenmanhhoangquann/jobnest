@@ -751,7 +751,7 @@ img {
 .himalayas-card__logo {
   width: 52px;
   height: 52px;
-  border-radius: 50%;
+  border-radius: 12px;
   border: 1px solid #E5E7EB;
   background: #FFFFFF;
   display: flex;
@@ -760,7 +760,7 @@ img {
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   text-decoration: none;
-  padding: 5px;
+  padding: 6px;
 }
 
 .himalayas-card__logo img {
