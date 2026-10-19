@@ -19,7 +19,7 @@ const resolveCompanyLogo = (company) => {
   if (name.includes('fpt')) return '/images/companies/fpt.png';
   if (name.includes('mb') || name.includes('quân đội')) return '/images/companies/mb-bank.png';
   if (name.includes('vinamilk')) return '/images/companies/vinamilk.png';
-  if (name.includes('toshiba')) return '/images/companies/toshiba.svg';
+  if (name.includes('toshiba')) return '/images/companies/toshiba.png';
   if (name.includes('viettel')) return '/images/companies/viettel.svg';
   return url || '/images/companies/fpt.png';
 };
@@ -257,9 +257,9 @@ export default function JobCard({ job, variant = 'card', extra }) {
           {job.jobType && (
             <span className="job-tag job-tag--location">
               {job.jobType === 'FULL_TIME'
-                ? 'Full time'
+                ? 'Toàn thời gian'
                 : job.jobType === 'PART_TIME'
-                ? 'Part time'
+                ? 'Bán thời gian'
                 : 'Thực tập'}
             </span>
           )}

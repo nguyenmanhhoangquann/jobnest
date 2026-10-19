@@ -882,52 +882,54 @@ export default function Companies() {
   // GIAO DIỆN CHÍNH: DANH SÁCH DOANH NGHIỆP HÀNG ĐẦU
   return (
     <div className="companies-page-root">
-      {/* 1. HERO SECTION (Built In Style - Full Width Orange Bleed + ITviec Search Bar) */}
+      {/* 1. HERO SECTION (Built In Style - Full Width Orange Bleed) */}
       <section className="builtin-companies-hero-wrap">
         <div className="builtin-hero-inner">
           <h1 className="builtin-hero-title">
             Khám phá các công ty công nghệ hàng đầu
           </h1>
 
-          {/* ITviec Signature Search Bar (Chuẩn tiếng Việt theo ảnh mẫu) */}
-          <form className="itviec-search-bar" onSubmit={handleSearchSubmit}>
-            <div className="itviec-search-location">
-              <FaMapMarkerAlt size={15} className="text-secondary flex-shrink-0" />
-              <select
-                className="itviec-search-location-select"
-                value={selectedLocation}
-                onChange={(e) => {
-                  setSelectedLocation(e.target.value);
+          {/* Thanh lọc chuẩn Built In theo đúng ảnh mẫu (Single-row Toolbar) */}
+          <div className="builtin-filter-bar">
+            {/* Thẻ Địa điểm trắng bo góc kèm icon GPS */}
+            <div className="builtin-location-box">
+              <div className="builtin-location-content">
+                <span className="builtin-location-label">ĐỊA ĐIỂM</span>
+                <select
+                  className="builtin-location-select"
+                  value={selectedLocation}
+                  onChange={(e) => {
+                    setSelectedLocation(e.target.value);
+                    setPage(1);
+                  }}
+                >
+                  <option value="all">Việt Nam</option>
+                  <option value="Hà Nội">Hà Nội</option>
+                  <option value="Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                  <option value="Đà Nẵng">Đà Nẵng</option>
+                </select>
+              </div>
+
+              <button
+                type="button"
+                className="builtin-gps-btn"
+                title="Tất cả địa điểm"
+                onClick={() => {
+                  setSelectedLocation('all');
                   setPage(1);
                 }}
               >
-                <option value="all">Tất cả thành phố</option>
-                <option value="Hà Nội">Hà Nội</option>
-                <option value="Hồ Chí Minh">TP. Hồ Chí Minh</option>
-                <option value="Đà Nẵng">Đà Nẵng</option>
-              </select>
-              <span className="itviec-search-location-caret">▼</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="7" />
+                  <line x1="12" y1="1" x2="12" y2="5" />
+                  <line x1="12" y1="19" x2="12" y2="23" />
+                  <line x1="5" y1="12" x2="1" y2="12" />
+                  <line x1="23" y1="12" x2="19" y2="12" />
+                  <circle cx="12" cy="12" r="2" fill="#EA580C" />
+                </svg>
+              </button>
             </div>
 
-            <input
-              type="text"
-              className="itviec-search-input"
-              placeholder="Nhập từ khóa kỹ năng (Java, iOS...), chức danh, công ty..."
-              value={searchKeyword}
-              onChange={(e) => {
-                setSearchKeyword(e.target.value);
-                setPage(1);
-              }}
-            />
-
-            <button type="submit" className="itviec-search-btn">
-              <FaSearch size={14} />
-              <span>Tìm kiếm</span>
-            </button>
-          </form>
-
-          {/* Filter Pills chuẩn tiếng Việt */}
-          <div className="builtin-filter-bar">
             {/* Hình thức làm việc (Office Type) */}
             <div className="builtin-pill-wrap">
               <select
@@ -991,9 +993,9 @@ export default function Companies() {
             {/* Tất cả bộ lọc (All Filters) */}
             <button
               type="button"
-              className={`builtin-all-filters-btn ${showAllFilters ? 'builtin-all-filters-btn--active' : ''}`}
+              className={`builtin-all-filters-btn ${showAllFilters || searchKeyword ? 'builtin-all-filters-btn--active' : ''}`}
               onClick={() => setShowAllFilters(!showAllFilters)}
-              title="Mở rộng bộ lọc chi tiết"
+              title="Tìm kiếm từ khóa & mở rộng bộ lọc"
             >
               <span>Tất cả bộ lọc</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1018,6 +1020,36 @@ export default function Companies() {
               Xóa lọc
             </button>
           </div>
+
+          {/* Ngăn kéo tìm kiếm từ khóa khi bật Tất cả bộ lọc */}
+          {(showAllFilters || searchKeyword) && (
+            <div className="builtin-keyword-drawer">
+              <FaSearch size={14} className="text-secondary ms-1 flex-shrink-0" />
+              <input
+                type="text"
+                className="builtin-keyword-input"
+                placeholder="Nhập từ khóa kỹ năng (Java, iOS...), chức danh, tên công ty..."
+                value={searchKeyword}
+                onChange={(e) => {
+                  setSearchKeyword(e.target.value);
+                  setPage(1);
+                }}
+                autoFocus
+              />
+              {searchKeyword && (
+                <button
+                  type="button"
+                  className="btn btn-sm btn-link text-muted p-0 me-1 text-decoration-none"
+                  onClick={() => {
+                    setSearchKeyword('');
+                    setPage(1);
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </section>
 

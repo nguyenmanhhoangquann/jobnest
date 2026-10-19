@@ -14,8 +14,8 @@ import EmptyState from '../common/EmptyState.jsx';
 
 const TABS = [
   { id: 'ALL', label: 'Tất cả' },
-  { id: 'FULL_TIME', label: 'Full time' },
-  { id: 'PART_TIME', label: 'Part time' },
+  { id: 'FULL_TIME', label: 'Toàn thời gian' },
+  { id: 'PART_TIME', label: 'Bán thời gian' },
   { id: 'INTERN', label: 'Thực tập' },
 ];
 

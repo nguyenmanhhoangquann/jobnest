@@ -7,7 +7,7 @@ export const mockCompanies = [
     "industry": "IT - Phần mềm",
     "logo": "/images/companies/toshiba.svg",
     "cover": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
-    "location": "Ha Noi",
+    "location": "Hà Nội",
     "size": "500 - 1.000 nhân viên",
     "website": "https://toshiba.com.vn",
     "verified": true,

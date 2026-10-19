@@ -15,7 +15,7 @@ const SUGGESTED_TAGS = [
 ];
 
 const CITIES = [
-  { value: 'all', label: 'All Cities' },
+  { value: 'all', label: 'Tất cả thành phố' },
   { value: 'ha-noi', label: 'Hà Nội' },
   { value: 'ho-chi-minh', label: 'TP. Hồ Chí Minh' },
   { value: 'da-nang', label: 'Đà Nẵng' },
@@ -45,7 +45,7 @@ export default function Hero() {
       <div className="itsearch-container">
         {/* 1. Tiêu đề chính chuẩn ITviec */}
         <h1 className="itsearch-headline">
-          1,250+ IT Jobs For <span className="itsearch-headline-highlight">"Chất"</span> Developers
+          1.250+ Việc làm IT dành cho Developer <span className="itsearch-headline-highlight">"Chất"</span>
         </h1>
 
         {/* 2. Thanh tìm kiếm khung chuẩn ITviec (K tròn, bo góc kỹ thuật 6px) */}
@@ -75,7 +75,7 @@ export default function Hero() {
             <input
               type="text"
               className="itsearch-input"
-              placeholder="Enter keyword skill (Java, iOS...), job title, company..."
+              placeholder="Nhập từ khóa kỹ năng (Java, iOS...), chức danh, công ty..."
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               aria-label="Nhập từ khóa kỹ năng, chức danh hoặc công ty"
@@ -85,13 +85,13 @@ export default function Hero() {
           {/* Nút Tìm kiếm cam chuẩn ITviec bo góc nhẹ 6px (K tròn) */}
           <button type="submit" className="itsearch-btn itsearch-btn--tech">
             <FaSearch size={14} />
-            <span>Search</span>
+            <span>Tìm kiếm</span>
           </button>
         </form>
 
         {/* 4. Dải từ khóa gợi ý (Suggestions for you dạng Tech Chips k tròn) */}
         <div className="itsearch-suggestions">
-          <span className="itsearch-suggestions-label">Suggestions for you:</span>
+          <span className="itsearch-suggestions-label">Gợi ý dành cho bạn:</span>
           <div className="d-flex flex-wrap gap-2">
             {SUGGESTED_TAGS.map((tag) => (
               <button
