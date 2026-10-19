@@ -442,10 +442,10 @@ const matchOfficeType = (comp, filterOffice) => {
 const resolveCompanyLogo = (comp) => {
   const name = (comp?.name || comp?.shortName || '').toLowerCase();
   const url = comp?.logo || comp?.logoUrl || '';
+  if (name.includes('toshiba')) return '/images/companies/toshiba.png';
   if (name.includes('fpt')) return '/images/companies/fpt.png';
   if (name.includes('mb') || name.includes('quân đội')) return '/images/companies/mb-bank.png';
   if (name.includes('vinamilk')) return '/images/companies/vinamilk.png';
-  if (name.includes('toshiba')) return '/images/companies/toshiba.svg';
   if (name.includes('viettel')) return '/images/companies/viettel.svg';
   return url || '/images/companies/fpt.png';
 };
