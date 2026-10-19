@@ -157,10 +157,13 @@ export default function JobCard({ job, variant = 'card', extra }) {
           {/* Row 3: Tags on left, Star Bookmark on right (NO apply button) */}
           <div className="himalayas-card__footer">
             <div className="himalayas-card__tags">
-              {/* Location / Country Tag */}
+              {/* Location / Country Tag with crisp SVG Flag */}
               {location && (
                 <span className="himalayas-tag-pill himalayas-tag-pill--loc">
-                  <span className="me-1">🇻🇳</span>
+                  <svg width="14" height="10" viewBox="0 0 30 20" fill="none" className="me-1.5 flex-shrink-0" style={{ borderRadius: '2px' }}>
+                    <rect width="30" height="20" rx="2" fill="#DA251D" />
+                    <polygon points="15,4 17.5,12 11,7.2 19,7.2 12.5,12" fill="#FFFF00" />
+                  </svg>
                   <span>{location === 'Toàn quốc' ? 'Việt Nam only' : `${location} only`}</span>
                 </span>
               )}
