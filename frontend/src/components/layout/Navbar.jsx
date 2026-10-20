@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar as BsNavbar, Nav, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import {
   FaSearch,
@@ -10,20 +10,27 @@ import {
   FaFileAlt,
   FaBookmark,
   FaUsers,
-  FaRobot,
   FaPlusCircle,
   FaShieldAlt,
   FaChartBar,
   FaBuilding,
   FaCheckDouble,
+  FaBars,
+  FaTimes,
 } from 'react-icons/fa';
-import { NAV_ITEMS } from '../../constants.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { showToast } from '../common/ToastHost.jsx';
 import notificationApi from '../../api/notificationApi.js';
 import jobApi from '../../api/jobApi.js';
 import NotificationDrawer from './NotificationDrawer.jsx';
 import SavedJobsDrawer from './SavedJobsDrawer.jsx';
+
+const NAV_ITEMS = [
+  { label: 'Companies', to: '/companies' },
+  { label: 'Jobs', to: '/jobs' },
+  { label: 'Articles', to: '/blog' },
+  { label: 'Salaries', to: '/salary-report' },
+];
 
 function NotificationBell({ isAuth }) {
   const navigate = useNavigate();
@@ -41,12 +48,11 @@ function NotificationBell({ isAuth }) {
           const unread = data.filter((n) => !n.isRead);
           setUnreadCount(unread.length);
 
-          // Tự động hiển thị thông báo mới nhất trượt từ phải sang trái
           const sessionKey = 'jn_notif_alert_shown';
           if (unread.length > 0 && !sessionStorage.getItem(sessionKey)) {
             sessionStorage.setItem(sessionKey, 'true');
             const latest = unread[0];
-            const tag = latest.content.toLowerCase().includes('ứng tuyển')
+            const tag = latest.content?.toLowerCase().includes('ứng tuyển')
               ? 'HỒ SƠ ỨNG TUYỂN'
               : 'THÔNG BÁO MỚI';
             showToast('info', latest.content, tag, 5000);
@@ -60,13 +66,12 @@ function NotificationBell({ isAuth }) {
     return (
       <button
         type="button"
-        className="nav-icon-action-btn"
+        className="builtin-icon-btn"
         aria-label="Thông báo"
         title="Thông báo tuyển dụng"
         onClick={() => navigate('/login')}
       >
         <FaBell size={15} />
-        <span className="notif-badge-modern" aria-label="Có thông báo mới" />
       </button>
     );
   }
@@ -74,9 +79,19 @@ function NotificationBell({ isAuth }) {
   return (
     <>
       <Dropdown align="end">
-        <Dropdown.Toggle as="button" className="nav-icon-action-btn" aria-label="Thông báo" title="Thông báo tuyển dụng">
+        <Dropdown.Toggle
+          as="button"
+          className="builtin-icon-btn"
+          aria-label="Thông báo"
+          title="Thông báo tuyển dụng"
+        >
           <FaBell size={15} />
-          {unreadCount > 0 && <span className="notif-badge-modern" aria-label={`${unreadCount} thông báo chưa đọc`} />}
+          {unreadCount > 0 && (
+            <span
+              className="notif-badge-builtin"
+              aria-label={`${unreadCount} thông báo chưa đọc`}
+            />
+          )}
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="notif-menu shadow-lg border-0 py-2">
@@ -85,7 +100,10 @@ function NotificationBell({ isAuth }) {
               Thông báo
             </span>
             {unreadCount > 0 && (
-              <span className="badge rounded-pill bg-warning text-dark font-monospace" style={{ fontSize: '11px' }}>
+              <span
+                className="badge rounded-pill bg-warning text-dark font-monospace"
+                style={{ fontSize: '11px' }}
+              >
                 {unreadCount} mới
               </span>
             )}
@@ -100,7 +118,9 @@ function NotificationBell({ isAuth }) {
               >
                 <div className="text-dark mb-1">{item.content}</div>
                 <small className="text-muted" style={{ fontSize: '11px' }}>
-                  {item.createdAt ? new Date(item.createdAt).toLocaleDateString('vi-VN') : (item.time || 'Gần đây')}
+                  {item.createdAt
+                    ? new Date(item.createdAt).toLocaleDateString('vi-VN')
+                    : item.time || 'Gần đây'}
                 </small>
               </Dropdown.Item>
             ))}
@@ -118,7 +138,6 @@ function NotificationBell({ isAuth }) {
         </Dropdown.Menu>
       </Dropdown>
 
-      {/* Right-Side Slide-Over Notification Drawer */}
       <NotificationDrawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
@@ -138,14 +157,21 @@ function UserMenu({ user, onLogout }) {
 
   return (
     <Dropdown align="end">
-      <Dropdown.Toggle as="button" className="avatar-btn d-flex align-items-center gap-2 border-0 bg-transparent p-0">
-        <div className="avatar-circle">
+      <Dropdown.Toggle as="button" className="builtin-avatar-btn">
+        <div className="builtin-avatar-circle">
           {user?.avatarUrl ? (
-            <img src={user.avatarUrl} alt="" className="rounded-circle w-100 h-100 object-fit-cover" />
+            <img
+              src={user.avatarUrl}
+              alt=""
+              className="rounded-circle w-100 h-100 object-fit-cover"
+            />
           ) : (
-            <FaUserCircle size={36} color="var(--color-text)" />
+            <FaUserCircle size={22} color="#FFFFFF" />
           )}
         </div>
+        <span className="text-white small fw-bold d-none d-xl-inline">
+          {user?.displayName || user?.username || 'Tài khoản'}
+        </span>
       </Dropdown.Toggle>
 
       <Dropdown.Menu className="user-dropdown-menu shadow-lg border-0 py-2" style={{ minWidth: '220px' }}>
@@ -153,7 +179,12 @@ function UserMenu({ user, onLogout }) {
           <div className="fw-bold text-dark" style={{ fontSize: '14px' }}>
             {user?.displayName || user?.username || 'Tài khoản'}
           </div>
-          <small className={`badge ${isAdmin ? 'bg-danger' : isEmployer ? 'bg-warning text-dark' : 'bg-primary text-white'}`} style={{ fontSize: '11px' }}>
+          <small
+            className={`badge ${
+              isAdmin ? 'bg-danger' : isEmployer ? 'bg-warning text-dark' : 'bg-primary text-white'
+            }`}
+            style={{ fontSize: '11px' }}
+          >
             {isAdmin ? 'Quản trị viên (Admin)' : isEmployer ? 'Nhà tuyển dụng' : 'Người tìm việc'}
           </small>
         </div>
@@ -228,6 +259,7 @@ export default function Navbar() {
 
   const [savedJobsOpen, setSavedJobsOpen] = useState(false);
   const [savedJobs, setSavedJobs] = useState([]);
+  const [mobileExpanded, setMobileExpanded] = useState(false);
 
   const handleOpenSavedJobs = () => {
     if (!isAuth) {
@@ -248,165 +280,216 @@ export default function Navbar() {
   };
 
   return (
-    <BsNavbar expand="lg" sticky="top" className="app-navbar bg-white py-2">
-      {/* Container chuẩn sát 2 biên */}
-      <div className="container-fluid px-3 px-xl-5 d-flex align-items-center w-100 justify-content-between">
-        {/* Left: Logo sát mép bên trái */}
-        <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center p-0 m-0 me-3 text-decoration-none">
-          <img
-            src="/images/jobnest-logo.png"
-            alt="JOB NEST - Kết nối tài năng, nâng tầm sự nghiệp"
-            className="navbar-brand-logo"
-          />
-        </BsNavbar.Brand>
+    <header className="app-navbar">
+      <div className="container-fluid px-3 px-xl-5 d-flex align-items-center justify-content-between builtin-navbar-inner">
+        {/* Left: Built In Wordmark Logo + Primary Navigation */}
+        <div className="d-flex align-items-center">
+          <Link to="/" className="builtin-brand" aria-label="JobNest">
+            <span className="builtin-brand-word">job</span>
+            <span className="builtin-brand-box">nest</span>
+          </Link>
 
-        {/* Mobile controls */}
+          {/* Desktop Nav Links */}
+          <nav className="d-none d-lg-flex align-items-center builtin-nav-menu">
+            {NAV_ITEMS.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `builtin-nav-link ${isActive ? 'active' : ''}`
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+
+        {/* Right Desktop: Search, Bookmark, Notifications, Join | Log In, FOR EMPLOYERS */}
+        <div className="d-none d-lg-flex align-items-center gap-3">
+          {/* 1. Search Icon */}
+          <button
+            type="button"
+            className="builtin-icon-btn"
+            aria-label="Search"
+            title="Tìm kiếm việc làm"
+            onClick={() => navigate('/jobs')}
+          >
+            <FaSearch size={15} />
+          </button>
+
+          {/* 2. Saved Jobs Bookmark */}
+          <button
+            type="button"
+            className="builtin-icon-btn"
+            aria-label="Việc làm đã lưu"
+            title="Việc làm đã lưu"
+            onClick={handleOpenSavedJobs}
+          >
+            <FaBookmark size={14} />
+          </button>
+
+          {/* 3. Notifications */}
+          <NotificationBell isAuth={isAuth} />
+
+          {/* 4. Join | Log In (or UserMenu when authenticated) */}
+          {!isAuth ? (
+            <div className="builtin-auth-wrap">
+              <Link to="/register" className="builtin-auth-link">
+                Join
+              </Link>
+              <span className="builtin-auth-sep">|</span>
+              <Link to="/login" className="builtin-auth-link">
+                Log In
+              </Link>
+            </div>
+          ) : (
+            <UserMenu user={user} onLogout={logout} />
+          )}
+
+          {/* 5. FOR EMPLOYERS Outlined CTA */}
+          {!isAuth ? (
+            <Link to="/register?role=employer" className="builtin-cta-employer">
+              FOR EMPLOYERS
+            </Link>
+          ) : user?.role === 'EMPLOYER' ? (
+            <Link to="/employer/dashboard" className="builtin-cta-employer">
+              KÊNH TUYỂN DỤNG
+            </Link>
+          ) : user?.role === 'ADMIN' ? (
+            <Link to="/admin/dashboard" className="builtin-cta-employer">
+              QUẢN TRỊ ADMIN
+            </Link>
+          ) : (
+            <Link to="/register?role=employer" className="builtin-cta-employer">
+              FOR EMPLOYERS
+            </Link>
+          )}
+        </div>
+
+        {/* Mobile Controls */}
         <div className="d-flex d-lg-none align-items-center gap-2">
           <button
             type="button"
-            className="icon-btn"
-            aria-label="Tìm việc làm"
+            className="builtin-icon-btn"
+            aria-label="Search"
             onClick={() => navigate('/jobs')}
           >
-            <FaSearch size={16} />
+            <FaSearch size={15} />
           </button>
           <NotificationBell isAuth={isAuth} />
-          <BsNavbar.Toggle aria-controls="main-nav" className="border-0 p-1 shadow-none" />
+          <button
+            type="button"
+            className="builtin-navbar-toggler"
+            aria-label="Menu"
+            onClick={() => setMobileExpanded(!mobileExpanded)}
+          >
+            {mobileExpanded ? <FaTimes size={18} /> : <FaBars size={18} />}
+          </button>
         </div>
+      </div>
 
-        {/* Desktop Layout: Menu nằm cạnh logo bên trái, Actions nằm bên phải */}
-        <BsNavbar.Collapse id="main-nav" className="mt-3 mt-lg-0">
-          <Nav className="me-auto app-menu align-items-center mb-3 mb-lg-0 ms-lg-2">
+      {/* Mobile Dropdown Drawer */}
+      {mobileExpanded && (
+        <div className="d-lg-none builtin-mobile-drawer px-3 py-3 border-top border-white-10">
+          <nav className="d-flex flex-column gap-2 mb-3">
             {NAV_ITEMS.map((item) => (
-              <Nav.Link
+              <NavLink
                 key={item.to}
-                as={NavLink}
                 to={item.to}
-                end={item.to === '/'}
-                className={`app-nav-link ${item.to === '/jobs' ? 'app-nav-link--hot' : ''}`}
+                className={({ isActive }) =>
+                  `builtin-nav-link py-2 ${isActive ? 'active' : ''}`
+                }
+                onClick={() => setMobileExpanded(false)}
               >
                 {item.label}
-                {item.to === '/jobs' && (
-                  <span className="nav-hot-badge" title="Đang tuyển nhiều">
-                    HOT
-                  </span>
-                )}
-              </Nav.Link>
+              </NavLink>
             ))}
-          </Nav>
+          </nav>
 
-          {/* Right: Dành cho NTD, Cụm Icons Tinh Tế, Đăng nhập/Đăng ký */}
-          <div className="d-none d-lg-flex align-items-center gap-2 ms-auto">
-            {!isAuth ? (
-              <Link to="/register?role=employer" className="btn-nav-employer me-1">
-                Dành cho nhà tuyển dụng
-              </Link>
-            ) : user?.role === 'EMPLOYER' ? (
-              <Link to="/employer/dashboard" className="btn-nav-employer me-1">
-                <FaBuilding className="me-1.5" size={12} /> Kênh Nhà Tuyển Dụng
-              </Link>
-            ) : user?.role === 'ADMIN' ? (
-              <Link to="/admin/dashboard" className="btn-nav-employer me-1 border-danger text-danger">
-                <FaShieldAlt className="me-1.5" size={12} /> Quản trị Admin
-              </Link>
-            ) : null}
-
-            {/* Cụm nút icon tiện ích */}
-            <div className="d-flex align-items-center gap-2">
-              {/* Nút Việc làm đã lưu */}
-              <button
-                type="button"
-                className="nav-icon-action-btn"
-                aria-label="Việc làm đã lưu"
-                title="Việc làm đã lưu"
-                onClick={handleOpenSavedJobs}
-              >
-                <FaBookmark size={13} />
-              </button>
-
-              {/* Chuông Thông báo */}
-              <NotificationBell isAuth={isAuth} />
-            </div>
+          <div className="d-flex flex-column gap-2 pt-2 border-top border-white-10">
+            <button
+              type="button"
+              className="btn btn-outline-light text-start py-2 d-flex align-items-center gap-2"
+              onClick={() => {
+                setMobileExpanded(false);
+                handleOpenSavedJobs();
+              }}
+            >
+              <FaBookmark size={14} /> Việc làm đã lưu
+            </button>
 
             {!isAuth ? (
-              <div className="d-flex align-items-center gap-2 ms-2">
-                <Link to="/login" className="btn-nav-login">
-                  Đăng nhập
+              <>
+                <div className="d-flex gap-2 mt-2">
+                  <Link
+                    to="/login"
+                    className="btn btn-outline-light flex-fill text-center py-2"
+                    onClick={() => setMobileExpanded(false)}
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="btn btn-light flex-fill text-center py-2 fw-bold text-dark"
+                    onClick={() => setMobileExpanded(false)}
+                  >
+                    Join
+                  </Link>
+                </div>
+                <Link
+                  to="/register?role=employer"
+                  className="builtin-cta-employer text-center mt-2 py-2"
+                  onClick={() => setMobileExpanded(false)}
+                >
+                  FOR EMPLOYERS
                 </Link>
-                <Link to="/register" className="btn-nav-register">
-                  Đăng ký
-                </Link>
-              </div>
+              </>
             ) : (
-              <UserMenu user={user} onLogout={logout} />
-            )}
-          </div>
-
-          {/* Mobile Collapse Drawer */}
-          <div className="d-lg-none pt-3 border-top mt-2">
-            {!isAuth ? (
-              <div className="d-flex flex-column gap-2">
-                <Link to="/register?role=employer" className="btn btn-outline-secondary w-100 text-center py-2">
-                  Dành cho nhà tuyển dụng
-                </Link>
-                <Link to="/login" className="btn btn-ghost w-100 text-center">
-                  Đăng nhập
-                </Link>
-                <Link to="/register" className="btn btn-brand w-100 text-center">
-                  Đăng ký
-                </Link>
-              </div>
-            ) : (
-              <div className="d-flex flex-column gap-2">
-                <div className="d-flex align-items-center gap-2 px-2 py-1 mb-2">
-                  <FaUserCircle size={28} color="var(--color-text)" />
-                  <div>
-                    <div className="fw-bold">{user?.displayName || user?.username}</div>
-                    <small className="text-muted">{user?.role === 'EMPLOYER' ? 'Nhà tuyển dụng' : 'Người tìm việc'}</small>
-                  </div>
+              <div className="pt-2">
+                <div className="text-white small fw-bold mb-2">
+                  {user?.displayName || user?.username} ({user?.role})
                 </div>
                 {user?.role === 'ADMIN' ? (
-                  <>
-                    <Link to="/admin/dashboard" className="btn btn-light text-start py-2">
-                      <FaChartBar className="me-2" /> Bảng điều khiển Quản trị
-                    </Link>
-                    <Link to="/employer/dashboard" className="btn btn-light text-start py-2">
-                      <FaBuilding className="me-2" /> Kênh Nhà Tuyển Dụng
-                    </Link>
-                  </>
+                  <Link
+                    to="/admin/dashboard"
+                    className="btn btn-light w-100 mb-2"
+                    onClick={() => setMobileExpanded(false)}
+                  >
+                    Bảng điều khiển Admin
+                  </Link>
                 ) : user?.role === 'EMPLOYER' ? (
-                  <>
-                    <Link to="/employer/dashboard" className="btn btn-light text-start py-2">
-                      <FaChartBar className="me-2" /> Bảng điều khiển NTD
-                    </Link>
-                    <Link to="/employer/applications" className="btn btn-light text-start py-2">
-                      <FaUsers className="me-2" /> Hồ sơ ứng tuyển (CV)
-                    </Link>
-                    <Link to="/employer/post-job" className="btn btn-light text-start py-2">
-                      <FaPlusCircle className="me-2" /> Đăng bài tuyển dụng
-                    </Link>
-                    <Link to="/employer/jobs" className="btn btn-light text-start py-2">
-                      <FaBriefcase className="me-2" /> Tin đã đăng
-                    </Link>
-                  </>
+                  <Link
+                    to="/employer/dashboard"
+                    className="btn btn-light w-100 mb-2"
+                    onClick={() => setMobileExpanded(false)}
+                  >
+                    Kênh tuyển dụng
+                  </Link>
                 ) : (
-                  <>
-                    <Link to="/candidate/applied-jobs" className="btn btn-light text-start py-2">
-                      <FaFileAlt className="me-2" /> Việc đã ứng tuyển
-                    </Link>
-                    <Link to="/candidate/saved-jobs" className="btn btn-light text-start py-2">
-                      <FaBookmark className="me-2" /> Công việc đã lưu
-                    </Link>
-                  </>
+                  <Link
+                    to="/candidate/applied-jobs"
+                    className="btn btn-light w-100 mb-2"
+                    onClick={() => setMobileExpanded(false)}
+                  >
+                    Việc đã ứng tuyển
+                  </Link>
                 )}
-                <button type="button" onClick={logout} className="btn btn-outline-danger w-100 mt-2 text-start">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileExpanded(false);
+                    logout();
+                  }}
+                  className="btn btn-outline-danger w-100 text-start"
+                >
                   <FaSignOutAlt className="me-2" /> Đăng xuất
                 </button>
               </div>
             )}
           </div>
-        </BsNavbar.Collapse>
-      </div>
+        </div>
+      )}
 
       {/* Right-Side Slide-Over Saved Jobs Drawer */}
       <SavedJobsDrawer
@@ -415,6 +498,6 @@ export default function Navbar() {
         savedJobs={savedJobs}
         onUpdateJobs={setSavedJobs}
       />
-    </BsNavbar>
+    </header>
   );
 }

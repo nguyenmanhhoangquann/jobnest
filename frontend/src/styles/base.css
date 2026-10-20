@@ -73,42 +73,234 @@ img {
 }
 
 /* ==========================================================================
-   Navbar Styles (Section 6.1 - Upgraded Premium Header with Color Glow)
+   Navbar Styles - Built In Deep Navy Edition
    ========================================================================== */
 .app-navbar {
   position: sticky !important;
   top: 0 !important;
   z-index: 1050 !important;
-  background: rgba(255, 255, 255, 0.98) !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1.5px solid rgba(254, 215, 170, 0.6) !important;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 24px rgba(234, 88, 12, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: #07006c !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28) !important;
+  padding: 0 !important;
 }
 
-/* Dải màu hiệu ứng ánh sáng gradient chạy ngang đỉnh Navbar */
 .app-navbar::before {
+  display: none !important;
+}
+
+.builtin-navbar-inner {
+  min-height: 64px;
+}
+
+/* Built In Wordmark Logo */
+.builtin-brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  letter-spacing: -0.6px;
+  line-height: 1;
+  user-select: none;
+  margin-right: 36px;
+}
+
+.builtin-brand-word {
+  color: #FFFFFF;
+}
+
+.builtin-brand-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  border-top: 3px solid #FFFFFF;
+  border-right: 3px solid #FFFFFF;
+  border-bottom: 3px solid #FFFFFF;
+  border-left: none;
+  padding: 3px 8px 3px 5px;
+  margin-left: 2px;
+  line-height: 1;
+}
+
+.builtin-brand:hover .builtin-brand-word,
+.builtin-brand:hover .builtin-brand-box {
+  opacity: 0.9;
+}
+
+/* Primary Nav Links */
+.builtin-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.builtin-nav-link {
+  color: #FFFFFF !important;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 6px 4px !important;
+  text-decoration: none !important;
+  transition: opacity 0.15s ease;
+  position: relative;
+  background: transparent !important;
+  white-space: nowrap;
+}
+
+.builtin-nav-link:hover {
+  opacity: 0.8;
+  color: #FFFFFF !important;
+}
+
+.builtin-nav-link.active {
+  color: #FFFFFF !important;
+  font-weight: 700;
+}
+
+.builtin-nav-link.active::after {
   content: "";
   position: absolute;
-  top: 0;
+  bottom: -4px;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #F59E0B 0%, #EA580C 25%, #EC4899 50%, #8B5CF6 75%, #F59E0B 100%);
-  background-size: 200% 100%;
-  animation: navGlowMove 4s linear infinite;
-  z-index: 1032;
-  box-shadow: 0 2px 14px rgba(234, 88, 12, 0.65);
+  height: 2px;
+  background: #FFFFFF;
+  border-radius: 1px;
 }
 
-@keyframes navGlowMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 200% 50%;
-  }
+/* Utility Icons (Search, Bookmark, Bell) */
+.builtin-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  padding: 0;
+  text-decoration: none;
+}
+
+.builtin-icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.notif-badge-builtin {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  border: 1.5px solid #07006c;
+}
+
+/* Auth Group: Join | Log In */
+.builtin-auth-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0 4px;
+  white-space: nowrap;
+}
+
+.builtin-auth-link {
+  color: #FFFFFF !important;
+  text-decoration: none !important;
+  transition: opacity 0.15s ease;
+}
+
+.builtin-auth-link:hover {
+  opacity: 0.8;
+}
+
+.builtin-auth-sep {
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 300;
+  font-size: 15px;
+  user-select: none;
+}
+
+/* FOR EMPLOYERS Outlined CTA Button */
+.builtin-cta-employer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 18px;
+  border: 1.5px solid #FFFFFF;
+  border-radius: 4px;
+  background: transparent;
+  color: #FFFFFF !important;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.builtin-cta-employer:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF !important;
+}
+
+/* User Menu on Dark Navbar */
+.builtin-avatar-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+.builtin-avatar-btn:hover {
+  opacity: 0.9;
+}
+
+.builtin-avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+}
+
+.builtin-navbar-toggler {
+  border: none !important;
+  padding: 6px !important;
+  color: #FFFFFF !important;
+  background: transparent !important;
+}
+
+.builtin-navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+.builtin-mobile-drawer {
+  background: #07006c;
 }
 
 .nav-icon-action-btn {
