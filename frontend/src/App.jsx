@@ -10,6 +10,7 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import AppliedJobs from './pages/candidate/AppliedJobs.jsx';
 import SavedJobs from './pages/candidate/SavedJobs.jsx';
+import JobPreferences from './pages/candidate/JobPreferences.jsx';
 import EmployerDashboard from './pages/employer/EmployerDashboard.jsx';
 import PostJob from './pages/employer/PostJob.jsx';
 import ReceivedApplications from './pages/employer/ReceivedApplications.jsx';
@@ -84,6 +85,8 @@ export default function App() {
             />
 
             {/* Tuyến đường ứng viên (CANDIDATE) */}
+            <Route path="/profile/job-preferences" element={<JobPreferences />} />
+            <Route path="/profile" element={<Navigate to="/profile/job-preferences" replace />} />
             <Route
               path="/candidate/applied-jobs"
               element={

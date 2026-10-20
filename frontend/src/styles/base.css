@@ -73,16 +73,16 @@ img {
 }
 
 /* ==========================================================================
-   Navbar Styles - Built In Deep Navy Edition
+   Navbar Styles - JobNest Signature Warm Orange Edition
    ========================================================================== */
 .app-navbar {
   position: sticky !important;
   top: 0 !important;
   z-index: 1050 !important;
-  background: #07006c !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: #EA580C !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28) !important;
+  box-shadow: 0 4px 18px rgba(234, 88, 12, 0.22) !important;
   padding: 0 !important;
 }
 
@@ -94,49 +94,37 @@ img {
   min-height: 64px;
 }
 
-/* Built In Wordmark Logo */
-.builtin-brand {
+/* JobNest Original Logo in Clean White Badge */
+.jobnest-brand-badge {
   display: inline-flex;
   align-items: center;
+  background: #FFFFFF;
+  padding: 4px 12px;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   text-decoration: none !important;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 26px;
-  font-weight: 800;
-  color: #FFFFFF !important;
-  letter-spacing: -0.6px;
-  line-height: 1;
-  user-select: none;
-  margin-right: 36px;
+  margin-right: 28px;
 }
 
-.builtin-brand-word {
-  color: #FFFFFF;
+.jobnest-brand-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.builtin-brand-box {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFFFFF;
-  border-top: 3px solid #FFFFFF;
-  border-right: 3px solid #FFFFFF;
-  border-bottom: 3px solid #FFFFFF;
-  border-left: none;
-  padding: 3px 8px 3px 5px;
-  margin-left: 2px;
-  line-height: 1;
-}
-
-.builtin-brand:hover .builtin-brand-word,
-.builtin-brand:hover .builtin-brand-box {
-  opacity: 0.9;
+.navbar-brand-logo {
+  height: 32px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  display: block;
 }
 
 /* Primary Nav Links */
 .builtin-nav-menu {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
   margin: 0;
   padding: 0;
 }
@@ -154,7 +142,7 @@ img {
 }
 
 .builtin-nav-link:hover {
-  opacity: 0.8;
+  opacity: 0.85;
   color: #FFFFFF !important;
 }
 
@@ -169,9 +157,9 @@ img {
   bottom: -4px;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 2.5px;
   background: #FFFFFF;
-  border-radius: 1px;
+  border-radius: 2px;
 }
 
 /* Utility Icons (Search, Bookmark, Bell) */
@@ -193,7 +181,7 @@ img {
 }
 
 .builtin-icon-btn:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.18);
   color: #FFFFFF;
 }
 
@@ -204,8 +192,8 @@ img {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #EF4444;
-  border: 1.5px solid #07006c;
+  background: #FFFFFF;
+  border: 1.5px solid #EA580C;
 }
 
 /* Auth Group: Join | Log In */
@@ -227,29 +215,30 @@ img {
 }
 
 .builtin-auth-link:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .builtin-auth-sep {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.55);
   font-weight: 300;
   font-size: 15px;
   user-select: none;
 }
 
-/* FOR EMPLOYERS Outlined CTA Button */
+/* FOR EMPLOYERS Outlined CTA Button with Caret */
 .builtin-cta-employer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 7px 18px;
+  gap: 6px;
+  padding: 7px 16px;
   border: 1.5px solid #FFFFFF;
-  border-radius: 4px;
+  border-radius: 6px;
   background: transparent;
   color: #FFFFFF !important;
   font-size: 12.5px;
   font-weight: 700;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   text-decoration: none !important;
   transition: all 0.18s ease;
@@ -257,35 +246,38 @@ img {
 }
 
 .builtin-cta-employer:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
   color: #FFFFFF !important;
 }
 
-/* User Menu on Dark Navbar */
+/* User Menu on Orange Navbar */
 .builtin-avatar-btn {
   background: transparent;
-  border: none;
-  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  padding: 4px 8px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
   color: #FFFFFF;
+  transition: all 0.15s ease;
 }
 
 .builtin-avatar-btn:hover {
-  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #FFFFFF;
 }
 
 .builtin-avatar-circle {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .builtin-navbar-toggler {
@@ -300,7 +292,39 @@ img {
 }
 
 .builtin-mobile-drawer {
-  background: #07006c;
+  background: #EA580C;
+}
+
+/* User Dropdown Menu matching reference image */
+.builtin-user-dropdown {
+  background: #18181B !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+  padding: 6px 0 !important;
+  min-width: 240px;
+}
+
+.builtin-user-dropdown .dropdown-item {
+  color: #F4F4F5 !important;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s ease;
+}
+
+.builtin-user-dropdown .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #FFFFFF !important;
+  padding-left: 22px !important;
+}
+
+.builtin-user-dropdown .dropdown-divider {
+  border-top-color: rgba(255, 255, 255, 0.12) !important;
+  margin: 6px 0 !important;
 }
 
 .nav-icon-action-btn {

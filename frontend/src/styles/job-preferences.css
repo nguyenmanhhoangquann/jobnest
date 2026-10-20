@@ -1,0 +1,283 @@
+/* Job Preferences Page Styling - Built In Style with JobNest Signature Warm Palette */
+
+.job-preferences-page {
+  background-color: #F8FAFC;
+  min-height: calc(100vh - 72px);
+  padding-bottom: 60px;
+}
+
+.jp-header-banner {
+  background: linear-gradient(135deg, #18181B 0%, #27272A 100%);
+  color: #FFFFFF;
+  padding: 40px 0 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.jp-header-banner::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.jp-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #A1A1AA;
+  margin-bottom: 12px;
+}
+
+.jp-breadcrumb a {
+  color: #D4D4D8;
+  text-decoration: none;
+}
+
+.jp-breadcrumb a:hover {
+  color: #EA580C;
+}
+
+.jp-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.jp-subtitle {
+  font-size: 14.5px;
+  color: #D4D4D8;
+  max-width: 680px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.jp-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  padding: 26px 28px;
+  margin-bottom: 24px;
+  transition: border-color 0.15s ease;
+}
+
+.jp-card:hover {
+  border-color: #CBD5E1;
+}
+
+.jp-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jp-card-desc {
+  font-size: 13.5px;
+  color: #64748B;
+  margin-bottom: 20px;
+}
+
+/* Status Cards (Built In Radio Cards) */
+.jp-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.jp-status-option {
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  background: #FFFFFF;
+  position: relative;
+}
+
+.jp-status-option:hover {
+  border-color: #FDBA74;
+  background: #FFFBF7;
+}
+
+.jp-status-option--active {
+  border-color: #EA580C !important;
+  background: #FFF7ED !important;
+  box-shadow: 0 0 0 1px #EA580C;
+}
+
+.jp-status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.jp-status-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1E293B;
+  margin-bottom: 4px;
+}
+
+.jp-status-desc {
+  font-size: 12.5px;
+  color: #64748B;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Chip Select Buttons */
+.jp-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.jp-chip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid #E2E8F0;
+  background: #F8FAFC;
+  color: #334155;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.jp-chip:hover {
+  border-color: #CBD5E1;
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.jp-chip--active {
+  background: #EA580C !important;
+  border-color: #EA580C !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.25);
+}
+
+/* Tag Input and Badges */
+.jp-tag-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  background: #FFFFFF;
+  min-height: 48px;
+  align-items: center;
+}
+
+.jp-tag-wrap:focus-within {
+  border-color: #EA580C;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.12);
+}
+
+.jp-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #FFEDD5;
+  color: #9A3412;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.jp-tag-remove {
+  background: none;
+  border: none;
+  color: #9A3412;
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.jp-tag-remove:hover {
+  color: #7C2D12;
+}
+
+.jp-tag-input {
+  border: none;
+  outline: none;
+  font-size: 13.5px;
+  flex: 1;
+  min-width: 140px;
+}
+
+/* Quick Skills Selector */
+.jp-quick-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.jp-quick-skill-btn {
+  font-size: 12px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px dashed #CBD5E1;
+  background: #F8FAFC;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jp-quick-skill-btn:hover {
+  border-color: #EA580C;
+  color: #EA580C;
+  background: #FFF7ED;
+}
+
+/* Sticky Action Footer */
+.jp-sticky-actions {
+  position: sticky;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid #E2E8F0;
+  padding: 14px 0;
+  z-index: 100;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.btn-jp-save {
+  background: #EA580C;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 14.5px;
+  padding: 10px 28px;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+}
+
+.btn-jp-save:hover {
+  background: #C2410C;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.4);
+}
