@@ -81,111 +81,61 @@ img {
   z-index: 1050 !important;
   background: #EA580C !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   box-shadow: 0 4px 18px rgba(234, 88, 12, 0.22) !important;
-  padding: 0 !important;
 }
 
 .app-navbar::before {
   display: none !important;
 }
 
-.builtin-navbar-inner {
-  min-height: 64px;
-}
-
-/* JobNest Original Logo in Clean White Badge */
-.jobnest-brand-badge {
-  display: inline-flex;
-  align-items: center;
-  background: #FFFFFF;
-  padding: 4px 12px;
-  border-radius: 9px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  text-decoration: none !important;
-  margin-right: 28px;
-}
-
-.jobnest-brand-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.navbar-brand-logo {
-  height: 32px;
-  width: auto;
-  max-width: 160px;
-  object-fit: contain;
-  display: block;
-}
-
-/* Primary Nav Links */
-.builtin-nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin: 0;
-  padding: 0;
-}
-
-.builtin-nav-link {
-  color: #FFFFFF !important;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 6px 4px !important;
-  text-decoration: none !important;
-  transition: opacity 0.15s ease;
-  position: relative;
-  background: transparent !important;
-  white-space: nowrap;
-}
-
-.builtin-nav-link:hover {
-  opacity: 0.85;
-  color: #FFFFFF !important;
-}
-
-.builtin-nav-link.active {
-  color: #FFFFFF !important;
-  font-weight: 700;
-}
-
-.builtin-nav-link.active::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2.5px;
-  background: #FFFFFF;
-  border-radius: 2px;
-}
-
-/* Utility Icons (Search, Bookmark, Bell) */
-.builtin-icon-btn {
-  width: 36px;
-  height: 36px;
+.nav-icon-action-btn {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: transparent;
-  border: none;
-  display: inline-flex;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
   cursor: pointer;
   position: relative;
-  transition: background-color 0.15s ease, opacity 0.15s ease;
-  padding: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   text-decoration: none;
+  padding: 0;
 }
 
-.builtin-icon-btn:hover {
-  background-color: rgba(255, 255, 255, 0.18);
+.nav-icon-action-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: #FFFFFF;
   color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.notif-badge-builtin {
+.nav-icon-action-btn:active {
+  transform: translateY(0);
+}
+
+.nav-ai-chip-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: linear-gradient(135deg, #EA580C 0%, #F97316 100%);
+  color: #FFFFFF;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1.5px 4.5px;
+  border-radius: 999px;
+  line-height: 1;
+  border: 1.5px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.35);
+  letter-spacing: 0.02em;
+}
+
+.notif-badge-modern {
   position: absolute;
   top: 7px;
   right: 7px;
@@ -194,137 +144,162 @@ img {
   border-radius: 50%;
   background: #FFFFFF;
   border: 1.5px solid #EA580C;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  animation: pulseNotif 2s infinite;
 }
 
-/* Auth Group: Join | Log In */
-.builtin-auth-wrap {
-  display: inline-flex;
+@keyframes pulseNotif {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 5px rgba(255, 255, 255, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.navbar-brand-logo {
+  height: 36px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+}
+
+.app-menu .app-nav-link {
+  display: inline-flex !important;
   align-items: center;
-  gap: 12px;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
-  color: #FFFFFF;
-  margin: 0 4px;
-  white-space: nowrap;
-}
-
-.builtin-auth-link {
   color: #FFFFFF !important;
-  text-decoration: none !important;
-  transition: opacity 0.15s ease;
+  padding: 7px 15px !important;
+  margin: 0 2px;
+  position: relative;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  border-radius: 999px;
 }
 
-.builtin-auth-link:hover {
-  opacity: 0.85;
-}
-
-.builtin-auth-sep {
-  color: rgba(255, 255, 255, 0.55);
-  font-weight: 300;
-  font-size: 15px;
-  user-select: none;
-}
-
-/* FOR EMPLOYERS Outlined CTA Button with Caret */
-.builtin-cta-employer {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 7px 16px;
-  border: 1.5px solid #FFFFFF;
-  border-radius: 6px;
-  background: transparent;
+.app-menu .app-nav-link:hover {
   color: #FFFFFF !important;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  text-decoration: none !important;
-  transition: all 0.18s ease;
-  white-space: nowrap;
-}
-
-.builtin-cta-employer:hover {
   background: rgba(255, 255, 255, 0.18);
-  color: #FFFFFF !important;
 }
 
-/* User Menu on Orange Navbar */
-.builtin-avatar-btn {
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
-  border-radius: 6px;
-  padding: 4px 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  color: #FFFFFF;
-  transition: all 0.15s ease;
-}
-
-.builtin-avatar-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: #FFFFFF;
-}
-
-.builtin-avatar-circle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.builtin-navbar-toggler {
-  border: none !important;
-  padding: 6px !important;
+.app-menu .app-nav-link.active {
+  font-weight: 700;
   color: #FFFFFF !important;
   background: transparent !important;
-}
-
-.builtin-navbar-toggler:focus {
   box-shadow: none !important;
+  border-bottom: 2.5px solid #FFFFFF !important;
+  border-radius: 0 !important;
+  padding-bottom: 6px !important;
 }
 
-.builtin-mobile-drawer {
-  background: #EA580C;
+.app-menu .app-nav-link.active::after {
+  display: none !important;
 }
 
-/* User Dropdown Menu matching reference image */
-.builtin-user-dropdown {
-  background: #18181B !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
-  padding: 6px 0 !important;
-  min-width: 240px;
+/* HOT Badge on Nav Item - Tách xa chữ Việc làm để không bao giờ bị che khuất */
+.app-nav-link--hot {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
 }
 
-.builtin-user-dropdown .dropdown-item {
-  color: #F4F4F5 !important;
-  font-size: 14px;
+.nav-hot-badge {
+  position: static !important;
+  transform: none !important;
+  font-size: 8.5px;
+  font-weight: 900;
+  line-height: 1;
+  color: #EA580C;
+  background: #FFFFFF;
+  padding: 2.5px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+}
+
+.btn-nav-employer {
+  font-size: 13px;
   font-weight: 600;
-  padding: 10px 18px !important;
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  padding: 6px 15px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-nav-employer:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: #FFFFFF;
+  color: #FFFFFF !important;
+  transform: none;
+}
+
+.btn-nav-login {
+  font-size: 13px;
+  font-weight: 600;
+  color: #FFFFFF !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  padding: 6px 16px;
+  background: transparent;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-nav-login:hover {
+  border-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF !important;
+  transform: none;
+}
+
+.btn-nav-register {
+  font-size: 13px;
+  font-weight: 700;
+  color: #EA580C !important;
+  background: #FFFFFF;
+  border: 0;
+  border-radius: 999px;
+  padding: 6.5px 18px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.btn-nav-register:hover {
+  background: #FFF7ED;
+  color: #C2410C !important;
+  transform: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: transparent;
+  border: 0;
   display: flex;
   align-items: center;
-  gap: 10px;
-  transition: all 0.15s ease;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  position: relative;
 }
 
-.builtin-user-dropdown .dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: #FFFFFF !important;
-  padding-left: 22px !important;
-}
-
-.builtin-user-dropdown .dropdown-divider {
-  border-top-color: rgba(255, 255, 255, 0.12) !important;
-  margin: 6px 0 !important;
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .nav-icon-action-btn {
@@ -392,169 +367,7 @@ img {
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
-.navbar-brand-logo {
-  height: 42px;
-  width: auto;
-  max-width: 220px;
-  object-fit: contain;
-  display: block;
-}
 
-.app-menu .app-nav-link {
-  display: inline-flex !important;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 600;
-  color: #4B5563;
-  padding: 7px 16px !important;
-  margin: 0 2px;
-  position: relative;
-  transition: color 0.15s ease, background-color 0.15s ease;
-  border-radius: 999px;
-}
-
-.app-menu .app-nav-link:hover {
-  color: #B45309;
-  background: rgba(251, 191, 36, 0.14);
-}
-
-.app-menu .app-nav-link.active {
-  font-weight: 700;
-  color: #18181B !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border-bottom: 2.5px solid #F59E0B !important;
-  border-radius: 0 !important;
-  padding-bottom: 6px !important;
-}
-
-.app-menu .app-nav-link.active::after {
-  display: none !important;
-}
-
-/* HOT Badge on Nav Item - Tách xa chữ Việc làm để không bao giờ bị che khuất */
-.app-nav-link--hot {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 6px;
-}
-
-.nav-hot-badge {
-  position: static !important;
-  transform: none !important;
-  font-size: 8.5px;
-  font-weight: 900;
-  line-height: 1;
-  color: #FFFFFF;
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-  padding: 2.5px 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.04em;
-  overflow: hidden;
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.45);
-  user-select: none;
-  pointer-events: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 4px;
-}
-
-@keyframes pulseBadge {
-  0% {
-    transform: translateY(-50%) scale(0.96);
-    filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.4));
-  }
-  100% {
-    transform: translateY(-50%) scale(1.05);
-    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.75));
-  }
-}
-
-.nav-hot-badge::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.9), transparent);
-  animation: 2.6s ease-in-out infinite hotShine;
-}
-
-@keyframes hotShine {
-  0% {
-    left: -100%;
-  }
-  33.33% {
-    left: 100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-.btn-nav-employer {
-  font-size: 13px;
-  font-weight: 600;
-  color: #334155;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 999px;
-  padding: 6px 15px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.btn-nav-employer:hover {
-  background: #F1F5F9;
-  border-color: #CBD5E1;
-  color: #0F172A;
-  transform: none;
-}
-
-.btn-nav-login {
-  font-size: 13px;
-  font-weight: 600;
-  color: #1F2937;
-  border: 1px solid #E2E8F0;
-  border-radius: 999px;
-  padding: 6px 16px;
-  background: #FFFFFF;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.btn-nav-login:hover {
-  border-color: #CBD5E1;
-  background: #F8FAFC;
-  color: #0F172A;
-  transform: none;
-}
-
-.btn-nav-register {
-  font-size: 13px;
-  font-weight: 700;
-  color: #18181B;
-  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
-  border: 0;
-  border-radius: 999px;
-  padding: 6.5px 18px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.4);
-}
-
-.btn-nav-register:hover {
-  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-  color: #18181B;
-  transform: none;
-  box-shadow: 0 6px 18px rgba(251, 191, 36, 0.5);
-}
 
 .icon-btn {
   width: 40px;
