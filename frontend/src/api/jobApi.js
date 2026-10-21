@@ -131,29 +131,29 @@ const cleanupLegacySeed = () => {
 };
 cleanupLegacySeed();
 
-const getLocalSavedIds = () => {
-  try {
-    const raw = localStorage.getItem('jn_local_saved_jobs');
-    if (!raw) return [];
-    return JSON.parse(raw) || [];
-  } catch {
-    return [];
-  }
-};
-
 const getSavedJobsList = () => {
   try {
     const raw = localStorage.getItem('jn_saved_jobs_full');
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) return parsed;
+      if (Array.isArray(parsed)) {
+        const seen = new Set();
+        return parsed.filter((j) => {
+          const sid = String(j?.id);
+          if (!sid || seen.has(sid)) return false;
+          seen.add(sid);
+          return true;
+        });
+      }
     }
-    const localIds = getLocalSavedIds();
-    if (localIds.length === 0) return [];
-    return mockJobs.filter((j) => localIds.includes(String(j.id))).map((j) => ({ ...j, saved: true }));
+    return [];
   } catch {
     return [];
   }
+};
+
+const getLocalSavedIds = () => {
+  return getSavedJobsList().map((j) => String(j.id));
 };
 
 export const jobApi = {
@@ -314,12 +314,7 @@ export const jobApi = {
 
   // Lưu tin tuyển dụng (Mục 8.2)
   saveJob: async (jobId, jobData) => {
-    const localIds = getLocalSavedIds();
     const strId = String(jobId);
-    if (!localIds.includes(strId)) {
-      localStorage.setItem('jn_local_saved_jobs', JSON.stringify([...localIds, strId]));
-    }
-
     const savedList = getSavedJobsList();
     if (!savedList.some((j) => String(j.id) === strId)) {
       const fullJob =
@@ -334,6 +329,7 @@ export const jobApi = {
         };
       const updatedList = [{ ...fullJob, saved: true }, ...savedList];
       localStorage.setItem('jn_saved_jobs_full', JSON.stringify(updatedList));
+      localStorage.setItem('jn_local_saved_jobs', JSON.stringify(updatedList.map((j) => String(j.id))));
     }
 
     jobsState = jobsState.map((j) =>
@@ -351,18 +347,11 @@ export const jobApi = {
 
   // Bỏ lưu tin tuyển dụng (Mục 8.2)
   unsaveJob: async (jobId) => {
-    const localIds = getLocalSavedIds();
     const strId = String(jobId);
-    localStorage.setItem(
-      'jn_local_saved_jobs',
-      JSON.stringify(localIds.filter((id) => String(id) !== strId))
-    );
-
     const savedList = getSavedJobsList();
-    localStorage.setItem(
-      'jn_saved_jobs_full',
-      JSON.stringify(savedList.filter((j) => String(j.id) !== strId))
-    );
+    const updatedList = savedList.filter((j) => String(j.id) !== strId);
+    localStorage.setItem('jn_saved_jobs_full', JSON.stringify(updatedList));
+    localStorage.setItem('jn_local_saved_jobs', JSON.stringify(updatedList.map((j) => String(j.id))));
 
     jobsState = jobsState.map((j) =>
       String(j.id) === strId ? { ...j, saved: false } : j

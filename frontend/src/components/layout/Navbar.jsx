@@ -231,9 +231,7 @@ export default function Navbar() {
   const [savedDrawerTab, setSavedDrawerTab] = useState('jobs');
   const [savedCount, setSavedCount] = useState(() => {
     try {
-      const jIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
-      const cIds = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
-      return jIds.length + cIds.length;
+      return jobApi.getSavedJobsList().length;
     } catch {
       return 0;
     }
@@ -241,9 +239,7 @@ export default function Navbar() {
 
   const updateCounts = useCallback(() => {
     try {
-      const jIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
-      const cIds = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
-      setSavedCount(jIds.length + cIds.length);
+      setSavedCount(jobApi.getSavedJobsList().length);
     } catch {
       setSavedCount(0);
     }
