@@ -360,14 +360,6 @@ export default function Navbar() {
                     HOT
                   </span>
                 )}
-                {item.isSavedTab && savedCount > 0 && (
-                  <span
-                    className="badge rounded-pill bg-danger ms-1"
-                    style={{ fontSize: '10.5px', padding: '2px 6px', verticalAlign: 'middle' }}
-                  >
-                    {savedCount > 99 ? '99+' : savedCount}
-                  </span>
-                )}
               </Nav.Link>
             ))}
           </Nav>

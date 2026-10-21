@@ -29,6 +29,19 @@ export default function SavedJobsDrawer({
   const [closing, setClosing] = useState(false);
   const [activeTab, setActiveTab] = useState(initialTab);
   const [followedCompanies, setFollowedCompanies] = useState([]);
+  const [internalJobs, setInternalJobs] = useState(savedJobs);
+
+  // Load saved jobs directly
+  const loadSavedJobs = useCallback(() => {
+    jobApi
+      .getSavedJobs()
+      .then((data) => {
+        const list = data?.content || (Array.isArray(data) ? data : []);
+        setInternalJobs(list);
+        if (onUpdateJobs) onUpdateJobs(list);
+      })
+      .catch(() => setInternalJobs([]));
+  }, [onUpdateJobs]);
 
   // Load followed companies when drawer opens or updates
   const loadFollowedCompanies = useCallback(() => {
@@ -41,22 +54,17 @@ export default function SavedJobsDrawer({
   useEffect(() => {
     if (isOpen) {
       setActiveTab(initialTab);
+      loadSavedJobs();
       loadFollowedCompanies();
     }
-  }, [isOpen, initialTab, loadFollowedCompanies]);
+  }, [isOpen, initialTab, loadSavedJobs, loadFollowedCompanies]);
 
   useEffect(() => {
     const handleUpdate = () => {
       loadFollowedCompanies();
     };
     const handleJobsUpdate = () => {
-      jobApi
-        .getSavedJobs()
-        .then((data) => {
-          const list = data?.content || (Array.isArray(data) ? data : []);
-          if (onUpdateJobs) onUpdateJobs(list);
-        })
-        .catch(() => {});
+      loadSavedJobs();
     };
     window.addEventListener('followed-companies-updated', handleUpdate);
     window.addEventListener('saved-jobs-updated', handleJobsUpdate);
@@ -64,7 +72,7 @@ export default function SavedJobsDrawer({
       window.removeEventListener('followed-companies-updated', handleUpdate);
       window.removeEventListener('saved-jobs-updated', handleJobsUpdate);
     };
-  }, [loadFollowedCompanies, onUpdateJobs]);
+  }, [loadFollowedCompanies, loadSavedJobs]);
 
   // Smooth GPU enter & exit transitions
   useEffect(() => {
@@ -113,8 +121,10 @@ export default function SavedJobsDrawer({
 
   const handleUnsave = async (jobId, e) => {
     if (e) e.stopPropagation();
+    const updated = internalJobs.filter((j) => String(j.id) !== String(jobId));
+    setInternalJobs(updated);
     if (onUpdateJobs) {
-      onUpdateJobs(savedJobs.filter((j) => j.id !== jobId));
+      onUpdateJobs(updated);
     }
     showToast('info', 'Đã bỏ lưu công việc.', 'BỎ QUAN TÂM');
     try {
@@ -141,7 +151,8 @@ export default function SavedJobsDrawer({
     navigate(`/companies?id=${compId}`);
   };
 
-  const formatSalary = (salary) => {
+  const formatSalary = (salary, job) => {
+    if (job?.salaryText) return job.salaryText;
     if (!salary) return 'Thoả thuận';
     if (typeof salary === 'number') {
       return `${(salary / 1000000).toFixed(0)} triệu`;
@@ -187,7 +198,7 @@ export default function SavedJobsDrawer({
               {activeTab === 'jobs' ? 'Danh sách việc làm quan tâm' : 'Danh sách công ty quan tâm'}
             </h2>
             <span className="badge rounded-0 bg-warning text-dark font-monospace fw-bold" style={{ fontSize: '11px', padding: '4px 8px' }}>
-              {activeTab === 'jobs' ? `${savedJobs.length} VIỆC LÀM` : `${followedCompanies.length} CÔNG TY`}
+              {activeTab === 'jobs' ? `${internalJobs.length} VIỆC LÀM` : `${followedCompanies.length} CÔNG TY`}
             </span>
           </div>
         </div>
@@ -201,7 +212,7 @@ export default function SavedJobsDrawer({
           >
             <FaBriefcase size={12} />
             <span>Việc làm quan tâm</span>
-            <span className="saved-drawer-tab-badge">{savedJobs.length}</span>
+            <span className="saved-drawer-tab-badge">{internalJobs.length}</span>
           </button>
           <button
             type="button"
@@ -243,7 +254,7 @@ export default function SavedJobsDrawer({
         {/* Body Items List */}
         <div className="saved-drawer-body">
           {activeTab === 'jobs' ? (
-            savedJobs.length === 0 ? (
+            internalJobs.length === 0 ? (
               <div className="saved-drawer-empty">
                 <div className="saved-drawer-empty-sq">
                   <FaBookmark size={20} />
@@ -267,7 +278,7 @@ export default function SavedJobsDrawer({
                 </button>
               </div>
             ) : (
-              savedJobs.map((job) => {
+              internalJobs.map((job) => {
                 const compName = job.company?.name || job.companyName || 'Doanh nghiệp uy tín';
                 const logoUrl = job.company?.logoUrl || job.logoUrl;
                 const location = job.location || 'Toàn quốc';
@@ -308,7 +319,7 @@ export default function SavedJobsDrawer({
                       <div className="saved-drawer-meta-pills">
                         <span className="saved-drawer-pill saved-drawer-pill--salary">
                           <FaMoneyBillWave size={10} className="me-1" />
-                          {formatSalary(job.salary)}
+                          {formatSalary(job.salary, job)}
                         </span>
                         <span className="saved-drawer-pill">
                           <FaMapMarkerAlt size={10} className="me-1 text-muted" />
