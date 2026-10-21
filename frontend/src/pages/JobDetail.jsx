@@ -23,6 +23,7 @@ import {
   FaTrash,
 } from 'react-icons/fa';
 import jobApi from '../api/jobApi.js';
+import companyApi from '../api/companyApi.js';
 import mockCompanies from '../mock/companies.js';
 import JobCard from '../components/job/JobCard.jsx';
 import ApplyModal from '../components/job/ApplyModal.jsx';
@@ -134,6 +135,7 @@ export default function JobDetail() {
       if (next) {
         await jobApi.saveJob(job.id);
         showToast('success', 'Đã lưu công việc vào danh sách quan tâm!');
+        window.dispatchEvent(new CustomEvent('open-saved-jobs', { detail: { tab: 'jobs' } }));
       } else {
         await jobApi.unsaveJob(job.id);
         showToast('info', 'Đã bỏ lưu công việc.');
@@ -239,6 +241,26 @@ export default function JobDetail() {
   ) || {};
 
   const targetCompanyId = job.company?.id || companyInfo.id;
+
+  const [isCompanyFollowed, setIsCompanyFollowed] = useState(false);
+
+  useEffect(() => {
+    if (targetCompanyId) {
+      setIsCompanyFollowed(companyApi.isFollowed(targetCompanyId));
+    }
+  }, [targetCompanyId]);
+
+  const handleToggleFollowCompany = () => {
+    if (!targetCompanyId) return;
+    const nextState = companyApi.toggleFollow(targetCompanyId);
+    setIsCompanyFollowed(nextState);
+    if (nextState) {
+      showToast('success', `Đã lưu và theo dõi tin tuyển dụng của ${companyName}!`);
+      window.dispatchEvent(new CustomEvent('open-saved-jobs', { detail: { tab: 'companies' } }));
+    } else {
+      showToast('info', `Đã bỏ quan tâm ${companyName}.`);
+    }
+  };
   const companyWebsite =
     companyInfo.website ||
     (rawCompanyName.toLowerCase().includes('fpt') ? 'https://fpt.com.vn' :
@@ -676,13 +698,29 @@ export default function JobDetail() {
                 </div>
 
                 {targetCompanyId && (
-                  <Link
-                    to={`/companies?id=${targetCompanyId}`}
-                    className="btn btn-outline-dark btn-sm w-100 fw-bold py-2 rounded-3 text-decoration-none d-flex align-items-center justify-content-center gap-2"
-                  >
-                    <span>Khám phá trang công ty</span>
-                    <FaArrowRight size={11} />
-                  </Link>
+                  <div className="d-flex flex-column gap-2 mt-3">
+                    <button
+                      type="button"
+                      className={`btn btn-sm w-100 fw-bold py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 ${
+                        isCompanyFollowed
+                          ? 'btn-warning text-dark border-0'
+                          : 'btn-outline-warning text-dark'
+                      }`}
+                      onClick={handleToggleFollowCompany}
+                      title={isCompanyFollowed ? 'Bỏ quan tâm công ty' : 'Quan tâm công ty này'}
+                    >
+                      {isCompanyFollowed ? <FaBookmark size={12} /> : <FaRegBookmark size={12} />}
+                      <span>{isCompanyFollowed ? 'Đã quan tâm công ty' : 'Quan tâm công ty'}</span>
+                    </button>
+
+                    <Link
+                      to={`/companies?id=${targetCompanyId}`}
+                      className="btn btn-outline-dark btn-sm w-100 fw-bold py-2 rounded-3 text-decoration-none d-flex align-items-center justify-content-center gap-2"
+                    >
+                      <span>Khám phá trang công ty</span>
+                      <FaArrowRight size={11} />
+                    </Link>
+                  </div>
                 )}
               </div>
 

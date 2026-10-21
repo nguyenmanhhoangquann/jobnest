@@ -228,13 +228,15 @@ export default function Navbar() {
 
   const [savedJobsOpen, setSavedJobsOpen] = useState(false);
   const [savedJobs, setSavedJobs] = useState([]);
+  const [savedDrawerTab, setSavedDrawerTab] = useState('jobs');
 
-  const handleOpenSavedJobs = () => {
+  const handleOpenSavedJobs = (tab = 'jobs') => {
     if (!isAuth) {
-      showToast('info', 'Đăng nhập để xem danh sách việc làm đã lưu', 'YÊU CẦU ĐĂNG NHẬP');
+      showToast('info', 'Đăng nhập để xem danh sách quan tâm', 'YÊU CẦU ĐĂNG NHẬP');
       navigate('/login');
       return;
     }
+    setSavedDrawerTab(typeof tab === 'string' ? tab : 'jobs');
     jobApi
       .getSavedJobs()
       .then((data) => {
@@ -246,6 +248,25 @@ export default function Navbar() {
         setSavedJobsOpen(true);
       });
   };
+
+  useEffect(() => {
+    const handleOpenEvent = (e) => {
+      const tab = e?.detail?.tab || 'jobs';
+      setSavedDrawerTab(tab);
+      jobApi
+        .getSavedJobs()
+        .then((data) => {
+          const list = data?.content || (Array.isArray(data) ? data : []);
+          setSavedJobs(list);
+          setSavedJobsOpen(true);
+        })
+        .catch(() => {
+          setSavedJobsOpen(true);
+        });
+    };
+    window.addEventListener('open-saved-jobs', handleOpenEvent);
+    return () => window.removeEventListener('open-saved-jobs', handleOpenEvent);
+  }, []);
 
   return (
     <BsNavbar expand="lg" sticky="top" className="app-navbar bg-white py-2">
@@ -414,6 +435,7 @@ export default function Navbar() {
         onClose={() => setSavedJobsOpen(false)}
         savedJobs={savedJobs}
         onUpdateJobs={setSavedJobs}
+        initialTab={savedDrawerTab}
       />
     </BsNavbar>
   );

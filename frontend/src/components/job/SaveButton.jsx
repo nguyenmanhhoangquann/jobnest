@@ -38,6 +38,7 @@ export default function SaveButton({ jobId, initialSaved = false, onToggle, vari
       if (nextState) {
         await jobApi.saveJob(jobId);
         showToast('success', 'Đã lưu việc làm vào danh sách của bạn');
+        window.dispatchEvent(new CustomEvent('open-saved-jobs', { detail: { tab: 'jobs' } }));
       } else {
         await jobApi.unsaveJob(jobId);
         showToast('info', 'Đã bỏ lưu việc làm');

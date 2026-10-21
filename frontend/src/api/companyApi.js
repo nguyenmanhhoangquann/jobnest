@@ -25,6 +25,44 @@ const companyApi = {
       return mockCompanies.find((c) => String(c.id) === String(id));
     }
   },
+
+  getFollowedIds: () => {
+    try {
+      return JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
+    } catch {
+      return [];
+    }
+  },
+
+  isFollowed: (companyId) => {
+    const ids = companyApi.getFollowedIds();
+    return ids.some((id) => Number(id) === Number(companyId));
+  },
+
+  toggleFollow: (companyId) => {
+    const ids = companyApi.getFollowedIds();
+    const cId = Number(companyId);
+    let updated;
+    let nextState = false;
+    if (ids.some((id) => Number(id) === cId)) {
+      updated = ids.filter((id) => Number(id) !== cId);
+      nextState = false;
+    } else {
+      updated = [...ids, cId];
+      nextState = true;
+    }
+    localStorage.setItem('jn_followed_companies', JSON.stringify(updated));
+    window.dispatchEvent(
+      new CustomEvent('followed-companies-updated', { detail: { id: cId, followed: nextState } })
+    );
+    return nextState;
+  },
+
+  getFollowedCompanies: async () => {
+    const ids = companyApi.getFollowedIds();
+    const all = await companyApi.getCompanies();
+    return all.filter((c) => ids.some((id) => Number(id) === Number(c.id)));
+  },
 };
 
 export default companyApi;

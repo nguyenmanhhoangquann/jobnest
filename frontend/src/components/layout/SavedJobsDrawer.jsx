@@ -9,16 +9,49 @@ import {
   FaMapMarkerAlt,
   FaMoneyBillWave,
   FaBriefcase,
+  FaBuilding,
 } from 'react-icons/fa';
 import jobApi from '../../api/jobApi.js';
+import companyApi from '../../api/companyApi.js';
 import { showToast } from '../common/ToastHost.jsx';
 import '../../styles/saved-jobs-drawer.css';
 
-export default function SavedJobsDrawer({ isOpen, onClose, savedJobs = [], onUpdateJobs }) {
+export default function SavedJobsDrawer({
+  isOpen,
+  onClose,
+  savedJobs = [],
+  onUpdateJobs,
+  initialTab = 'jobs',
+}) {
   const navigate = useNavigate();
   const [mounted, setMounted] = useState(false);
   const [active, setActive] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [activeTab, setActiveTab] = useState(initialTab);
+  const [followedCompanies, setFollowedCompanies] = useState([]);
+
+  // Load followed companies when drawer opens or updates
+  const loadFollowedCompanies = useCallback(() => {
+    companyApi
+      .getFollowedCompanies()
+      .then((comps) => setFollowedCompanies(comps || []))
+      .catch(() => setFollowedCompanies([]));
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab(initialTab);
+      loadFollowedCompanies();
+    }
+  }, [isOpen, initialTab, loadFollowedCompanies]);
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      loadFollowedCompanies();
+    };
+    window.addEventListener('followed-companies-updated', handleUpdate);
+    return () => window.removeEventListener('followed-companies-updated', handleUpdate);
+  }, [loadFollowedCompanies]);
 
   // Smooth GPU enter & exit transitions
   useEffect(() => {
@@ -67,7 +100,6 @@ export default function SavedJobsDrawer({ isOpen, onClose, savedJobs = [], onUpd
 
   const handleUnsave = async (jobId, e) => {
     if (e) e.stopPropagation();
-    // Optimistic UI update
     if (onUpdateJobs) {
       onUpdateJobs(savedJobs.filter((j) => j.id !== jobId));
     }
@@ -79,9 +111,21 @@ export default function SavedJobsDrawer({ isOpen, onClose, savedJobs = [], onUpd
     }
   };
 
+  const handleUnfollowCompany = (compId, compName, e) => {
+    if (e) e.stopPropagation();
+    companyApi.toggleFollow(compId);
+    setFollowedCompanies((prev) => prev.filter((c) => Number(c.id) !== Number(compId)));
+    showToast('info', `Đã bỏ quan tâm ${compName || 'công ty'}.`, 'BỎ QUAN TÂM');
+  };
+
   const handleGoToJob = (jobId) => {
     handleClose();
     navigate(`/jobs/${jobId}`);
+  };
+
+  const handleGoToCompany = (compId) => {
+    handleClose();
+    navigate(`/companies?id=${compId}`);
   };
 
   const formatSalary = (salary) => {
@@ -112,7 +156,7 @@ export default function SavedJobsDrawer({ isOpen, onClose, savedJobs = [], onUpd
           <div className="saved-drawer-eyebrow">
             <span className="saved-drawer-tag">
               <span className="saved-drawer-tag-dot" />
-              <span>[ VIỆC LÀM ĐÃ LƯU ]</span>
+              <span>[ MỤC QUAN TÂM ]</span>
             </span>
 
             <button
@@ -126,125 +170,264 @@ export default function SavedJobsDrawer({ isOpen, onClose, savedJobs = [], onUpd
           </div>
 
           <div className="saved-drawer-title-row">
-            <h2 className="saved-drawer-title">Danh sách việc làm quan tâm</h2>
+            <h2 className="saved-drawer-title">
+              {activeTab === 'jobs' ? 'Danh sách việc làm quan tâm' : 'Danh sách công ty quan tâm'}
+            </h2>
             <span className="badge rounded-0 bg-warning text-dark font-monospace fw-bold" style={{ fontSize: '11px', padding: '4px 8px' }}>
-              {savedJobs.length} ĐÃ LƯU
+              {activeTab === 'jobs' ? `${savedJobs.length} VIỆC LÀM` : `${followedCompanies.length} CÔNG TY`}
             </span>
           </div>
         </div>
 
+        {/* 2 Tabs chuyển đổi Việc làm & Công ty */}
+        <div className="saved-drawer-tabs">
+          <button
+            type="button"
+            className={`saved-drawer-tab-btn ${activeTab === 'jobs' ? 'saved-drawer-tab-btn--active' : ''}`}
+            onClick={() => setActiveTab('jobs')}
+          >
+            <FaBriefcase size={12} />
+            <span>Việc làm quan tâm</span>
+            <span className="saved-drawer-tab-badge">{savedJobs.length}</span>
+          </button>
+          <button
+            type="button"
+            className={`saved-drawer-tab-btn ${activeTab === 'companies' ? 'saved-drawer-tab-btn--active' : ''}`}
+            onClick={() => setActiveTab('companies')}
+          >
+            <FaBuilding size={12} />
+            <span>Công ty quan tâm</span>
+            <span className="saved-drawer-tab-badge">{followedCompanies.length}</span>
+          </button>
+        </div>
+
         {/* Sub-bar */}
         <div className="saved-drawer-bar">
-          <span className="saved-drawer-bar-title">Các cơ hội đã đánh dấu</span>
-          <Link
-            to="/candidate/saved-jobs"
-            onClick={handleClose}
-            className="saved-drawer-view-all"
-          >
-            <span>Trang chi tiết</span>
-            <FaArrowRight size={10} />
-          </Link>
+          <span className="saved-drawer-bar-title">
+            {activeTab === 'jobs' ? 'Các cơ hội việc làm đã đánh dấu' : 'Các doanh nghiệp bạn đang theo dõi'}
+          </span>
+          {activeTab === 'jobs' ? (
+            <Link
+              to="/candidate/saved-jobs"
+              onClick={handleClose}
+              className="saved-drawer-view-all"
+            >
+              <span>Trang chi tiết</span>
+              <FaArrowRight size={10} />
+            </Link>
+          ) : (
+            <Link
+              to="/companies"
+              onClick={handleClose}
+              className="saved-drawer-view-all"
+            >
+              <span>Xem tất cả công ty</span>
+              <FaArrowRight size={10} />
+            </Link>
+          )}
         </div>
 
         {/* Body Items List */}
         <div className="saved-drawer-body">
-          {savedJobs.length === 0 ? (
-            <div className="saved-drawer-empty">
-              <div className="saved-drawer-empty-sq">
-                <FaBookmark size={20} />
-              </div>
-              <p className="fw-bold mb-1 text-dark" style={{ fontSize: '15px' }}>
-                Chưa có việc làm nào được lưu
-              </p>
-              <p className="small text-muted mb-0">
-                Bấm vào biểu tượng bookmark trên các tin tuyển dụng để lưu lại và theo dõi tại đây.
-              </p>
-              <button
-                type="button"
-                className="saved-drawer-empty-btn"
-                onClick={() => {
-                  handleClose();
-                  navigate('/jobs');
-                }}
-              >
-                <span>Khám phá việc làm ngay</span>
-                <FaArrowRight size={10} />
-              </button>
-            </div>
-          ) : (
-            savedJobs.map((job) => {
-              const compName = job.company?.name || job.companyName || 'Doanh nghiệp uy tín';
-              const logoUrl = job.company?.logoUrl || job.logoUrl;
-              const location = job.location || 'Toàn quốc';
-
-              return (
-                <div key={job.id} className="saved-drawer-item">
-                  {/* Logo Square */}
-                  <div className="saved-drawer-logo-sq">
-                    {logoUrl ? (
-                      <img
-                        src={logoUrl}
-                        alt={compName}
-                        className="saved-drawer-logo-img"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <FaBriefcase size={18} className="text-muted" />
-                    )}
-                  </div>
-
-                  {/* Content Column */}
-                  <div className="saved-drawer-content">
-                    <span
-                      className="saved-drawer-job-title"
-                      onClick={() => handleGoToJob(job.id)}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      {job.title}
-                    </span>
-
-                    <div className="saved-drawer-comp-name">
-                      {compName}
-                    </div>
-
-                    <div className="saved-drawer-meta-pills">
-                      <span className="saved-drawer-pill saved-drawer-pill--salary">
-                        <FaMoneyBillWave size={10} className="me-1" />
-                        {formatSalary(job.salary)}
-                      </span>
-                      <span className="saved-drawer-pill">
-                        <FaMapMarkerAlt size={10} className="me-1 text-muted" />
-                        {location}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="saved-drawer-actions">
-                    <button
-                      type="button"
-                      className="saved-drawer-unsave-btn"
-                      onClick={(e) => handleUnsave(job.id, e)}
-                      title="Bỏ lưu việc làm này"
-                    >
-                      <FaTrashAlt size={11} />
-                    </button>
-
-                    <button
-                      type="button"
-                      className="saved-drawer-apply-link border-0"
-                      onClick={() => handleGoToJob(job.id)}
-                    >
-                      <span>Xem tin</span>
-                      <FaArrowRight size={9} />
-                    </button>
-                  </div>
+          {activeTab === 'jobs' ? (
+            savedJobs.length === 0 ? (
+              <div className="saved-drawer-empty">
+                <div className="saved-drawer-empty-sq">
+                  <FaBookmark size={20} />
                 </div>
-              );
-            })
+                <p className="fw-bold mb-1 text-dark" style={{ fontSize: '15px' }}>
+                  Chưa có việc làm nào được lưu
+                </p>
+                <p className="small text-muted mb-0">
+                  Bấm vào biểu tượng bookmark trên các tin tuyển dụng để lưu lại và theo dõi tại đây.
+                </p>
+                <button
+                  type="button"
+                  className="saved-drawer-empty-btn"
+                  onClick={() => {
+                    handleClose();
+                    navigate('/jobs');
+                  }}
+                >
+                  <span>Khám phá việc làm ngay</span>
+                  <FaArrowRight size={10} />
+                </button>
+              </div>
+            ) : (
+              savedJobs.map((job) => {
+                const compName = job.company?.name || job.companyName || 'Doanh nghiệp uy tín';
+                const logoUrl = job.company?.logoUrl || job.logoUrl;
+                const location = job.location || 'Toàn quốc';
+
+                return (
+                  <div key={job.id} className="saved-drawer-item">
+                    {/* Logo Square */}
+                    <div className="saved-drawer-logo-sq">
+                      {logoUrl ? (
+                        <img
+                          src={logoUrl}
+                          alt={compName}
+                          className="saved-drawer-logo-img"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <FaBriefcase size={18} className="text-muted" />
+                      )}
+                    </div>
+
+                    {/* Content Column */}
+                    <div className="saved-drawer-content">
+                      <span
+                        className="saved-drawer-job-title"
+                        onClick={() => handleGoToJob(job.id)}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {job.title}
+                      </span>
+
+                      <div className="saved-drawer-comp-name">
+                        {compName}
+                      </div>
+
+                      <div className="saved-drawer-meta-pills">
+                        <span className="saved-drawer-pill saved-drawer-pill--salary">
+                          <FaMoneyBillWave size={10} className="me-1" />
+                          {formatSalary(job.salary)}
+                        </span>
+                        <span className="saved-drawer-pill">
+                          <FaMapMarkerAlt size={10} className="me-1 text-muted" />
+                          {location}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="saved-drawer-actions">
+                      <button
+                        type="button"
+                        className="saved-drawer-unsave-btn"
+                        onClick={(e) => handleUnsave(job.id, e)}
+                        title="Bỏ lưu việc làm này"
+                      >
+                        <FaTrashAlt size={11} />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="saved-drawer-apply-link border-0"
+                        onClick={() => handleGoToJob(job.id)}
+                      >
+                        <span>Xem tin</span>
+                        <FaArrowRight size={9} />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
+            )
+          ) : (
+            followedCompanies.length === 0 ? (
+              <div className="saved-drawer-empty">
+                <div className="saved-drawer-empty-sq">
+                  <FaBuilding size={20} />
+                </div>
+                <p className="fw-bold mb-1 text-dark" style={{ fontSize: '15px' }}>
+                  Chưa có công ty nào được quan tâm
+                </p>
+                <p className="small text-muted mb-0">
+                  Bấm vào nút Quan tâm trên các thẻ doanh nghiệp để theo dõi tin tuyển dụng mới nhất tại đây.
+                </p>
+                <button
+                  type="button"
+                  className="saved-drawer-empty-btn"
+                  onClick={() => {
+                    handleClose();
+                    navigate('/companies');
+                  }}
+                >
+                  <span>Khám phá công ty ngay</span>
+                  <FaArrowRight size={10} />
+                </button>
+              </div>
+            ) : (
+              followedCompanies.map((comp) => {
+                const compName = comp.name || 'Doanh nghiệp uy tín';
+                const logoUrl = comp.logo || comp.logoUrl;
+                const location = comp.location || comp.hq || 'Toàn quốc';
+                const jobsCount = comp.jobs?.length || 0;
+
+                return (
+                  <div key={comp.id} className="saved-drawer-item">
+                    {/* Logo Square */}
+                    <div className="saved-drawer-logo-sq">
+                      {logoUrl ? (
+                        <img
+                          src={logoUrl}
+                          alt={compName}
+                          className="saved-drawer-logo-img"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <FaBuilding size={18} className="text-muted" />
+                      )}
+                    </div>
+
+                    {/* Content Column */}
+                    <div className="saved-drawer-content">
+                      <span
+                        className="saved-drawer-job-title"
+                        onClick={() => handleGoToCompany(comp.id)}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {compName}
+                      </span>
+
+                      <div className="saved-drawer-comp-name">
+                        {comp.industry || 'Công nghệ thông tin'}
+                      </div>
+
+                      <div className="saved-drawer-meta-pills">
+                        <span className="saved-drawer-pill saved-drawer-pill--salary">
+                          <FaBriefcase size={10} className="me-1" />
+                          {jobsCount} Việc làm đang tuyển
+                        </span>
+                        <span className="saved-drawer-pill">
+                          <FaMapMarkerAlt size={10} className="me-1 text-muted" />
+                          {location}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="saved-drawer-actions">
+                      <button
+                        type="button"
+                        className="saved-drawer-unsave-btn"
+                        onClick={(e) => handleUnfollowCompany(comp.id, compName, e)}
+                        title="Bỏ quan tâm công ty này"
+                      >
+                        <FaTrashAlt size={11} />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="saved-drawer-apply-link border-0"
+                        onClick={() => handleGoToCompany(comp.id)}
+                      >
+                        <span>Xem cty</span>
+                        <FaArrowRight size={9} />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
+            )
           )}
         </div>
       </aside>

@@ -481,15 +481,22 @@ export default function Companies() {
   const PAGE_SIZE = 12;
 
   const [companyTab, setCompanyTab] = useState('overview');
+  const [followedIds, setFollowedIds] = useState(() => companyApi.getFollowedIds());
   const [isFollowed, setIsFollowed] = useState(() => {
     if (!selectedCompanyId) return false;
-    try {
-      const saved = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
-      return saved.includes(Number(selectedCompanyId));
-    } catch {
-      return false;
-    }
+    return companyApi.isFollowed(selectedCompanyId);
   });
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setFollowedIds(companyApi.getFollowedIds());
+      if (selectedCompanyId) {
+        setIsFollowed(companyApi.isFollowed(selectedCompanyId));
+      }
+    };
+    window.addEventListener('followed-companies-updated', handleUpdate);
+    return () => window.removeEventListener('followed-companies-updated', handleUpdate);
+  }, [selectedCompanyId]);
 
   useEffect(() => {
     companyApi.getCompanies().then((res) => {
@@ -576,22 +583,26 @@ export default function Companies() {
 
   const handleToggleFollow = () => {
     if (!selectedCompany) return;
-    try {
-      const saved = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
-      const compId = Number(selectedCompany.id);
-      let updated;
-      if (saved.includes(compId)) {
-        updated = saved.filter((id) => id !== compId);
-        setIsFollowed(false);
-        showToast('info', 'Đã hủy theo dõi công ty.');
-      } else {
-        updated = [...saved, compId];
-        setIsFollowed(true);
-        showToast('success', 'Đã lưu và theo dõi tin tuyển dụng của công ty!');
-      }
-      localStorage.setItem('jn_followed_companies', JSON.stringify(updated));
-    } catch {
-      setIsFollowed(!isFollowed);
+    const compId = Number(selectedCompany.id);
+    const nextState = companyApi.toggleFollow(compId);
+    setIsFollowed(nextState);
+    setFollowedIds(companyApi.getFollowedIds());
+    if (nextState) {
+      showToast('success', `Đã quan tâm và theo dõi tin tuyển dụng của ${selectedCompany.name}!`);
+      window.dispatchEvent(new CustomEvent('open-saved-jobs', { detail: { tab: 'companies' } }));
+    } else {
+      showToast('info', `Đã hủy theo dõi ${selectedCompany.name}.`);
+    }
+  };
+
+  const handleToggleFollowCard = (compId, compName) => {
+    const nextState = companyApi.toggleFollow(compId);
+    setFollowedIds(companyApi.getFollowedIds());
+    if (nextState) {
+      showToast('success', `Đã quan tâm và theo dõi ${compName}!`);
+      window.dispatchEvent(new CustomEvent('open-saved-jobs', { detail: { tab: 'companies' } }));
+    } else {
+      showToast('info', `Đã bỏ quan tâm ${compName}.`);
     }
   };
 
@@ -1128,12 +1139,43 @@ export default function Companies() {
                   <div key={comp.id} className="col-12 col-md-6 col-xl-4">
                     <Link
                       to={`/companies?id=${comp.id}`}
-                      className="top-employer-item text-decoration-none"
+                      className="top-employer-item text-decoration-none position-relative"
                     >
                       {/* Background ripple vector */}
                       <div className="top-employer-bg-pattern">
                         <img src="/images/bg-top-emp.svg" alt="" aria-hidden="true" />
                       </div>
+
+                      {/* Nút Quan tâm công ty góc trên phải */}
+                      <button
+                        type="button"
+                        className={`top-employer-follow-btn ${
+                          followedIds.some((id) => Number(id) === Number(comp.id))
+                            ? 'top-employer-follow-btn--active'
+                            : ''
+                        }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleToggleFollowCard(comp.id, comp.name);
+                        }}
+                        title={
+                          followedIds.some((id) => Number(id) === Number(comp.id))
+                            ? 'Bỏ quan tâm công ty'
+                            : 'Quan tâm công ty này'
+                        }
+                      >
+                        {followedIds.some((id) => Number(id) === Number(comp.id)) ? (
+                          <FaBookmark size={11} />
+                        ) : (
+                          <FaRegBookmark size={11} />
+                        )}
+                        <span>
+                          {followedIds.some((id) => Number(id) === Number(comp.id))
+                            ? 'Đã quan tâm'
+                            : 'Quan tâm'}
+                        </span>
+                      </button>
 
                       {/* Elevated Logo Card */}
                       <div className="top-employer-img-wrap">
