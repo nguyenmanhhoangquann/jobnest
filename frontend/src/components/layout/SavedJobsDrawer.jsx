@@ -55,24 +55,24 @@ export default function SavedJobsDrawer({
 
   // Smooth GPU enter & exit transitions
   useEffect(() => {
+    let timer;
     if (isOpen) {
       setMounted(true);
       setClosing(false);
-      const rAF = requestAnimationFrame(() => {
+      timer = setTimeout(() => {
         setActive(true);
-      });
+      }, 20);
       document.body.style.overflow = 'hidden';
-      return () => cancelAnimationFrame(rAF);
-    } else if (mounted) {
+    } else {
       setActive(false);
       setClosing(true);
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setMounted(false);
         setClosing(false);
         document.body.style.overflow = '';
       }, 220);
-      return () => clearTimeout(timer);
     }
+    return () => clearTimeout(timer);
   }, [isOpen]);
 
   const handleClose = useCallback(() => {
