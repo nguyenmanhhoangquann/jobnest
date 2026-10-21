@@ -268,51 +268,70 @@ export const jobApi = {
 
   // Lưu tin tuyển dụng (Mục 8.2)
   saveJob: async (jobId) => {
-    if (USE_MOCK) {
-      await new Promise((r) => setTimeout(r, 300));
-      jobsState = jobsState.map((j) =>
-        String(j.id) === String(jobId) ? { ...j, saved: true } : j
-      );
-      return { success: true };
+    const localIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
+    const strId = String(jobId);
+    if (!localIds.includes(strId)) {
+      localStorage.setItem('jn_local_saved_jobs', JSON.stringify([...localIds, strId]));
     }
+    jobsState = jobsState.map((j) =>
+      String(j.id) === strId ? { ...j, saved: true } : j
+    );
 
-    return axiosClient.post(`/saved-jobs/${jobId}`);
+    if (!USE_MOCK) {
+      try {
+        await axiosClient.post(`/saved-jobs/${jobId}`);
+      } catch {}
+    }
+    return { success: true };
   },
 
   // Bỏ lưu tin tuyển dụng (Mục 8.2)
   unsaveJob: async (jobId) => {
-    if (USE_MOCK) {
-      await new Promise((r) => setTimeout(r, 300));
-      jobsState = jobsState.map((j) =>
-        String(j.id) === String(jobId) ? { ...j, saved: false } : j
-      );
-      return { success: true };
-    }
+    const localIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
+    localStorage.setItem(
+      'jn_local_saved_jobs',
+      JSON.stringify(localIds.filter((id) => String(id) !== String(jobId)))
+    );
+    jobsState = jobsState.map((j) =>
+      String(j.id) === String(jobId) ? { ...j, saved: false } : j
+    );
 
-    return axiosClient.delete(`/saved-jobs/${jobId}`);
+    if (!USE_MOCK) {
+      try {
+        await axiosClient.delete(`/saved-jobs/${jobId}`);
+      } catch {}
+    }
+    return { success: true };
   },
 
   // Danh sách việc làm đã lưu của ứng viên (Mục 13.2)
   getSavedJobs: async (params = {}) => {
+    const localIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
     if (USE_MOCK) {
-      await new Promise((r) => setTimeout(r, 400));
-      const savedJobs = jobsState.filter((j) => j.saved);
-      const pageIndex = params.page ? Math.max(0, Number(params.page) - 1) : 0;
-      const pageSize = Number(params.size) || 12;
-      const totalElements = savedJobs.length;
-      const totalPages = Math.ceil(totalElements / pageSize) || 1;
-      const content = savedJobs.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize);
-
+      await new Promise((r) => setTimeout(r, 150));
+      const savedJobs = jobsState.filter((j) => j.saved || localIds.includes(String(j.id)));
       return {
-        content,
-        number: pageIndex,
-        size: pageSize,
-        totalElements,
-        totalPages,
+        content: savedJobs,
+        totalElements: savedJobs.length,
       };
     }
 
-    return axiosClient.get('/saved-jobs', { params });
+    try {
+      const res = await axiosClient.get('/saved-jobs', { params });
+      const apiList = res?.content || (Array.isArray(res) ? res : []);
+      if (localIds.length > 0) {
+        const localMock = jobsState.filter((j) => localIds.includes(String(j.id)));
+        const combined = [
+          ...apiList,
+          ...localMock.filter((m) => !apiList.some((a) => String(a.id) === String(m.id))),
+        ];
+        return { content: combined, totalElements: combined.length };
+      }
+      return res;
+    } catch {
+      const savedJobs = jobsState.filter((j) => j.saved || localIds.includes(String(j.id)));
+      return { content: savedJobs, totalElements: savedJobs.length };
+    }
   },
 
   // Tin tuyển dụng của chính NTD

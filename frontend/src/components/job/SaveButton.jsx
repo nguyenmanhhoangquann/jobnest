@@ -6,7 +6,9 @@ import { showToast } from '../common/ToastHost.jsx';
 import jobApi from '../../api/jobApi.js';
 
 export default function SaveButton({ jobId, initialSaved = false, onToggle, variant = 'heart' }) {
-  const [saved, setSaved] = useState(initialSaved);
+  const [saved, setSaved] = useState(
+    () => initialSaved || (JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]')).includes(String(jobId))
+  );
   const [loading, setLoading] = useState(false);
   const { user, isAuth } = useAuth();
   const navigate = useNavigate();
@@ -15,12 +17,6 @@ export default function SaveButton({ jobId, initialSaved = false, onToggle, vari
   const handleToggle = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-
-    if (!isAuth) {
-      showToast('info', 'Đăng nhập để lưu việc làm');
-      navigate('/login', { state: { from: location.pathname } });
-      return;
-    }
 
     if (user?.role === 'EMPLOYER') {
       showToast('error', 'Chỉ người tìm việc mới lưu được việc làm');
@@ -37,7 +33,7 @@ export default function SaveButton({ jobId, initialSaved = false, onToggle, vari
     try {
       if (nextState) {
         await jobApi.saveJob(jobId);
-        showToast('success', 'Đã lưu việc làm vào danh sách của bạn');
+        showToast('success', 'Đã lưu việc làm vào danh sách quan tâm!');
         window.dispatchEvent(new CustomEvent('open-saved-jobs', { detail: { tab: 'jobs' } }));
       } else {
         await jobApi.unsaveJob(jobId);
