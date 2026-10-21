@@ -113,14 +113,28 @@ const filterMockJobs = (params = {}) => {
   };
 };
 
+const OLD_MOCK_SEEDED = ['1021', '101', '104', '113'];
+const cleanupLegacySeed = () => {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    if (localStorage.getItem('jn_seed_cleaned_v3')) return;
+    const raw = localStorage.getItem('jn_local_saved_jobs');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length === 4 && parsed.every((id) => OLD_MOCK_SEEDED.includes(String(id)))) {
+        localStorage.removeItem('jn_local_saved_jobs');
+        localStorage.removeItem('jn_saved_jobs_full');
+      }
+    }
+    localStorage.setItem('jn_seed_cleaned_v3', 'true');
+  } catch {}
+};
+cleanupLegacySeed();
+
 const getLocalSavedIds = () => {
   try {
     const raw = localStorage.getItem('jn_local_saved_jobs');
-    if (raw === null) {
-      const initial = mockJobs.filter((j) => j.saved).map((j) => String(j.id));
-      localStorage.setItem('jn_local_saved_jobs', JSON.stringify(initial));
-      return initial;
-    }
+    if (!raw) return [];
     return JSON.parse(raw) || [];
   } catch {
     return [];
@@ -132,12 +146,11 @@ const getSavedJobsList = () => {
     const raw = localStorage.getItem('jn_saved_jobs_full');
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (Array.isArray(parsed)) return parsed;
     }
     const localIds = getLocalSavedIds();
-    const initial = mockJobs.filter((j) => localIds.includes(String(j.id))).map((j) => ({ ...j, saved: true }));
-    localStorage.setItem('jn_saved_jobs_full', JSON.stringify(initial));
-    return initial;
+    if (localIds.length === 0) return [];
+    return mockJobs.filter((j) => localIds.includes(String(j.id))).map((j) => ({ ...j, saved: true }));
   } catch {
     return [];
   }
