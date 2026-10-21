@@ -248,18 +248,16 @@ export default function Navbar() {
   };
 
   return (
-    <BsNavbar expand="lg" sticky="top" className="app-navbar py-2">
+    <BsNavbar expand="lg" sticky="top" className="app-navbar bg-white py-2">
       {/* Container chuẩn sát 2 biên */}
       <div className="container-fluid px-3 px-xl-5 d-flex align-items-center w-100 justify-content-between">
         {/* Left: Logo sát mép bên trái */}
         <BsNavbar.Brand as={Link} to="/" className="d-flex align-items-center p-0 m-0 me-3 text-decoration-none">
-          <div className="bg-white rounded-3 px-2.5 py-1 d-inline-flex align-items-center shadow-sm">
-            <img
-              src="/images/jobnest-logo.png"
-              alt="JOB NEST - Kết nối tài năng, nâng tầm sự nghiệp"
-              className="navbar-brand-logo"
-            />
-          </div>
+          <img
+            src="/images/jobnest-logo.png"
+            alt="JOB NEST - Kết nối tài năng, nâng tầm sự nghiệp"
+            className="navbar-brand-logo"
+          />
         </BsNavbar.Brand>
 
         {/* Mobile controls */}
