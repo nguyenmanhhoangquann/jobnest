@@ -187,34 +187,57 @@ img {
 .app-menu .app-nav-link {
   display: inline-flex !important;
   align-items: center;
-  font-size: 14px;
-  font-weight: 600;
-  color: #4B5563;
-  padding: 7px 14px !important;
+  font-size: 14.5px;
+  font-weight: 600 !important;
+  color: #4B5563 !important;
+  padding: 8px 14px 10px !important;
   margin: 0 1px;
   white-space: nowrap !important;
   position: relative;
-  transition: color 0.15s ease, background-color 0.15s ease;
-  border-radius: 999px;
+  transition: color 0.2s ease;
+  border-radius: 6px;
+  background: transparent !important;
+  border: none !important;
+  text-decoration: none !important;
 }
 
 .app-menu .app-nav-link:hover {
-  color: #B45309;
-  background: rgba(251, 191, 36, 0.14);
+  color: #18181B !important;
+  background: transparent !important;
+}
+
+/* Chân gạch màu vàng với hiệu ứng trượt mở mượt mà từ giữa ra hai bên */
+.app-menu .app-nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2.5px;
+  background-color: #F59E0B;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app-menu .app-nav-link:hover::after {
+  width: 40%;
+  opacity: 0.5;
 }
 
 .app-menu .app-nav-link.active {
-  font-weight: 700;
   color: #18181B !important;
   background: transparent !important;
   box-shadow: none !important;
-  border-bottom: 2.5px solid #F59E0B !important;
-  border-radius: 0 !important;
-  padding-bottom: 6px !important;
+  border: none !important;
 }
 
 .app-menu .app-nav-link.active::after {
-  display: none !important;
+  display: block !important;
+  width: calc(100% - 20px);
+  opacity: 1;
 }
 
 /* HOT Badge on Nav Item - Tách xa chữ Việc làm để không bao giờ bị che khuất */
@@ -244,40 +267,6 @@ img {
   align-items: center;
   justify-content: center;
   margin-left: 4px;
-}
-
-@keyframes pulseBadge {
-  0% {
-    transform: translateY(-50%) scale(0.96);
-    filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.4));
-  }
-  100% {
-    transform: translateY(-50%) scale(1.05);
-    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.75));
-  }
-}
-
-.nav-hot-badge::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.9), transparent);
-  animation: 2.6s ease-in-out infinite hotShine;
-}
-
-@keyframes hotShine {
-  0% {
-    left: -100%;
-  }
-  33.33% {
-    left: 100%;
-  }
-  100% {
-    left: 100%;
-  }
 }
 
 .btn-nav-employer {
