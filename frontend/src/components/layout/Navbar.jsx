@@ -360,6 +360,14 @@ export default function Navbar() {
                     HOT
                   </span>
                 )}
+                {item.isSavedTab && savedCount > 0 && (
+                  <span
+                    className="badge rounded-pill bg-danger ms-1"
+                    style={{ fontSize: '10.5px', padding: '2px 6px', verticalAlign: 'middle' }}
+                  >
+                    {savedCount > 99 ? '99+' : savedCount}
+                  </span>
+                )}
               </Nav.Link>
             ))}
           </Nav>
@@ -433,6 +441,13 @@ export default function Navbar() {
           <div className="d-lg-none pt-3 border-top mt-2">
             {!isAuth ? (
               <div className="d-flex flex-column gap-2">
+                <Link
+                  to="/candidate/saved-jobs"
+                  className="btn btn-outline-warning text-dark w-100 text-center py-2 d-flex align-items-center justify-content-center gap-2"
+                >
+                  <FaBookmark size={13} />
+                  <span>Mục yêu thích & Đã lưu {savedCount > 0 ? `(${savedCount})` : ''}</span>
+                </Link>
                 <Link to="/register?role=employer" className="btn btn-outline-secondary w-100 text-center py-2">
                   Dành cho nhà tuyển dụng
                 </Link>

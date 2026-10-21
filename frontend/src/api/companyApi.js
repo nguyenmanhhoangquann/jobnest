@@ -60,8 +60,7 @@ const companyApi = {
 
   getFollowedCompanies: async () => {
     const ids = companyApi.getFollowedIds();
-    const all = await companyApi.getCompanies();
-    return all.filter((c) => ids.some((id) => Number(id) === Number(c.id)));
+    return mockCompanies.filter((c) => ids.some((id) => Number(id) === Number(c.id)));
   },
 };
 

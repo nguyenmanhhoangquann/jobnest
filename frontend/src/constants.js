@@ -27,6 +27,7 @@ export const VIOLATION_TYPES = [
 export const NAV_ITEMS = [
   { label: 'Trang chủ', to: '/' },
   { label: 'Việc làm', to: '/jobs' },
+  { label: 'Mục yêu thích', to: '/candidate/saved-jobs', isSavedTab: true },
   { label: 'Báo cáo lương', to: '/salary-report' },
   { label: 'Công ty', to: '/companies' },
   { label: 'Bài viết', to: '/blog' },

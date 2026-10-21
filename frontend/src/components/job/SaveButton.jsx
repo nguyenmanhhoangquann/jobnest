@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { showToast } from '../common/ToastHost.jsx';
 import jobApi from '../../api/jobApi.js';
 
-export default function SaveButton({ jobId, initialSaved = false, onToggle, variant = 'heart' }) {
+export default function SaveButton({ jobId, jobData, initialSaved = false, onToggle, variant = 'heart' }) {
   const [saved, setSaved] = useState(
     () => initialSaved || (JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]')).includes(String(jobId))
   );
@@ -42,7 +42,7 @@ export default function SaveButton({ jobId, initialSaved = false, onToggle, vari
     setLoading(true);
     try {
       if (nextState) {
-        await jobApi.saveJob(jobId);
+        await jobApi.saveJob(jobId, jobData);
         showToast('success', 'Đã lưu việc làm vào danh sách quan tâm!');
         window.dispatchEvent(new CustomEvent('open-saved-jobs', { detail: { tab: 'jobs' } }));
       } else {

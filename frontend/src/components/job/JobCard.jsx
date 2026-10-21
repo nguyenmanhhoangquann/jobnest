@@ -196,7 +196,7 @@ export default function JobCard({ job, variant = 'card', extra, onToggleSave }) 
             </div>
 
             <div className="himalayas-card__actions">
-              <SaveButton jobId={id} initialSaved={saved} variant="star" onToggle={onToggleSave} />
+              <SaveButton jobId={id} jobData={job} initialSaved={saved} variant="star" onToggle={onToggleSave} />
             </div>
           </div>
         </div>
@@ -265,7 +265,7 @@ export default function JobCard({ job, variant = 'card', extra, onToggleSave }) 
           )}
         </div>
         <div className="d-flex align-items-center gap-2 ms-auto">
-          <SaveButton jobId={id} initialSaved={saved} onToggle={onToggleSave} />
+          <SaveButton jobId={id} jobData={job} initialSaved={saved} onToggle={onToggleSave} />
           <Link to={`/jobs/${id}`} className="btn-apply-fast-sm">
             Ứng tuyển
           </Link>

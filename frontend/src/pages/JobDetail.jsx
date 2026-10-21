@@ -155,7 +155,7 @@ export default function JobDetail() {
     setIsSaved(next);
     try {
       if (next) {
-        await jobApi.saveJob(job.id);
+        await jobApi.saveJob(job.id, job);
         showToast('success', 'Đã lưu công việc vào danh sách quan tâm!');
         window.dispatchEvent(new CustomEvent('open-saved-jobs', { detail: { tab: 'jobs' } }));
       } else {
