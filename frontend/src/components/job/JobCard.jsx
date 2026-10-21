@@ -24,7 +24,7 @@ const resolveCompanyLogo = (company) => {
   return url || '/images/companies/fpt.png';
 };
 
-export default function JobCard({ job, variant = 'card', extra }) {
+export default function JobCard({ job, variant = 'card', extra, onToggleSave }) {
   if (!job) return null;
 
   const {
@@ -196,7 +196,7 @@ export default function JobCard({ job, variant = 'card', extra }) {
             </div>
 
             <div className="himalayas-card__actions">
-              <SaveButton jobId={id} initialSaved={saved} variant="star" />
+              <SaveButton jobId={id} initialSaved={saved} variant="star" onToggle={onToggleSave} />
             </div>
           </div>
         </div>
@@ -265,7 +265,7 @@ export default function JobCard({ job, variant = 'card', extra }) {
           )}
         </div>
         <div className="d-flex align-items-center gap-2 ms-auto">
-          <SaveButton jobId={id} initialSaved={saved} />
+          <SaveButton jobId={id} initialSaved={saved} onToggle={onToggleSave} />
           <Link to={`/jobs/${id}`} className="btn-apply-fast-sm">
             Ứng tuyển
           </Link>

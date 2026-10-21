@@ -91,3 +91,86 @@
   border-radius: 0px;
   letter-spacing: 0.05em;
 }
+
+/* Saved Page Tabs */
+.saved-page-tabs {
+  display: flex;
+  background: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.saved-page-tab-btn {
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.saved-page-tab-btn:hover {
+  color: #0F172A;
+  background: #F1F5F9;
+}
+
+.saved-page-tab-btn--active {
+  color: #EA580C !important;
+  border-bottom-color: #EA580C;
+  background: #FFF7ED !important;
+  font-weight: 700;
+}
+
+.saved-page-tab-badge {
+  font-size: 11px;
+  font-weight: 700;
+  background: #E2E8F0;
+  color: #334155;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.saved-page-tab-btn--active .saved-page-tab-badge {
+  background: #FED7AA;
+  color: #9A3412;
+}
+
+/* Company Card */
+.saved-comp-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
+}
+
+.saved-comp-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.saved-comp-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F8FAFC;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.saved-comp-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

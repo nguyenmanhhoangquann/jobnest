@@ -78,6 +78,22 @@ export default function JobDetail() {
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
+  const [isCompanyFollowed, setIsCompanyFollowed] = useState(false);
+
+  useEffect(() => {
+    if (job) {
+      const rawName = job.company?.name || job.companyName || '';
+      const comp = mockCompanies.find(
+        (c) =>
+          c.name === rawName ||
+          (c.shortName && rawName.toLowerCase().includes(c.shortName.toLowerCase()))
+      );
+      const cId = job.company?.id || comp?.id;
+      if (cId) {
+        setIsCompanyFollowed(companyApi.isFollowed(cId));
+      }
+    }
+  }, [job]);
 
   useEffect(() => {
     setLoading(true);
@@ -88,7 +104,8 @@ export default function JobDetail() {
       .getJobDetail(id)
       .then((data) => {
         setJob(data);
-        setIsSaved(!!data.saved);
+        const localSaved = (JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]')).includes(String(id));
+        setIsSaved(!!data.saved || localSaved);
         setLoading(false);
         const catSlug = data.category?.slug || (typeof data.category === 'string' ? data.category : 'all');
         jobApi
@@ -105,6 +122,16 @@ export default function JobDetail() {
       });
   }, [id]);
 
+  useEffect(() => {
+    const handleSync = (e) => {
+      if (e?.detail?.id === String(id)) {
+        setIsSaved(!!e.detail.saved);
+      }
+    };
+    window.addEventListener('saved-jobs-updated', handleSync);
+    return () => window.removeEventListener('saved-jobs-updated', handleSync);
+  }, [id]);
+
   const handleApplyClick = () => {
     if (!user) {
       showToast('info', 'Vui lòng đăng nhập để ứng tuyển công việc này!');
@@ -119,11 +146,6 @@ export default function JobDetail() {
   };
 
   const handleToggleSave = async () => {
-    if (!isAuth) {
-      showToast('info', 'Vui lòng đăng nhập để lưu công việc này!');
-      navigate('/login', { state: { from: location.pathname } });
-      return;
-    }
     if (user?.role === 'EMPLOYER') {
       showToast('error', 'Chỉ người tìm việc mới lưu được việc làm!');
       return;
@@ -241,14 +263,6 @@ export default function JobDetail() {
   ) || {};
 
   const targetCompanyId = job.company?.id || companyInfo.id;
-
-  const [isCompanyFollowed, setIsCompanyFollowed] = useState(false);
-
-  useEffect(() => {
-    if (targetCompanyId) {
-      setIsCompanyFollowed(companyApi.isFollowed(targetCompanyId));
-    }
-  }, [targetCompanyId]);
 
   const handleToggleFollowCompany = () => {
     if (!targetCompanyId) return;

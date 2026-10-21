@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Navbar as BsNavbar, Nav, Dropdown } from 'react-bootstrap';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import {
@@ -229,14 +229,29 @@ export default function Navbar() {
   const [savedJobsOpen, setSavedJobsOpen] = useState(false);
   const [savedJobs, setSavedJobs] = useState([]);
   const [savedDrawerTab, setSavedDrawerTab] = useState('jobs');
+  const [savedCount, setSavedCount] = useState(() => {
+    try {
+      const jIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
+      const cIds = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
+      return jIds.length + cIds.length;
+    } catch {
+      return 0;
+    }
+  });
+
+  const updateCounts = useCallback(() => {
+    try {
+      const jIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
+      const cIds = JSON.parse(localStorage.getItem('jn_followed_companies') || '[]');
+      setSavedCount(jIds.length + cIds.length);
+    } catch {
+      setSavedCount(0);
+    }
+  }, []);
 
   const handleOpenSavedJobs = (tab = 'jobs') => {
-    if (!isAuth) {
-      showToast('info', 'Đăng nhập để xem danh sách quan tâm', 'YÊU CẦU ĐĂNG NHẬP');
-      navigate('/login');
-      return;
-    }
-    setSavedDrawerTab(typeof tab === 'string' ? tab : 'jobs');
+    const targetTab = typeof tab === 'string' ? tab : 'jobs';
+    setSavedDrawerTab(targetTab);
     jobApi
       .getSavedJobs()
       .then((data) => {
@@ -250,6 +265,7 @@ export default function Navbar() {
   };
 
   useEffect(() => {
+    updateCounts();
     const handleOpenEvent = (e) => {
       const tab = e?.detail?.tab || 'jobs';
       setSavedDrawerTab(tab);
@@ -265,8 +281,14 @@ export default function Navbar() {
         });
     };
     window.addEventListener('open-saved-jobs', handleOpenEvent);
-    return () => window.removeEventListener('open-saved-jobs', handleOpenEvent);
-  }, []);
+    window.addEventListener('saved-jobs-updated', updateCounts);
+    window.addEventListener('followed-companies-updated', updateCounts);
+    return () => {
+      window.removeEventListener('open-saved-jobs', handleOpenEvent);
+      window.removeEventListener('saved-jobs-updated', updateCounts);
+      window.removeEventListener('followed-companies-updated', updateCounts);
+    };
+  }, [updateCounts]);
 
   return (
     <BsNavbar expand="lg" sticky="top" className="app-navbar bg-white py-2">
@@ -283,6 +305,32 @@ export default function Navbar() {
 
         {/* Mobile controls */}
         <div className="d-flex d-lg-none align-items-center gap-2">
+          <button
+            type="button"
+            className="icon-btn position-relative"
+            aria-label="Mục quan tâm"
+            onClick={() => handleOpenSavedJobs('jobs')}
+          >
+            <FaBookmark size={15} />
+            {savedCount > 0 && (
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '-3px',
+                  right: '-3px',
+                  background: '#EA580C',
+                  color: '#fff',
+                  borderRadius: '999px',
+                  fontSize: '9px',
+                  fontWeight: '700',
+                  padding: '1px 4px',
+                  lineHeight: '1.2',
+                }}
+              >
+                {savedCount > 99 ? '99+' : savedCount}
+              </span>
+            )}
+          </button>
           <button
             type="button"
             className="icon-btn"
@@ -337,12 +385,30 @@ export default function Navbar() {
               {/* Nút Việc làm đã lưu */}
               <button
                 type="button"
-                className="nav-icon-action-btn"
-                aria-label="Việc làm đã lưu"
-                title="Việc làm đã lưu"
+                className="nav-icon-action-btn position-relative"
+                aria-label="Mục quan tâm"
+                title="Mục quan tâm"
                 onClick={handleOpenSavedJobs}
               >
                 <FaBookmark size={13} />
+                {savedCount > 0 && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '-4px',
+                      right: '-4px',
+                      background: '#EA580C',
+                      color: '#fff',
+                      borderRadius: '999px',
+                      fontSize: '10px',
+                      fontWeight: '700',
+                      padding: '1px 5px',
+                      lineHeight: '1.2',
+                    }}
+                  >
+                    {savedCount > 99 ? '99+' : savedCount}
+                  </span>
+                )}
               </button>
 
               {/* Chuông Thông báo */}

@@ -49,9 +49,22 @@ export default function SavedJobsDrawer({
     const handleUpdate = () => {
       loadFollowedCompanies();
     };
+    const handleJobsUpdate = () => {
+      jobApi
+        .getSavedJobs()
+        .then((data) => {
+          const list = data?.content || (Array.isArray(data) ? data : []);
+          if (onUpdateJobs) onUpdateJobs(list);
+        })
+        .catch(() => {});
+    };
     window.addEventListener('followed-companies-updated', handleUpdate);
-    return () => window.removeEventListener('followed-companies-updated', handleUpdate);
-  }, [loadFollowedCompanies]);
+    window.addEventListener('saved-jobs-updated', handleJobsUpdate);
+    return () => {
+      window.removeEventListener('followed-companies-updated', handleUpdate);
+      window.removeEventListener('saved-jobs-updated', handleJobsUpdate);
+    };
+  }, [loadFollowedCompanies, onUpdateJobs]);
 
   // Smooth GPU enter & exit transitions
   useEffect(() => {
@@ -217,11 +230,11 @@ export default function SavedJobsDrawer({
             </Link>
           ) : (
             <Link
-              to="/companies"
+              to="/candidate/saved-jobs?tab=companies"
               onClick={handleClose}
               className="saved-drawer-view-all"
             >
-              <span>Xem tất cả công ty</span>
+              <span>Trang chi tiết</span>
               <FaArrowRight size={10} />
             </Link>
           )}

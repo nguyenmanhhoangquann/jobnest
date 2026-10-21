@@ -14,6 +14,16 @@ export default function SaveButton({ jobId, initialSaved = false, onToggle, vari
   const navigate = useNavigate();
   const location = useLocation();
 
+  React.useEffect(() => {
+    const handleSync = (e) => {
+      if (e?.detail?.id === String(jobId)) {
+        setSaved(!!e.detail.saved);
+      }
+    };
+    window.addEventListener('saved-jobs-updated', handleSync);
+    return () => window.removeEventListener('saved-jobs-updated', handleSync);
+  }, [jobId]);
+
   const handleToggle = async (e) => {
     e.preventDefault();
     e.stopPropagation();

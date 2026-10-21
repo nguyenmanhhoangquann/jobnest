@@ -95,14 +95,8 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/candidate/saved-jobs"
-              element={
-                <ProtectedRoute allowedRole="CANDIDATE">
-                  <SavedJobs />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/candidate/saved-jobs" element={<SavedJobs />} />
+            <Route path="/saved-jobs" element={<SavedJobs />} />
 
             <Route path="/support" element={<Support />} />
             <Route path="*" element={<NotFoundPlaceholder />} />

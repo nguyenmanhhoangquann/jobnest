@@ -113,7 +113,23 @@ const filterMockJobs = (params = {}) => {
   };
 };
 
+const getLocalSavedIds = () => {
+  try {
+    const raw = localStorage.getItem('jn_local_saved_jobs');
+    if (raw === null) {
+      const initial = mockJobs.filter((j) => j.saved).map((j) => String(j.id));
+      localStorage.setItem('jn_local_saved_jobs', JSON.stringify(initial));
+      return initial;
+    }
+    return JSON.parse(raw) || [];
+  } catch {
+    return [];
+  }
+};
+
 export const jobApi = {
+  getLocalSavedIds,
+
   // Lấy danh sách việc làm có lọc và phân trang (Mục 15.5)
   getJobs: async (params = {}) => {
     if (!USE_MOCK) {
@@ -268,7 +284,7 @@ export const jobApi = {
 
   // Lưu tin tuyển dụng (Mục 8.2)
   saveJob: async (jobId) => {
-    const localIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
+    const localIds = getLocalSavedIds();
     const strId = String(jobId);
     if (!localIds.includes(strId)) {
       localStorage.setItem('jn_local_saved_jobs', JSON.stringify([...localIds, strId]));
@@ -276,6 +292,7 @@ export const jobApi = {
     jobsState = jobsState.map((j) =>
       String(j.id) === strId ? { ...j, saved: true } : j
     );
+    window.dispatchEvent(new CustomEvent('saved-jobs-updated', { detail: { id: strId, saved: true } }));
 
     if (!USE_MOCK) {
       try {
@@ -287,14 +304,16 @@ export const jobApi = {
 
   // Bỏ lưu tin tuyển dụng (Mục 8.2)
   unsaveJob: async (jobId) => {
-    const localIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
+    const localIds = getLocalSavedIds();
+    const strId = String(jobId);
     localStorage.setItem(
       'jn_local_saved_jobs',
-      JSON.stringify(localIds.filter((id) => String(id) !== String(jobId)))
+      JSON.stringify(localIds.filter((id) => String(id) !== strId))
     );
     jobsState = jobsState.map((j) =>
-      String(j.id) === String(jobId) ? { ...j, saved: false } : j
+      String(j.id) === strId ? { ...j, saved: false } : j
     );
+    window.dispatchEvent(new CustomEvent('saved-jobs-updated', { detail: { id: strId, saved: false } }));
 
     if (!USE_MOCK) {
       try {
@@ -306,10 +325,10 @@ export const jobApi = {
 
   // Danh sách việc làm đã lưu của ứng viên (Mục 13.2)
   getSavedJobs: async (params = {}) => {
-    const localIds = JSON.parse(localStorage.getItem('jn_local_saved_jobs') || '[]');
+    const localIds = getLocalSavedIds();
     if (USE_MOCK) {
       await new Promise((r) => setTimeout(r, 150));
-      const savedJobs = jobsState.filter((j) => j.saved || localIds.includes(String(j.id)));
+      const savedJobs = jobsState.filter((j) => localIds.includes(String(j.id)));
       return {
         content: savedJobs,
         totalElements: savedJobs.length,
@@ -329,7 +348,7 @@ export const jobApi = {
       }
       return res;
     } catch {
-      const savedJobs = jobsState.filter((j) => j.saved || localIds.includes(String(j.id)));
+      const savedJobs = jobsState.filter((j) => localIds.includes(String(j.id)));
       return { content: savedJobs, totalElements: savedJobs.length };
     }
   },
