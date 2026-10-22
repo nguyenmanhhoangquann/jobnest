@@ -86,7 +86,7 @@ export default function Blog() {
           {/* Chi tiết bài viết */}
           <article className="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-5">
             <div className="d-flex align-items-center gap-2 mb-3">
-              <span className="badge bg-dark text-white py-1.5 px-3 rounded-pill fw-semibold" style={{ fontSize: '11px', letterSpacing: '0.5px' }}>
+              <span className="badge text-white py-1.5 px-3 rounded-pill fw-semibold" style={{ background: '#EA580C', fontSize: '11px', letterSpacing: '0.5px' }}>
                 {selectedBlog.category.toUpperCase()}
               </span>
               <span className="text-muted small d-inline-flex align-items-center gap-1">
@@ -320,7 +320,7 @@ export default function Blog() {
               <div className="col-12 col-lg-5 p-4 p-md-5 d-flex flex-column justify-content-between h-100">
                 <div>
                   <div className="d-flex align-items-center gap-2 mb-2.5">
-                    <span className="badge bg-dark text-white px-2.5 py-1 rounded-pill" style={{ fontSize: '11px', letterSpacing: '0.5px' }}>
+                    <span className="badge text-white px-2.5 py-1 rounded-pill" style={{ background: '#EA580C', fontSize: '11px', letterSpacing: '0.5px' }}>
                       {featuredBlog.category.toUpperCase()}
                     </span>
                     <span className="text-muted small">•</span>
@@ -367,7 +367,8 @@ export default function Blog() {
             <p className="text-muted small mb-3">Vui lòng thử lại với từ khóa hoặc chuyên mục khác.</p>
             <button
               type="button"
-              className="btn btn-sm btn-dark mx-auto rounded-pill px-3"
+              className="btn btn-sm btn-brand mx-auto rounded-pill px-4 text-white"
+              style={{ background: '#EA580C' }}
               onClick={() => {
                 setSearchKeyword('');
                 setActiveCategory('Tất cả');

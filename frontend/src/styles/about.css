@@ -15,8 +15,8 @@
    -------------------------------------------------------------------------- */
 .about-hero-section {
   padding: 80px 0 72px;
-  background: linear-gradient(180deg, #FAFAFA 0%, #FFFFFF 100%);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+  background: linear-gradient(180deg, #FFF7ED 0%, #FFEDD5 50%, #FFFFFF 100%);
+  border-bottom: 1px solid #FED7AA;
 }
 
 .about-tag {
@@ -26,7 +26,7 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #B45309;
+  color: #C2410C;
 }
 
 .about-tag-sep {
@@ -55,20 +55,20 @@
   gap: 10px;
   padding: 12px 24px;
   border-radius: 9999px;
-  background: #0F172A;
+  background: linear-gradient(135deg, #FB923C 0%, #EA580C 100%);
   color: #FFFFFF !important;
   font-size: 14.5px;
   font-weight: 700;
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.25);
 }
 
 .btn-about-primary:hover {
-  background: #FBBF24;
-  color: #0F172A !important;
+  background: linear-gradient(135deg, #F97316 0%, #C2410C 100%);
+  color: #FFFFFF !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(251, 191, 36, 0.35);
+  box-shadow: 0 8px 22px rgba(234, 88, 12, 0.4);
 }
 
 .btn-about-secondary {
@@ -446,7 +446,7 @@
    -------------------------------------------------------------------------- */
 .about-cta-section {
   padding: 88px 0;
-  background: #0F172A;
+  background: linear-gradient(135deg, #C2410C 0%, #EA580C 40%, #F97316 100%);
   color: #FFFFFF;
 }
 
@@ -460,19 +460,23 @@
 .about-cta-sub {
   font-size: 16.5px;
   line-height: 1.65;
-  color: #CBD5E1;
+  color: #FFEDD5;
   max-width: 580px;
   margin: 0 auto;
 }
 
 .about-cta-section .btn-about-primary {
-  background: #FBBF24;
-  color: #0F172A !important;
+  background: #FFFFFF;
+  color: #EA580C !important;
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .about-cta-section .btn-about-primary:hover {
-  background: #F59E0B;
+  background: #FFF7ED;
+  color: #C2410C !important;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .about-cta-section .btn-about-outline {
