@@ -463,6 +463,17 @@ export default function Companies() {
 
   const [companiesList, setCompaniesList] = useState(mockCompanies);
   const [showAllFilters, setShowAllFilters] = useState(false);
+  const [companyTab, setCompanyTab] = useState('overview');
+
+  const handleScrollToSection = (tabKey, elementId) => {
+    setCompanyTab(tabKey);
+    const el = document.getElementById(elementId);
+    if (el) {
+      const yOffset = -130;
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   // Đọc filters trực tiếp từ URL query params
   const filters = useMemo(() => {
@@ -715,15 +726,32 @@ export default function Companies() {
     }
   };
 
-  // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ NOVATECH - JOBNEST
+  // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ BUILT IN / NOVATECH
   if (selectedCompany) {
     const extras = getCompanyExtras(selectedCompany);
     const jobsList = selectedCompany.jobs || [];
     const companyWebsite = extras.website || selectedCompany.website;
 
+    // Danh mục công nghệ thực tế dựa theo lĩnh vực và jobs
+    const companyTechStack = [
+      'Java',
+      'Spring Boot',
+      'ReactJS',
+      'TypeScript',
+      'Cloud AWS',
+      'Docker',
+      'Kubernetes',
+      'PostgreSQL',
+      'Microservices',
+      'Git / CI/CD',
+      ...(selectedCompany.industry?.toLowerCase().includes('ngân hàng') || selectedCompany.industry?.toLowerCase().includes('tài chính')
+        ? ['Kafka', 'Oracle DB', 'DevSecOps', 'Fintech API']
+        : ['Python', 'AI / ML', 'Redis', 'RESTful API']),
+    ];
+
     return (
       <div className="novatech-page-wrap">
-        {/* 1. HERO BANNER BLOCK (NovaTech Canvas) */}
+        {/* 1. HERO IDENTITY CANVAS (Built In Header) */}
         <section className="novatech-hero-wrap">
           <div className="novatech-hero-dots-left" />
           <div className="novatech-hero-dots-right" />
@@ -743,8 +771,8 @@ export default function Companies() {
             </div>
 
             {/* Profile Identity Bar */}
-            <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-4">
-              <div className="d-flex align-items-center" style={{ gap: '26px' }}>
+            <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-4">
+              <div className="d-flex align-items-center" style={{ gap: '24px' }}>
                 {/* Logo Box */}
                 <div className="novatech-logo-box position-relative">
                   <img
@@ -758,9 +786,7 @@ export default function Companies() {
                       }
                     }}
                   />
-                  <div
-                    className="fw-bold text-dark d-none align-items-center justify-content-center w-100 h-100 fs-3"
-                  >
+                  <div className="fw-bold text-dark d-none align-items-center justify-content-center w-100 h-100 fs-3">
                     {(selectedCompany.shortName || selectedCompany.name).charAt(0).toUpperCase()}
                   </div>
                 </div>
@@ -780,7 +806,7 @@ export default function Companies() {
                     <span className="novatech-badge-tag">{extras.ownership || 'Enterprise Tech'}</span>
                   </div>
 
-                  <p className="mb-2 fw-semibold" style={{ fontSize: '15px', maxWidth: '760px', color: '#334155', lineHeight: '1.5' }}>
+                  <p className="mb-2 fw-semibold" style={{ fontSize: '15px', maxWidth: '780px', color: '#334155', lineHeight: '1.5' }}>
                     "{extras.tagline}"
                   </p>
 
@@ -818,6 +844,17 @@ export default function Companies() {
               <div className="d-flex align-items-center gap-2.5 flex-shrink-0">
                 <button
                   type="button"
+                  className="btn btn-outline-secondary d-inline-flex align-items-center gap-2 bg-white"
+                  style={{ borderRadius: '10px', padding: '8px 16px', fontWeight: 600, fontSize: '14px', borderColor: '#CBD5E1' }}
+                  onClick={handleShare}
+                  title="Chia sẻ hồ sơ doanh nghiệp"
+                >
+                  <FaShareAlt size={13} />
+                  <span>Chia sẻ</span>
+                </button>
+
+                <button
+                  type="button"
                   className={`btn novatech-btn-follow d-inline-flex align-items-center gap-2 ${
                     isFollowed ? 'novatech-btn-follow--active' : ''
                   }`}
@@ -830,91 +867,316 @@ export default function Companies() {
                 <button
                   type="button"
                   className="btn novatech-btn-view-jobs d-inline-flex align-items-center gap-2"
-                  onClick={() => {
-                    const el = document.getElementById('company-jobs-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
                 >
                   <FaBriefcase size={13} />
                   <span>Xem việc làm ({jobsList.length})</span>
                 </button>
               </div>
             </div>
+
+            {/* Built In Style Key Facts Strip */}
+            <div className="novatech-keyfacts-strip">
+              <div className="novatech-keyfact-pill">
+                <span>📍 Trụ sở chính:</span>
+                <strong>{extras.hq || selectedCompany.location}</strong>
+              </div>
+              <div className="novatech-keyfact-pill">
+                <span>🏢 Tổng số văn phòng:</span>
+                <strong>{extras.officesCount || '3+'}</strong>
+              </div>
+              <div className="novatech-keyfact-pill">
+                <span>👥 Quy mô nhân sự:</span>
+                <strong>{extras.size || selectedCompany.size}</strong>
+              </div>
+              <div className="novatech-keyfact-pill">
+                <span>📅 Năm thành lập:</span>
+                <strong>{extras.founded || '1995'}</strong>
+              </div>
+              <div className="novatech-keyfact-pill">
+                <span>🔥 Đang tuyển dụng:</span>
+                <strong style={{ color: '#EA580C' }}>{jobsList.length} vị trí</strong>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* 2. MAIN 2-COLUMN CONTENT GRID */}
-        <div className="container py-4 my-2" style={{ maxWidth: '1240px' }}>
-          <div className="row g-4 align-items-start">
-            {/* CỘT TRÁI (~68% width): Danh sách việc làm & vị trí nổi bật */}
-            <div className="col-12 col-lg-8" id="company-jobs-section">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                  <div className="text-uppercase fw-bold" style={{ fontSize: '12px', letterSpacing: '0.06em', color: '#475569' }}>
-                    VIỆC LÀM &amp; VỊ TRÍ NỔI BẬT
-                  </div>
-                  <h2 className="fw-bold mb-0" style={{ fontSize: '22px', color: '#0F172A', letterSpacing: '-0.02em' }}>
-                    Cơ hội nghề nghiệp tại {selectedCompany.shortName} ({jobsList.length})
-                  </h2>
-                </div>
+        {/* 2. STICKY SUB-NAV TABS SHELF (Built In Style) */}
+        <div className="novatech-subnav-bar">
+          <div className="container" style={{ maxWidth: '1240px' }}>
+            <div className="novatech-subnav-inner">
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'overview' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('overview', 'company-overview-section')}
+              >
+                Tổng quan & Sứ mệnh
+              </button>
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'culture' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('culture', 'company-culture-section')}
+              >
+                Văn hóa & Giá trị
+              </button>
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'jobs' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+              >
+                Cơ hội việc làm ({jobsList.length})
+              </button>
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'perks' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('perks', 'company-perks-section')}
+              >
+                Chế độ đãi ngộ & Phúc lợi
+              </button>
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'tech' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('tech', 'company-tech-section')}
+              >
+                Công nghệ sử dụng
+              </button>
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'info' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('info', 'company-info-section')}
+              >
+                Hồ sơ doanh nghiệp
+              </button>
+            </div>
+          </div>
+        </div>
 
-                <span className="badge bg-white border px-3 py-1.5 rounded-pill fw-semibold shadow-xs" style={{ fontSize: '13px', color: '#334155' }}>
-                  Đang mở tuyển dụng
-                </span>
+        {/* 3. MAIN 2-COLUMN CONTENT GRID */}
+        <div className="container py-4 my-2" style={{ maxWidth: '1240px' }}>
+          <div className="row g-4">
+            {/* CỘT TRÁI (~68% width): Chi tiết nội dung chuẩn Built In */}
+            <div className="col-12 col-lg-8">
+              {/* Mục 1: Tổng quan & Giới thiệu doanh nghiệp */}
+              <div className="novatech-section-card" id="company-overview-section">
+                <div className="novatech-section-eyebrow">GIỚI THIỆU DOANH NGHIỆP</div>
+                <h2 className="novatech-section-title">
+                  {selectedCompany.name} - Tiên phong phát triển & Chuyển đổi số
+                </h2>
+                <p style={{ fontSize: '15px', color: '#334155', lineHeight: '1.7', marginBottom: '18px' }}>
+                  {selectedCompany.description ||
+                    `${selectedCompany.name} là tổ chức hàng đầu hoạt động chuyên sâu trong lĩnh vực ${selectedCompany.industry}, cung cấp các giải pháp công nghệ cao cấp và dịch vụ toàn diện cho khách hàng trên thị trường quốc tế và Việt Nam.`}
+                </p>
+                <div className="p-3 bg-light rounded-3 border d-flex align-items-center gap-3">
+                  <div className="novatech-value-icon m-0" style={{ width: '42px', height: '42px', flexShrink: 0 }}>
+                    <FaBuilding size={18} />
+                  </div>
+                  <div>
+                    <div className="fw-bold text-dark" style={{ fontSize: '14.5px' }}>
+                      Mô hình không gian làm việc linh hoạt (Hybrid Workspace)
+                    </div>
+                    <div className="text-secondary small">
+                      Nhân viên kết hợp linh hoạt 3 ngày tại văn phòng hiện đại và 2 ngày làm việc từ xa, trang bị thiết bị tiêu chuẩn cao cấp.
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {jobsList.length === 0 ? (
-                <div className="p-5 bg-white border rounded-4 text-center text-muted shadow-xs">
-                  <FaBriefcase size={36} className="text-muted mb-2 mx-auto" />
-                  <h3 className="h6 fw-bold text-dark mb-1">Hiện tại chưa có bài đăng tuyển dụng</h3>
-                  <p className="text-muted small mb-0">Doanh nghiệp chưa mở đơn tuyển dụng mới nào trên hệ thống.</p>
-                </div>
-              ) : (
-                <div className="d-flex flex-column gap-3">
-                  {jobsList.map((job) => (
-                    <div key={job.id} className="novatech-featured-job-card">
-                      <div className="d-flex flex-column gap-1">
-                        <h3 className="fw-bold mb-1" style={{ fontSize: '18px', color: '#0F172A', lineHeight: '1.35' }}>
-                          <Link to={`/jobs/${job.id}`} className="text-decoration-none hover-primary" style={{ color: '#0F172A' }}>
-                            {job.title}
-                          </Link>
-                        </h3>
-                        <div className="d-flex flex-wrap align-items-center gap-2 mb-2" style={{ fontSize: '14.5px', color: '#334155' }}>
-                          <span className="fw-semibold text-dark">
-                            {job.jobType === 'FULL_TIME' ? 'Toàn thời gian' : job.jobType === 'INTERN' ? 'Thực tập' : 'Bán thời gian'}
-                          </span>
-                          <span>•</span>
-                          <span>{job.location}</span>
-                          <span>•</span>
-                          <span className="fw-bold" style={{ fontSize: '16px', color: '#15803D' }}>
-                            {job.salaryText}
-                          </span>
-                        </div>
-                        <div className="d-flex flex-wrap gap-1.5">
-                          {getJobSkills(job, selectedCompany.industry).map((skill, sIdx) => (
-                            <span key={sIdx} className="novatech-job-tag">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
+              {/* Mục 2: Văn hóa & Giá trị cốt lõi (Built In 3-Card Grid) */}
+              <div className="novatech-section-card" id="company-culture-section">
+                <div className="novatech-section-eyebrow">MÔI TRƯỜNG & VĂN HÓA</div>
+                <h2 className="novatech-section-title">
+                  Văn hóa doanh nghiệp & Giá trị cốt lõi
+                </h2>
+                <div className="row g-3">
+                  <div className="col-12 col-md-4">
+                    <div className="novatech-value-box">
+                      <div className="novatech-value-icon">
+                        <FaBolt size={18} />
                       </div>
-
-                      <Link
-                        to={`/jobs/${job.id}`}
-                        className="btn btn-outline-dark rounded-pill fw-bold btn-sm px-4 py-2 text-nowrap align-self-center"
-                        style={{ fontSize: '13.5px' }}
-                      >
-                        Ứng tuyển ngay →
-                      </Link>
+                      <h3 className="fw-bold text-dark mb-1.5" style={{ fontSize: '15px' }}>
+                        Tác động thực tế
+                      </h3>
+                      <p className="text-secondary small mb-0" style={{ lineHeight: '1.55' }}>
+                        Tập trung giải quyết các bài toán lớn, tạo ra giá trị đột phá và bền vững cho hàng triệu người dùng.
+                      </p>
                     </div>
+                  </div>
+                  <div className="col-12 col-md-4">
+                    <div className="novatech-value-box">
+                      <div className="novatech-value-icon">
+                        <FaUserFriends size={18} />
+                      </div>
+                      <h3 className="fw-bold text-dark mb-1.5" style={{ fontSize: '15px' }}>
+                        Gắn kết & Đồng đội
+                      </h3>
+                      <p className="text-secondary small mb-0" style={{ lineHeight: '1.55' }}>
+                        Môi trường cởi mở, minh bạch, tôn trọng sự đa dạng cá nhân và cùng nhau chinh phục mục tiêu lớn.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-4">
+                    <div className="novatech-value-box">
+                      <div className="novatech-value-icon">
+                        <FaLightbulb size={18} />
+                      </div>
+                      <h3 className="fw-bold text-dark mb-1.5" style={{ fontSize: '15px' }}>
+                        Học hỏi không ngừng
+                      </h3>
+                      <p className="text-secondary small mb-0" style={{ lineHeight: '1.55' }}>
+                        Khuyến khích thử nghiệm, tài trợ ngân sách học tập và hỗ trợ thăng tiến sự nghiệp liên tục.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mục 3: Việc làm đang tuyển dụng */}
+              <div className="novatech-section-card" id="company-jobs-section">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <div>
+                    <div className="novatech-section-eyebrow">CƠ HỘI NGHỀ NGHIỆP</div>
+                    <h2 className="novatech-section-title mb-0">
+                      Vị trí đang mở tuyển dụng tại {selectedCompany.shortName} ({jobsList.length})
+                    </h2>
+                  </div>
+                  <span className="badge bg-white border px-3 py-1.5 rounded-pill fw-semibold shadow-xs" style={{ fontSize: '13px', color: '#EA580C', borderColor: '#FED7AA' }}>
+                    Đang tuyển gấp
+                  </span>
+                </div>
+
+                {jobsList.length === 0 ? (
+                  <div className="p-4 bg-light border rounded-3 text-center text-muted">
+                    <FaBriefcase size={32} className="text-muted mb-2 mx-auto" />
+                    <h3 className="h6 fw-bold text-dark mb-1">Hiện tại chưa có vị trí mở tuyển dụng mới</h3>
+                    <p className="text-muted small mb-0">Doanh nghiệp đang hoàn tất đợt tuyển dụng. Vui lòng nhấn "Theo dõi" để nhận thông báo sớm nhất.</p>
+                  </div>
+                ) : (
+                  <div className="d-flex flex-column gap-3">
+                    {jobsList.map((job) => (
+                      <div key={job.id} className="novatech-featured-job-card">
+                        <div className="d-flex flex-column gap-1">
+                          <h3 className="fw-bold mb-1" style={{ fontSize: '18px', color: '#0F172A', lineHeight: '1.35' }}>
+                            <Link to={`/jobs/${job.id}`} className="text-decoration-none hover-primary" style={{ color: '#0F172A' }}>
+                              {job.title}
+                            </Link>
+                          </h3>
+                          <div className="d-flex flex-wrap align-items-center gap-2 mb-2" style={{ fontSize: '14.5px', color: '#334155' }}>
+                            <span className="fw-semibold text-dark">
+                              {job.jobType === 'FULL_TIME' ? 'Toàn thời gian' : job.jobType === 'INTERN' ? 'Thực tập' : 'Bán thời gian'}
+                            </span>
+                            <span>•</span>
+                            <span>{job.location}</span>
+                            <span>•</span>
+                            <span className="fw-bold" style={{ fontSize: '16px', color: '#15803D' }}>
+                              {job.salaryText}
+                            </span>
+                          </div>
+                          <div className="d-flex flex-wrap gap-1.5">
+                            {getJobSkills(job, selectedCompany.industry).map((skill, sIdx) => (
+                              <span key={sIdx} className="novatech-job-tag">
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <Link
+                          to={`/jobs/${job.id}`}
+                          className="btn btn-outline-dark rounded-pill fw-bold btn-sm px-4 py-2 text-nowrap align-self-center"
+                          style={{ fontSize: '13.5px' }}
+                        >
+                          Ứng tuyển ngay →
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Mục 4: Chế độ đãi ngộ & Phúc lợi (Built In 4-Grid Card) */}
+              <div className="novatech-section-card" id="company-perks-section">
+                <div className="novatech-section-eyebrow">ĐÃI NGỘ &amp; CHẾ ĐỘ</div>
+                <h2 className="novatech-section-title">
+                  Phúc lợi & Chế độ đãi ngộ nổi bật
+                </h2>
+                <div className="novatech-perks-grid">
+                  <div className="novatech-perk-card">
+                    <div className="novatech-perk-header">
+                      <div className="novatech-perk-icon-wrap">
+                        <FaMoneyBillWave />
+                      </div>
+                      <h3 className="novatech-perk-title">Lương & Thưởng đãi ngộ</h3>
+                    </div>
+                    <ul className="novatech-perk-list">
+                      <li className="novatech-perk-item">Thu nhập cạnh tranh, thưởng hiệu quả kinh doanh & dự án</li>
+                      <li className="novatech-perk-item">Lương tháng 13 & thưởng dịp lễ tết hàng năm</li>
+                      <li className="novatech-perk-item">Xét duyệt điều chỉnh tăng lương định kỳ theo năng lực</li>
+                    </ul>
+                  </div>
+
+                  <div className="novatech-perk-card">
+                    <div className="novatech-perk-header">
+                      <div className="novatech-perk-icon-wrap">
+                        <FaHeartbeat />
+                      </div>
+                      <h3 className="novatech-perk-title">Sức khỏe & Bảo hiểm</h3>
+                    </div>
+                    <ul className="novatech-perk-list">
+                      <li className="novatech-perk-item">Gói bảo hiểm sức khỏe cao cấp toàn diện (AON / Bảo Việt)</li>
+                      <li className="novatech-perk-item">Khám sức khỏe tổng quát định kỳ hàng năm tại viện quốc tế</li>
+                      <li className="novatech-perk-item">CLB thể thao, teambuilding, yoga và chăm sóc tinh thần</li>
+                    </ul>
+                  </div>
+
+                  <div className="novatech-perk-card">
+                    <div className="novatech-perk-header">
+                      <div className="novatech-perk-icon-wrap">
+                        <FaGraduationCap />
+                      </div>
+                      <h3 className="novatech-perk-title">Đào tạo & Phát triển</h3>
+                    </div>
+                    <ul className="novatech-perk-list">
+                      <li className="novatech-perk-item">Tài trợ 100% kinh phí thi các chứng chỉ quốc tế (AWS, GCP, PMP)</li>
+                      <li className="novatech-perk-item">Chương trình Mentorship 1-1 đồng hành cùng chuyên gia</li>
+                      <li className="novatech-perk-item">Lộ trình thăng tiến và phát triển sự nghiệp minh bạch</li>
+                    </ul>
+                  </div>
+
+                  <div className="novatech-perk-card">
+                    <div className="novatech-perk-header">
+                      <div className="novatech-perk-icon-wrap">
+                        <FaUmbrellaBeach />
+                      </div>
+                      <h3 className="novatech-perk-title">Cân bằng cuộc sống</h3>
+                    </div>
+                    <ul className="novatech-perk-list">
+                      <li className="novatech-perk-item">15+ ngày nghỉ phép năm nguyên lương, chính sách hybrid linh hoạt</li>
+                      <li className="novatech-perk-item">Chuyến du lịch công ty (Company Trip) nghỉ dưỡng hàng năm</li>
+                      <li className="novatech-perk-item">Quà tặng và ngày hội gắn kết gia đình nhân viên (Family Day)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mục 5: Công nghệ & Hệ sinh thái sử dụng */}
+              <div className="novatech-section-card" id="company-tech-section">
+                <div className="novatech-section-eyebrow">TECH STACK &amp; TOOLS</div>
+                <h2 className="novatech-section-title">
+                  Công nghệ & Hệ sinh thái sử dụng (Technology We Use)
+                </h2>
+                <div className="d-flex flex-wrap gap-2">
+                  {companyTechStack.map((tech, idx) => (
+                    <span key={idx} className="novatech-tech-badge">
+                      {tech}
+                    </span>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
 
             {/* CỘT PHẢI (~32% width): Quick Stats & Company Overview */}
-            <div className="col-12 col-lg-4">
-              <div className="d-flex flex-column gap-3.5">
+            <div className="col-12 col-lg-4" id="company-info-section">
+              <div className="d-flex flex-column gap-3.5 novatech-sidebar-sticky">
                 {/* 2 Thẻ Stats đầu tiên */}
                 <div className="row g-2.5">
                   <div className="col-6">
@@ -922,7 +1184,7 @@ export default function Companies() {
                       <div className="fw-bold text-dark mb-0" style={{ fontSize: '28px', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
                         {extras.officesCount || '6+'}
                       </div>
-                      <div className="small fw-semibold mt-1" style={{ fontSize: '13.5px', color: '#334155' }}>Văn phòng toàn cầu</div>
+                      <div className="small fw-semibold mt-1" style={{ fontSize: '13.5px', color: '#334155' }}>Văn phòng hoạt động</div>
                     </div>
                   </div>
 
@@ -939,17 +1201,17 @@ export default function Companies() {
                 {/* Thẻ Thông tin doanh nghiệp (Company Overview) */}
                 <div className="novatech-overview-card">
                   <h3 className="fw-bold mb-3" style={{ fontSize: '18px', color: '#0F172A' }}>
-                    Thông tin doanh nghiệp
+                    Hồ sơ doanh nghiệp
                   </h3>
 
                   <div className="d-flex flex-column">
                     <div className="novatech-overview-row">
                       <span style={{ color: '#475569', fontWeight: 500 }}>Năm thành lập</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.founded}</strong>
+                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.founded || '1995'}</strong>
                     </div>
 
                     <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Hình thức</span>
+                      <span style={{ color: '#475569', fontWeight: 500 }}>Hình thức sở hữu</span>
                       <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.ownership || 'Doanh nghiệp Cổ phần'}</strong>
                     </div>
 
@@ -959,13 +1221,18 @@ export default function Companies() {
                     </div>
 
                     <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Lĩnh vực</span>
+                      <span style={{ color: '#475569', fontWeight: 500 }}>Lĩnh vực kinh doanh</span>
                       <strong style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCompany.industry}</strong>
                     </div>
 
                     <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Quy mô</span>
+                      <span style={{ color: '#475569', fontWeight: 500 }}>Quy mô nhân sự</span>
                       <strong style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCompany.size}</strong>
+                    </div>
+
+                    <div className="novatech-overview-row">
+                      <span style={{ color: '#475569', fontWeight: 500 }}>Trụ sở chính</span>
+                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.hq || selectedCompany.location}</strong>
                     </div>
 
                     {companyWebsite && (
@@ -983,6 +1250,24 @@ export default function Companies() {
                         </a>
                       </div>
                     )}
+                  </div>
+                </div>
+
+                {/* Thẻ cam kết uy tín tuyển dụng (JobNest Verified Partner) */}
+                <div className="novatech-trust-box">
+                  <div className="d-flex align-items-center gap-2 mb-2">
+                    <span className="novatech-verified-badge" style={{ width: '22px', height: '22px' }}>
+                      <FaCheck size={11} />
+                    </span>
+                    <strong style={{ color: '#9A3412', fontSize: '15px' }}>Doanh nghiệp xác thực JobNest</strong>
+                  </div>
+                  <p className="small text-secondary mb-3" style={{ lineHeight: '1.5' }}>
+                    Hồ sơ pháp lý và thông tin tuyển dụng của doanh nghiệp đã được JobNest thẩm định an toàn và minh bạch 100%.
+                  </p>
+                  <div className="d-flex flex-column gap-1.5 small" style={{ color: '#431407' }}>
+                    <div>✓ Cam kết phản hồi ứng viên trong 48h</div>
+                    <div>✓ Không phát sinh chi phí ứng tuyển</div>
+                    <div>✓ Bảo mật thông tin hồ sơ tuyệt đối</div>
                   </div>
                 </div>
               </div>

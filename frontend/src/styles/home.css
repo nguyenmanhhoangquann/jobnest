@@ -3363,6 +3363,230 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
 }
 
+/* Sub-Nav Sticky Tab Bar (Built In Style) */
+.novatech-subnav-bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 59px;
+  z-index: 1010;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.novatech-subnav-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0;
+}
+
+.novatech-subnav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.novatech-subnav-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #64748B;
+  font-weight: 600;
+  font-size: 14.5px;
+  padding: 14px 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.novatech-subnav-tab:hover {
+  color: #EA580C;
+}
+
+.novatech-subnav-tab--active {
+  color: #EA580C;
+  border-bottom-color: #EA580C;
+  font-weight: 700;
+}
+
+/* Key Facts Strip (Built In Style) */
+.novatech-keyfacts-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(254, 215, 170, 0.6);
+}
+
+.novatech-keyfact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #FED7AA;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.novatech-keyfact-pill strong {
+  color: #0F172A;
+  font-weight: 700;
+}
+
+/* Section Cards & Layout */
+.novatech-section-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 28px 30px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+  margin-bottom: 24px;
+  scroll-margin-top: 130px;
+}
+
+.novatech-sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 120px;
+}
+
+.novatech-section-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.novatech-section-eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #EA580C;
+  margin-bottom: 4px;
+}
+
+/* Perks Grid */
+.novatech-perks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .novatech-perks-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.novatech-perk-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 18px 20px;
+  transition: all 0.2s ease;
+}
+
+.novatech-perk-card:hover {
+  background: #FFFDF8;
+  border-color: #FED7AA;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.06);
+}
+
+.novatech-perk-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.novatech-perk-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #FFF7ED;
+  color: #EA580C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.novatech-perk-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.novatech-perk-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.novatech-perk-item {
+  position: relative;
+  padding-left: 18px;
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.novatech-perk-item:last-child {
+  margin-bottom: 0;
+}
+
+.novatech-perk-item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #16A34A;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Tech Stack Badges */
+.novatech-tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1E293B;
+  transition: all 0.15s ease;
+}
+
+.novatech-tech-badge:hover {
+  background: #FFF7ED;
+  border-color: #FED7AA;
+  color: #EA580C;
+}
+
+/* Trust Commitment Box in Sidebar */
+.novatech-trust-box {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+  border: 1px solid #FED7AA;
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+
 /* ==========================================================================
    Modern Job Detail Page - Anti-Slop High-End Layout
    ========================================================================== */
