@@ -76,21 +76,22 @@ export default function SalaryReport() {
                   BÁO CÁO LƯƠNG &amp; THỊ TRƯỜNG TUYỂN DỤNG IT 2025–2026
                 </div>
 
-                <h1 className="report-hero-title mb-3">
-                  Chuyển Dịch Nhanh Chóng — <br />
+                <h1 className="report-hero-title mb-4">
+                  Chuyển Dịch Nhanh Chóng – <br />
                   <span className="hero-title-accent">
-                    Khi AI Tăng Tốc &amp; Mở Ra Nhiều Góc Nhìn Mới
+                    Khi AI Tăng Tốc &amp; Mở Ra Nhiều <br />
+                    Góc Nhìn Mới
                   </span>
                 </h1>
 
                 <p className="report-hero-desc mb-4">
-                  Được xây dựng từ góc nhìn của <strong>1.839 người tham gia – chuyên gia IT, freelancer, sinh viên IT, quản lý HR và CxOs</strong>. Báo cáo năm nay mang đến insight thực tiễn và xu hướng mới nổi của thị trường IT Việt Nam. Cập nhật biến động trong tuyển dụng IT, sự thay đổi trong hành vi và kỳ vọng của chuyên gia IT, cùng tác động của AI lên nhân tài và doanh nghiệp. Khám phá điều ẩn giấu cùng JobNest để đưa ra quyết định cho tương lai với sự tự tin cao hơn.
+                  Được xây dựng từ góc nhìn của <strong>1.839 người tham gia – chuyên gia IT, freelancer, sinh viên IT, quản lý HR và CxOs.</strong> Báo cáo năm nay mang đến insight thực tiễn và xu hướng mới nổi của thị trường IT Việt Nam. Cập nhật biến động trong tuyển dụng IT, sự thay đổi trong hành vi và kỳ vọng của chuyên gia IT, cùng tác động của AI lên nhân tài và doanh nghiệp. Khám phá điều ẩn giấu cùng JobNest để đưa ra quyết định cho tương lai với sự tự tin cao hơn.
                 </p>
 
                 <div className="d-flex flex-wrap align-items-center gap-3">
                   <button
                     type="button"
-                    className="btn btn-brand report-cta-btn"
+                    className="btn report-cta-btn"
                     onClick={handleDownload}
                   >
                     <FaDownload className="me-2" size={14} />
