@@ -32,6 +32,9 @@ import {
   FaNewspaper,
   FaQuestionCircle,
   FaHandsHelping,
+  FaPlay,
+  FaImage,
+  FaChevronLeft,
 } from 'react-icons/fa';
 import mockCompanies from '../mock/companies.js';
 import { mockBlogs } from '../mock/blogs.js';
@@ -471,6 +474,7 @@ export default function Companies() {
   const [showAllFilters, setShowAllFilters] = useState(false);
   const [companyTab, setCompanyTab] = useState('overview');
   const [expandedFaq, setExpandedFaq] = useState(0);
+  const [officeSlide, setOfficeSlide] = useState(0);
 
   const handleScrollToSection = (tabKey, elementId) => {
     setCompanyTab(tabKey);
@@ -733,60 +737,65 @@ export default function Companies() {
     }
   };
 
-  // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ BUILT IN (MCCAIN FOODS FORM)
+  // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ BUILT IN (MCCAIN FOODS FORM CHUẨN XÁC)
   if (selectedCompany) {
     const extras = getCompanyExtras(selectedCompany);
     const jobsList = selectedCompany.jobs || [];
     const companyWebsite = extras.website || selectedCompany.website;
 
-    // Danh mục công nghệ thực tế dựa theo lĩnh vực và jobs
-    const companyTechStack = [
-      'Java',
-      'Spring Boot',
-      'ReactJS',
-      'TypeScript',
-      'Cloud AWS',
-      'Docker',
-      'Kubernetes',
-      'PostgreSQL',
-      'Microservices',
-      'Git / CI/CD',
-      ...(selectedCompany.industry?.toLowerCase().includes('ngân hàng') || selectedCompany.industry?.toLowerCase().includes('tài chính')
-        ? ['Kafka', 'Oracle DB', 'DevSecOps', 'Fintech API']
-        : ['Python', 'AI / ML', 'Redis', 'RESTful API']),
+    // Danh sách ngành nghề chuẩn McCain Foods
+    const industryTags = [
+      extras.industry || selectedCompany.industry || 'Food',
+      'Retail',
+      'Agriculture',
+      'Manufacturing',
+      extras.ownership || 'Enterprise',
     ];
 
-    // FAQs chuẩn Built In McCain Foods
-    const companyFaqs = [
-      {
-        q: `Môi trường làm việc thực tế tại ${selectedCompany.shortName || selectedCompany.name} như thế nào?`,
-        a: `Môi trường làm việc tại ${selectedCompany.name} đề cao tính chuyên nghiệp, cởi mở và khuyến khích đổi mới sáng tạo. Đội ngũ nhân sự được trao quyền tự chủ, tạo điều kiện phát huy tối đa năng lực cá nhân cùng các chế độ đãi ngộ hàng đầu thị trường.`,
-      },
-      {
-        q: `Văn hóa doanh nghiệp và giá trị cốt lõi là gì?`,
-        a: `Văn hóa doanh nghiệp xoay quanh các giá trị trọng tâm: Tạo tác động thực tế (Impact-Driven), Tinh thần đồng đội (Collaborative) và Học hỏi không ngừng (Continuous Learning). Mọi thành viên đều được tôn trọng sự đa dạng và đóng góp vào mục tiêu chung.`,
-      },
-      {
-        q: `Chế độ làm việc linh hoạt (Hybrid Workspace) được áp dụng ra sao?`,
-        a: `Công ty áp dụng tiêu chuẩn Hybrid linh hoạt với 3 ngày làm việc tại văn phòng hiện đại và 2 ngày làm việc từ xa (Work from home), trang bị đầy đủ máy tính cấu hình cao cùng trợ cấp làm việc tiện nghi.`,
-      },
-      {
-        q: `Cơ hội đào tạo và lộ trình thăng tiến sự nghiệp cho nhân sự?`,
-        a: `Doanh nghiệp tài trợ 100% kinh phí thi các chứng chỉ chuyên môn quốc tế (AWS, GCP, PMP, Scum...), chương trình Mentorship 1-1 cùng chuyên gia cấp cao và đánh giá năng lực xét duyệt thăng chức định kỳ hàng năm.`,
-      },
-      {
-        q: `Quy trình ứng tuyển và thời gian phản hồi hồ sơ của JobNest?`,
-        a: `Quy trình tinh gọn gồm 3 vòng: Sàng lọc CV (cam kết phản hồi trong 48h) → Phỏng vấn chuyên môn / Kỹ thuật → Trao đổi văn hóa & Offer. Toàn bộ quy trình hoàn toàn miễn phí và minh bạch 100%.`,
-      },
+    // Danh sách phòng ban tuyển dụng chuẩn sidebar McCain Foods
+    const departmentsList = [
+      { name: 'Engineering', count: 22 },
+      { name: 'Sales', count: 20 },
+      { name: 'Finance', count: 17 },
+      { name: 'Supply Chain & Procurement', count: 17 },
+      { name: 'AI & Machine Learning', count: 14 },
+      { name: 'Program & Project Management', count: 14 },
+      { name: 'HR & Recruiting', count: 12 },
+      { name: 'Marketing', count: 10 },
+      { name: 'Data & Analytics', count: 8 },
+      { name: 'Operations & Support', count: 7 },
+      { name: 'Cybersecurity', count: 2 },
     ];
 
-    // Lọc 2 bài viết tin tức liên quan từ mockBlogs
-    const relatedArticles = mockBlogs.slice(0, 2);
+    // Danh sách cơ sở văn phòng chuẩn McCain Foods Offices carousel
+    const officeSites = [
+      {
+        id: 1,
+        title: 'Regional Headquarters - Australia & New Zealand',
+        tag: 'HQ',
+        image: 'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?auto=format&fit=crop&w=600&q=80',
+        meta: '3 Corporate Offices • 5 Manufacturing Plants',
+      },
+      {
+        id: 2,
+        title: 'Founding Headquarters',
+        tag: 'HQ',
+        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80',
+        meta: 'Historic Waterfront Campus & Innovation Center',
+      },
+      {
+        id: 3,
+        title: 'Regional Headquarters - North America',
+        tag: 'HQ',
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+        meta: 'High-Tech Commercial Tower & Global Strategy Center',
+      },
+    ];
 
     return (
-      <div className="mccain-page-root">
+      <div className="builtin-mccain-page">
         <div className="container" style={{ maxWidth: '1280px' }}>
-          {/* Breadcrumb nhẹ nhàng */}
+          {/* Breadcrumb */}
           <div className="d-flex align-items-center gap-2 mb-3 text-muted small">
             <button
               type="button"
@@ -800,18 +809,16 @@ export default function Companies() {
           </div>
 
           <div className="row g-4">
-            {/* CỘT TRÁI (~30%): Quick Facts Sidebar (McCain Foods Style) */}
+            {/* CỘT TRÁI (~28%): Sticky Sidebar McCain Foods */}
             <div className="col-12 col-lg-4 col-xl-3">
               <div className="mccain-sidebar-sticky">
-                {/* Card 1: Logo & Company Identity & Quick Metadata */}
+                {/* Card 1: Logo, Title, SAVE button & Metadata List */}
                 <div className="mccain-sidebar-card">
-                  {/* Centered Logo Box with offset */}
                   <div className="mccain-sidebar-logo-wrap">
                     <div className="mccain-sidebar-logo-box">
                       <img
                         src={selectedCompany.logo}
                         alt={selectedCompany.name}
-                        className="mccain-sidebar-logo-img"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                           if (e.currentTarget.nextElementSibling) {
@@ -829,65 +836,60 @@ export default function Companies() {
                     {selectedCompany.name}
                   </h1>
 
-                  {/* Save Button */}
                   <button
                     type="button"
                     className={`mccain-sidebar-save-btn ${isFollowed ? 'mccain-sidebar-save-btn--active' : ''}`}
                     onClick={handleToggleFollow}
                   >
-                    <span className="mccain-save-heart">
-                      {isFollowed ? '♥' : '♡'}
-                    </span>
-                    <span>{isFollowed ? 'SAVED (ĐANG THEO DÕI)' : 'SAVE (THEO DÕI)'}</span>
+                    <span>{isFollowed ? '♥' : '♡'}</span>
+                    <span>{isFollowed ? 'SAVED' : 'SAVE'}</span>
                   </button>
 
-                  {/* Quick Facts List */}
                   <div className="mccain-metadata-list">
                     <div className="mccain-metadata-item">
-                      <span className="mccain-meta-icon mccain-meta-icon--hq">HQ</span>
+                      <span className="mccain-meta-icon--hq">HQ</span>
                       <div className="mccain-meta-text">
-                        <span className="mccain-meta-label">Trụ sở chính:</span>
+                        <span className="mccain-meta-label">Trụ sở:</span>
                         <span className="mccain-meta-val">{extras.hq || selectedCompany.location}</span>
                       </div>
                     </div>
 
                     <div className="mccain-metadata-item">
-                      <span className="mccain-meta-icon"><FaBuilding size={14} /></span>
+                      <span className="mccain-meta-icon"><FaBuilding /></span>
                       <div className="mccain-meta-text">
-                        <span className="mccain-meta-label">Văn phòng hoạt động:</span>
-                        <span className="mccain-meta-val">{extras.officesCount || '11'} cơ sở</span>
+                        <span className="mccain-meta-label">Total Offices:</span>
+                        <span className="mccain-meta-val">{extras.officesCount || '11'}</span>
                       </div>
                     </div>
 
                     <div className="mccain-metadata-item">
-                      <span className="mccain-meta-icon"><FaUsers size={14} /></span>
+                      <span className="mccain-meta-icon"><FaUsers /></span>
                       <div className="mccain-meta-text">
-                        <span className="mccain-meta-label">Quy mô nhân sự:</span>
-                        <span className="mccain-meta-val">{extras.size || selectedCompany.size}</span>
+                        <span className="mccain-meta-val" style={{ marginLeft: 0 }}>
+                          {extras.size || selectedCompany.size || '20,000'} Total Employees
+                        </span>
                       </div>
                     </div>
 
                     <div className="mccain-metadata-item">
-                      <span className="mccain-meta-icon"><FaCalendarAlt size={14} /></span>
+                      <span className="mccain-meta-icon"><FaCalendarAlt /></span>
                       <div className="mccain-meta-text">
-                        <span className="mccain-meta-label">Năm thành lập:</span>
+                        <span className="mccain-meta-label">Year Founded:</span>
                         <span className="mccain-meta-val">{extras.founded || '1957'}</span>
                       </div>
                     </div>
 
                     {companyWebsite && (
                       <div className="mccain-metadata-item">
-                        <span className="mccain-meta-icon"><FaGlobe size={14} /></span>
+                        <span className="mccain-meta-icon"><FaGlobe /></span>
                         <div className="mccain-meta-text">
-                          <span className="mccain-meta-label">Trang web:</span>
                           <a
                             href={companyWebsite}
                             target="_blank"
                             rel="noreferrer"
                             className="mccain-meta-link"
                           >
-                            <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
-                            <span style={{ fontSize: '11px' }}>↗</span>
+                            View Website ↗
                           </a>
                         </div>
                       </div>
@@ -895,106 +897,57 @@ export default function Companies() {
                   </div>
                 </div>
 
-                {/* Card 2: We're Hiring! Department Pills */}
-                <div className="mccain-sidebar-card mt-3">
-                  <div className="d-flex align-items-center justify-content-between mb-2">
-                    <h3 className="mccain-hiring-box-title">We're Hiring!</h3>
-                    <span className="badge bg-danger-subtle text-danger fw-bold" style={{ fontSize: '11px' }}>
-                      {jobsList.length} vị trí
-                    </span>
-                  </div>
-                  <div className="d-flex flex-column gap-2 mt-2">
-                    <button
-                      type="button"
-                      className="mccain-hiring-row-btn"
-                      onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-                    >
-                      <span>Kỹ thuật &amp; Phần mềm</span>
-                      <span className="mccain-hiring-pill-num">{Math.max(1, Math.round(jobsList.length * 0.4))}</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="mccain-hiring-row-btn"
-                      onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-                    >
-                      <span>Dữ liệu &amp; Trí tuệ nhân tạo</span>
-                      <span className="mccain-hiring-pill-num">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="mccain-hiring-row-btn"
-                      onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-                    >
-                      <span>Vận hành &amp; Hạ tầng Cloud</span>
-                      <span className="mccain-hiring-pill-num">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="mccain-hiring-row-btn"
-                      onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-                    >
-                      <span>Sản phẩm &amp; Kinh doanh</span>
-                      <span className="mccain-hiring-pill-num">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Card 3: Trust Commitment */}
-                <div className="novatech-trust-box mt-3">
-                  <div className="d-flex align-items-center gap-2 mb-2">
-                    <span className="novatech-verified-badge" style={{ width: '22px', height: '22px' }}>
-                      <FaCheck size={11} />
-                    </span>
-                    <strong style={{ color: '#9A3412', fontSize: '15px' }}>Doanh nghiệp xác thực JobNest</strong>
-                  </div>
-                  <p className="small text-secondary mb-3" style={{ lineHeight: '1.5' }}>
-                    Hồ sơ pháp lý và thông tin tuyển dụng của doanh nghiệp đã được JobNest thẩm định an toàn và minh bạch 100%.
-                  </p>
-                  <div className="d-flex flex-column gap-1.5 small" style={{ color: '#431407' }}>
-                    <div>✓ Cam kết phản hồi ứng viên trong 48h</div>
-                    <div>✓ Không phát sinh chi phí ứng tuyển</div>
-                    <div>✓ Bảo mật thông tin hồ sơ tuyệt đối</div>
+                {/* Card 2: We're Hiring! Department List */}
+                <div className="mccain-sidebar-card">
+                  <h3 className="mccain-hiring-title">We're Hiring!</h3>
+                  <div className="d-flex flex-column">
+                    {departmentsList.map((dept, dIdx) => (
+                      <button
+                        key={dIdx}
+                        type="button"
+                        className="mccain-dept-item"
+                        onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+                      >
+                        <span>{dept.name}</span>
+                        <span className="mccain-dept-num">
+                          <span>{dept.count}</span>
+                          <span style={{ fontSize: '11px', color: '#9CA3AF' }}>›</span>
+                        </span>
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* CỘT PHẢI (~70%): Main Content Area (McCain Foods Style) */}
+            {/* CỘT PHẢI (~72%): Main Content Area */}
             <div className="col-12 col-lg-8 col-xl-9">
-              {/* Top Hero Banner Card (McCain Foods Signature) */}
+              {/* 1. Hero Banner Card */}
               <div className="mccain-hero-banner-card" id="company-overview-section">
                 <div className="mccain-hero-banner-visual">
-                  <img
-                    src={selectedCompany.cover || 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80'}
-                    alt={selectedCompany.name}
-                    className="mccain-banner-bg-img"
-                  />
-                  <div className="mccain-banner-overlay" />
+                  {/* Brand Tile on Left */}
+                  <div className="mccain-banner-logo-badge">
+                    <img src={selectedCompany.logo} alt="" className="mccain-banner-mini-logo" />
+                    <span className="mccain-banner-logo-text">{selectedCompany.shortName || selectedCompany.name}</span>
+                  </div>
 
-                  <div className="mccain-banner-content">
-                    <div className="mccain-banner-logo-badge">
-                      <img src={selectedCompany.logo} alt="" className="mccain-banner-mini-logo" />
-                      <span className="mccain-banner-logo-text">{selectedCompany.shortName || selectedCompany.name}</span>
+                  {/* 3 Circular Employee Photos Cluster + 2 Yellow Sunbursts */}
+                  <div className="mccain-photos-cluster">
+                    <div className="mccain-cluster-dot mccain-cluster-dot--top" />
+                    <div className="mccain-cluster-avatar">
+                      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" alt="Team" />
                     </div>
-
-                    {/* Circular photo cutouts cluster */}
-                    <div className="mccain-photos-cluster">
-                      <div className="mccain-cluster-dot mccain-cluster-dot--top" />
-                      <div className="mccain-cluster-avatar mccain-cluster-avatar--1">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" alt="Team" />
-                      </div>
-                      <div className="mccain-cluster-avatar mccain-cluster-avatar--2">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&q=80" alt="Team" />
-                      </div>
-                      <div className="mccain-cluster-avatar mccain-cluster-avatar--3">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80" alt="Team" />
-                      </div>
-                      <div className="mccain-cluster-dot mccain-cluster-dot--bottom" />
+                    <div className="mccain-cluster-avatar">
+                      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&q=80" alt="Team" />
                     </div>
+                    <div className="mccain-cluster-avatar">
+                      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80" alt="Team" />
+                    </div>
+                    <div className="mccain-cluster-dot mccain-cluster-dot--bottom" />
                   </div>
                 </div>
 
-                {/* In-Page Navigation Bar right below banner */}
+                {/* In-Page Navigation Bar */}
                 <div className="mccain-subnav-bar">
                   <button
                     type="button"
@@ -1008,7 +961,7 @@ export default function Companies() {
                     className={`mccain-subnav-tab ${companyTab === 'jobs' ? 'mccain-subnav-tab--active' : ''}`}
                     onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
                   >
-                    Jobs {jobsList.length}
+                    Jobs {jobsList.length || 146}
                   </button>
                   <button
                     type="button"
@@ -1019,419 +972,217 @@ export default function Companies() {
                   </button>
                   <button
                     type="button"
-                    className={`mccain-subnav-tab ${companyTab === 'culture' ? 'mccain-subnav-tab--active' : ''}`}
-                    onClick={() => handleScrollToSection('culture', 'company-culture-section')}
-                  >
-                    Culture &amp; Values
-                  </button>
-                  <button
-                    type="button"
                     className={`mccain-subnav-tab ${companyTab === 'perks' ? 'mccain-subnav-tab--active' : ''}`}
-                    onClick={() => handleScrollToSection('perks', 'company-perks-section')}
+                    onClick={() => handleScrollToSection('perks', 'company-media-section')}
                   >
                     Perks + Benefits
                   </button>
                   <button
                     type="button"
-                    className={`mccain-subnav-tab ${companyTab === 'tech' ? 'mccain-subnav-tab--active' : ''}`}
-                    onClick={() => handleScrollToSection('tech', 'company-tech-section')}
-                  >
-                    Tech Stack
-                  </button>
-                  <button
-                    type="button"
                     className={`mccain-subnav-tab ${companyTab === 'articles' ? 'mccain-subnav-tab--active' : ''}`}
-                    onClick={() => handleScrollToSection('articles', 'company-articles-section')}
+                    onClick={() => handleScrollToSection('articles', 'company-jobs-section')}
                   >
                     Articles
                   </button>
                   <button
                     type="button"
-                    className={`mccain-subnav-tab ${companyTab === 'faqs' ? 'mccain-subnav-tab--active' : ''}`}
-                    onClick={() => handleScrollToSection('faqs', 'company-faqs-section')}
+                    className="mccain-subnav-tab"
+                    onClick={() => handleScrollToSection('insights', 'company-offices-section')}
                   >
-                    Company Insights
+                    Company Insights ∨
                   </button>
                 </div>
 
-                {/* Sub-Banner Content: Industry badges & Headline */}
+                {/* Sub-Banner Content: Industry badges, Headline & Lead */}
                 <div className="mccain-banner-body">
-                  <div className="d-flex flex-wrap align-items-center gap-2 mb-3">
-                    <span className="mccain-industry-pill">{extras.industry || selectedCompany.industry}</span>
-                    <span className="mccain-industry-pill">{extras.ownership || 'Enterprise'}</span>
-                    <span className="mccain-industry-pill">{extras.size || selectedCompany.size}</span>
-                    <span className="mccain-industry-pill mccain-industry-pill--verified">
-                      <FaCheck size={10} className="me-1 text-primary" /> Verified Employer
-                    </span>
+                  <div className="mccain-industry-pills">
+                    {industryTags.map((tag, tIdx) => (
+                      <span key={tIdx} className="mccain-industry-pill">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
 
                   <h2 className="mccain-main-headline">
-                    "{extras.tagline}"
+                    "{extras.tagline || `At ${selectedCompany.name} we know the importance that innovation plays in people's lives.`}"
                   </h2>
 
                   <p className="mccain-main-lead">
                     {selectedCompany.description ||
-                      `${selectedCompany.name} là tổ chức hàng đầu hoạt động chuyên sâu trong lĩnh vực ${selectedCompany.industry}, kiến tạo giá trị đột phá và kết nối hàng triệu khách hàng qua các giải pháp và dịch vụ chuẩn quốc tế.`}
+                      `At ${selectedCompany.name} we believe that working together with our teams, business and community partners will bring sustainable growth and positive change — today, tomorrow and for generations to come. Our product quality, people and customer dedication help us achieve global excellence across all operations.`}
                   </p>
                 </div>
               </div>
 
-              {/* Mục 1: Văn phòng & Địa điểm làm việc (McCain Style) */}
-              <div className="novatech-section-card" id="company-offices-section">
-                <div className="novatech-section-eyebrow">KHÔNG GIAN &amp; ĐỊA ĐIỂM</div>
-                <h2 className="novatech-section-title">
-                  Mạng lưới văn phòng &amp; Cơ sở hoạt động
-                </h2>
-                <p style={{ fontSize: '14.5px', color: '#475569', lineHeight: '1.6', marginBottom: '16px' }}>
-                  Tại các cơ sở sản xuất và văn phòng làm việc, chúng tôi tin rằng sự gắn kết mang lại hiệu quả tốt nhất cho đội ngũ. Tiêu chuẩn làm việc tại văn phòng là mô hình Hybrid 3 ngày/tuần, kết hợp làm việc từ xa linh hoạt.
-                </p>
+              {/* 2. Media Showcase: Culture Video + Brand Box + View Gallery */}
+              <div className="mccain-media-row" id="company-media-section">
+                {/* Left: Culture Video Box */}
+                <div className="mccain-video-box">
+                  <img
+                    src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80"
+                    alt="McCain Culture"
+                    className="mccain-video-img"
+                  />
+                  <div
+                    className="mccain-play-btn"
+                    onClick={() => showToast('info', 'Đang phát video văn hóa doanh nghiệp...')}
+                    title="Xem video văn hóa doanh nghiệp"
+                  >
+                    <FaPlay size={18} />
+                  </div>
+                </div>
 
-                <div className="mccain-office-grid">
-                  <div className="mccain-office-card">
-                    <div className="d-flex align-items-center gap-2 mb-1.5">
-                      <FaBuilding className="text-primary" size={15} />
-                      <strong className="text-dark" style={{ fontSize: '15px' }}>Trụ sở chính (HQ)</strong>
-                    </div>
-                    <div className="text-secondary small mb-1">{extras.hq || selectedCompany.location}</div>
-                    <div className="badge bg-white border text-dark fw-semibold" style={{ fontSize: '11.5px' }}>
-                      Văn phòng điều hành trung tâm
-                    </div>
+                {/* Right: Stacked Brand Tile + View Gallery */}
+                <div className="mccain-media-stack">
+                  <div className="mccain-brand-tile">
+                    <img src={selectedCompany.logo} alt={selectedCompany.name} />
                   </div>
 
-                  <div className="mccain-office-card">
-                    <div className="d-flex align-items-center gap-2 mb-1.5">
-                      <FaMapMarkerAlt className="text-danger" size={15} />
-                      <strong className="text-dark" style={{ fontSize: '15px' }}>Chi nhánh TP. Hồ Chí Minh</strong>
-                    </div>
-                    <div className="text-secondary small mb-1">Khu công nghệ cao &amp; Quận 1, TP.HCM</div>
-                    <div className="badge bg-white border text-dark fw-semibold" style={{ fontSize: '11.5px' }}>
-                      Trung tâm phát triển kinh doanh &amp; AI
-                    </div>
-                  </div>
-
-                  <div className="mccain-office-card">
-                    <div className="d-flex align-items-center gap-2 mb-1.5">
-                      <FaMapMarkerAlt className="text-success" size={15} />
-                      <strong className="text-dark" style={{ fontSize: '15px' }}>Chi nhánh Đà Nẵng</strong>
-                    </div>
-                    <div className="text-secondary small mb-1">Công viên phần mềm Đà Nẵng</div>
-                    <div className="badge bg-white border text-dark fw-semibold" style={{ fontSize: '11.5px' }}>
-                      Trung tâm R&amp;D công nghệ cao
-                    </div>
-                  </div>
-
-                  <div className="mccain-office-card">
-                    <div className="d-flex align-items-center gap-2 mb-1.5">
-                      <FaGlobe className="text-warning" size={15} />
-                      <strong className="text-dark" style={{ fontSize: '15px' }}>Mạng lưới quốc tế</strong>
-                    </div>
-                    <div className="text-secondary small mb-1">{extras.offices || 'Hoạt động trên thị trường quốc tế'}</div>
-                    <div className="badge bg-white border text-dark fw-semibold" style={{ fontSize: '11.5px' }}>
-                      Văn phòng đại diện toàn cầu
+                  <div
+                    className="mccain-gallery-tile"
+                    onClick={() => showToast('info', 'Mở bộ sưu tập ảnh nơi làm việc...')}
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80"
+                      alt="Workplace"
+                    />
+                    <div className="mccain-gallery-overlay">
+                      <FaImage size={20} />
+                      <span className="mccain-gallery-text">VIEW GALLERY</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Mục 2: Văn hóa & Giá trị cốt lõi */}
-              <div className="novatech-section-card" id="company-culture-section">
-                <div className="novatech-section-eyebrow">MÔI TRƯỜNG &amp; VĂN HÓA</div>
-                <h2 className="novatech-section-title">
-                  Văn hóa doanh nghiệp &amp; Giá trị cốt lõi
-                </h2>
-                <div className="row g-3">
-                  <div className="col-12 col-md-4">
-                    <div className="novatech-value-box">
-                      <div className="novatech-value-icon">
-                        <FaBolt size={18} />
-                      </div>
-                      <h3 className="fw-bold text-dark mb-1.5" style={{ fontSize: '15px' }}>
-                        Tác động thực tế
-                      </h3>
-                      <p className="text-secondary small mb-0" style={{ lineHeight: '1.55' }}>
-                        Tập trung giải quyết các bài toán lớn, tạo ra giá trị đột phá và bền vững cho hàng triệu người dùng.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-4">
-                    <div className="novatech-value-box">
-                      <div className="novatech-value-icon">
-                        <FaUserFriends size={18} />
-                      </div>
-                      <h3 className="fw-bold text-dark mb-1.5" style={{ fontSize: '15px' }}>
-                        Gắn kết &amp; Đồng đội
-                      </h3>
-                      <p className="text-secondary small mb-0" style={{ lineHeight: '1.55' }}>
-                        Môi trường cởi mở, minh bạch, tôn trọng sự đa dạng cá nhân và cùng nhau chinh phục mục tiêu lớn.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-4">
-                    <div className="novatech-value-box">
-                      <div className="novatech-value-icon">
-                        <FaLightbulb size={18} />
-                      </div>
-                      <h3 className="fw-bold text-dark mb-1.5" style={{ fontSize: '15px' }}>
-                        Học hỏi không ngừng
-                      </h3>
-                      <p className="text-secondary small mb-0" style={{ lineHeight: '1.55' }}>
-                        Khuyến khích thử nghiệm, tài trợ ngân sách học tập và hỗ trợ thăng tiến sự nghiệp liên tục.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Mục 3: Việc làm đang tuyển dụng */}
-              <div className="novatech-section-card" id="company-jobs-section">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <div className="novatech-section-eyebrow">CƠ HỘI NGHỀ NGHIỆP</div>
-                    <h2 className="novatech-section-title mb-0">
-                      Vị trí đang mở tuyển dụng tại {selectedCompany.shortName} ({jobsList.length})
-                    </h2>
-                  </div>
-                  <span className="badge bg-white border px-3 py-1.5 rounded-pill fw-semibold shadow-xs" style={{ fontSize: '13px', color: '#EA580C', borderColor: '#FED7AA' }}>
-                    Đang tuyển gấp
-                  </span>
+              {/* 3. Recently Posted Jobs Section */}
+              <div className="mccain-section-card" id="company-jobs-section">
+                <div className="mccain-sec-header">
+                  <h2 className="mccain-sec-title">
+                    Recently Posted Jobs at {selectedCompany.shortName || selectedCompany.name}
+                  </h2>
+                  <Link
+                    to={`/jobs/search?keyword=${encodeURIComponent(selectedCompany.shortName || selectedCompany.name)}`}
+                    className="mccain-sec-link"
+                  >
+                    VIEW ALL →
+                  </Link>
                 </div>
 
-                {jobsList.length === 0 ? (
-                  <div className="p-4 bg-light border rounded-3 text-center text-muted">
-                    <FaBriefcase size={32} className="text-muted mb-2 mx-auto" />
-                    <h3 className="h6 fw-bold text-dark mb-1">Hiện tại chưa có vị trí mở tuyển dụng mới</h3>
-                    <p className="text-muted small mb-0">Doanh nghiệp đang hoàn tất đợt tuyển dụng. Vui lòng nhấn "Theo dõi" để nhận thông báo sớm nhất.</p>
-                  </div>
-                ) : (
-                  <div className="d-flex flex-column gap-3">
-                    {jobsList.map((job) => (
-                      <div key={job.id} className="novatech-featured-job-card">
-                        <div className="d-flex flex-column gap-1">
-                          <h3 className="fw-bold mb-1" style={{ fontSize: '18px', color: '#0F172A', lineHeight: '1.35' }}>
-                            <Link to={`/jobs/${job.id}`} className="text-decoration-none hover-primary" style={{ color: '#0F172A' }}>
-                              {job.title}
-                            </Link>
-                          </h3>
-                          <div className="d-flex flex-wrap align-items-center gap-2 mb-2" style={{ fontSize: '14.5px', color: '#334155' }}>
-                            <span className="fw-semibold text-dark">
-                              {job.jobType === 'FULL_TIME' ? 'Toàn thời gian' : job.jobType === 'INTERN' ? 'Thực tập' : 'Bán thời gian'}
-                            </span>
-                            <span>•</span>
-                            <span>{job.location}</span>
-                            <span>•</span>
-                            <span className="fw-bold" style={{ fontSize: '16px', color: '#15803D' }}>
-                              {job.salaryText}
-                            </span>
-                          </div>
-                          <div className="d-flex flex-wrap gap-1.5">
-                            {getJobSkills(job, selectedCompany.industry).map((skill, sIdx) => (
-                              <span key={sIdx} className="novatech-job-tag">
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        <Link
-                          to={`/jobs/${job.id}`}
-                          className="btn btn-outline-dark rounded-pill fw-bold btn-sm px-4 py-2 text-nowrap align-self-center"
-                          style={{ fontSize: '13.5px' }}
-                        >
-                          Ứng tuyển ngay →
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Mục 4: Chế độ đãi ngộ & Phúc lợi (6-Grid Card) */}
-              <div className="novatech-section-card" id="company-perks-section">
-                <div className="novatech-section-eyebrow">ĐÃI NGỘ &amp; CHẾ ĐỘ</div>
-                <h2 className="novatech-section-title">
-                  Phúc lợi &amp; Chế độ đãi ngộ toàn diện
-                </h2>
-                <div className="novatech-perks-grid">
-                  <div className="novatech-perk-card">
-                    <div className="novatech-perk-header">
-                      <div className="novatech-perk-icon-wrap">
-                        <FaMoneyBillWave />
-                      </div>
-                      <h3 className="novatech-perk-title">Lương &amp; Thưởng đãi ngộ</h3>
-                    </div>
-                    <ul className="novatech-perk-list">
-                      <li className="novatech-perk-item">Thu nhập cạnh tranh, thưởng hiệu quả kinh doanh &amp; dự án</li>
-                      <li className="novatech-perk-item">Lương tháng 13 &amp; thưởng dịp lễ tết hàng năm</li>
-                      <li className="novatech-perk-item">Xét duyệt điều chỉnh tăng lương định kỳ theo năng lực</li>
-                    </ul>
-                  </div>
-
-                  <div className="novatech-perk-card">
-                    <div className="novatech-perk-header">
-                      <div className="novatech-perk-icon-wrap">
-                        <FaHeartbeat />
-                      </div>
-                      <h3 className="novatech-perk-title">Sức khỏe &amp; Bảo hiểm</h3>
-                    </div>
-                    <ul className="novatech-perk-list">
-                      <li className="novatech-perk-item">Gói bảo hiểm sức khỏe cao cấp toàn diện (AON / Bảo Việt)</li>
-                      <li className="novatech-perk-item">Khám sức khỏe tổng quát định kỳ hàng năm tại viện quốc tế</li>
-                      <li className="novatech-perk-item">CLB thể thao, teambuilding, yoga và chăm sóc tinh thần</li>
-                    </ul>
-                  </div>
-
-                  <div className="novatech-perk-card">
-                    <div className="novatech-perk-header">
-                      <div className="novatech-perk-icon-wrap">
-                        <FaGraduationCap />
-                      </div>
-                      <h3 className="novatech-perk-title">Đào tạo &amp; Phát triển</h3>
-                    </div>
-                    <ul className="novatech-perk-list">
-                      <li className="novatech-perk-item">Tài trợ 100% kinh phí thi các chứng chỉ quốc tế (AWS, GCP, PMP)</li>
-                      <li className="novatech-perk-item">Chương trình Mentorship 1-1 đồng hành cùng chuyên gia</li>
-                      <li className="novatech-perk-item">Lộ trình thăng tiến và phát triển sự nghiệp minh bạch</li>
-                    </ul>
-                  </div>
-
-                  <div className="novatech-perk-card">
-                    <div className="novatech-perk-header">
-                      <div className="novatech-perk-icon-wrap">
-                        <FaUmbrellaBeach />
-                      </div>
-                      <h3 className="novatech-perk-title">Cân bằng cuộc sống</h3>
-                    </div>
-                    <ul className="novatech-perk-list">
-                      <li className="novatech-perk-item">15+ ngày nghỉ phép năm nguyên lương, chính sách hybrid linh hoạt</li>
-                      <li className="novatech-perk-item">Chuyến du lịch công ty (Company Trip) nghỉ dưỡng hàng năm</li>
-                      <li className="novatech-perk-item">Quà tặng và ngày hội gắn kết gia đình nhân viên (Family Day)</li>
-                    </ul>
-                  </div>
-
-                  <div className="novatech-perk-card">
-                    <div className="novatech-perk-header">
-                      <div className="novatech-perk-icon-wrap">
-                        <FaHandsHelping />
-                      </div>
-                      <h3 className="novatech-perk-title">Hòa nhập &amp; Đa dạng</h3>
-                    </div>
-                    <ul className="novatech-perk-list">
-                      <li className="novatech-perk-item">Môi trường bình đẳng giới, không phân biệt đối xử</li>
-                      <li className="novatech-perk-item">Tôn trọng sự đa dạng văn hóa và quốc tịch nhân viên</li>
-                      <li className="novatech-perk-item">Các nhóm hỗ trợ và phát triển cộng đồng nội bộ (ERG)</li>
-                    </ul>
-                  </div>
-
-                  <div className="novatech-perk-card">
-                    <div className="novatech-perk-header">
-                      <div className="novatech-perk-icon-wrap">
-                        <FaAward />
-                      </div>
-                      <h3 className="novatech-perk-title">Ghi nhận &amp; Tôn vinh</h3>
-                    </div>
-                    <ul className="novatech-perk-list">
-                      <li className="novatech-perk-item">Giải thưởng nhân viên xuất sắc hàng quý (Star of Quarter)</li>
-                      <li className="novatech-perk-item">Giải thưởng sáng kiến cải tiến công nghệ (Innovation Award)</li>
-                      <li className="novatech-perk-item">Khen thưởng cống hiến gắn bó lâu năm (Long Service Award)</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* Mục 5: Công nghệ & Hệ sinh thái sử dụng */}
-              <div className="novatech-section-card" id="company-tech-section">
-                <div className="novatech-section-eyebrow">TECH STACK &amp; TOOLS</div>
-                <h2 className="novatech-section-title">
-                  Công nghệ &amp; Hệ sinh thái sử dụng (Technology We Use)
-                </h2>
-                <div className="d-flex flex-wrap gap-2">
-                  {companyTechStack.map((tech, idx) => (
-                    <span key={idx} className="novatech-tech-badge">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Mục 6: Bài viết & Tin tức doanh nghiệp (Articles We're In) */}
-              <div className="novatech-section-card" id="company-articles-section">
-                <div className="novatech-section-eyebrow">BÀI VIẾT &amp; TIN TỨC</div>
-                <h2 className="novatech-section-title">
-                  Tin tức &amp; Góc nhìn văn hóa (Articles We're In)
-                </h2>
-                <div className="d-flex flex-column gap-3">
-                  {relatedArticles.map((art) => (
+                <div className="mccain-jobs-grid">
+                  {(jobsList.length > 0 ? jobsList : [
+                    { id: 101, title: 'Supply Chain Intern', location: 'Cầu Giấy, Hà Nội', salaryText: '8 - 12 triệu' },
+                    { id: 102, title: 'Graphic Designer', location: 'TP. Hồ Chí Minh', salaryText: '15 - 22 triệu' },
+                  ]).slice(0, 4).map((job) => (
                     <Link
-                      key={art.id}
-                      to={`/blog/${art.id}`}
-                      className="mccain-article-card"
+                      key={job.id}
+                      to={`/jobs/${job.id}`}
+                      className="mccain-job-card"
                     >
-                      <img
-                        src={art.cover}
-                        alt={art.title}
-                        className="mccain-article-img"
-                        loading="lazy"
-                      />
-                      <div className="p-3 d-flex flex-column justify-content-between flex-grow-1">
-                        <div>
-                          <div className="d-flex align-items-center gap-2 mb-1.5">
-                            <span className="badge bg-warning-subtle text-warning-emphasis fw-bold" style={{ fontSize: '11px' }}>
-                              {art.category}
-                            </span>
-                            <span className="text-muted small">• {art.date}</span>
-                            <span className="text-muted small">• {art.readTime}</span>
-                          </div>
-                          <h3 className="fw-bold text-dark mb-1" style={{ fontSize: '16px', lineHeight: '1.4' }}>
-                            {art.title}
-                          </h3>
-                          <p className="text-secondary small mb-0 text-truncate-2" style={{ lineHeight: '1.5' }}>
-                            {art.excerpt}
+                      <div>
+                        <div className="mccain-job-card-top">
+                          <img
+                            src={selectedCompany.logo}
+                            alt=""
+                            className="mccain-job-mini-logo"
+                          />
+                          <p className="mccain-job-company">
+                            {selectedCompany.shortName || selectedCompany.name}
                           </p>
                         </div>
-                        <div className="d-flex align-items-center gap-2 mt-2 text-primary fw-bold small">
-                          <span>Đọc bài viết chi tiết</span>
-                          <FaArrowRight size={11} />
-                        </div>
+                        <h3 className="mccain-job-title">
+                          {job.title}
+                        </h3>
+                      </div>
+                      <div className="mccain-job-meta">
+                        <span>📍 In-Office</span>
+                        <span>•</span>
+                        <span>{job.location}</span>
+                        {job.salaryText && (
+                          <span className="mccain-job-salary">{job.salaryText}</span>
+                        )}
                       </div>
                     </Link>
                   ))}
                 </div>
               </div>
 
-              {/* Mục 7: Hỏi đáp & Góc nhìn văn hóa (Company FAQs Accordion) */}
-              <div className="novatech-section-card" id="company-faqs-section">
-                <div className="novatech-section-eyebrow">HỎI ĐÁP &amp; INSIGHTS</div>
-                <h2 className="novatech-section-title">
-                  Câu hỏi thường gặp về {selectedCompany.shortName || selectedCompany.name} (Company FAQs)
-                </h2>
-                <div className="d-flex flex-column">
-                  {companyFaqs.map((faq, idx) => {
-                    const isOpen = expandedFaq === idx;
-                    return (
-                      <div
-                        key={idx}
-                        className={`mccain-faq-item ${isOpen ? 'mccain-faq-item--open' : ''}`}
-                      >
-                        <button
-                          type="button"
-                          className="mccain-faq-header"
-                          onClick={() => setExpandedFaq(isOpen ? -1 : idx)}
-                          aria-expanded={isOpen}
-                        >
-                          <span className="d-flex align-items-center gap-2">
-                            <FaQuestionCircle className="text-secondary" size={14} />
-                            <span>{faq.q}</span>
-                          </span>
-                          {isOpen ? (
-                            <FaChevronUp size={12} className="text-primary flex-shrink-0" />
-                          ) : (
-                            <FaChevronDown size={12} className="text-muted flex-shrink-0" />
-                          )}
-                        </button>
-                        {isOpen && <div className="mccain-faq-body">{faq.a}</div>}
+              {/* 4. Offices Section: Hybrid Workspace + Locations Carousel */}
+              <div className="mccain-section-card" id="company-offices-section">
+                <div className="mccain-sec-header">
+                  <h2 className="mccain-sec-title">
+                    {selectedCompany.shortName || selectedCompany.name} Offices
+                  </h2>
+                  <a
+                    href="#company-offices-section"
+                    className="mccain-sec-link"
+                    onClick={(e) => { e.preventDefault(); showToast('info', 'Đang mở thông tin các cơ sở văn phòng...'); }}
+                  >
+                    LEARN MORE →
+                  </a>
+                </div>
+
+                {/* Hybrid Workspace Callout Box */}
+                <div className="mccain-hybrid-box">
+                  <div className="mccain-hybrid-header">
+                    <FaBuilding className="text-primary" size={18} />
+                    <h3 className="mccain-hybrid-title">Hybrid Workspace</h3>
+                  </div>
+                  <div className="mccain-hybrid-sub">
+                    Employees engage in a combination of remote and on-site work.
+                  </div>
+                  <p className="mccain-hybrid-body">
+                    In both our manufacturing plants and corporate offices, we believe connection brings out the best in our people. While in-office expectations will vary by role, flexibility is key. In our corporate offices, the hybrid standard is 3-days in office.
+                  </p>
+                  <div className="mccain-flexible-pill">
+                    Typical time on-site: <strong>Flexible</strong>
+                  </div>
+                </div>
+
+                {/* 3 Office Sites Cards */}
+                <div className="mccain-offices-row">
+                  {officeSites.map((site) => (
+                    <div key={site.id} className="mccain-office-card">
+                      <div className="mccain-office-thumb">
+                        <img src={site.image} alt={site.title} />
                       </div>
-                    );
-                  })}
+                      <div className="mccain-office-label">
+                        <span className="mccain-hq-badge">{site.tag}</span>
+                        <span>{site.title}</span>
+                      </div>
+                      <div className="text-muted small mt-1" style={{ fontSize: '12px' }}>
+                        {site.meta}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Carousel Controls & Pagination Dots */}
+                <div className="mccain-carousel-nav">
+                  <button
+                    type="button"
+                    className="mccain-arrow-btn"
+                    onClick={() => setOfficeSlide((s) => (s > 0 ? s - 1 : 9))}
+                    aria-label="Previous office"
+                  >
+                    <FaChevronLeft />
+                  </button>
+                  <button
+                    type="button"
+                    className="mccain-arrow-btn"
+                    onClick={() => setOfficeSlide((s) => (s < 9 ? s + 1 : 0))}
+                    aria-label="Next office"
+                  >
+                    <FaChevronRight />
+                  </button>
+
+                  <div className="mccain-dots-track">
+                    {Array.from({ length: 10 }).map((_, dIdx) => (
+                      <span
+                        key={dIdx}
+                        className={`mccain-dot ${officeSlide === dIdx ? 'mccain-dot--active' : ''}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

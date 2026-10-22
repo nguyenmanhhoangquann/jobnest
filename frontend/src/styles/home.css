@@ -3754,60 +3754,64 @@
 }
 
 /* ==========================================================================
-   McCain Foods 30/70 Asymmetric Layout (Sidebar on Left, Rich Content on Right)
+   McCain Foods 30/70 Asymmetric Layout Archetype (100% Faithful to Reference)
    ========================================================================== */
 .mccain-page-root {
   background-color: #F4F5F7;
   min-height: 100vh;
-  padding: 28px 0 60px;
+  padding: 24px 0 64px;
 }
 
+/* Left Column: Sticky Sidebar */
 .mccain-sidebar-sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 76px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .mccain-sidebar-card {
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  padding: 28px 20px 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 24px 20px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .mccain-sidebar-logo-wrap {
   display: flex;
   justify-content: center;
-  margin-top: -52px;
-  margin-bottom: 14px;
+  margin-top: -46px;
+  margin-bottom: 12px;
 }
 
 .mccain-sidebar-logo-box {
-  width: 96px;
-  height: 96px;
+  width: 88px;
+  height: 88px;
   background: #FFFFFF;
-  border: 1.5px solid #E2E8F0;
-  border-radius: 18px;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
   padding: 8px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.mccain-sidebar-logo-img {
+.mccain-sidebar-logo-box img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
 .mccain-sidebar-title {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
-  color: #0F172A;
+  color: #0D143C;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   letter-spacing: -0.02em;
 }
 
@@ -3818,220 +3822,200 @@
   justify-content: center;
   gap: 8px;
   background: #FFFFFF;
-  border: 1.5px solid #3B82F6;
+  border: 1.5px solid #0056B3;
   border-radius: 9999px;
-  padding: 9px 18px;
-  color: #2563EB;
+  padding: 8px 18px;
+  color: #0056B3;
   font-weight: 700;
-  font-size: 13.5px;
-  letter-spacing: 0.04em;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: all 0.15s ease;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .mccain-sidebar-save-btn:hover {
-  background: #EFF6FF;
-  border-color: #1D4ED8;
-  color: #1D4ED8;
+  background: #F0F7FF;
 }
 
 .mccain-sidebar-save-btn--active {
-  background: #2563EB;
+  background: #0056B3;
   color: #FFFFFF;
-  border-color: #2563EB;
-}
-
-.mccain-save-heart {
-  font-size: 16px;
-  line-height: 1;
 }
 
 .mccain-metadata-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  border-top: 1px solid #F1F5F9;
-  padding-top: 16px;
 }
 
 .mccain-metadata-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #F3F4F6;
   font-size: 13.5px;
+  color: #0D143C;
 }
 
 .mccain-meta-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #64748B;
+  color: #0D143C;
+  font-size: 14px;
   flex-shrink: 0;
 }
 
 .mccain-meta-icon--hq {
-  background: #EFF6FF;
-  color: #2563EB;
+  background: #0056B3;
+  color: #FFFFFF;
   font-size: 10px;
   font-weight: 900;
+  padding: 2px 5px;
   border-radius: 4px;
+  letter-spacing: 0.04em;
+  width: auto;
 }
 
 .mccain-meta-text {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-grow: 1;
   min-width: 0;
 }
 
 .mccain-meta-label {
-  font-size: 11.5px;
-  color: #64748B;
   font-weight: 500;
+  color: #4B5563;
 }
 
 .mccain-meta-val {
-  font-size: 13.5px;
-  color: #0F172A;
   font-weight: 700;
+  color: #0D143C;
+  margin-left: auto;
 }
 
 .mccain-meta-link {
-  color: #2563EB;
+  color: #0056B3;
   font-weight: 700;
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  margin-left: auto;
 }
 
 .mccain-meta-link:hover {
   text-decoration: underline;
 }
 
-.mccain-hiring-box-title {
-  font-size: 16px;
+/* Left Sidebar: We're Hiring List */
+.mccain-hiring-title {
+  font-size: 17px;
   font-weight: 800;
-  color: #0F172A;
-  margin: 0;
+  color: #0D143C;
+  margin-bottom: 12px;
+  text-align: center;
 }
 
-.mccain-hiring-row-btn {
+.mccain-dept-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  padding: 8px 12px;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  font-size: 13px;
+  padding: 11px 0;
+  border-top: 1px solid #F3F4F6;
+  font-size: 13.5px;
   font-weight: 600;
-  color: #334155;
+  color: #0D143C;
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  width: 100%;
   text-align: left;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: color 0.15s ease;
 }
 
-.mccain-hiring-row-btn:hover {
-  background: #FFF7ED;
-  border-color: #FED7AA;
-  color: #EA580C;
+.mccain-dept-item:hover {
+  color: #0056B3;
 }
 
-.mccain-hiring-pill-num {
-  background: #FFFFFF;
-  border: 1px solid #CBD5E1;
-  border-radius: 999px;
-  padding: 1px 7px;
-  font-size: 11px;
+.mccain-dept-num {
   font-weight: 800;
-  color: #0F172A;
+  color: #0D143C;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-/* Right Main Banner Card */
+.mccain-dept-item:hover .mccain-dept-num {
+  color: #0056B3;
+}
+
+/* Right Column: Hero Banner Card */
 .mccain-hero-banner-card {
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   margin-bottom: 24px;
 }
 
 .mccain-hero-banner-visual {
   position: relative;
-  height: 220px;
-  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #3B82F6 100%);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  padding: 0 32px;
-}
-
-.mccain-banner-bg-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.28;
-  mix-blend-mode: overlay;
-}
-
-.mccain-banner-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(15, 23, 42, 0.7) 0%, rgba(37, 99, 235, 0.5) 100%);
-}
-
-.mccain-banner-content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #0A43A6 0%, #0056B3 60%, #1A73E8 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 32px;
+  overflow: hidden;
 }
 
 .mccain-banner-logo-badge {
+  position: relative;
+  z-index: 2;
+  background: #000000;
+  border: 2px solid #FFD100;
+  border-radius: 10px;
+  padding: 8px 16px;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 8px 16px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .mccain-banner-mini-logo {
-  width: 38px;
-  height: 38px;
+  height: 32px;
+  width: auto;
   object-fit: contain;
 }
 
 .mccain-banner-logo-text {
-  font-size: 18px;
+  color: #FFFFFF;
   font-weight: 800;
-  color: #0F172A;
+  font-size: 16px;
+  letter-spacing: 0.02em;
 }
 
 .mccain-photos-cluster {
   position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
 }
 
 .mccain-cluster-avatar {
-  width: 76px;
-  height: 76px;
+  width: 74px;
+  height: 74px;
   border-radius: 50%;
-  border: 3.5px solid #FFFFFF;
+  border: 3px solid #FFFFFF;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  margin-left: -18px;
+  margin-left: -16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   background: #FFFFFF;
 }
 
@@ -4047,32 +4031,24 @@
 
 .mccain-cluster-dot {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: #FACC15;
-  box-shadow: 0 2px 8px rgba(250, 204, 21, 0.6);
-  z-index: 3;
+  background: #FFD100;
+  box-shadow: 0 0 10px rgba(255, 209, 0, 0.8);
 }
 
-.mccain-cluster-dot--top {
-  top: -6px;
-  left: -10px;
-}
+.mccain-cluster-dot--top { top: -6px; left: -10px; }
+.mccain-cluster-dot--bottom { bottom: -6px; right: -8px; }
 
-.mccain-cluster-dot--bottom {
-  bottom: -4px;
-  right: -6px;
-}
-
-/* In-Page Subnav Bar flush below banner */
+/* In-Page Navigation Bar flush below banner */
 .mccain-subnav-bar {
   display: flex;
   align-items: center;
-  gap: 4px;
-  background: #FFFFFF;
-  border-bottom: 1px solid #E2E8F0;
+  gap: 8px;
   padding: 0 24px;
+  border-bottom: 1px solid #E5E7EB;
+  background: #FFFFFF;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -4085,22 +4061,22 @@
   background: transparent;
   border: none;
   border-bottom: 3px solid transparent;
-  color: #475569;
-  font-weight: 600;
-  font-size: 14.5px;
   padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4B5563;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.15s ease;
 }
 
 .mccain-subnav-tab:hover {
-  color: #0F172A;
+  color: #0D143C;
 }
 
 .mccain-subnav-tab--active {
-  color: #0F172A;
-  border-bottom-color: #1D4ED8;
+  color: #0D143C;
+  border-bottom-color: #0056B3;
   font-weight: 800;
 }
 
@@ -4108,50 +4084,424 @@
   padding: 24px 28px 28px;
 }
 
+.mccain-industry-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
 .mccain-industry-pill {
-  background: #EFF6FF;
-  border: 1px solid #BFDBFE;
+  background: #EEF2FA;
   border-radius: 9999px;
   padding: 4px 14px;
   font-size: 12.5px;
   font-weight: 700;
-  color: #1E40AF;
-}
-
-.mccain-industry-pill--verified {
-  background: #F0FDF4;
-  border-color: #BBF7D0;
-  color: #166534;
+  color: #0D143C;
+  border: none;
 }
 
 .mccain-main-headline {
   font-size: 26px;
   font-weight: 800;
-  color: #0F172A;
+  color: #0D143C;
   line-height: 1.35;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   letter-spacing: -0.02em;
 }
 
 .mccain-main-lead {
   font-size: 15px;
-  color: #334155;
+  color: #4B5563;
   line-height: 1.7;
   margin: 0;
 }
 
-/* ==========================================================================
-   Modern Job Detail Page - Anti-Slop High-End Layout
-   ========================================================================== */
-.job-hero-wrap {
-  background: 
-    radial-gradient(circle 600px at 90% 10%, rgba(251, 146, 60, 0.35) 0%, transparent 65%),
-    radial-gradient(circle 500px at 10% 90%, rgba(253, 186, 116, 0.45) 0%, transparent 60%),
-    linear-gradient(180deg, #FFEDD5 0%, #FED7AA 45%, #FFF0DE 85%, #FFF8F1 100%);
-  border-bottom: 1.5px solid #FED7AA;
-  padding: 44px 0 38px;
+/* Media Showcase (Video + Brand Tile + Gallery Tile) */
+.mccain-media-row {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .mccain-media-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mccain-video-box {
   position: relative;
+  height: 230px;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.mccain-video-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mccain-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0D143C;
+  font-size: 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  padding-left: 4px;
+}
+
+.mccain-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #FFFFFF;
+}
+
+.mccain-media-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mccain-brand-tile {
+  background: #000000;
+  border: 2px solid #FFD100;
+  border-radius: 12px;
+  height: 108px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.mccain-brand-tile img {
+  max-width: 140px;
+  max-height: 48px;
+  object-fit: contain;
+}
+
+.mccain-gallery-tile {
+  position: relative;
+  border-radius: 12px;
+  height: 108px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.mccain-gallery-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mccain-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 20, 60, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  gap: 4px;
+  transition: background 0.2s ease;
+}
+
+.mccain-gallery-tile:hover .mccain-gallery-overlay {
+  background: rgba(13, 20, 60, 0.45);
+}
+
+.mccain-gallery-text {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Built In Section Container with Solid Dark Navy Underline */
+.mccain-section-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  margin-bottom: 24px;
+  scroll-margin-top: 100px;
+}
+
+.mccain-sec-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #0D143C;
+  margin-bottom: 20px;
+}
+
+.mccain-sec-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0D143C;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.mccain-sec-link {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0056B3;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mccain-sec-link:hover {
+  text-decoration: underline;
+}
+
+/* Recently Posted Jobs Cards */
+.mccain-jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .mccain-jobs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mccain-job-card {
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: #FFFFFF;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.mccain-job-card:hover {
+  border-color: #0056B3;
+  box-shadow: 0 4px 14px rgba(0, 86, 179, 0.08);
+}
+
+.mccain-job-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mccain-job-mini-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  padding: 4px;
+  object-fit: contain;
+}
+
+.mccain-job-company {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #6B7280;
+  margin: 0;
+}
+
+.mccain-job-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0D143C;
+  margin: 0 0 10px;
+  line-height: 1.35;
+}
+
+.mccain-job-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #4B5563;
+}
+
+.mccain-job-salary {
+  font-weight: 700;
+  color: #15803D;
+  margin-left: auto;
+}
+
+/* Hybrid Workspace Callout */
+.mccain-hybrid-box {
+  background: #FAFAFA;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 22px;
+}
+
+.mccain-hybrid-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.mccain-hybrid-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0D143C;
+  margin: 0;
+}
+
+.mccain-hybrid-sub {
+  font-size: 13.5px;
+  font-style: italic;
+  color: #6B7280;
+  margin-bottom: 10px;
+}
+
+.mccain-hybrid-body {
+  font-size: 14px;
+  color: #4B5563;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.mccain-flexible-pill {
+  display: inline-block;
+  background: #EBF1F6;
+  border-radius: 9999px;
+  padding: 4px 14px;
+  font-size: 12.5px;
+  color: #0D143C;
+}
+
+.mccain-flexible-pill strong {
+  font-weight: 800;
+}
+
+/* Office Locations Cards */
+.mccain-offices-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 991px) {
+  .mccain-offices-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mccain-office-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.mccain-office-thumb {
+  width: 100%;
+  height: 140px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid #E5E7EB;
+}
+
+.mccain-office-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mccain-office-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0D143C;
+  line-height: 1.4;
+}
+
+.mccain-hq-badge {
+  background: #0056B3;
+  color: #FFFFFF;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  line-height: 1.2;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Carousel Controls & Pagination */
+.mccain-carousel-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 10px;
+}
+
+.mccain-arrow-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #D1D5DB;
+  background: #FFFFFF;
+  color: #0D143C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 11px;
+}
+
+.mccain-arrow-btn:hover {
+  background: #F3F4F6;
+  border-color: #9CA3AF;
+}
+
+.mccain-dots-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mccain-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid #0D143C;
+  background: transparent;
+}
+
+.mccain-dot--active {
+  background: #0D143C;
 }
 
 .job-hero-logo-box {
