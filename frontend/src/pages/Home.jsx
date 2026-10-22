@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from '../components/home/Hero.jsx';
+import StrategicPartners from '../components/home/StrategicPartners.jsx';
 import FeaturedJobs from '../components/home/FeaturedJobs.jsx';
 import TopCompanies from '../components/home/TopCompanies.jsx';
 
@@ -8,6 +9,9 @@ export default function Home() {
     <div className="home-page">
       {/* 1. Khối Hero Banner + Cột Danh mục nhanh (Hình 1) */}
       <Hero />
+
+      {/* Đối tác chiến lược - Được tin chọn bởi những thương hiệu dẫn đầu */}
+      <StrategicPartners />
 
       {/* 2. Toàn bộ phần thân dưới: Nền xám nhạt dịu mắt (#F4F5F7) */}
       <div className="home-main-content-bg pb-5">
