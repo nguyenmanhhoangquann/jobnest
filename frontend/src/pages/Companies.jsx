@@ -475,6 +475,11 @@ export default function Companies() {
   const [companyTab, setCompanyTab] = useState('overview');
   const [expandedFaq, setExpandedFaq] = useState(0);
   const [officeSlide, setOfficeSlide] = useState(0);
+  const [selectedDept, setSelectedDept] = useState(null);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
+  const [galleryPhotoIndex, setGalleryPhotoIndex] = useState(0);
+  const [isOfficeModalOpen, setIsOfficeModalOpen] = useState(false);
 
   const handleScrollToSection = (tabKey, elementId) => {
     setCompanyTab(tabKey);
@@ -743,6 +748,77 @@ export default function Companies() {
     const jobsList = selectedCompany.jobs || [];
     const companyWebsite = extras.website || selectedCompany.website;
 
+    // Màu sắc nhận diện phù hợp từng công ty (Built In Archetype)
+    const compNameLower = (selectedCompany.name || '').toLowerCase();
+    const isViettel = compNameLower.includes('viettel');
+    const isMb = compNameLower.includes('mb') || compNameLower.includes('quân đội');
+    const isVinamilk = compNameLower.includes('vinamilk');
+
+    const companyTheme = isViettel
+      ? {
+          heroGradient: 'linear-gradient(135deg, #7A0014 0%, #EE0033 60%, #FF3366 100%)',
+          badgeBorder: '#FFFFFF',
+          badgeBg: '#000000',
+        }
+      : isMb
+      ? {
+          heroGradient: 'linear-gradient(135deg, #001F5C 0%, #0033A0 60%, #00A3E0 100%)',
+          badgeBorder: '#00A3E0',
+          badgeBg: '#000000',
+        }
+      : isVinamilk
+      ? {
+          heroGradient: 'linear-gradient(135deg, #001E4D 0%, #003882 60%, #005BBB 100%)',
+          badgeBorder: '#FFFFFF',
+          badgeBg: '#000000',
+        }
+      : {
+          // FPT & Tech Enterprises: Royal Blue Built In gradient + Neon gold border
+          heroGradient: 'linear-gradient(135deg, #0A43A6 0%, #0056B3 60%, #1A73E8 100%)',
+          badgeBorder: '#FFD100',
+          badgeBg: '#000000',
+        };
+
+    // Bộ ảnh thực tế văn phòng & không gian làm việc
+    const galleryPhotos = [
+      {
+        url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+        title: 'Tòa nhà FPT Tower - Trụ sở chính tại Cầu Giấy, Hà Nội',
+        desc: 'Tổ hợp công nghệ hiện đại 22 tầng quy mô 9.000 kỹ sư công nghệ',
+        category: 'Trụ sở chính',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+        title: 'Không gian làm việc sáng tạo tại F-Town Campus TP.HCM',
+        desc: 'Môi trường làm việc mở, chuẩn xanh LEED Silver quốc tế',
+        category: 'Văn phòng làm việc',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80',
+        title: 'Khuôn viên công nghệ thông minh FPT Complex tại Đà Nẵng',
+        desc: 'Tòa nhà thông minh hình tròn tự cung cấp 30% năng lượng mặt trời',
+        category: 'Campus Đà Nẵng',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
+        title: 'Không gian trao đổi chuyên môn & họp nhóm dự án',
+        desc: 'Khu vực Agile Workspace tiện nghi và kết nối nhanh chóng',
+        category: 'Văn hóa & Đội ngũ',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
+        title: 'Sảnh đón tiếp và trung tâm chuyển đổi số',
+        desc: 'Khu vực trưng bày các thành tựu trí tuệ nhân tạo và Cloud',
+        category: 'Sảnh trung tâm',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80',
+        title: 'Phòng hội thảo và đào tạo kỹ sư công nghệ',
+        desc: 'Trang bị hệ thống âm thanh, màn hình tương tác thông minh',
+        category: 'Phòng hội nghị',
+      },
+    ];
+
     // Danh sách ngành nghề thực tế
     const industryTags = [
       selectedCompany.industry || 'IT - Phần mềm',
@@ -751,42 +827,104 @@ export default function Companies() {
       'Doanh nghiệp đã xác thực',
     ];
 
-    // Danh sách phòng ban tuyển dụng thực tế
+    // Danh sách phòng ban tuyển dụng thực tế (kèm từ khóa lọc việc làm)
     const departmentsList = [
-      { name: 'Kỹ thuật & Phát triển phần mềm', count: Math.max(12, jobsList.length * 3) },
-      { name: 'Hạ tầng Cloud & DevOps', count: 8 },
-      { name: 'Trí tuệ nhân tạo (AI & Machine Learning)', count: 6 },
-      { name: 'Kiểm thử phần mềm (QA / QC / Tester)', count: 5 },
-      { name: 'Quản lý dự án & Quản trị sản phẩm', count: 4 },
-      { name: 'Tư vấn giải pháp công nghệ & Khách hàng', count: 4 },
-      { name: 'An toàn thông tin & An ninh mạng', count: 2 },
-      { name: 'Tuyển dụng & Phát triển nhân sự', count: 2 },
+      {
+        name: 'Kỹ thuật & Phát triển phần mềm',
+        count: Math.max(12, jobsList.length * 3),
+        keywords: ['java', 'spring', 'react', 'frontend', 'backend', 'fullstack', 'software', 'lập trình', 'developer'],
+      },
+      {
+        name: 'Hạ tầng Cloud & DevOps',
+        count: 8,
+        keywords: ['cloud', 'devops', 'aws', 'docker', 'kubernetes', 'system', 'hạ tầng'],
+      },
+      {
+        name: 'Trí tuệ nhân tạo (AI & Machine Learning)',
+        count: 6,
+        keywords: ['ai', 'data', 'machine learning', 'python', 'deep learning', 'trí tuệ'],
+      },
+      {
+        name: 'Kiểm thử phần mềm (QA / QC / Tester)',
+        count: 5,
+        keywords: ['qa', 'qc', 'tester', 'test', 'automation', 'kiểm thử'],
+      },
+      {
+        name: 'Quản lý dự án & Quản trị sản phẩm',
+        count: 4,
+        keywords: ['project', 'product', 'manager', 'scrum', 'agile', 'quản lý'],
+      },
+      {
+        name: 'Tư vấn giải pháp công nghệ & Khách hàng',
+        count: 4,
+        keywords: ['consultant', 'sales', 'giải pháp', 'kinh doanh', 'khách hàng', 'tư vấn'],
+      },
+      {
+        name: 'An toàn thông tin & An ninh mạng',
+        count: 2,
+        keywords: ['security', 'bảo mật', 'an ninh', 'soc', 'network'],
+      },
+      {
+        name: 'Tuyển dụng & Phát triển nhân sự',
+        count: 2,
+        keywords: ['hr', 'tuyển dụng', 'nhân sự', 'recruiter'],
+      },
     ];
 
-    // Danh sách cơ sở văn phòng thực tế tại Việt Nam & quốc tế
+    // Lọc danh sách việc làm hiển thị theo phòng ban đang chọn
+    const defaultJobs = [
+      { id: 101, title: 'Kỹ sư Phần mềm Java Senior (Spring Boot / Cloud)', location: 'Cầu Giấy, Hà Nội', salaryText: '25 - 40 triệu' },
+      { id: 102, title: 'Lập trình viên Fullstack ReactJS & Java', location: 'Cầu Giấy, Hà Nội', salaryText: '25 - 45 triệu' },
+      { id: 103, title: 'Kỹ sư Cloud DevOps (Docker, Kubernetes, AWS)', location: 'Cầu Giấy, Hà Nội', salaryText: '28 - 48 triệu' },
+      { id: 104, title: 'Kỹ sư Trí tuệ Nhân tạo & Xử lý dữ liệu (AI Engineer)', location: 'Cầu Giấy, Hà Nội', salaryText: '30 - 55 triệu' },
+    ];
+
+    const displayedJobs = (() => {
+      const base = jobsList.length > 0 ? jobsList : defaultJobs;
+      if (!selectedDept) return base;
+      const kws = selectedDept.keywords || [];
+      const matches = base.filter((j) => {
+        const text = `${j.title || ''} ${j.description || ''}`.toLowerCase();
+        return kws.some((k) => text.includes(k.toLowerCase()));
+      });
+      return matches.length > 0 ? matches : base;
+    })();
+
+    // Danh sách cơ sở văn phòng thực tế tại Việt Nam
     const officeSites = [
       {
         id: 1,
-        title: `Trụ sở chính: ${extras.hq || selectedCompany.location}`,
+        title: 'Trụ sở chính: Tòa nhà FPT Tower, Cầu Giấy, Hà Nội',
         tag: 'Trụ sở chính',
-        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
-        meta: 'Tổ hợp văn phòng công nghệ cao & Trung tâm điều hành',
+        address: 'Số 10 Phạm Văn Bạch, P. Dịch Vọng Hậu, Q. Cầu Giấy, Hà Nội',
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+        meta: 'Tổ hợp văn phòng 22 tầng • 100.000m² sàn • 9.000 CBNV',
+        features: 'Viện nghiên cứu AI, Trung tâm An ninh mạng (SOC), Canteen 5 sao sức chứa 2.000 người',
       },
       {
         id: 2,
-        title: 'Cơ sở phía Nam: Khu công nghệ cao, TP. Hồ Chí Minh',
-        tag: 'Chi nhánh',
-        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
-        meta: 'Trung tâm phát triển phần mềm & Đổi mới sáng tạo',
+        title: 'Cơ sở phía Nam: F-Town Campus, Khu công nghệ cao TP.HCM',
+        tag: 'Campus phía Nam',
+        address: 'Đường D1, Khu Công Nghệ Cao, TP. Thủ Đức, TP. Hồ Chí Minh',
+        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+        meta: 'Tổ hợp Campus 3 phân khu chuẩn LEED Silver • 10.000 kỹ sư',
+        features: 'Phòng Lab IoT, Không gian làm việc xanh ngoài trời, Sân bóng đá & Gym thể thao',
       },
       {
         id: 3,
-        title: 'Cơ sở miền Trung: Khu công viên phần mềm, Đà Nẵng',
-        tag: 'Chi nhánh',
-        image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80',
-        meta: 'Trung tâm nghiên cứu R&D và đào tạo kỹ sư công nghệ',
+        title: 'Cơ sở miền Trung: FPT Complex, Khu đô thị FPT City, Đà Nẵng',
+        tag: 'Campus miền Trung',
+        address: 'Đường Nam Kỳ Khởi Nghĩa, P. Hòa Hải, Q. Ngũ Hành Sơn, Đà Nẵng',
+        image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80',
+        meta: 'Công trình kiến trúc xanh thông minh hình trống đồng • 10.000 nhân sự',
+        features: 'Tự cấp 30% năng lượng mặt trời, Bể bơi vô cực, Công viên cây xanh nội khu',
       },
     ];
+
+    // Xoay vòng hiển thị cơ sở theo officeSlide
+    const visibleOffices = [0, 1, 2].map(
+      (offset) => officeSites[(officeSlide + offset) % officeSites.length]
+    );
 
     return (
       <div className="mccain-page-root">
@@ -894,24 +1032,42 @@ export default function Companies() {
                   </div>
                 </div>
 
-                {/* Thẻ 2: Vị trí đang mở tuyển dụng */}
+                {/* Thẻ 2: Vị trí đang mở tuyển dụng (Tích hợp lọc trực tiếp) */}
                 <div className="mccain-sidebar-card">
-                  <h3 className="mccain-hiring-title">Vị trí đang tuyển dụng</h3>
-                  <div className="d-flex flex-column">
-                    {departmentsList.map((dept, dIdx) => (
+                  <div className="d-flex align-items-center justify-content-between mb-2">
+                    <h3 className="mccain-hiring-title m-0">Vị trí đang tuyển dụng</h3>
+                    {selectedDept && (
                       <button
-                        key={dIdx}
                         type="button"
-                        className="mccain-dept-item"
-                        onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+                        className="btn btn-link text-primary p-0 text-decoration-none small"
+                        style={{ fontSize: '12px' }}
+                        onClick={() => setSelectedDept(null)}
                       >
-                        <span>{dept.name}</span>
-                        <span className="mccain-dept-num">
-                          <span>{dept.count}</span>
-                          <span style={{ fontSize: '11px', color: '#9CA3AF' }}>›</span>
-                        </span>
+                        ✕ Bỏ lọc
                       </button>
-                    ))}
+                    )}
+                  </div>
+                  <div className="d-flex flex-column">
+                    {departmentsList.map((dept, dIdx) => {
+                      const isActive = selectedDept?.name === dept.name;
+                      return (
+                        <button
+                          key={dIdx}
+                          type="button"
+                          className={`mccain-dept-item ${isActive ? 'mccain-dept-item--active' : ''}`}
+                          onClick={() => {
+                            setSelectedDept(isActive ? null : dept);
+                            handleScrollToSection('jobs', 'company-jobs-section');
+                          }}
+                        >
+                          <span>{dept.name}</span>
+                          <span className="mccain-dept-num">
+                            <span>{dept.count}</span>
+                            <span style={{ fontSize: '11px', color: '#9CA3AF' }}>›</span>
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -919,13 +1075,24 @@ export default function Companies() {
 
             {/* CỘT PHẢI (~72%): Khối nội dung chính */}
             <div className="col-12 col-lg-8 col-xl-9">
-              {/* 1. Thẻ Cover Banner */}
+              {/* 1. Thẻ Cover Banner với nền nhận diện thương hiệu */}
               <div className="mccain-hero-banner-card" id="company-overview-section">
-                <div className="mccain-hero-banner-visual">
-                  {/* Khối logo thương hiệu bên trái */}
-                  <div className="mccain-banner-logo-badge">
+                <div
+                  className="mccain-hero-banner-visual"
+                  style={{ background: companyTheme.heroGradient }}
+                >
+                  {/* Khối logo thương hiệu bên trái (Viền vàng Built In) */}
+                  <div
+                    className="mccain-banner-logo-badge"
+                    style={{
+                      background: companyTheme.badgeBg,
+                      borderColor: companyTheme.badgeBorder,
+                    }}
+                  >
                     <img src={selectedCompany.logo} alt="" className="mccain-banner-mini-logo" />
-                    <span className="mccain-banner-logo-text">{selectedCompany.shortName || selectedCompany.name}</span>
+                    <span className="mccain-banner-logo-text" style={{ color: '#FFFFFF' }}>
+                      {selectedCompany.shortName || selectedCompany.name}
+                    </span>
                   </div>
 
                   {/* Cụm 3 ảnh chân dung tròn nhân viên lồng nhau + 2 chấm vàng */}
@@ -958,7 +1125,7 @@ export default function Companies() {
                     className={`mccain-subnav-tab ${companyTab === 'jobs' ? 'mccain-subnav-tab--active' : ''}`}
                     onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
                   >
-                    Việc làm ({jobsList.length})
+                    Việc làm ({displayedJobs.length})
                   </button>
                   <button
                     type="button"
@@ -1007,7 +1174,11 @@ export default function Companies() {
               {/* 2. Khối Media & Văn hóa: Video văn hóa + Thẻ thương hiệu + Xem bộ sưu tập */}
               <div className="mccain-media-row" id="company-media-section">
                 {/* Bên trái: Video văn hóa doanh nghiệp */}
-                <div className="mccain-video-box">
+                <div
+                  className="mccain-video-box"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setIsVideoModalOpen(true)}
+                >
                   <img
                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
                     alt="Văn hóa doanh nghiệp"
@@ -1015,7 +1186,6 @@ export default function Companies() {
                   />
                   <div
                     className="mccain-play-btn"
-                    onClick={() => showToast('info', 'Đang phát video văn hóa doanh nghiệp...')}
                     title="Phát video văn hóa doanh nghiệp"
                   >
                     <FaPlay size={18} />
@@ -1030,7 +1200,10 @@ export default function Companies() {
 
                   <div
                     className="mccain-gallery-tile"
-                    onClick={() => showToast('info', 'Mở bộ sưu tập ảnh không gian làm việc...')}
+                    onClick={() => {
+                      setGalleryPhotoIndex(0);
+                      setIsGalleryModalOpen(true);
+                    }}
                   >
                     <img
                       src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80"
@@ -1044,12 +1217,29 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* 3. Khối Việc làm mới đăng tuyển */}
+              {/* 3. Khối Việc làm mới đăng tuyển (Tích hợp lọc theo phòng ban) */}
               <div className="mccain-section-card" id="company-jobs-section">
                 <div className="mccain-sec-header">
-                  <h2 className="mccain-sec-title">
-                    Việc làm mới đăng tuyển tại {selectedCompany.shortName || selectedCompany.name}
-                  </h2>
+                  <div>
+                    <h2 className="mccain-sec-title">
+                      Việc làm mới đăng tuyển tại {selectedCompany.shortName || selectedCompany.name}
+                    </h2>
+                    {selectedDept && (
+                      <div className="d-flex align-items-center gap-2 mt-2">
+                        <span className="badge bg-primary px-3 py-1 rounded-pill fw-semibold">
+                          Đang lọc: {selectedDept.name} ({displayedJobs.length})
+                        </span>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary rounded-pill py-0 px-2"
+                          style={{ fontSize: '12px' }}
+                          onClick={() => setSelectedDept(null)}
+                        >
+                          ✕ Xóa lọc
+                        </button>
+                      </div>
+                    )}
+                  </div>
                   <Link
                     to={`/jobs/search?keyword=${encodeURIComponent(selectedCompany.shortName || selectedCompany.name)}`}
                     className="mccain-sec-link"
@@ -1059,10 +1249,7 @@ export default function Companies() {
                 </div>
 
                 <div className="mccain-jobs-grid">
-                  {(jobsList.length > 0 ? jobsList : [
-                    { id: 101, title: 'Kỹ sư Phần mềm Java Senior', location: 'Cầu Giấy, Hà Nội', salaryText: '25 - 40 triệu' },
-                    { id: 102, title: 'Lập trình viên Fullstack ReactJS & Spring Boot', location: 'Cầu Giấy, Hà Nội', salaryText: '25 - 45 triệu' },
-                  ]).slice(0, 4).map((job) => (
+                  {displayedJobs.slice(0, 4).map((job) => (
                     <Link
                       key={job.id}
                       to={`/jobs/${job.id}`}
@@ -1096,19 +1283,19 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* 4. Khối Cơ sở & Không gian làm việc */}
+              {/* 4. Khối Cơ sở & Không gian làm việc tại TẬP ĐOÀN CÔNG NGHỆ FPT */}
               <div className="mccain-section-card" id="company-offices-section">
                 <div className="mccain-sec-header">
                   <h2 className="mccain-sec-title">
-                    Cơ sở &amp; Không gian làm việc tại {selectedCompany.shortName || selectedCompany.name}
+                    Cơ sở &amp; Không gian làm việc tại {selectedCompany.name}
                   </h2>
-                  <a
-                    href="#company-offices-section"
-                    className="mccain-sec-link"
-                    onClick={(e) => { e.preventDefault(); showToast('info', 'Đang hiển thị toàn bộ mạng lưới cơ sở...'); }}
+                  <button
+                    type="button"
+                    className="btn btn-link mccain-sec-link p-0"
+                    onClick={() => setIsOfficeModalOpen(true)}
                   >
                     TÌM HIỂU THÊM →
-                  </a>
+                  </button>
                 </div>
 
                 {/* Hộp thông tin Mô hình làm việc Hybrid Workspace */}
@@ -1121,17 +1308,22 @@ export default function Companies() {
                     Nhân sự kết hợp linh hoạt giữa làm việc từ xa và tại văn phòng hiện đại.
                   </div>
                   <p className="mccain-hybrid-body">
-                    Tại tất cả các cơ sở và trung tâm công nghệ, chúng tôi tin rằng sự gắn kết và tinh thần đồng đội mang lại hiệu quả cao nhất. Tiêu chuẩn làm việc áp dụng mô hình Hybrid 3 ngày tại văn phòng và 2 ngày làm việc từ xa linh hoạt, trang bị đầy đủ máy tính cấu hình cao và không gian làm việc hiện đại.
+                    Tại tất cả các cơ sở và campus công nghệ, chúng tôi tin rằng sự gắn kết và tinh thần đồng đội mang lại hiệu quả cao nhất. Tiêu chuẩn làm việc áp dụng mô hình Hybrid 3 ngày tại văn phòng và 2 ngày làm việc từ xa linh hoạt, trang bị đầy đủ máy tính cấu hình cao và không gian làm việc hiện đại.
                   </p>
                   <div className="mccain-flexible-pill">
                     Thời gian tại cơ sở: <strong>Linh hoạt (3 ngày/tuần)</strong>
                   </div>
                 </div>
 
-                {/* 3 Thẻ cơ sở văn phòng */}
+                {/* 3 Thẻ cơ sở văn phòng (Xoay vòng theo carousel) */}
                 <div className="mccain-offices-row">
-                  {officeSites.map((site) => (
-                    <div key={site.id} className="mccain-office-card">
+                  {visibleOffices.map((site) => (
+                    <div
+                      key={site.id}
+                      className="mccain-office-card"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => setIsOfficeModalOpen(true)}
+                    >
                       <div className="mccain-office-thumb">
                         <img src={site.image} alt={site.title} />
                       </div>
@@ -1151,7 +1343,7 @@ export default function Companies() {
                   <button
                     type="button"
                     className="mccain-arrow-btn"
-                    onClick={() => setOfficeSlide((s) => (s > 0 ? s - 1 : 9))}
+                    onClick={() => setOfficeSlide((s) => (s > 0 ? s - 1 : officeSites.length - 1))}
                     aria-label="Cơ sở trước"
                   >
                     <FaChevronLeft />
@@ -1159,7 +1351,7 @@ export default function Companies() {
                   <button
                     type="button"
                     className="mccain-arrow-btn"
-                    onClick={() => setOfficeSlide((s) => (s < 9 ? s + 1 : 0))}
+                    onClick={() => setOfficeSlide((s) => (s + 1) % officeSites.length)}
                     aria-label="Cơ sở tiếp theo"
                   >
                     <FaChevronRight />
@@ -1169,7 +1361,9 @@ export default function Companies() {
                     {Array.from({ length: 10 }).map((_, dIdx) => (
                       <span
                         key={dIdx}
-                        className={`mccain-dot ${officeSlide === dIdx ? 'mccain-dot--active' : ''}`}
+                        className={`mccain-dot ${officeSlide === dIdx % officeSites.length ? 'mccain-dot--active' : ''}`}
+                        onClick={() => setOfficeSlide(dIdx % officeSites.length)}
+                        style={{ cursor: 'pointer' }}
                       />
                     ))}
                   </div>
@@ -1178,6 +1372,194 @@ export default function Companies() {
             </div>
           </div>
         </div>
+
+        {/* MODAL 1: VIDEO VĂN HÓA DOANH NGHIỆP */}
+        {isVideoModalOpen && (
+          <div className="mccain-modal-backdrop" onClick={() => setIsVideoModalOpen(false)}>
+            <div
+              className="mccain-modal-container"
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: '820px' }}
+            >
+              <div className="mccain-modal-header">
+                <h3 className="mccain-modal-title">
+                  Văn hóa &amp; Môi trường làm việc tại {selectedCompany.name}
+                </h3>
+                <button
+                  type="button"
+                  className="mccain-modal-close-btn"
+                  onClick={() => setIsVideoModalOpen(false)}
+                >
+                  <FaTimes />
+                </button>
+              </div>
+              <div
+                className="mccain-modal-body p-0"
+                style={{
+                  position: 'relative',
+                  paddingBottom: '56.25%',
+                  height: 0,
+                  overflow: 'hidden',
+                  background: '#000',
+                }}
+              >
+                <iframe
+                  title="Video văn hóa doanh nghiệp"
+                  src="https://www.youtube-nocookie.com/embed/5qap5aO4i9A?autoplay=1"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    border: 0,
+                  }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* MODAL 2: BỘ SƯU TẬP ẢNH (GALLERY LIGHTBOX) */}
+        {isGalleryModalOpen && (
+          <div className="mccain-modal-backdrop" onClick={() => setIsGalleryModalOpen(false)}>
+            <div
+              className="mccain-modal-container"
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: '900px' }}
+            >
+              <div className="mccain-modal-header">
+                <div>
+                  <h3 className="mccain-modal-title">
+                    Bộ sưu tập Cơ sở &amp; Không gian làm việc
+                  </h3>
+                  <div className="text-muted small">
+                    {galleryPhotos[galleryPhotoIndex]?.title} ({galleryPhotoIndex + 1}/{galleryPhotos.length})
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="mccain-modal-close-btn"
+                  onClick={() => setIsGalleryModalOpen(false)}
+                >
+                  <FaTimes />
+                </button>
+              </div>
+              <div className="mccain-modal-body">
+                <div className="mccain-gallery-main-view">
+                  <img src={galleryPhotos[galleryPhotoIndex].url} alt="" />
+                  <button
+                    type="button"
+                    className="mccain-gallery-nav-btn mccain-gallery-nav-btn--prev"
+                    onClick={() =>
+                      setGalleryPhotoIndex((i) => (i > 0 ? i - 1 : galleryPhotos.length - 1))
+                    }
+                  >
+                    <FaChevronLeft />
+                  </button>
+                  <button
+                    type="button"
+                    className="mccain-gallery-nav-btn mccain-gallery-nav-btn--next"
+                    onClick={() =>
+                      setGalleryPhotoIndex((i) => (i + 1) % galleryPhotos.length)
+                    }
+                  >
+                    <FaChevronRight />
+                  </button>
+                </div>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <div>
+                    <span className="badge bg-primary me-2">
+                      {galleryPhotos[galleryPhotoIndex]?.category}
+                    </span>
+                    <span className="fw-semibold text-dark">
+                      {galleryPhotos[galleryPhotoIndex]?.desc}
+                    </span>
+                  </div>
+                </div>
+                <div className="mccain-gallery-strip">
+                  {galleryPhotos.map((p, pIdx) => (
+                    <div
+                      key={pIdx}
+                      className={`mccain-gallery-thumb ${
+                        galleryPhotoIndex === pIdx ? 'mccain-gallery-thumb--active' : ''
+                      }`}
+                      onClick={() => setGalleryPhotoIndex(pIdx)}
+                    >
+                      <img src={p.url} alt="" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* MODAL 3: CHI TIẾT MẠNG LƯỚI CƠ SỞ & CAMPUS */}
+        {isOfficeModalOpen && (
+          <div className="mccain-modal-backdrop" onClick={() => setIsOfficeModalOpen(false)}>
+            <div
+              className="mccain-modal-container"
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: '860px' }}
+            >
+              <div className="mccain-modal-header">
+                <div>
+                  <h3 className="mccain-modal-title">
+                    Mạng lưới Cơ sở &amp; Văn phòng tại {selectedCompany.name}
+                  </h3>
+                  <div className="text-muted small">
+                    Thông tin chi tiết các Campus và trung tâm nghiên cứu công nghệ
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="mccain-modal-close-btn"
+                  onClick={() => setIsOfficeModalOpen(false)}
+                >
+                  <FaTimes />
+                </button>
+              </div>
+              <div className="mccain-modal-body">
+                <div className="d-flex flex-column gap-4">
+                  {officeSites.map((site) => (
+                    <div
+                      key={site.id}
+                      className="p-3 border rounded-3 bg-light d-flex flex-column flex-md-row gap-3"
+                    >
+                      <img
+                        src={site.image}
+                        alt={site.title}
+                        style={{
+                          width: '100%',
+                          maxWidth: '240px',
+                          height: '140px',
+                          objectFit: 'cover',
+                          borderRadius: '8px',
+                        }}
+                      />
+                      <div className="d-flex flex-column justify-content-between">
+                        <div>
+                          <div className="d-flex align-items-center gap-2 mb-1">
+                            <span className="badge bg-primary">{site.tag}</span>
+                            <h4 className="fs-6 fw-bold text-dark m-0">{site.title}</h4>
+                          </div>
+                          <div className="text-muted small mb-2">📍 {site.address}</div>
+                          <div className="text-secondary small mb-2">{site.meta}</div>
+                          <div className="text-dark small fw-semibold">
+                            ✨ Điểm nổi bật: {site.features}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
