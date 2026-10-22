@@ -488,6 +488,46 @@ export default function Companies() {
   });
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && showAllFilters) {
+        setShowAllFilters(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    if (showAllFilters) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [showAllFilters]);
+
+  const activeChips = useMemo(() => {
+    const list = [];
+    if (searchKeyword.trim()) {
+      list.push({ key: 'keyword', label: `"${searchKeyword.trim()}"`, clearVal: () => setSearchKeyword('') });
+    }
+    if (selectedLocation && selectedLocation !== 'all') {
+      list.push({ key: 'location', label: selectedLocation, clearVal: () => setSelectedLocation('all') });
+    }
+    if (activeOfficeType && activeOfficeType !== 'all') {
+      const map = { onsite: 'Tại văn phòng', hybrid: 'Hybrid', remote: 'Làm việc từ xa' };
+      list.push({ key: 'officeType', label: map[activeOfficeType] || activeOfficeType, clearVal: () => setActiveOfficeType('all') });
+    }
+    if (activeIndustry && activeIndustry !== 'ALL') {
+      list.push({ key: 'industry', label: activeIndustry, clearVal: () => setActiveIndustry('ALL') });
+    }
+    if (selectedSize && selectedSize !== 'all') {
+      const map = { small: '50 - 200 nhân sự', medium: '501 - 1.000 nhân sự', large: '1.000+ nhân sự' };
+      list.push({ key: 'size', label: map[selectedSize] || selectedSize, clearVal: () => setSelectedSize('all') });
+    }
+    return list;
+  }, [searchKeyword, selectedLocation, activeOfficeType, activeIndustry, selectedSize]);
+
+  useEffect(() => {
     const handleUpdate = () => {
       setFollowedIds(companyApi.getFollowedIds());
       if (selectedCompanyId) {
@@ -1001,14 +1041,22 @@ export default function Companies() {
             {/* Phân cách đứng */}
             <div className="builtin-divider" />
 
-            {/* Tất cả bộ lọc (All Filters) */}
+            {/* Tất cả bộ lọc (All Filters Offcanvas) */}
             <button
               type="button"
-              className={`builtin-all-filters-btn ${showAllFilters || searchKeyword ? 'builtin-all-filters-btn--active' : ''}`}
-              onClick={() => setShowAllFilters(!showAllFilters)}
-              title="Tìm kiếm từ khóa & mở rộng bộ lọc"
+              className={`builtin-all-filters-btn ${activeChips.length > 0 ? 'builtin-all-filters-btn--active' : ''}`}
+              onClick={() => setShowAllFilters(true)}
+              title="Mở tất cả bộ lọc"
             >
               <span>Tất cả bộ lọc</span>
+              {activeChips.length > 0 && (
+                <span
+                  className="badge bg-white text-danger font-monospace fw-bold rounded-pill"
+                  style={{ fontSize: '10px', padding: '2px 6px' }}
+                >
+                  +{activeChips.length}
+                </span>
+              )}
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="4" y1="21" x2="4" y2="14" />
                 <line x1="4" y1="10" x2="4" y2="3" />
@@ -1031,38 +1079,316 @@ export default function Companies() {
               Xóa lọc
             </button>
           </div>
+        </div>
+      </section>
 
-          {/* Ngăn kéo tìm kiếm từ khóa khi bật Tất cả bộ lọc */}
-          {(showAllFilters || searchKeyword) && (
-            <div className="builtin-keyword-drawer">
-              <FaSearch size={14} className="text-secondary ms-1 flex-shrink-0" />
-              <input
-                type="text"
-                className="builtin-keyword-input"
-                placeholder="Nhập từ khóa kỹ năng (Java, iOS...), chức danh, tên công ty..."
-                value={searchKeyword}
-                onChange={(e) => {
-                  setSearchKeyword(e.target.value);
-                  setPage(1);
-                }}
-                autoFocus
-              />
+      {/* OFFCANVAS ALL FILTERS DRAWER (Chuẩn phong cách BuiltIn.com/companies) */}
+      {showAllFilters && (
+        <div
+          className="builtin-offcanvas-backdrop"
+          onClick={() => setShowAllFilters(false)}
+        />
+      )}
+
+      <div
+        className={`builtin-offcanvas ${showAllFilters ? 'builtin-offcanvas--open' : ''}`}
+        aria-hidden={!showAllFilters}
+      >
+        <div className="builtin-offcanvas-header">
+          <h2 className="builtin-offcanvas-title">Tất cả bộ lọc</h2>
+          <button
+            type="button"
+            className="builtin-offcanvas-close"
+            onClick={() => setShowAllFilters(false)}
+            aria-label="Đóng bộ lọc"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="builtin-offcanvas-body">
+          {activeChips.length > 0 && (
+            <div className="p-3 rounded-3 mb-3" style={{ background: '#FFF7ED', border: '1px solid #FFEDD5' }}>
+              <div className="d-flex justify-content-between align-items-center mb-2">
+                <span className="small fw-bold text-dark">
+                  Đang chọn ({activeChips.length} tiêu chí)
+                </span>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-link text-decoration-none p-0 text-danger small fw-semibold"
+                  onClick={handleResetFilters}
+                >
+                  Xóa tất cả
+                </button>
+              </div>
+              <div className="d-flex flex-wrap gap-1">
+                {activeChips.map((chip) => (
+                  <span
+                    key={chip.key}
+                    className="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2"
+                    style={{ fontSize: '11px', cursor: 'pointer' }}
+                    onClick={() => {
+                      chip.clearVal();
+                      setPage(1);
+                    }}
+                    title="Nhấn để gỡ"
+                  >
+                    {chip.label}
+                    <FaTimes size={8} className="text-muted" />
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 1. Từ khóa / Tên công ty */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Tên doanh nghiệp hoặc từ khóa</span>
               {searchKeyword && (
                 <button
                   type="button"
-                  className="btn btn-sm btn-link text-muted p-0 me-1 text-decoration-none"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
                   onClick={() => {
                     setSearchKeyword('');
                     setPage(1);
                   }}
                 >
-                  ✕
+                  Xóa
                 </button>
               )}
             </div>
-          )}
+            <div className="job-filter-input-wrap">
+              <FaSearch size={12} className="text-muted ms-2.5 flex-shrink-0" />
+              <input
+                type="text"
+                className="job-filter-input"
+                placeholder="Nhập tên doanh nghiệp, kỹ năng, chức danh..."
+                value={searchKeyword}
+                onChange={(e) => {
+                  setSearchKeyword(e.target.value);
+                  setPage(1);
+                }}
+              />
+              {searchKeyword && (
+                <button
+                  type="button"
+                  className="job-filter-clear-btn"
+                  onClick={() => {
+                    setSearchKeyword('');
+                    setPage(1);
+                  }}
+                  aria-label="Xóa từ khóa"
+                >
+                  <FaTimes size={10} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* 2. Hình thức làm việc */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Hình thức làm việc (Office Type)</span>
+              {activeOfficeType !== 'all' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => {
+                    setActiveOfficeType('all');
+                    setPage(1);
+                  }}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'all', label: 'Tất cả hình thức' },
+                { value: 'onsite', label: 'Tại văn phòng (On-site)' },
+                { value: 'hybrid', label: 'Linh hoạt (Hybrid)' },
+                { value: 'remote', label: 'Làm việc từ xa (Fully Remote)' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${activeOfficeType === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="comp_filter_office"
+                    value={opt.value}
+                    checked={activeOfficeType === opt.value}
+                    onChange={() => {
+                      setActiveOfficeType(opt.value);
+                      setPage(1);
+                    }}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* 3. Ngành nghề */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Ngành nghề kinh doanh</span>
+              {activeIndustry !== 'ALL' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => {
+                    setActiveIndustry('ALL');
+                    setPage(1);
+                  }}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'ALL', label: 'Tất cả ngành nghề' },
+                { value: 'IT - Phần mềm', label: 'Công nghệ thông tin' },
+                { value: 'Kinh doanh', label: 'Kinh doanh - Bán hàng' },
+                { value: 'Ngân hàng', label: 'Tài chính - Ngân hàng' },
+                { value: 'Sản xuất', label: 'Sản xuất - Vận hành' },
+                { value: 'Bất động sản', label: 'Bất động sản' },
+                { value: 'Dịch vụ Khách hàng', label: 'Dịch vụ - CSKH' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${activeIndustry === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="comp_filter_industry"
+                    value={opt.value}
+                    checked={activeIndustry === opt.value}
+                    onChange={() => {
+                      setActiveIndustry(opt.value);
+                      setPage(1);
+                    }}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* 4. Quy mô công ty */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Quy mô công ty (Company Size)</span>
+              {selectedSize !== 'all' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => {
+                    setSelectedSize('all');
+                    setPage(1);
+                  }}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'all', label: 'Tất cả quy mô' },
+                { value: 'small', label: '50 - 200 nhân sự' },
+                { value: 'medium', label: '501 - 1.000 nhân sự' },
+                { value: 'large', label: '1.000+ nhân sự' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${selectedSize === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="comp_filter_size"
+                    value={opt.value}
+                    checked={selectedSize === opt.value}
+                    onChange={() => {
+                      setSelectedSize(opt.value);
+                      setPage(1);
+                    }}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* 5. Địa điểm */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Địa điểm (Location)</span>
+              {selectedLocation !== 'all' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => {
+                    setSelectedLocation('all');
+                    setPage(1);
+                  }}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'all', label: 'Toàn quốc (Việt Nam)' },
+                { value: 'Hà Nội', label: 'Hà Nội' },
+                { value: 'Hồ Chí Minh', label: 'TP. Hồ Chí Minh' },
+                { value: 'Đà Nẵng', label: 'Đà Nẵng' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${selectedLocation === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="comp_filter_location"
+                    value={opt.value}
+                    checked={selectedLocation === opt.value}
+                    onChange={() => {
+                      setSelectedLocation(opt.value);
+                      setPage(1);
+                    }}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
         </div>
-      </section>
+
+        <div className="builtin-offcanvas-footer">
+          <button
+            type="button"
+            className="btn btn-link text-uppercase text-muted fw-bold p-0 text-decoration-none"
+            style={{ fontSize: '13px', letterSpacing: '0.04em' }}
+            onClick={handleResetFilters}
+          >
+            Xóa tất cả
+          </button>
+          <button
+            type="button"
+            className="builtin-offcanvas-submit-btn"
+            onClick={() => setShowAllFilters(false)}
+          >
+            Xem kết quả ({filteredCompanies.length})
+          </button>
+        </div>
+      </div>
 
       {/* 2. CATEGORY FILTER & 3. COMPANY SECTION */}
       <div className="container py-4" id="companies-list-section" style={{ maxWidth: '1280px' }}>
@@ -1086,6 +1412,34 @@ export default function Companies() {
             );
           })}
         </div>
+
+        {/* Active chips strip */}
+        {activeChips.length > 0 && (
+          <div className="filter-active-chips-wrap mb-3">
+            {activeChips.map((chip) => (
+              <button
+                key={chip.key}
+                type="button"
+                className="filter-active-chip"
+                onClick={() => {
+                  chip.clearVal();
+                  setPage(1);
+                }}
+                title={`Bỏ lọc ${chip.label}`}
+              >
+                <span>{chip.label}</span>
+                <FaTimes size={9} />
+              </button>
+            ))}
+            <button
+              type="button"
+              className="btn btn-sm btn-link text-decoration-none text-muted p-0 ms-2 small"
+              onClick={handleResetFilters}
+            >
+              Xóa tất cả
+            </button>
+          </div>
+        )}
 
         {/* Section Header */}
         <div className="companies-section-header">
