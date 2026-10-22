@@ -2272,6 +2272,15 @@
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.15s ease;
+}
+
+.builtin-location-box--active {
+  box-shadow: 0 0 0 2px #EA580C, 0 4px 12px rgba(234, 88, 12, 0.2);
+}
+
+.builtin-location-box--active .builtin-location-label {
+  color: #EA580C;
 }
 
 .builtin-location-content {

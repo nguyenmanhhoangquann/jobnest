@@ -26,6 +26,7 @@ import {
   FaUserFriends,
   FaCheck,
   FaChevronRight,
+  FaTimes,
 } from 'react-icons/fa';
 import mockCompanies from '../mock/companies.js';
 import companyApi from '../api/companyApi.js';
@@ -471,16 +472,73 @@ export default function Companies() {
   const selectedCompanyId = searchParams.get('id');
 
   const [companiesList, setCompaniesList] = useState(mockCompanies);
-  const [searchKeyword, setSearchKeyword] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('all');
-  const [activeOfficeType, setActiveOfficeType] = useState('all');
-  const [activeIndustry, setActiveIndustry] = useState('ALL');
-  const [selectedSize, setSelectedSize] = useState('all');
   const [showAllFilters, setShowAllFilters] = useState(false);
-  const [page, setPage] = useState(1);
-  const PAGE_SIZE = 12;
 
-  const [companyTab, setCompanyTab] = useState('overview');
+  // Đọc filters trực tiếp từ URL query params
+  const filters = useMemo(() => {
+    return {
+      keyword: searchParams.get('keyword') || '',
+      location: searchParams.get('location') || 'all',
+      officeType: searchParams.get('office') || 'all',
+      industry: searchParams.get('industry') || 'ALL',
+      size: searchParams.get('size') || 'all',
+      page: parseInt(searchParams.get('page') || '1', 10),
+    };
+  }, [searchParams]);
+
+  // Cập nhật URL khi thay đổi bất kỳ bộ lọc nào
+  const updateFilters = (newFilters) => {
+    const next = { ...filters, ...newFilters };
+    const params = new URLSearchParams();
+    if (selectedCompanyId) params.set('id', selectedCompanyId);
+    if (next.keyword && next.keyword.trim()) params.set('keyword', next.keyword.trim());
+    if (next.location && next.location !== 'all') params.set('location', next.location);
+    if (next.officeType && next.officeType !== 'all') params.set('office', next.officeType);
+    if (next.industry && next.industry !== 'ALL') params.set('industry', next.industry);
+    if (next.size && next.size !== 'all') params.set('size', next.size);
+    if (next.page && next.page > 1) params.set('page', String(next.page));
+    setSearchParams(params);
+  };
+
+  const handleResetFilters = () => {
+    const params = new URLSearchParams();
+    if (selectedCompanyId) params.set('id', selectedCompanyId);
+    setSearchParams(params);
+    setShowAllFilters(false);
+  };
+
+  // Định vị GPS thực tế qua Browser Geolocation API
+  const handleGpsDetect = () => {
+    if (filters.location !== 'all') {
+      updateFilters({ location: 'all', page: 1 });
+      showToast('info', 'Đã đặt lại khu vực về toàn quốc.');
+      return;
+    }
+    if (!navigator.geolocation) {
+      showToast('warning', 'Trình duyệt không hỗ trợ định vị GPS.');
+      return;
+    }
+    showToast('info', 'Đang định vị vị trí hiện tại của bạn...');
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude } = pos.coords;
+        let detected = 'Hà Nội';
+        if (latitude < 13) {
+          detected = 'Hồ Chí Minh';
+        } else if (latitude < 18) {
+          detected = 'Đà Nẵng';
+        }
+        updateFilters({ location: detected, page: 1 });
+        showToast('success', `Đã định vị thành công khu vực: ${detected}!`);
+      },
+      () => {
+        updateFilters({ location: 'Hà Nội', page: 1 });
+        showToast('info', 'Không lấy được tọa độ GPS, mặc định chọn Hà Nội.');
+      },
+      { timeout: 8000 }
+    );
+  };
+
   const [followedIds, setFollowedIds] = useState(() => companyApi.getFollowedIds());
   const [isFollowed, setIsFollowed] = useState(() => {
     if (!selectedCompanyId) return false;
@@ -507,25 +565,45 @@ export default function Companies() {
 
   const activeChips = useMemo(() => {
     const list = [];
-    if (searchKeyword.trim()) {
-      list.push({ key: 'keyword', label: `"${searchKeyword.trim()}"`, clearVal: () => setSearchKeyword('') });
+    if (filters.keyword && filters.keyword.trim()) {
+      list.push({
+        key: 'keyword',
+        label: `"${filters.keyword.trim()}"`,
+        clearVal: () => updateFilters({ keyword: '', page: 1 }),
+      });
     }
-    if (selectedLocation && selectedLocation !== 'all') {
-      list.push({ key: 'location', label: selectedLocation, clearVal: () => setSelectedLocation('all') });
+    if (filters.location && filters.location !== 'all') {
+      list.push({
+        key: 'location',
+        label: filters.location,
+        clearVal: () => updateFilters({ location: 'all', page: 1 }),
+      });
     }
-    if (activeOfficeType && activeOfficeType !== 'all') {
+    if (filters.officeType && filters.officeType !== 'all') {
       const map = { onsite: 'Tại văn phòng', hybrid: 'Hybrid', remote: 'Làm việc từ xa' };
-      list.push({ key: 'officeType', label: map[activeOfficeType] || activeOfficeType, clearVal: () => setActiveOfficeType('all') });
+      list.push({
+        key: 'officeType',
+        label: map[filters.officeType] || filters.officeType,
+        clearVal: () => updateFilters({ officeType: 'all', page: 1 }),
+      });
     }
-    if (activeIndustry && activeIndustry !== 'ALL') {
-      list.push({ key: 'industry', label: activeIndustry, clearVal: () => setActiveIndustry('ALL') });
+    if (filters.industry && filters.industry !== 'ALL') {
+      list.push({
+        key: 'industry',
+        label: filters.industry,
+        clearVal: () => updateFilters({ industry: 'ALL', page: 1 }),
+      });
     }
-    if (selectedSize && selectedSize !== 'all') {
+    if (filters.size && filters.size !== 'all') {
       const map = { small: '50 - 200 nhân sự', medium: '501 - 1.000 nhân sự', large: '1.000+ nhân sự' };
-      list.push({ key: 'size', label: map[selectedSize] || selectedSize, clearVal: () => setSelectedSize('all') });
+      list.push({
+        key: 'size',
+        label: map[filters.size] || filters.size,
+        clearVal: () => updateFilters({ size: 'all', page: 1 }),
+      });
     }
     return list;
-  }, [searchKeyword, selectedLocation, activeOfficeType, activeIndustry, selectedSize]);
+  }, [filters]);
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -558,20 +636,20 @@ export default function Companies() {
 
   const filteredCompanies = useMemo(() => {
     return companiesList.filter((c) => {
-      if (!matchIndustry(c.industry, activeIndustry)) {
+      if (!matchIndustry(c.industry, filters.industry)) {
         return false;
       }
-      if (!matchLocation(c.location, selectedLocation)) {
+      if (!matchLocation(c.location, filters.location)) {
         return false;
       }
-      if (!matchOfficeType(c, activeOfficeType)) {
+      if (!matchOfficeType(c, filters.officeType)) {
         return false;
       }
-      if (!matchSize(c.size, selectedSize)) {
+      if (!matchSize(c.size, filters.size)) {
         return false;
       }
-      if (searchKeyword.trim()) {
-        const kw = searchKeyword.toLowerCase().trim();
+      if (filters.keyword.trim()) {
+        const kw = filters.keyword.toLowerCase().trim();
         const skills = getCompanySkills(c).map((s) => s.toLowerCase());
         const jobs = (c.jobs || []).map((j) => (j.title || '').toLowerCase());
         return (
@@ -585,30 +663,21 @@ export default function Companies() {
       }
       return true;
     });
-  }, [companiesList, searchKeyword, activeIndustry, selectedLocation, activeOfficeType, selectedSize]);
+  }, [companiesList, filters]);
 
   const totalElements = filteredCompanies.length;
+  const PAGE_SIZE = 12;
   const totalPages = Math.ceil(totalElements / PAGE_SIZE) || 1;
 
   const paginatedCompanies = useMemo(() => {
-    const start = (page - 1) * PAGE_SIZE;
+    const start = (filters.page - 1) * PAGE_SIZE;
     return filteredCompanies.slice(start, start + PAGE_SIZE);
-  }, [filteredCompanies, page, PAGE_SIZE]);
+  }, [filteredCompanies, filters.page, PAGE_SIZE]);
 
   const handlePageChange = (newPage) => {
-    setPage(newPage);
+    updateFilters({ page: newPage });
     const el = document.getElementById('companies-list-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleResetFilters = () => {
-    setSelectedLocation('all');
-    setActiveOfficeType('all');
-    setActiveIndustry('ALL');
-    setSelectedSize('all');
-    setSearchKeyword('');
-    setShowAllFilters(false);
-    setPage(1);
   };
 
   const selectedCompany = useMemo(() => {
@@ -943,16 +1012,13 @@ export default function Companies() {
           {/* Thanh lọc chuẩn Built In theo đúng ảnh mẫu (Single-row Toolbar) */}
           <div className="builtin-filter-bar">
             {/* Thẻ Địa điểm trắng bo góc kèm icon GPS */}
-            <div className="builtin-location-box">
+            <div className={`builtin-location-box ${filters.location !== 'all' ? 'builtin-location-box--active' : ''}`}>
               <div className="builtin-location-content">
                 <span className="builtin-location-label">ĐỊA ĐIỂM</span>
                 <select
                   className="builtin-location-select"
-                  value={selectedLocation}
-                  onChange={(e) => {
-                    setSelectedLocation(e.target.value);
-                    setPage(1);
-                  }}
+                  value={filters.location}
+                  onChange={(e) => updateFilters({ location: e.target.value, page: 1 })}
                 >
                   <option value="all">Việt Nam</option>
                   <option value="Hà Nội">Hà Nội</option>
@@ -964,11 +1030,8 @@ export default function Companies() {
               <button
                 type="button"
                 className="builtin-gps-btn"
-                title="Tất cả địa điểm"
-                onClick={() => {
-                  setSelectedLocation('all');
-                  setPage(1);
-                }}
+                title={filters.location !== 'all' ? 'Đặt lại toàn quốc' : 'Định vị GPS vị trí hiện tại'}
+                onClick={handleGpsDetect}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="7" />
@@ -982,14 +1045,11 @@ export default function Companies() {
             </div>
 
             {/* Hình thức làm việc (Office Type) */}
-            <div className="builtin-pill-wrap">
+            <div className={`builtin-pill-wrap ${filters.officeType !== 'all' ? 'builtin-pill-wrap--active' : ''}`}>
               <select
                 className="builtin-pill-select"
-                value={activeOfficeType}
-                onChange={(e) => {
-                  setActiveOfficeType(e.target.value);
-                  setPage(1);
-                }}
+                value={filters.officeType}
+                onChange={(e) => updateFilters({ officeType: e.target.value, page: 1 })}
               >
                 <option value="all">Hình thức làm việc</option>
                 <option value="onsite">Tại văn phòng</option>
@@ -1000,14 +1060,11 @@ export default function Companies() {
             </div>
 
             {/* Ngành nghề (Industry) */}
-            <div className="builtin-pill-wrap">
+            <div className={`builtin-pill-wrap ${filters.industry !== 'ALL' ? 'builtin-pill-wrap--active' : ''}`}>
               <select
                 className="builtin-pill-select"
-                value={activeIndustry}
-                onChange={(e) => {
-                  setActiveIndustry(e.target.value);
-                  setPage(1);
-                }}
+                value={filters.industry}
+                onChange={(e) => updateFilters({ industry: e.target.value, page: 1 })}
               >
                 <option value="ALL">Ngành nghề</option>
                 <option value="IT - Phần mềm">Công nghệ thông tin</option>
@@ -1021,14 +1078,11 @@ export default function Companies() {
             </div>
 
             {/* Quy mô công ty (Company Size) */}
-            <div className="builtin-pill-wrap">
+            <div className={`builtin-pill-wrap ${filters.size !== 'all' ? 'builtin-pill-wrap--active' : ''}`}>
               <select
                 className="builtin-pill-select"
-                value={selectedSize}
-                onChange={(e) => {
-                  setSelectedSize(e.target.value);
-                  setPage(1);
-                }}
+                value={filters.size}
+                onChange={(e) => updateFilters({ size: e.target.value, page: 1 })}
               >
                 <option value="all">Quy mô công ty</option>
                 <option value="small">50 - 200 nhân sự</option>
@@ -1127,10 +1181,7 @@ export default function Companies() {
                     key={chip.key}
                     className="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2"
                     style={{ fontSize: '11px', cursor: 'pointer' }}
-                    onClick={() => {
-                      chip.clearVal();
-                      setPage(1);
-                    }}
+                    onClick={() => chip.clearVal()}
                     title="Nhấn để gỡ"
                   >
                     {chip.label}
@@ -1145,15 +1196,12 @@ export default function Companies() {
           <div className="builtin-offcanvas-section">
             <div className="builtin-offcanvas-section-title">
               <span>Tên doanh nghiệp hoặc từ khóa</span>
-              {searchKeyword && (
+              {filters.keyword && (
                 <button
                   type="button"
                   className="btn btn-link text-muted p-0 text-decoration-none small"
                   style={{ fontSize: '11.5px' }}
-                  onClick={() => {
-                    setSearchKeyword('');
-                    setPage(1);
-                  }}
+                  onClick={() => updateFilters({ keyword: '', page: 1 })}
                 >
                   Xóa
                 </button>
@@ -1165,20 +1213,14 @@ export default function Companies() {
                 type="text"
                 className="job-filter-input"
                 placeholder="Nhập tên doanh nghiệp, kỹ năng, chức danh..."
-                value={searchKeyword}
-                onChange={(e) => {
-                  setSearchKeyword(e.target.value);
-                  setPage(1);
-                }}
+                value={filters.keyword}
+                onChange={(e) => updateFilters({ keyword: e.target.value, page: 1 })}
               />
-              {searchKeyword && (
+              {filters.keyword && (
                 <button
                   type="button"
                   className="job-filter-clear-btn"
-                  onClick={() => {
-                    setSearchKeyword('');
-                    setPage(1);
-                  }}
+                  onClick={() => updateFilters({ keyword: '', page: 1 })}
                   aria-label="Xóa từ khóa"
                 >
                   <FaTimes size={10} />
@@ -1191,15 +1233,12 @@ export default function Companies() {
           <div className="builtin-offcanvas-section">
             <div className="builtin-offcanvas-section-title">
               <span>Hình thức làm việc (Office Type)</span>
-              {activeOfficeType !== 'all' && (
+              {filters.officeType !== 'all' && (
                 <button
                   type="button"
                   className="btn btn-link text-muted p-0 text-decoration-none small"
                   style={{ fontSize: '11.5px' }}
-                  onClick={() => {
-                    setActiveOfficeType('all');
-                    setPage(1);
-                  }}
+                  onClick={() => updateFilters({ officeType: 'all', page: 1 })}
                 >
                   Đặt lại
                 </button>
@@ -1214,17 +1253,14 @@ export default function Companies() {
               ].map((opt) => (
                 <label
                   key={opt.value}
-                  className={`builtin-offcanvas-radio-item ${activeOfficeType === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                  className={`builtin-offcanvas-radio-item ${filters.officeType === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
                 >
                   <input
                     type="radio"
                     name="comp_filter_office"
                     value={opt.value}
-                    checked={activeOfficeType === opt.value}
-                    onChange={() => {
-                      setActiveOfficeType(opt.value);
-                      setPage(1);
-                    }}
+                    checked={filters.officeType === opt.value}
+                    onChange={() => updateFilters({ officeType: opt.value, page: 1 })}
                   />
                   <span>{opt.label}</span>
                 </label>
@@ -1236,15 +1272,12 @@ export default function Companies() {
           <div className="builtin-offcanvas-section">
             <div className="builtin-offcanvas-section-title">
               <span>Ngành nghề kinh doanh</span>
-              {activeIndustry !== 'ALL' && (
+              {filters.industry !== 'ALL' && (
                 <button
                   type="button"
                   className="btn btn-link text-muted p-0 text-decoration-none small"
                   style={{ fontSize: '11.5px' }}
-                  onClick={() => {
-                    setActiveIndustry('ALL');
-                    setPage(1);
-                  }}
+                  onClick={() => updateFilters({ industry: 'ALL', page: 1 })}
                 >
                   Đặt lại
                 </button>
@@ -1262,17 +1295,14 @@ export default function Companies() {
               ].map((opt) => (
                 <label
                   key={opt.value}
-                  className={`builtin-offcanvas-radio-item ${activeIndustry === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                  className={`builtin-offcanvas-radio-item ${filters.industry === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
                 >
                   <input
                     type="radio"
                     name="comp_filter_industry"
                     value={opt.value}
-                    checked={activeIndustry === opt.value}
-                    onChange={() => {
-                      setActiveIndustry(opt.value);
-                      setPage(1);
-                    }}
+                    checked={filters.industry === opt.value}
+                    onChange={() => updateFilters({ industry: opt.value, page: 1 })}
                   />
                   <span>{opt.label}</span>
                 </label>
@@ -1284,15 +1314,12 @@ export default function Companies() {
           <div className="builtin-offcanvas-section">
             <div className="builtin-offcanvas-section-title">
               <span>Quy mô công ty (Company Size)</span>
-              {selectedSize !== 'all' && (
+              {filters.size !== 'all' && (
                 <button
                   type="button"
                   className="btn btn-link text-muted p-0 text-decoration-none small"
                   style={{ fontSize: '11.5px' }}
-                  onClick={() => {
-                    setSelectedSize('all');
-                    setPage(1);
-                  }}
+                  onClick={() => updateFilters({ size: 'all', page: 1 })}
                 >
                   Đặt lại
                 </button>
@@ -1307,17 +1334,14 @@ export default function Companies() {
               ].map((opt) => (
                 <label
                   key={opt.value}
-                  className={`builtin-offcanvas-radio-item ${selectedSize === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                  className={`builtin-offcanvas-radio-item ${filters.size === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
                 >
                   <input
                     type="radio"
                     name="comp_filter_size"
                     value={opt.value}
-                    checked={selectedSize === opt.value}
-                    onChange={() => {
-                      setSelectedSize(opt.value);
-                      setPage(1);
-                    }}
+                    checked={filters.size === opt.value}
+                    onChange={() => updateFilters({ size: opt.value, page: 1 })}
                   />
                   <span>{opt.label}</span>
                 </label>
@@ -1329,15 +1353,12 @@ export default function Companies() {
           <div className="builtin-offcanvas-section">
             <div className="builtin-offcanvas-section-title">
               <span>Địa điểm (Location)</span>
-              {selectedLocation !== 'all' && (
+              {filters.location !== 'all' && (
                 <button
                   type="button"
                   className="btn btn-link text-muted p-0 text-decoration-none small"
                   style={{ fontSize: '11.5px' }}
-                  onClick={() => {
-                    setSelectedLocation('all');
-                    setPage(1);
-                  }}
+                  onClick={() => updateFilters({ location: 'all', page: 1 })}
                 >
                   Đặt lại
                 </button>
@@ -1352,17 +1373,14 @@ export default function Companies() {
               ].map((opt) => (
                 <label
                   key={opt.value}
-                  className={`builtin-offcanvas-radio-item ${selectedLocation === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                  className={`builtin-offcanvas-radio-item ${filters.location === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
                 >
                   <input
                     type="radio"
                     name="comp_filter_location"
                     value={opt.value}
-                    checked={selectedLocation === opt.value}
-                    onChange={() => {
-                      setSelectedLocation(opt.value);
-                      setPage(1);
-                    }}
+                    checked={filters.location === opt.value}
+                    onChange={() => updateFilters({ location: opt.value, page: 1 })}
                   />
                   <span>{opt.label}</span>
                 </label>
@@ -1395,16 +1413,13 @@ export default function Companies() {
         {/* Category Filter Buttons (Pill shaped) */}
         <div className="companies-filter-nav mb-4">
           {CATEGORY_TABS.map((tab) => {
-            const isActive = activeIndustry === tab.id;
+            const isActive = filters.industry === tab.id;
             return (
               <button
                 key={tab.id}
                 type="button"
                 className={`companies-pill-btn ${isActive ? 'companies-pill-btn--active' : ''}`}
-                onClick={() => {
-                  setActiveIndustry(tab.id);
-                  setPage(1);
-                }}
+                onClick={() => updateFilters({ industry: tab.id, page: 1 })}
               >
                 {isActive && <span className="companies-pill-accent" />}
                 <span>{tab.label}</span>
@@ -1421,10 +1436,7 @@ export default function Companies() {
                 key={chip.key}
                 type="button"
                 className="filter-active-chip"
-                onClick={() => {
-                  chip.clearVal();
-                  setPage(1);
-                }}
+                onClick={() => chip.clearVal()}
                 title={`Bỏ lọc ${chip.label}`}
               >
                 <span>{chip.label}</span>
@@ -1451,7 +1463,7 @@ export default function Companies() {
           </div>
 
           <div>
-            {activeIndustry !== 'ALL' || searchKeyword || selectedLocation !== 'all' || activeOfficeType !== 'all' || selectedSize !== 'all' ? (
+            {filters.industry !== 'ALL' || filters.keyword || filters.location !== 'all' || filters.officeType !== 'all' || filters.size !== 'all' ? (
               <button
                 type="button"
                 className="btn btn-link text-decoration-none p-0 text-secondary small fw-semibold"
@@ -1461,7 +1473,7 @@ export default function Companies() {
               </button>
             ) : (
               <span className="small text-muted fw-semibold">
-                Hiển thị {(page - 1) * PAGE_SIZE + 1} - {Math.min(page * PAGE_SIZE, totalElements)} trên {totalElements} doanh nghiệp
+                Hiển thị {(filters.page - 1) * PAGE_SIZE + 1} - {Math.min(filters.page * PAGE_SIZE, totalElements)} trên {totalElements} doanh nghiệp
               </span>
             )}
           </div>
@@ -1617,7 +1629,7 @@ export default function Companies() {
             {/* Phân trang chuẩn 10-20 công ty/trang */}
             <div className="d-flex justify-content-center mt-5 mb-2">
               <Pagination
-                page={page}
+                page={filters.page}
                 totalPages={totalPages}
                 onChange={handlePageChange}
                 alwaysShow
