@@ -784,299 +784,299 @@ export default function Companies() {
     const relatedArticles = mockBlogs.slice(0, 2);
 
     return (
-      <div className="novatech-page-wrap">
-        {/* 1. HERO IDENTITY CANVAS (Built In Header Form) */}
-        <section className="novatech-hero-wrap">
-          <div className="novatech-hero-dots-left" />
-          <div className="novatech-hero-dots-right" />
-
-          <div className="container" style={{ maxWidth: '1240px' }}>
-            {/* Breadcrumb nhẹ nhàng */}
-            <div className="d-flex align-items-center gap-2 mb-3 text-muted small">
-              <button
-                type="button"
-                className="btn btn-link text-decoration-none p-0 text-muted small fw-semibold"
-                onClick={() => setSearchParams({})}
-              >
-                Doanh nghiệp
-              </button>
-              <span>›</span>
-              <span className="text-secondary">{selectedCompany.shortName || selectedCompany.name}</span>
-            </div>
-
-            {/* Profile Identity Bar */}
-            <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-4">
-              <div className="d-flex align-items-center" style={{ gap: '24px' }}>
-                {/* Logo Box */}
-                <div className="novatech-logo-box position-relative">
-                  <img
-                    src={selectedCompany.logo}
-                    alt={selectedCompany.name}
-                    className="novatech-logo-img"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      if (e.currentTarget.nextElementSibling) {
-                        e.currentTarget.nextElementSibling.style.display = 'flex';
-                      }
-                    }}
-                  />
-                  <div className="fw-bold text-dark d-none align-items-center justify-content-center w-100 h-100 fs-3">
-                    {(selectedCompany.shortName || selectedCompany.name).charAt(0).toUpperCase()}
-                  </div>
-                </div>
-
-                {/* Company Name & Meta */}
-                <div>
-                  <div className="d-flex flex-wrap align-items-center gap-2 mb-1.5">
-                    <h1 className="h4 fw-bold text-dark mb-0" style={{ letterSpacing: '-0.02em', fontSize: '28px' }}>
-                      {selectedCompany.name}
-                    </h1>
-                    {selectedCompany.verified && (
-                      <span className="novatech-verified-badge" title="Doanh nghiệp xác thực">
-                        <FaCheck size={9} />
-                      </span>
-                    )}
-                    <span className="novatech-badge-tag">{extras.industry || selectedCompany.industry}</span>
-                    <span className="novatech-badge-tag">{extras.ownership || 'Enterprise Tech'}</span>
-                  </div>
-
-                  <p className="mb-2 fw-semibold" style={{ fontSize: '15px', maxWidth: '780px', color: '#334155', lineHeight: '1.5' }}>
-                    "{extras.tagline}"
-                  </p>
-
-                  <div className="d-flex flex-wrap align-items-center gap-3" style={{ fontSize: '14.5px', color: '#334155' }}>
-                    <span className="d-inline-flex align-items-center gap-1.5 fw-medium">
-                      <FaMapMarkerAlt size={13} className="text-secondary" />
-                      <span>{extras.hq || selectedCompany.location} • Làm việc linh hoạt</span>
-                    </span>
-                    <span>•</span>
-                    <span className="d-inline-flex align-items-center gap-1.5 fw-medium">
-                      <FaUsers size={13} className="text-secondary" />
-                      <span>{extras.size || selectedCompany.size}</span>
-                    </span>
-                    {companyWebsite && (
-                      <>
-                        <span>•</span>
-                        <a
-                          href={companyWebsite}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-decoration-none d-inline-flex align-items-center gap-1 fw-bold"
-                          style={{ color: '#0F172A' }}
-                        >
-                          <FaGlobe size={13} />
-                          <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
-                          <span style={{ fontSize: '11px', color: '#EA580C' }}>↗</span>
-                        </a>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* CTAs bên phải */}
-              <div className="d-flex align-items-center gap-2.5 flex-shrink-0">
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary d-inline-flex align-items-center gap-2 bg-white"
-                  style={{ borderRadius: '10px', padding: '8px 16px', fontWeight: 600, fontSize: '14px', borderColor: '#CBD5E1' }}
-                  onClick={handleShare}
-                  title="Chia sẻ hồ sơ doanh nghiệp"
-                >
-                  <FaShareAlt size={13} />
-                  <span>Chia sẻ</span>
-                </button>
-
-                <button
-                  type="button"
-                  className={`btn novatech-btn-follow d-inline-flex align-items-center gap-2 ${
-                    isFollowed ? 'novatech-btn-follow--active' : ''
-                  }`}
-                  onClick={handleToggleFollow}
-                >
-                  {isFollowed ? <FaBookmark size={13} /> : <FaRegBookmark size={13} />}
-                  <span>{isFollowed ? 'Đang theo dõi' : 'Theo dõi'}</span>
-                </button>
-
-                <button
-                  type="button"
-                  className="btn novatech-btn-view-jobs d-inline-flex align-items-center gap-2"
-                  onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-                >
-                  <FaBriefcase size={13} />
-                  <span>Xem việc làm ({jobsList.length})</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Built In Style Key Facts Strip */}
-            <div className="novatech-keyfacts-strip">
-              <div className="novatech-keyfact-pill">
-                <span>📍 Trụ sở chính:</span>
-                <strong>{extras.hq || selectedCompany.location}</strong>
-              </div>
-              <div className="novatech-keyfact-pill">
-                <span>🏢 Tổng số văn phòng:</span>
-                <strong>{extras.officesCount || '11+'}</strong>
-              </div>
-              <div className="novatech-keyfact-pill">
-                <span>👥 Quy mô:</span>
-                <strong>{extras.size || selectedCompany.size}</strong>
-              </div>
-              <div className="novatech-keyfact-pill">
-                <span>📅 Năm thành lập:</span>
-                <strong>{extras.founded || '1957'}</strong>
-              </div>
-              <div className="novatech-keyfact-pill">
-                <span>🔥 Đang tuyển dụng:</span>
-                <strong style={{ color: '#EA580C' }}>{jobsList.length} vị trí</strong>
-              </div>
-            </div>
-
-            {/* Built In McCain Foods Signature "We're Hiring!" Department Track */}
-            <div className="mccain-hiring-track">
-              <span className="mccain-hiring-label">
-                <FaFire size={13} className="text-danger" />
-                <span>We're Hiring!</span>
-              </span>
-              <button
-                type="button"
-                className="mccain-hiring-pill"
-                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-              >
-                <span>Kỹ thuật &amp; Lập trình</span>
-                <span className="mccain-hiring-count">{Math.max(1, Math.round(jobsList.length * 0.4))}</span>
-              </button>
-              <button
-                type="button"
-                className="mccain-hiring-pill"
-                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-              >
-                <span>Dữ liệu &amp; Trí tuệ nhân tạo</span>
-                <span className="mccain-hiring-count">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
-              </button>
-              <button
-                type="button"
-                className="mccain-hiring-pill"
-                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-              >
-                <span>Vận hành &amp; Hệ thống Cloud</span>
-                <span className="mccain-hiring-count">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
-              </button>
-              <button
-                type="button"
-                className="mccain-hiring-pill"
-                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-              >
-                <span>Sản phẩm &amp; Kinh doanh</span>
-                <span className="mccain-hiring-count">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
-              </button>
-            </div>
+      <div className="mccain-page-root">
+        <div className="container" style={{ maxWidth: '1280px' }}>
+          {/* Breadcrumb nhẹ nhàng */}
+          <div className="d-flex align-items-center gap-2 mb-3 text-muted small">
+            <button
+              type="button"
+              className="btn btn-link text-decoration-none p-0 text-muted small fw-semibold"
+              onClick={() => setSearchParams({})}
+            >
+              Doanh nghiệp
+            </button>
+            <span>›</span>
+            <span className="text-secondary">{selectedCompany.shortName || selectedCompany.name}</span>
           </div>
-        </section>
 
-        {/* 2. STICKY SUB-NAV TABS SHELF (Built In McCain Style) */}
-        <div className="novatech-subnav-bar">
-          <div className="container" style={{ maxWidth: '1240px' }}>
-            <div className="novatech-subnav-inner">
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'overview' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('overview', 'company-overview-section')}
-              >
-                Tổng quan &amp; Sứ mệnh
-              </button>
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'offices' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('offices', 'company-offices-section')}
-              >
-                Văn phòng &amp; Địa điểm
-              </button>
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'culture' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('culture', 'company-culture-section')}
-              >
-                Văn hóa &amp; Giá trị
-              </button>
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'jobs' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
-              >
-                Cơ hội việc làm ({jobsList.length})
-              </button>
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'perks' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('perks', 'company-perks-section')}
-              >
-                Chế độ đãi ngộ &amp; Phúc lợi
-              </button>
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'tech' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('tech', 'company-tech-section')}
-              >
-                Công nghệ sử dụng
-              </button>
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'articles' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('articles', 'company-articles-section')}
-              >
-                Bài viết &amp; Tin tức
-              </button>
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'faqs' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('faqs', 'company-faqs-section')}
-              >
-                Hỏi đáp &amp; Góc nhìn (FAQs)
-              </button>
-              <button
-                type="button"
-                className={`novatech-subnav-tab ${companyTab === 'info' ? 'novatech-subnav-tab--active' : ''}`}
-                onClick={() => handleScrollToSection('info', 'company-info-section')}
-              >
-                Hồ sơ doanh nghiệp
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 3. MAIN 2-COLUMN CONTENT GRID */}
-        <div className="container py-4 my-2" style={{ maxWidth: '1240px' }}>
           <div className="row g-4">
-            {/* CỘT TRÁI (~68% width): Chi tiết nội dung chuẩn Built In McCain Foods */}
-            <div className="col-12 col-lg-8">
-              {/* Mục 1: Tổng quan & Giới thiệu doanh nghiệp */}
-              <div className="novatech-section-card" id="company-overview-section">
-                <div className="novatech-section-eyebrow">GIỚI THIỆU DOANH NGHIỆP</div>
-                <h2 className="novatech-section-title">
-                  {selectedCompany.name} - Tiên phong phát triển &amp; Chuyển đổi số
-                </h2>
-                <p style={{ fontSize: '15px', color: '#334155', lineHeight: '1.7', marginBottom: '18px' }}>
-                  {selectedCompany.description ||
-                    `${selectedCompany.name} là tổ chức hàng đầu hoạt động chuyên sâu trong lĩnh vực ${selectedCompany.industry}, cung cấp các giải pháp công nghệ cao cấp và dịch vụ toàn diện cho khách hàng trên thị trường quốc tế và Việt Nam.`}
-                </p>
-                <div className="p-3 bg-light rounded-3 border d-flex align-items-center gap-3">
-                  <div className="novatech-value-icon m-0" style={{ width: '42px', height: '42px', flexShrink: 0 }}>
-                    <FaBuilding size={18} />
+            {/* CỘT TRÁI (~30%): Quick Facts Sidebar (McCain Foods Style) */}
+            <div className="col-12 col-lg-4 col-xl-3">
+              <div className="mccain-sidebar-sticky">
+                {/* Card 1: Logo & Company Identity & Quick Metadata */}
+                <div className="mccain-sidebar-card">
+                  {/* Centered Logo Box with offset */}
+                  <div className="mccain-sidebar-logo-wrap">
+                    <div className="mccain-sidebar-logo-box">
+                      <img
+                        src={selectedCompany.logo}
+                        alt={selectedCompany.name}
+                        className="mccain-sidebar-logo-img"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          if (e.currentTarget.nextElementSibling) {
+                            e.currentTarget.nextElementSibling.style.display = 'flex';
+                          }
+                        }}
+                      />
+                      <div className="fw-bold text-dark d-none align-items-center justify-content-center w-100 h-100 fs-3">
+                        {(selectedCompany.shortName || selectedCompany.name).charAt(0).toUpperCase()}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="fw-bold text-dark" style={{ fontSize: '14.5px' }}>
-                      Mô hình không gian làm việc linh hoạt (Hybrid Workspace)
+
+                  <h1 className="mccain-sidebar-title">
+                    {selectedCompany.name}
+                  </h1>
+
+                  {/* Save Button */}
+                  <button
+                    type="button"
+                    className={`mccain-sidebar-save-btn ${isFollowed ? 'mccain-sidebar-save-btn--active' : ''}`}
+                    onClick={handleToggleFollow}
+                  >
+                    <span className="mccain-save-heart">
+                      {isFollowed ? '♥' : '♡'}
+                    </span>
+                    <span>{isFollowed ? 'SAVED (ĐANG THEO DÕI)' : 'SAVE (THEO DÕI)'}</span>
+                  </button>
+
+                  {/* Quick Facts List */}
+                  <div className="mccain-metadata-list">
+                    <div className="mccain-metadata-item">
+                      <span className="mccain-meta-icon mccain-meta-icon--hq">HQ</span>
+                      <div className="mccain-meta-text">
+                        <span className="mccain-meta-label">Trụ sở chính:</span>
+                        <span className="mccain-meta-val">{extras.hq || selectedCompany.location}</span>
+                      </div>
                     </div>
-                    <div className="text-secondary small">
-                      Nhân viên kết hợp linh hoạt 3 ngày tại văn phòng hiện đại và 2 ngày làm việc từ xa, trang bị thiết bị tiêu chuẩn cao cấp.
+
+                    <div className="mccain-metadata-item">
+                      <span className="mccain-meta-icon"><FaBuilding size={14} /></span>
+                      <div className="mccain-meta-text">
+                        <span className="mccain-meta-label">Văn phòng hoạt động:</span>
+                        <span className="mccain-meta-val">{extras.officesCount || '11'} cơ sở</span>
+                      </div>
                     </div>
+
+                    <div className="mccain-metadata-item">
+                      <span className="mccain-meta-icon"><FaUsers size={14} /></span>
+                      <div className="mccain-meta-text">
+                        <span className="mccain-meta-label">Quy mô nhân sự:</span>
+                        <span className="mccain-meta-val">{extras.size || selectedCompany.size}</span>
+                      </div>
+                    </div>
+
+                    <div className="mccain-metadata-item">
+                      <span className="mccain-meta-icon"><FaCalendarAlt size={14} /></span>
+                      <div className="mccain-meta-text">
+                        <span className="mccain-meta-label">Năm thành lập:</span>
+                        <span className="mccain-meta-val">{extras.founded || '1957'}</span>
+                      </div>
+                    </div>
+
+                    {companyWebsite && (
+                      <div className="mccain-metadata-item">
+                        <span className="mccain-meta-icon"><FaGlobe size={14} /></span>
+                        <div className="mccain-meta-text">
+                          <span className="mccain-meta-label">Trang web:</span>
+                          <a
+                            href={companyWebsite}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="mccain-meta-link"
+                          >
+                            <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
+                            <span style={{ fontSize: '11px' }}>↗</span>
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Card 2: We're Hiring! Department Pills */}
+                <div className="mccain-sidebar-card mt-3">
+                  <div className="d-flex align-items-center justify-content-between mb-2">
+                    <h3 className="mccain-hiring-box-title">We're Hiring!</h3>
+                    <span className="badge bg-danger-subtle text-danger fw-bold" style={{ fontSize: '11px' }}>
+                      {jobsList.length} vị trí
+                    </span>
+                  </div>
+                  <div className="d-flex flex-column gap-2 mt-2">
+                    <button
+                      type="button"
+                      className="mccain-hiring-row-btn"
+                      onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+                    >
+                      <span>Kỹ thuật &amp; Phần mềm</span>
+                      <span className="mccain-hiring-pill-num">{Math.max(1, Math.round(jobsList.length * 0.4))}</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="mccain-hiring-row-btn"
+                      onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+                    >
+                      <span>Dữ liệu &amp; Trí tuệ nhân tạo</span>
+                      <span className="mccain-hiring-pill-num">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="mccain-hiring-row-btn"
+                      onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+                    >
+                      <span>Vận hành &amp; Hạ tầng Cloud</span>
+                      <span className="mccain-hiring-pill-num">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="mccain-hiring-row-btn"
+                      onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+                    >
+                      <span>Sản phẩm &amp; Kinh doanh</span>
+                      <span className="mccain-hiring-pill-num">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Card 3: Trust Commitment */}
+                <div className="novatech-trust-box mt-3">
+                  <div className="d-flex align-items-center gap-2 mb-2">
+                    <span className="novatech-verified-badge" style={{ width: '22px', height: '22px' }}>
+                      <FaCheck size={11} />
+                    </span>
+                    <strong style={{ color: '#9A3412', fontSize: '15px' }}>Doanh nghiệp xác thực JobNest</strong>
+                  </div>
+                  <p className="small text-secondary mb-3" style={{ lineHeight: '1.5' }}>
+                    Hồ sơ pháp lý và thông tin tuyển dụng của doanh nghiệp đã được JobNest thẩm định an toàn và minh bạch 100%.
+                  </p>
+                  <div className="d-flex flex-column gap-1.5 small" style={{ color: '#431407' }}>
+                    <div>✓ Cam kết phản hồi ứng viên trong 48h</div>
+                    <div>✓ Không phát sinh chi phí ứng tuyển</div>
+                    <div>✓ Bảo mật thông tin hồ sơ tuyệt đối</div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Mục 2: Văn phòng & Địa điểm làm việc (Built In McCain Style) */}
+            {/* CỘT PHẢI (~70%): Main Content Area (McCain Foods Style) */}
+            <div className="col-12 col-lg-8 col-xl-9">
+              {/* Top Hero Banner Card (McCain Foods Signature) */}
+              <div className="mccain-hero-banner-card" id="company-overview-section">
+                <div className="mccain-hero-banner-visual">
+                  <img
+                    src={selectedCompany.cover || 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80'}
+                    alt={selectedCompany.name}
+                    className="mccain-banner-bg-img"
+                  />
+                  <div className="mccain-banner-overlay" />
+
+                  <div className="mccain-banner-content">
+                    <div className="mccain-banner-logo-badge">
+                      <img src={selectedCompany.logo} alt="" className="mccain-banner-mini-logo" />
+                      <span className="mccain-banner-logo-text">{selectedCompany.shortName || selectedCompany.name}</span>
+                    </div>
+
+                    {/* Circular photo cutouts cluster */}
+                    <div className="mccain-photos-cluster">
+                      <div className="mccain-cluster-dot mccain-cluster-dot--top" />
+                      <div className="mccain-cluster-avatar mccain-cluster-avatar--1">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" alt="Team" />
+                      </div>
+                      <div className="mccain-cluster-avatar mccain-cluster-avatar--2">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&q=80" alt="Team" />
+                      </div>
+                      <div className="mccain-cluster-avatar mccain-cluster-avatar--3">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80" alt="Team" />
+                      </div>
+                      <div className="mccain-cluster-dot mccain-cluster-dot--bottom" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* In-Page Navigation Bar right below banner */}
+                <div className="mccain-subnav-bar">
+                  <button
+                    type="button"
+                    className={`mccain-subnav-tab ${companyTab === 'overview' ? 'mccain-subnav-tab--active' : ''}`}
+                    onClick={() => handleScrollToSection('overview', 'company-overview-section')}
+                  >
+                    Overview
+                  </button>
+                  <button
+                    type="button"
+                    className={`mccain-subnav-tab ${companyTab === 'jobs' ? 'mccain-subnav-tab--active' : ''}`}
+                    onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+                  >
+                    Jobs {jobsList.length}
+                  </button>
+                  <button
+                    type="button"
+                    className={`mccain-subnav-tab ${companyTab === 'offices' ? 'mccain-subnav-tab--active' : ''}`}
+                    onClick={() => handleScrollToSection('offices', 'company-offices-section')}
+                  >
+                    Offices
+                  </button>
+                  <button
+                    type="button"
+                    className={`mccain-subnav-tab ${companyTab === 'culture' ? 'mccain-subnav-tab--active' : ''}`}
+                    onClick={() => handleScrollToSection('culture', 'company-culture-section')}
+                  >
+                    Culture &amp; Values
+                  </button>
+                  <button
+                    type="button"
+                    className={`mccain-subnav-tab ${companyTab === 'perks' ? 'mccain-subnav-tab--active' : ''}`}
+                    onClick={() => handleScrollToSection('perks', 'company-perks-section')}
+                  >
+                    Perks + Benefits
+                  </button>
+                  <button
+                    type="button"
+                    className={`mccain-subnav-tab ${companyTab === 'tech' ? 'mccain-subnav-tab--active' : ''}`}
+                    onClick={() => handleScrollToSection('tech', 'company-tech-section')}
+                  >
+                    Tech Stack
+                  </button>
+                  <button
+                    type="button"
+                    className={`mccain-subnav-tab ${companyTab === 'articles' ? 'mccain-subnav-tab--active' : ''}`}
+                    onClick={() => handleScrollToSection('articles', 'company-articles-section')}
+                  >
+                    Articles
+                  </button>
+                  <button
+                    type="button"
+                    className={`mccain-subnav-tab ${companyTab === 'faqs' ? 'mccain-subnav-tab--active' : ''}`}
+                    onClick={() => handleScrollToSection('faqs', 'company-faqs-section')}
+                  >
+                    Company Insights
+                  </button>
+                </div>
+
+                {/* Sub-Banner Content: Industry badges & Headline */}
+                <div className="mccain-banner-body">
+                  <div className="d-flex flex-wrap align-items-center gap-2 mb-3">
+                    <span className="mccain-industry-pill">{extras.industry || selectedCompany.industry}</span>
+                    <span className="mccain-industry-pill">{extras.ownership || 'Enterprise'}</span>
+                    <span className="mccain-industry-pill">{extras.size || selectedCompany.size}</span>
+                    <span className="mccain-industry-pill mccain-industry-pill--verified">
+                      <FaCheck size={10} className="me-1 text-primary" /> Verified Employer
+                    </span>
+                  </div>
+
+                  <h2 className="mccain-main-headline">
+                    "{extras.tagline}"
+                  </h2>
+
+                  <p className="mccain-main-lead">
+                    {selectedCompany.description ||
+                      `${selectedCompany.name} là tổ chức hàng đầu hoạt động chuyên sâu trong lĩnh vực ${selectedCompany.industry}, kiến tạo giá trị đột phá và kết nối hàng triệu khách hàng qua các giải pháp và dịch vụ chuẩn quốc tế.`}
+                  </p>
+                </div>
+              </div>
+
+              {/* Mục 1: Văn phòng & Địa điểm làm việc (McCain Style) */}
               <div className="novatech-section-card" id="company-offices-section">
                 <div className="novatech-section-eyebrow">KHÔNG GIAN &amp; ĐỊA ĐIỂM</div>
                 <h2 className="novatech-section-title">
@@ -1133,7 +1133,7 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* Mục 3: Văn hóa & Giá trị cốt lõi (Built In 3-Card Grid) */}
+              {/* Mục 2: Văn hóa & Giá trị cốt lõi */}
               <div className="novatech-section-card" id="company-culture-section">
                 <div className="novatech-section-eyebrow">MÔI TRƯỜNG &amp; VĂN HÓA</div>
                 <h2 className="novatech-section-title">
@@ -1182,7 +1182,7 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* Mục 4: Việc làm đang tuyển dụng */}
+              {/* Mục 3: Việc làm đang tuyển dụng */}
               <div className="novatech-section-card" id="company-jobs-section">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <div>
@@ -1245,7 +1245,7 @@ export default function Companies() {
                 )}
               </div>
 
-              {/* Mục 5: Chế độ đãi ngộ & Phúc lợi (Built In McCain Foods 6-Grid Card) */}
+              {/* Mục 4: Chế độ đãi ngộ & Phúc lợi (6-Grid Card) */}
               <div className="novatech-section-card" id="company-perks-section">
                 <div className="novatech-section-eyebrow">ĐÃI NGỘ &amp; CHẾ ĐỘ</div>
                 <h2 className="novatech-section-title">
@@ -1338,7 +1338,7 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* Mục 6: Công nghệ & Hệ sinh thái sử dụng */}
+              {/* Mục 5: Công nghệ & Hệ sinh thái sử dụng */}
               <div className="novatech-section-card" id="company-tech-section">
                 <div className="novatech-section-eyebrow">TECH STACK &amp; TOOLS</div>
                 <h2 className="novatech-section-title">
@@ -1353,7 +1353,7 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* Mục 7: Bài viết & Tin tức doanh nghiệp (Built In McCain "Articles We're In") */}
+              {/* Mục 6: Bài viết & Tin tức doanh nghiệp (Articles We're In) */}
               <div className="novatech-section-card" id="company-articles-section">
                 <div className="novatech-section-eyebrow">BÀI VIẾT &amp; TIN TỨC</div>
                 <h2 className="novatech-section-title">
@@ -1398,7 +1398,7 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* Mục 8: Hỏi đáp & Góc nhìn văn hóa (Built In McCain FAQs Accordion) */}
+              {/* Mục 7: Hỏi đáp & Góc nhìn văn hóa (Company FAQs Accordion) */}
               <div className="novatech-section-card" id="company-faqs-section">
                 <div className="novatech-section-eyebrow">HỎI ĐÁP &amp; INSIGHTS</div>
                 <h2 className="novatech-section-title">
@@ -1432,105 +1432,6 @@ export default function Companies() {
                       </div>
                     );
                   })}
-                </div>
-              </div>
-            </div>
-
-            {/* CỘT PHẢI (~32% width): Quick Stats & Company Overview */}
-            <div className="col-12 col-lg-4" id="company-info-section">
-              <div className="d-flex flex-column gap-3.5 novatech-sidebar-sticky">
-                {/* 2 Thẻ Stats đầu tiên */}
-                <div className="row g-2.5">
-                  <div className="col-6">
-                    <div className="novatech-stat-card">
-                      <div className="fw-bold text-dark mb-0" style={{ fontSize: '28px', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                        {extras.officesCount || '11+'}
-                      </div>
-                      <div className="small fw-semibold mt-1" style={{ fontSize: '13.5px', color: '#334155' }}>Văn phòng hoạt động</div>
-                    </div>
-                  </div>
-
-                  <div className="col-6">
-                    <div className="novatech-stat-card">
-                      <div className="fw-bold text-dark mb-0" style={{ fontSize: '28px', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                        {extras.activeUsers || '20M+'}
-                      </div>
-                      <div className="small fw-semibold mt-1" style={{ fontSize: '13.5px', color: '#334155' }}>Khách hàng / Users</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Thẻ Thông tin doanh nghiệp (Company Overview) */}
-                <div className="novatech-overview-card">
-                  <h3 className="fw-bold mb-3" style={{ fontSize: '18px', color: '#0F172A' }}>
-                    Hồ sơ doanh nghiệp
-                  </h3>
-
-                  <div className="d-flex flex-column">
-                    <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Năm thành lập</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.founded || '1957'}</strong>
-                    </div>
-
-                    <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Hình thức sở hữu</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.ownership || 'Tập đoàn Tư nhân'}</strong>
-                    </div>
-
-                    <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Vốn / Niêm yết</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.funding || 'Niêm yết HOSE'}</strong>
-                    </div>
-
-                    <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Lĩnh vực kinh doanh</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCompany.industry}</strong>
-                    </div>
-
-                    <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Quy mô nhân sự</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCompany.size}</strong>
-                    </div>
-
-                    <div className="novatech-overview-row">
-                      <span style={{ color: '#475569', fontWeight: 500 }}>Trụ sở chính</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.hq || selectedCompany.location}</strong>
-                    </div>
-
-                    {companyWebsite && (
-                      <div className="novatech-overview-row">
-                        <span style={{ color: '#475569', fontWeight: 500 }}>Trang web</span>
-                        <a
-                          href={companyWebsite}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="fw-bold text-decoration-none d-inline-flex align-items-center gap-1"
-                          style={{ color: '#EA580C', fontSize: '14.5px' }}
-                        >
-                          <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
-                          <span style={{ fontSize: '11px' }}>↗</span>
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Thẻ cam kết uy tín tuyển dụng (JobNest Verified Partner) */}
-                <div className="novatech-trust-box">
-                  <div className="d-flex align-items-center gap-2 mb-2">
-                    <span className="novatech-verified-badge" style={{ width: '22px', height: '22px' }}>
-                      <FaCheck size={11} />
-                    </span>
-                    <strong style={{ color: '#9A3412', fontSize: '15px' }}>Doanh nghiệp xác thực JobNest</strong>
-                  </div>
-                  <p className="small text-secondary mb-3" style={{ lineHeight: '1.5' }}>
-                    Hồ sơ pháp lý và thông tin tuyển dụng của doanh nghiệp đã được JobNest thẩm định an toàn và minh bạch 100%.
-                  </p>
-                  <div className="d-flex flex-column gap-1.5 small" style={{ color: '#431407' }}>
-                    <div>✓ Cam kết phản hồi ứng viên trong 48h</div>
-                    <div>✓ Không phát sinh chi phí ứng tuyển</div>
-                    <div>✓ Bảo mật thông tin hồ sơ tuyệt đối</div>
-                  </div>
                 </div>
               </div>
             </div>
