@@ -4615,13 +4615,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 176px;
-  height: 94px;
+  width: 180px;
+  height: 96px;
   flex-shrink: 0;
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
   border-radius: 16px;
-  padding: 14px 20px;
+  padding: 10px 16px;
   text-decoration: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
@@ -4634,8 +4634,8 @@
 }
 
 .strategic-partner-logo {
-  max-width: 128px;
-  max-height: 54px;
+  max-width: 142px;
+  max-height: 60px;
   width: auto;
   height: auto;
   object-fit: contain;

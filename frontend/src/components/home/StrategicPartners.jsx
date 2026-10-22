@@ -39,7 +39,6 @@ export default function StrategicPartners() {
                 src={item.logo}
                 alt={item.name}
                 className="strategic-partner-logo"
-                loading="lazy"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   if (e.currentTarget.nextElementSibling) {

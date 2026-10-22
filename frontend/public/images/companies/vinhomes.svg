@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
-  
-  
-      <g transform="translate(15, 22)">
-        <path d="M45 8 C30 18 26 32 45 42 C64 32 60 18 45 8 Z" fill="#8B0000"/>
-        <polygon points="45,14 49,24 59,24 51,30 54,40 45,34 36,40 39,30 31,24 41,24" fill="#FFD700"/>
-        <text x="45" y="58" fill="#8B0000" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" font-weight="900" text-anchor="middle" letter-spacing="0.04em">VINHOMES</text>
-      </g>
-    
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 4 90 58" width="100%" height="100%">
+  <path d="M45 8 C30 18 26 32 45 42 C64 32 60 18 45 8 Z" fill="#8B0000"/>
+  <polygon points="45,14 49,24 59,24 51,30 54,40 45,34 36,40 39,30 31,24 41,24" fill="#FFD700"/>
+  <text x="45" y="58" fill="#8B0000" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" font-weight="900" text-anchor="middle" letter-spacing="0.04em">VINHOMES</text>
 </svg>
