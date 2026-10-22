@@ -2426,7 +2426,7 @@
   margin-top: 14px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
@@ -2438,6 +2438,54 @@
   font-size: 14px;
   color: #0F172A;
   font-weight: 500;
+}
+
+.builtin-pill-select option {
+  background: #FFFFFF;
+  color: #0F172A;
+}
+
+.builtin-pill-wrap--active .builtin-pill-select {
+  background: #FFFFFF;
+  color: #EA580C;
+  border-color: #FFFFFF;
+}
+
+.builtin-pill-wrap--active .builtin-pill-caret {
+  color: #EA580C;
+}
+
+.builtin-drawer-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.builtin-drawer-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #64748B;
+  white-space: nowrap;
+}
+
+.builtin-drawer-select {
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0F172A;
+  background-color: #F8FAFC;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.builtin-drawer-select:hover,
+.builtin-drawer-select:focus {
+  border-color: #EA580C;
+  background-color: #FFFFFF;
 }
 
 /* Category Filter Pills */
