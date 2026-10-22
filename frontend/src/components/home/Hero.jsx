@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaSearch, FaMapMarkerAlt, FaChevronDown, FaFire } from 'react-icons/fa';
+import { FaSearch, FaMapMarkerAlt, FaChevronDown } from 'react-icons/fa';
 
 const SUGGESTED_TAGS = [
   'AI',
@@ -103,23 +103,6 @@ export default function Hero() {
                 {tag}
               </button>
             ))}
-          </div>
-        </div>
-
-        {/* 5. Dải thông điệp chạy chữ ngọn lửa hiệu ứng Marquee (Khung k tròn, viền công nghệ AI) */}
-        <div className="itsearch-ticker-bar itsearch-ticker-bar--tech">
-          <div className="itsearch-ticker-fire" title="Nóng">
-            <FaFire className="itsearch-fire-svg" size={16} />
-          </div>
-          <div className="itsearch-ticker-track-wrap">
-            <div className="itsearch-ticker-track">
-              <span className="itsearch-ticker-text">
-                JobNest - Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
-              </span>
-              <span className="itsearch-ticker-text" aria-hidden="true">
-                JobNest - Không chỉ tìm một công việc, mà tìm thấy nơi bạn thuộc về và phát triển sự nghiệp.
-              </span>
-            </div>
           </div>
         </div>
       </div>
