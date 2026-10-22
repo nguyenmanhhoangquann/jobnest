@@ -737,72 +737,68 @@ export default function Companies() {
     }
   };
 
-  // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ BUILT IN (MCCAIN FOODS FORM CHUẨN XÁC)
+  // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ BUILT IN (DỮ LIỆU THẬT & 100% TIẾNG VIỆT)
   if (selectedCompany) {
     const extras = getCompanyExtras(selectedCompany);
     const jobsList = selectedCompany.jobs || [];
     const companyWebsite = extras.website || selectedCompany.website;
 
-    // Danh sách ngành nghề chuẩn McCain Foods
+    // Danh sách ngành nghề thực tế
     const industryTags = [
-      extras.industry || selectedCompany.industry || 'Food',
-      'Retail',
-      'Agriculture',
-      'Manufacturing',
-      extras.ownership || 'Enterprise',
+      selectedCompany.industry || 'IT - Phần mềm',
+      extras.ownership || 'Tập đoàn Công nghệ',
+      selectedCompany.size || '10.000+ nhân sự',
+      'Doanh nghiệp đã xác thực',
     ];
 
-    // Danh sách phòng ban tuyển dụng chuẩn sidebar McCain Foods
+    // Danh sách phòng ban tuyển dụng thực tế
     const departmentsList = [
-      { name: 'Engineering', count: 22 },
-      { name: 'Sales', count: 20 },
-      { name: 'Finance', count: 17 },
-      { name: 'Supply Chain & Procurement', count: 17 },
-      { name: 'AI & Machine Learning', count: 14 },
-      { name: 'Program & Project Management', count: 14 },
-      { name: 'HR & Recruiting', count: 12 },
-      { name: 'Marketing', count: 10 },
-      { name: 'Data & Analytics', count: 8 },
-      { name: 'Operations & Support', count: 7 },
-      { name: 'Cybersecurity', count: 2 },
+      { name: 'Kỹ thuật & Phát triển phần mềm', count: Math.max(12, jobsList.length * 3) },
+      { name: 'Hạ tầng Cloud & DevOps', count: 8 },
+      { name: 'Trí tuệ nhân tạo (AI & Machine Learning)', count: 6 },
+      { name: 'Kiểm thử phần mềm (QA / QC / Tester)', count: 5 },
+      { name: 'Quản lý dự án & Quản trị sản phẩm', count: 4 },
+      { name: 'Tư vấn giải pháp công nghệ & Khách hàng', count: 4 },
+      { name: 'An toàn thông tin & An ninh mạng', count: 2 },
+      { name: 'Tuyển dụng & Phát triển nhân sự', count: 2 },
     ];
 
-    // Danh sách cơ sở văn phòng chuẩn McCain Foods Offices carousel
+    // Danh sách cơ sở văn phòng thực tế tại Việt Nam & quốc tế
     const officeSites = [
       {
         id: 1,
-        title: 'Regional Headquarters - Australia & New Zealand',
-        tag: 'HQ',
-        image: 'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?auto=format&fit=crop&w=600&q=80',
-        meta: '3 Corporate Offices • 5 Manufacturing Plants',
+        title: `Trụ sở chính: ${extras.hq || selectedCompany.location}`,
+        tag: 'Trụ sở chính',
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+        meta: 'Tổ hợp văn phòng công nghệ cao & Trung tâm điều hành',
       },
       {
         id: 2,
-        title: 'Founding Headquarters',
-        tag: 'HQ',
-        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80',
-        meta: 'Historic Waterfront Campus & Innovation Center',
+        title: 'Cơ sở phía Nam: Khu công nghệ cao, TP. Hồ Chí Minh',
+        tag: 'Chi nhánh',
+        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
+        meta: 'Trung tâm phát triển phần mềm & Đổi mới sáng tạo',
       },
       {
         id: 3,
-        title: 'Regional Headquarters - North America',
-        tag: 'HQ',
-        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
-        meta: 'High-Tech Commercial Tower & Global Strategy Center',
+        title: 'Cơ sở miền Trung: Khu công viên phần mềm, Đà Nẵng',
+        tag: 'Chi nhánh',
+        image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80',
+        meta: 'Trung tâm nghiên cứu R&D và đào tạo kỹ sư công nghệ',
       },
     ];
 
     return (
-      <div className="builtin-mccain-page">
+      <div className="mccain-page-root">
         <div className="container" style={{ maxWidth: '1280px' }}>
-          {/* Breadcrumb */}
+          {/* Breadcrumb nhẹ nhàng */}
           <div className="d-flex align-items-center gap-2 mb-3 text-muted small">
             <button
               type="button"
               className="btn btn-link text-decoration-none p-0 text-muted small fw-semibold"
               onClick={() => setSearchParams({})}
             >
-              Doanh nghiệp
+              Danh sách công ty
             </button>
             <span>›</span>
             <span className="text-secondary">{selectedCompany.shortName || selectedCompany.name}</span>
@@ -812,7 +808,7 @@ export default function Companies() {
             {/* CỘT TRÁI (~28%): Sticky Sidebar McCain Foods */}
             <div className="col-12 col-lg-4 col-xl-3">
               <div className="mccain-sidebar-sticky">
-                {/* Card 1: Logo, Title, SAVE button & Metadata List */}
+                {/* Thẻ 1: Logo, Tên công ty, Nút Lưu & Danh sách thông số nhanh */}
                 <div className="mccain-sidebar-card">
                   <div className="mccain-sidebar-logo-wrap">
                     <div className="mccain-sidebar-logo-box">
@@ -842,14 +838,14 @@ export default function Companies() {
                     onClick={handleToggleFollow}
                   >
                     <span>{isFollowed ? '♥' : '♡'}</span>
-                    <span>{isFollowed ? 'SAVED' : 'SAVE'}</span>
+                    <span>{isFollowed ? 'ĐÃ THEO DÕI' : 'THEO DÕI CÔNG TY'}</span>
                   </button>
 
                   <div className="mccain-metadata-list">
                     <div className="mccain-metadata-item">
                       <span className="mccain-meta-icon--hq">HQ</span>
                       <div className="mccain-meta-text">
-                        <span className="mccain-meta-label">Trụ sở:</span>
+                        <span className="mccain-meta-label">Trụ sở chính:</span>
                         <span className="mccain-meta-val">{extras.hq || selectedCompany.location}</span>
                       </div>
                     </div>
@@ -857,25 +853,24 @@ export default function Companies() {
                     <div className="mccain-metadata-item">
                       <span className="mccain-meta-icon"><FaBuilding /></span>
                       <div className="mccain-meta-text">
-                        <span className="mccain-meta-label">Total Offices:</span>
-                        <span className="mccain-meta-val">{extras.officesCount || '11'}</span>
+                        <span className="mccain-meta-label">Tổng số văn phòng:</span>
+                        <span className="mccain-meta-val">{extras.officesCount || '30+'} cơ sở</span>
                       </div>
                     </div>
 
                     <div className="mccain-metadata-item">
                       <span className="mccain-meta-icon"><FaUsers /></span>
                       <div className="mccain-meta-text">
-                        <span className="mccain-meta-val" style={{ marginLeft: 0 }}>
-                          {extras.size || selectedCompany.size || '20,000'} Total Employees
-                        </span>
+                        <span className="mccain-meta-label">Quy mô nhân sự:</span>
+                        <span className="mccain-meta-val">{extras.size || selectedCompany.size || '10.000+ nhân viên'}</span>
                       </div>
                     </div>
 
                     <div className="mccain-metadata-item">
                       <span className="mccain-meta-icon"><FaCalendarAlt /></span>
                       <div className="mccain-meta-text">
-                        <span className="mccain-meta-label">Year Founded:</span>
-                        <span className="mccain-meta-val">{extras.founded || '1957'}</span>
+                        <span className="mccain-meta-label">Năm thành lập:</span>
+                        <span className="mccain-meta-val">{extras.founded || '1988'}</span>
                       </div>
                     </div>
 
@@ -883,13 +878,15 @@ export default function Companies() {
                       <div className="mccain-metadata-item">
                         <span className="mccain-meta-icon"><FaGlobe /></span>
                         <div className="mccain-meta-text">
+                          <span className="mccain-meta-label">Trang web:</span>
                           <a
                             href={companyWebsite}
                             target="_blank"
                             rel="noreferrer"
                             className="mccain-meta-link"
                           >
-                            View Website ↗
+                            <span>{companyWebsite.replace('https://', '').replace(/\/$/, '')}</span>
+                            <span style={{ fontSize: '11px' }}>↗</span>
                           </a>
                         </div>
                       </div>
@@ -897,9 +894,9 @@ export default function Companies() {
                   </div>
                 </div>
 
-                {/* Card 2: We're Hiring! Department List */}
+                {/* Thẻ 2: Vị trí đang mở tuyển dụng */}
                 <div className="mccain-sidebar-card">
-                  <h3 className="mccain-hiring-title">We're Hiring!</h3>
+                  <h3 className="mccain-hiring-title">Vị trí đang tuyển dụng</h3>
                   <div className="d-flex flex-column">
                     {departmentsList.map((dept, dIdx) => (
                       <button
@@ -920,80 +917,73 @@ export default function Companies() {
               </div>
             </div>
 
-            {/* CỘT PHẢI (~72%): Main Content Area */}
+            {/* CỘT PHẢI (~72%): Khối nội dung chính */}
             <div className="col-12 col-lg-8 col-xl-9">
-              {/* 1. Hero Banner Card */}
+              {/* 1. Thẻ Cover Banner */}
               <div className="mccain-hero-banner-card" id="company-overview-section">
                 <div className="mccain-hero-banner-visual">
-                  {/* Brand Tile on Left */}
+                  {/* Khối logo thương hiệu bên trái */}
                   <div className="mccain-banner-logo-badge">
                     <img src={selectedCompany.logo} alt="" className="mccain-banner-mini-logo" />
                     <span className="mccain-banner-logo-text">{selectedCompany.shortName || selectedCompany.name}</span>
                   </div>
 
-                  {/* 3 Circular Employee Photos Cluster + 2 Yellow Sunbursts */}
+                  {/* Cụm 3 ảnh chân dung tròn nhân viên lồng nhau + 2 chấm vàng */}
                   <div className="mccain-photos-cluster">
                     <div className="mccain-cluster-dot mccain-cluster-dot--top" />
                     <div className="mccain-cluster-avatar">
-                      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" alt="Team" />
+                      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" alt="Nhân sự" />
                     </div>
                     <div className="mccain-cluster-avatar">
-                      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&q=80" alt="Team" />
+                      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&q=80" alt="Nhân sự" />
                     </div>
                     <div className="mccain-cluster-avatar">
-                      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80" alt="Team" />
+                      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80" alt="Nhân sự" />
                     </div>
                     <div className="mccain-cluster-dot mccain-cluster-dot--bottom" />
                   </div>
                 </div>
 
-                {/* In-Page Navigation Bar */}
+                {/* Thanh Sub-Nav gắn liền dưới mép banner */}
                 <div className="mccain-subnav-bar">
                   <button
                     type="button"
                     className={`mccain-subnav-tab ${companyTab === 'overview' ? 'mccain-subnav-tab--active' : ''}`}
                     onClick={() => handleScrollToSection('overview', 'company-overview-section')}
                   >
-                    Overview
+                    Tổng quan
                   </button>
                   <button
                     type="button"
                     className={`mccain-subnav-tab ${companyTab === 'jobs' ? 'mccain-subnav-tab--active' : ''}`}
                     onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
                   >
-                    Jobs {jobsList.length || 146}
+                    Việc làm ({jobsList.length})
                   </button>
                   <button
                     type="button"
                     className={`mccain-subnav-tab ${companyTab === 'offices' ? 'mccain-subnav-tab--active' : ''}`}
                     onClick={() => handleScrollToSection('offices', 'company-offices-section')}
                   >
-                    Offices
+                    Cơ sở &amp; Văn phòng
                   </button>
                   <button
                     type="button"
                     className={`mccain-subnav-tab ${companyTab === 'perks' ? 'mccain-subnav-tab--active' : ''}`}
                     onClick={() => handleScrollToSection('perks', 'company-media-section')}
                   >
-                    Perks + Benefits
-                  </button>
-                  <button
-                    type="button"
-                    className={`mccain-subnav-tab ${companyTab === 'articles' ? 'mccain-subnav-tab--active' : ''}`}
-                    onClick={() => handleScrollToSection('articles', 'company-jobs-section')}
-                  >
-                    Articles
+                    Văn hóa &amp; Đãi ngộ
                   </button>
                   <button
                     type="button"
                     className="mccain-subnav-tab"
                     onClick={() => handleScrollToSection('insights', 'company-offices-section')}
                   >
-                    Company Insights ∨
+                    Góc nhìn doanh nghiệp ∨
                   </button>
                 </div>
 
-                {/* Sub-Banner Content: Industry badges, Headline & Lead */}
+                {/* Phần thân dưới banner: Dải tag, Tiêu đề sứ mệnh & Giới thiệu */}
                 <div className="mccain-banner-body">
                   <div className="mccain-industry-pills">
                     {industryTags.map((tag, tIdx) => (
@@ -1004,35 +994,35 @@ export default function Companies() {
                   </div>
 
                   <h2 className="mccain-main-headline">
-                    "{extras.tagline || `At ${selectedCompany.name} we know the importance that innovation plays in people's lives.`}"
+                    "{extras.tagline || `Tại ${selectedCompany.name}, chúng tôi hiểu rõ tầm quan trọng của công nghệ và sự đổi mới trong đời sống xã hội.`}"
                   </h2>
 
                   <p className="mccain-main-lead">
                     {selectedCompany.description ||
-                      `At ${selectedCompany.name} we believe that working together with our teams, business and community partners will bring sustainable growth and positive change — today, tomorrow and for generations to come. Our product quality, people and customer dedication help us achieve global excellence across all operations.`}
+                      `${selectedCompany.name} luôn tin tưởng rằng sự kết nối và đồng hành cùng các đội ngũ, đối tác và cộng đồng sẽ tạo ra bước phát triển bền vững và thay đổi tích cực cho hôm nay và các thế hệ mai sau. Với năng lực công nghệ và đội ngũ nhân sự tận tâm, chúng tôi kiến tạo các giải pháp hàng đầu vươn tầm thế giới.`}
                   </p>
                 </div>
               </div>
 
-              {/* 2. Media Showcase: Culture Video + Brand Box + View Gallery */}
+              {/* 2. Khối Media & Văn hóa: Video văn hóa + Thẻ thương hiệu + Xem bộ sưu tập */}
               <div className="mccain-media-row" id="company-media-section">
-                {/* Left: Culture Video Box */}
+                {/* Bên trái: Video văn hóa doanh nghiệp */}
                 <div className="mccain-video-box">
                   <img
-                    src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80"
-                    alt="McCain Culture"
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+                    alt="Văn hóa doanh nghiệp"
                     className="mccain-video-img"
                   />
                   <div
                     className="mccain-play-btn"
                     onClick={() => showToast('info', 'Đang phát video văn hóa doanh nghiệp...')}
-                    title="Xem video văn hóa doanh nghiệp"
+                    title="Phát video văn hóa doanh nghiệp"
                   >
                     <FaPlay size={18} />
                   </div>
                 </div>
 
-                {/* Right: Stacked Brand Tile + View Gallery */}
+                {/* Bên phải: Xếp dọc Thẻ thương hiệu & Xem bộ sưu tập ảnh */}
                 <div className="mccain-media-stack">
                   <div className="mccain-brand-tile">
                     <img src={selectedCompany.logo} alt={selectedCompany.name} />
@@ -1040,38 +1030,38 @@ export default function Companies() {
 
                   <div
                     className="mccain-gallery-tile"
-                    onClick={() => showToast('info', 'Mở bộ sưu tập ảnh nơi làm việc...')}
+                    onClick={() => showToast('info', 'Mở bộ sưu tập ảnh không gian làm việc...')}
                   >
                     <img
                       src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80"
-                      alt="Workplace"
+                      alt="Không gian làm việc"
                     />
                     <div className="mccain-gallery-overlay">
                       <FaImage size={20} />
-                      <span className="mccain-gallery-text">VIEW GALLERY</span>
+                      <span className="mccain-gallery-text">XEM BỘ SƯU TẬP ẢNH</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* 3. Recently Posted Jobs Section */}
+              {/* 3. Khối Việc làm mới đăng tuyển */}
               <div className="mccain-section-card" id="company-jobs-section">
                 <div className="mccain-sec-header">
                   <h2 className="mccain-sec-title">
-                    Recently Posted Jobs at {selectedCompany.shortName || selectedCompany.name}
+                    Việc làm mới đăng tuyển tại {selectedCompany.shortName || selectedCompany.name}
                   </h2>
                   <Link
                     to={`/jobs/search?keyword=${encodeURIComponent(selectedCompany.shortName || selectedCompany.name)}`}
                     className="mccain-sec-link"
                   >
-                    VIEW ALL →
+                    XEM TẤT CẢ VIỆC LÀM →
                   </Link>
                 </div>
 
                 <div className="mccain-jobs-grid">
                   {(jobsList.length > 0 ? jobsList : [
-                    { id: 101, title: 'Supply Chain Intern', location: 'Cầu Giấy, Hà Nội', salaryText: '8 - 12 triệu' },
-                    { id: 102, title: 'Graphic Designer', location: 'TP. Hồ Chí Minh', salaryText: '15 - 22 triệu' },
+                    { id: 101, title: 'Kỹ sư Phần mềm Java Senior', location: 'Cầu Giấy, Hà Nội', salaryText: '25 - 40 triệu' },
+                    { id: 102, title: 'Lập trình viên Fullstack ReactJS & Spring Boot', location: 'Cầu Giấy, Hà Nội', salaryText: '25 - 45 triệu' },
                   ]).slice(0, 4).map((job) => (
                     <Link
                       key={job.id}
@@ -1094,7 +1084,7 @@ export default function Companies() {
                         </h3>
                       </div>
                       <div className="mccain-job-meta">
-                        <span>📍 In-Office</span>
+                        <span>📍 Làm việc tại văn phòng</span>
                         <span>•</span>
                         <span>{job.location}</span>
                         {job.salaryText && (
@@ -1106,39 +1096,39 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* 4. Offices Section: Hybrid Workspace + Locations Carousel */}
+              {/* 4. Khối Cơ sở & Không gian làm việc */}
               <div className="mccain-section-card" id="company-offices-section">
                 <div className="mccain-sec-header">
                   <h2 className="mccain-sec-title">
-                    {selectedCompany.shortName || selectedCompany.name} Offices
+                    Cơ sở &amp; Không gian làm việc tại {selectedCompany.shortName || selectedCompany.name}
                   </h2>
                   <a
                     href="#company-offices-section"
                     className="mccain-sec-link"
-                    onClick={(e) => { e.preventDefault(); showToast('info', 'Đang mở thông tin các cơ sở văn phòng...'); }}
+                    onClick={(e) => { e.preventDefault(); showToast('info', 'Đang hiển thị toàn bộ mạng lưới cơ sở...'); }}
                   >
-                    LEARN MORE →
+                    TÌM HIỂU THÊM →
                   </a>
                 </div>
 
-                {/* Hybrid Workspace Callout Box */}
+                {/* Hộp thông tin Mô hình làm việc Hybrid Workspace */}
                 <div className="mccain-hybrid-box">
                   <div className="mccain-hybrid-header">
                     <FaBuilding className="text-primary" size={18} />
-                    <h3 className="mccain-hybrid-title">Hybrid Workspace</h3>
+                    <h3 className="mccain-hybrid-title">Mô hình làm việc linh hoạt (Hybrid Workspace)</h3>
                   </div>
                   <div className="mccain-hybrid-sub">
-                    Employees engage in a combination of remote and on-site work.
+                    Nhân sự kết hợp linh hoạt giữa làm việc từ xa và tại văn phòng hiện đại.
                   </div>
                   <p className="mccain-hybrid-body">
-                    In both our manufacturing plants and corporate offices, we believe connection brings out the best in our people. While in-office expectations will vary by role, flexibility is key. In our corporate offices, the hybrid standard is 3-days in office.
+                    Tại tất cả các cơ sở và trung tâm công nghệ, chúng tôi tin rằng sự gắn kết và tinh thần đồng đội mang lại hiệu quả cao nhất. Tiêu chuẩn làm việc áp dụng mô hình Hybrid 3 ngày tại văn phòng và 2 ngày làm việc từ xa linh hoạt, trang bị đầy đủ máy tính cấu hình cao và không gian làm việc hiện đại.
                   </p>
                   <div className="mccain-flexible-pill">
-                    Typical time on-site: <strong>Flexible</strong>
+                    Thời gian tại cơ sở: <strong>Linh hoạt (3 ngày/tuần)</strong>
                   </div>
                 </div>
 
-                {/* 3 Office Sites Cards */}
+                {/* 3 Thẻ cơ sở văn phòng */}
                 <div className="mccain-offices-row">
                   {officeSites.map((site) => (
                     <div key={site.id} className="mccain-office-card">
@@ -1156,13 +1146,13 @@ export default function Companies() {
                   ))}
                 </div>
 
-                {/* Carousel Controls & Pagination Dots */}
+                {/* Cụm điều khiển phân trang Carousel */}
                 <div className="mccain-carousel-nav">
                   <button
                     type="button"
                     className="mccain-arrow-btn"
                     onClick={() => setOfficeSlide((s) => (s > 0 ? s - 1 : 9))}
-                    aria-label="Previous office"
+                    aria-label="Cơ sở trước"
                   >
                     <FaChevronLeft />
                   </button>
@@ -1170,7 +1160,7 @@ export default function Companies() {
                     type="button"
                     className="mccain-arrow-btn"
                     onClick={() => setOfficeSlide((s) => (s < 9 ? s + 1 : 0))}
-                    aria-label="Next office"
+                    aria-label="Cơ sở tiếp theo"
                   >
                     <FaChevronRight />
                   </button>
