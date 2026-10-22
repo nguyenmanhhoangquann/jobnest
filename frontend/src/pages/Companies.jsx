@@ -334,16 +334,6 @@ const DEFAULT_VALUES = [
   },
 ];
 
-const CATEGORY_TABS = [
-  { id: 'ALL', label: 'Tất cả lĩnh vực' },
-  { id: 'IT - Phần mềm', label: 'Công nghệ thông tin' },
-  { id: 'Kinh doanh', label: 'Kinh doanh - Bán hàng' },
-  { id: 'Ngân hàng', label: 'Tài chính - Ngân hàng' },
-  { id: 'Sản xuất', label: 'Sản xuất - Vận hành' },
-  { id: 'Dịch vụ Khách hàng', label: 'Dịch vụ - CSKH' },
-  { id: 'Bất động sản', label: 'Bất động sản' },
-];
-
 const SEARCH_HINTS = ['Toshiba', 'FPT', 'Viettel', 'MB Bank', 'Vinamilk', 'MISA', 'Hà Nội', 'TP.HCM'];
 
 const getCompanySkills = (comp) => {
@@ -1408,26 +1398,8 @@ export default function Companies() {
         </div>
       </div>
 
-      {/* 2. CATEGORY FILTER & 3. COMPANY SECTION */}
+      {/* 2. COMPANY SECTION */}
       <div className="container py-4" id="companies-list-section" style={{ maxWidth: '1280px' }}>
-        {/* Category Filter Buttons (Pill shaped) */}
-        <div className="companies-filter-nav mb-4">
-          {CATEGORY_TABS.map((tab) => {
-            const isActive = filters.industry === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                className={`companies-pill-btn ${isActive ? 'companies-pill-btn--active' : ''}`}
-                onClick={() => updateFilters({ industry: tab.id, page: 1 })}
-              >
-                {isActive && <span className="companies-pill-accent" />}
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-
         {/* Active chips strip */}
         {activeChips.length > 0 && (
           <div className="filter-active-chips-wrap mb-3">
