@@ -48,6 +48,7 @@ export const mockCompanies = [
     "jobs": [
       {
         "id": 1,
+        "department": "Kỹ thuật & Phát triển phần mềm",
         "title": "Senior Java Backend Engineer (Spring Boot / Cloud Microservices)",
         "salaryText": "25 - 40 triệu",
         "location": "Cầu Giấy, Hà Nội",
@@ -57,6 +58,7 @@ export const mockCompanies = [
       },
       {
         "id": 95,
+        "department": "Kỹ thuật & Phát triển phần mềm",
         "title": "Senior Fullstack Developer (Java Spring Boot & ReactJS)",
         "salaryText": "25 - 45 triệu",
         "location": "Cầu Giấy, Hà Nội",
@@ -66,6 +68,7 @@ export const mockCompanies = [
       },
       {
         "id": 96,
+        "department": "Kỹ thuật & Phát triển phần mềm",
         "title": "Frontend Software Engineer (ReactJS / TypeScript / UI-UX)",
         "salaryText": "18 - 28 triệu",
         "location": "Cầu Giấy, Hà Nội",
@@ -75,6 +78,7 @@ export const mockCompanies = [
       },
       {
         "id": 97,
+        "department": "Hạ tầng Cloud & DevOps",
         "title": "Cloud DevOps Specialist (Docker, Kubernetes, AWS/GCP)",
         "salaryText": "22 - 35 triệu",
         "location": "Cầu Giấy, Hà Nội",
@@ -84,11 +88,102 @@ export const mockCompanies = [
       },
       {
         "id": 98,
+        "department": "Kỹ thuật & Phát triển phần mềm",
         "title": "Thực tập sinh Lập trình Web Fullstack (Internship)",
         "salaryText": "6 - 10 triệu",
         "location": "Cầu Giấy, Hà Nội",
         "jobType": "INTERN",
         "experience": "none",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 99,
+        "department": "Trí tuệ nhân tạo (AI & Machine Learning)",
+        "title": "AI Research Scientist (Generative AI / LLM / NLP)",
+        "salaryText": "35 - 60 triệu",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "FULL_TIME",
+        "experience": "3-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 100,
+        "department": "Trí tuệ nhân tạo (AI & Machine Learning)",
+        "title": "Computer Vision Engineer (Python, PyTorch, OpenCV)",
+        "salaryText": "30 - 50 triệu",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "FULL_TIME",
+        "experience": "2-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 101,
+        "department": "Hạ tầng Cloud & DevOps",
+        "title": "Site Reliability Engineer (SRE / Linux / CI-CD Kubernetes)",
+        "salaryText": "25 - 42 triệu",
+        "location": "Khu CNC, TP.HCM",
+        "jobType": "FULL_TIME",
+        "experience": "2-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 102,
+        "department": "Kiểm thử phần mềm (QA / QC / Tester)",
+        "title": "Senior Automation QA Engineer (Selenium, Java, Cypress)",
+        "salaryText": "20 - 32 triệu",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "FULL_TIME",
+        "experience": "2-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 103,
+        "department": "Kiểm thử phần mềm (QA / QC / Tester)",
+        "title": "Chuyên viên Kiểm thử Hiệu năng & Bảo mật (QC Lead)",
+        "salaryText": "22 - 35 triệu",
+        "location": "FPT City, Đà Nẵng",
+        "jobType": "FULL_TIME",
+        "experience": "3-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 104,
+        "department": "Quản lý dự án & Quản trị sản phẩm",
+        "title": "Technical Project Manager (PMP / Agile Scrum Master)",
+        "salaryText": "30 - 50 triệu",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "FULL_TIME",
+        "experience": "3-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 105,
+        "department": "Quản lý dự án & Quản trị sản phẩm",
+        "title": "Product Owner (Fintech / Enterprise Cloud Solution)",
+        "salaryText": "28 - 45 triệu",
+        "location": "Khu CNC, TP.HCM",
+        "jobType": "FULL_TIME",
+        "experience": "2-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 106,
+        "department": "An toàn thông tin & An ninh mạng",
+        "title": "Chuyên viên Giám sát & Ứng cứu Sự cố An toàn Thông tin (SOC Tier 2)",
+        "salaryText": "22 - 38 triệu",
+        "location": "Cầu Giấy, Hà Nội",
+        "jobType": "FULL_TIME",
+        "experience": "2-5",
+        "deadline": "31/12/2026"
+      },
+      {
+        "id": 107,
+        "department": "Kỹ thuật & Phát triển phần mềm",
+        "title": "Senior Mobile Developer (React Native / Flutter / iOS)",
+        "salaryText": "25 - 40 triệu",
+        "location": "Khu CNC, TP.HCM",
+        "jobType": "FULL_TIME",
+        "experience": "2-5",
         "deadline": "31/12/2026"
       }
     ]

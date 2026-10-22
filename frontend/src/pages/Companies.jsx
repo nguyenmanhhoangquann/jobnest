@@ -827,68 +827,26 @@ export default function Companies() {
       'Doanh nghiệp đã xác thực',
     ];
 
-    // Danh sách phòng ban tuyển dụng thực tế (kèm từ khóa lọc việc làm)
-    const departmentsList = [
-      {
-        name: 'Kỹ thuật & Phát triển phần mềm',
-        count: Math.max(12, jobsList.length * 3),
-        keywords: ['java', 'spring', 'react', 'frontend', 'backend', 'fullstack', 'software', 'lập trình', 'developer'],
-      },
-      {
-        name: 'Hạ tầng Cloud & DevOps',
-        count: 8,
-        keywords: ['cloud', 'devops', 'aws', 'docker', 'kubernetes', 'system', 'hạ tầng'],
-      },
-      {
-        name: 'Trí tuệ nhân tạo (AI & Machine Learning)',
-        count: 6,
-        keywords: ['ai', 'data', 'machine learning', 'python', 'deep learning', 'trí tuệ'],
-      },
-      {
-        name: 'Kiểm thử phần mềm (QA / QC / Tester)',
-        count: 5,
-        keywords: ['qa', 'qc', 'tester', 'test', 'automation', 'kiểm thử'],
-      },
-      {
-        name: 'Quản lý dự án & Quản trị sản phẩm',
-        count: 4,
-        keywords: ['project', 'product', 'manager', 'scrum', 'agile', 'quản lý'],
-      },
-      {
-        name: 'Tư vấn giải pháp công nghệ & Khách hàng',
-        count: 4,
-        keywords: ['consultant', 'sales', 'giải pháp', 'kinh doanh', 'khách hàng', 'tư vấn'],
-      },
-      {
-        name: 'An toàn thông tin & An ninh mạng',
-        count: 2,
-        keywords: ['security', 'bảo mật', 'an ninh', 'soc', 'network'],
-      },
-      {
-        name: 'Tuyển dụng & Phát triển nhân sự',
-        count: 2,
-        keywords: ['hr', 'tuyển dụng', 'nhân sự', 'recruiter'],
-      },
-    ];
+    // Danh sách phòng ban tuyển dụng tính toán trực tiếp từ jobsList thực tế 100%
+    const departmentsList = useMemo(() => {
+      const counts = {};
+      jobsList.forEach((j) => {
+        const dName = j.department || 'Kỹ thuật & Phát triển phần mềm';
+        counts[dName] = (counts[dName] || 0) + 1;
+      });
+      return Object.entries(counts).map(([name, count]) => ({
+        name,
+        count,
+      }));
+    }, [jobsList]);
 
     // Lọc danh sách việc làm hiển thị theo phòng ban đang chọn
-    const defaultJobs = [
-      { id: 101, title: 'Kỹ sư Phần mềm Java Senior (Spring Boot / Cloud)', location: 'Cầu Giấy, Hà Nội', salaryText: '25 - 40 triệu' },
-      { id: 102, title: 'Lập trình viên Fullstack ReactJS & Java', location: 'Cầu Giấy, Hà Nội', salaryText: '25 - 45 triệu' },
-      { id: 103, title: 'Kỹ sư Cloud DevOps (Docker, Kubernetes, AWS)', location: 'Cầu Giấy, Hà Nội', salaryText: '28 - 48 triệu' },
-      { id: 104, title: 'Kỹ sư Trí tuệ Nhân tạo & Xử lý dữ liệu (AI Engineer)', location: 'Cầu Giấy, Hà Nội', salaryText: '30 - 55 triệu' },
-    ];
-
-    const displayedJobs = (() => {
-      const base = jobsList.length > 0 ? jobsList : defaultJobs;
-      if (!selectedDept) return base;
-      const kws = selectedDept.keywords || [];
-      const matches = base.filter((j) => {
-        const text = `${j.title || ''} ${j.description || ''}`.toLowerCase();
-        return kws.some((k) => text.includes(k.toLowerCase()));
-      });
-      return matches.length > 0 ? matches : base;
-    })();
+    const displayedJobs = useMemo(() => {
+      if (!selectedDept) return jobsList;
+      return jobsList.filter(
+        (j) => (j.department || 'Kỹ thuật & Phát triển phần mềm') === selectedDept.name
+      );
+    }, [selectedDept, jobsList]);
 
     // Danh sách cơ sở văn phòng thực tế tại Việt Nam
     const officeSites = [
@@ -1222,12 +1180,12 @@ export default function Companies() {
                 <div className="mccain-sec-header">
                   <div>
                     <h2 className="mccain-sec-title">
-                      Việc làm mới đăng tuyển tại {selectedCompany.shortName || selectedCompany.name}
+                      Việc làm mới đăng tuyển tại {selectedCompany.shortName || selectedCompany.name} ({displayedJobs.length})
                     </h2>
                     {selectedDept && (
                       <div className="d-flex align-items-center gap-2 mt-2">
                         <span className="badge bg-primary px-3 py-1 rounded-pill fw-semibold">
-                          Đang lọc: {selectedDept.name} ({displayedJobs.length})
+                          Đang lọc: {selectedDept.name} ({displayedJobs.length} việc làm)
                         </span>
                         <button
                           type="button"
@@ -1235,7 +1193,7 @@ export default function Companies() {
                           style={{ fontSize: '12px' }}
                           onClick={() => setSelectedDept(null)}
                         >
-                          ✕ Xóa lọc
+                          ✕ Bỏ lọc
                         </button>
                       </div>
                     )}
@@ -1244,12 +1202,12 @@ export default function Companies() {
                     to={`/jobs/search?keyword=${encodeURIComponent(selectedCompany.shortName || selectedCompany.name)}`}
                     className="mccain-sec-link"
                   >
-                    XEM TẤT CẢ VIỆC LÀM →
+                    XEM TẤT CẢ VIỆC LÀM ({jobsList.length}) →
                   </Link>
                 </div>
 
                 <div className="mccain-jobs-grid">
-                  {displayedJobs.slice(0, 4).map((job) => (
+                  {(selectedDept ? displayedJobs : displayedJobs.slice(0, 6)).map((job) => (
                     <Link
                       key={job.id}
                       to={`/jobs/${job.id}`}
