@@ -29,6 +29,16 @@ export default function JobList() {
     };
   }, [searchParams]);
 
+  const [searchInput, setSearchInput] = useState(filters.keyword);
+  useEffect(() => {
+    setSearchInput(filters.keyword);
+  }, [filters.keyword]);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    updateFilters({ keyword: searchInput, page: 1 });
+  };
+
   // Khóa cuộn trang và lắng nghe phím ESC khi mở Offcanvas
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -167,17 +177,50 @@ export default function JobList() {
 
   return (
     <div className="companies-page-root">
-      {/* 1. HERO SECTION (Built In Toolbar) */}
+      {/* 1. HERO SECTION (Title + Search Bar - scrolls away naturally) */}
       <section className="builtin-companies-hero-wrap">
         <div className="builtin-hero-inner">
           <h1 className="builtin-hero-title">
             Khám phá cơ hội việc làm chất lượng cao
           </h1>
 
+          {/* Thanh tìm kiếm việc làm (Search Bar) */}
+          <form className="builtin-search-bar" onSubmit={handleSearchSubmit}>
+            <FaSearch size={16} className="builtin-search-icon" />
+            <input
+              type="text"
+              className="builtin-search-input"
+              placeholder="Tìm việc làm theo chức danh, kỹ năng, công ty..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            {searchInput && (
+              <button
+                type="button"
+                className="builtin-search-clear"
+                onClick={() => {
+                  setSearchInput('');
+                  updateFilters({ keyword: '', page: 1 });
+                }}
+                aria-label="Xóa từ khóa"
+              >
+                ✕
+              </button>
+            )}
+            <button type="submit" className="builtin-search-submit-btn">
+              Tìm việc
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* 2. STICKY FILTER BAR (Cố định các button đi theo khi lướt xuống) */}
+      <div className="builtin-filter-sticky-bar">
+        <div className="builtin-hero-inner">
           {/* Thanh lọc chuẩn Built In: Địa điểm, Ngành nghề, Mức lương hiện trước */}
           <div className="builtin-filter-bar">
             {/* Địa điểm (Location Box) */}
-            <div className="builtin-location-box">
+            <div className={`builtin-location-box ${filters.area !== 'all' ? 'builtin-location-box--active' : ''}`}>
               <div className="builtin-location-content">
                 <span className="builtin-location-label">ĐỊA ĐIỂM</span>
                 <select
@@ -290,7 +333,7 @@ export default function JobList() {
             </button>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* 2. OFFCANVAS ALL FILTERS DRAWER (Chuẩn phong cách BuiltIn.com/jobs) */}
       {showAllFilters && (

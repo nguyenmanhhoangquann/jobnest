@@ -476,6 +476,16 @@ export default function Companies() {
     };
   }, [searchParams]);
 
+  const [searchInput, setSearchInput] = useState(filters.keyword);
+  useEffect(() => {
+    setSearchInput(filters.keyword);
+  }, [filters.keyword]);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    updateFilters({ keyword: searchInput, page: 1 });
+  };
+
   // Cập nhật URL khi thay đổi bất kỳ bộ lọc nào
   const updateFilters = (newFilters) => {
     const next = { ...filters, ...newFilters };
@@ -703,12 +713,6 @@ export default function Companies() {
     } else {
       showToast('info', `Đã bỏ quan tâm ${compName}.`);
     }
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    const el = document.getElementById('companies-list-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ NOVATECH - JOBNEST
@@ -992,13 +996,46 @@ export default function Companies() {
   // GIAO DIỆN CHÍNH: DANH SÁCH DOANH NGHIỆP HÀNG ĐẦU
   return (
     <div className="companies-page-root">
-      {/* 1. HERO SECTION (Built In Style - Full Width Orange Bleed) */}
+      {/* 1. HERO SECTION (Title + Search Bar - scrolls away naturally) */}
       <section className="builtin-companies-hero-wrap">
         <div className="builtin-hero-inner">
           <h1 className="builtin-hero-title">
             Khám phá các công ty công nghệ hàng đầu
           </h1>
 
+          {/* Thanh tìm kiếm công ty (Search Bar) */}
+          <form className="builtin-search-bar" onSubmit={handleSearchSubmit}>
+            <FaSearch size={16} className="builtin-search-icon" />
+            <input
+              type="text"
+              className="builtin-search-input"
+              placeholder="Tìm kiếm công ty theo tên, kỹ năng, ngành nghề..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            {searchInput && (
+              <button
+                type="button"
+                className="builtin-search-clear"
+                onClick={() => {
+                  setSearchInput('');
+                  updateFilters({ keyword: '', page: 1 });
+                }}
+                aria-label="Xóa từ khóa"
+              >
+                ✕
+              </button>
+            )}
+            <button type="submit" className="builtin-search-submit-btn">
+              Tìm công ty
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* 2. STICKY FILTER BAR (Cố định các button đi theo khi lướt xuống) */}
+      <div className="builtin-filter-sticky-bar">
+        <div className="builtin-hero-inner">
           {/* Thanh lọc chuẩn Built In theo đúng ảnh mẫu (Single-row Toolbar) */}
           <div className="builtin-filter-bar">
             {/* Thẻ Địa điểm trắng bo góc kèm icon GPS */}
@@ -1124,7 +1161,7 @@ export default function Companies() {
             </button>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* OFFCANVAS ALL FILTERS DRAWER (Chuẩn phong cách BuiltIn.com/companies) */}
       {showAllFilters && (
