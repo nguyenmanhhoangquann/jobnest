@@ -3588,6 +3588,172 @@
 }
 
 /* ==========================================================================
+   Built In McCain Foods Signature Layout Enhancements
+   ========================================================================== */
+.mccain-hiring-track {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.mccain-hiring-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #9A3412;
+  margin-right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mccain-hiring-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1px solid #FED7AA;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  color: #1E293B;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.mccain-hiring-pill:hover {
+  background: #FFF7ED;
+  border-color: #EA580C;
+  color: #EA580C;
+  transform: translateY(-1px);
+}
+
+.mccain-hiring-count {
+  background: #FFEDD5;
+  color: #EA580C;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: 999px;
+}
+
+/* Offices Breakdown Grid */
+.mccain-office-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .mccain-office-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mccain-office-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition: all 0.2s ease;
+}
+
+.mccain-office-card:hover {
+  background: #FFFDF8;
+  border-color: #FED7AA;
+}
+
+/* Articles Card */
+.mccain-article-card {
+  display: flex;
+  gap: 18px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-bottom: 14px;
+}
+
+.mccain-article-card:last-child {
+  margin-bottom: 0;
+}
+
+.mccain-article-card:hover {
+  background: #FFFFFF;
+  border-color: #FED7AA;
+  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.08);
+  transform: translateY(-2px);
+}
+
+.mccain-article-img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+@media (max-width: 576px) {
+  .mccain-article-card {
+    flex-direction: column;
+  }
+  .mccain-article-img {
+    width: 100%;
+    height: 140px;
+  }
+}
+
+/* FAQ Accordion (Built In McCain Style) */
+.mccain-faq-item {
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: #FFFFFF;
+  transition: all 0.15s ease;
+}
+
+.mccain-faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.mccain-faq-item--open {
+  border-color: #FED7AA;
+  box-shadow: 0 2px 10px rgba(234, 88, 12, 0.06);
+}
+
+.mccain-faq-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #0F172A;
+  transition: color 0.15s ease;
+}
+
+.mccain-faq-header:hover {
+  color: #EA580C;
+}
+
+.mccain-faq-body {
+  padding: 0 20px 18px;
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.65;
+}
+
+/* ==========================================================================
    Modern Job Detail Page - Anti-Slop High-End Layout
    ========================================================================== */
 .job-hero-wrap {

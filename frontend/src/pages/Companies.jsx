@@ -27,8 +27,14 @@ import {
   FaCheck,
   FaChevronRight,
   FaTimes,
+  FaChevronDown,
+  FaChevronUp,
+  FaNewspaper,
+  FaQuestionCircle,
+  FaHandsHelping,
 } from 'react-icons/fa';
 import mockCompanies from '../mock/companies.js';
+import { mockBlogs } from '../mock/blogs.js';
 import companyApi from '../api/companyApi.js';
 import { showToast } from '../components/common/ToastHost.jsx';
 import Pagination from '../components/common/Pagination.jsx';
@@ -464,6 +470,7 @@ export default function Companies() {
   const [companiesList, setCompaniesList] = useState(mockCompanies);
   const [showAllFilters, setShowAllFilters] = useState(false);
   const [companyTab, setCompanyTab] = useState('overview');
+  const [expandedFaq, setExpandedFaq] = useState(0);
 
   const handleScrollToSection = (tabKey, elementId) => {
     setCompanyTab(tabKey);
@@ -726,7 +733,7 @@ export default function Companies() {
     }
   };
 
-  // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ BUILT IN / NOVATECH
+  // NẾU ĐANG CHỌN 1 CÔNG TY -> XEM CHI TIẾT CÔNG TY THEO THIẾT KẾ BUILT IN (MCCAIN FOODS FORM)
   if (selectedCompany) {
     const extras = getCompanyExtras(selectedCompany);
     const jobsList = selectedCompany.jobs || [];
@@ -749,9 +756,36 @@ export default function Companies() {
         : ['Python', 'AI / ML', 'Redis', 'RESTful API']),
     ];
 
+    // FAQs chuẩn Built In McCain Foods
+    const companyFaqs = [
+      {
+        q: `Môi trường làm việc thực tế tại ${selectedCompany.shortName || selectedCompany.name} như thế nào?`,
+        a: `Môi trường làm việc tại ${selectedCompany.name} đề cao tính chuyên nghiệp, cởi mở và khuyến khích đổi mới sáng tạo. Đội ngũ nhân sự được trao quyền tự chủ, tạo điều kiện phát huy tối đa năng lực cá nhân cùng các chế độ đãi ngộ hàng đầu thị trường.`,
+      },
+      {
+        q: `Văn hóa doanh nghiệp và giá trị cốt lõi là gì?`,
+        a: `Văn hóa doanh nghiệp xoay quanh các giá trị trọng tâm: Tạo tác động thực tế (Impact-Driven), Tinh thần đồng đội (Collaborative) và Học hỏi không ngừng (Continuous Learning). Mọi thành viên đều được tôn trọng sự đa dạng và đóng góp vào mục tiêu chung.`,
+      },
+      {
+        q: `Chế độ làm việc linh hoạt (Hybrid Workspace) được áp dụng ra sao?`,
+        a: `Công ty áp dụng tiêu chuẩn Hybrid linh hoạt với 3 ngày làm việc tại văn phòng hiện đại và 2 ngày làm việc từ xa (Work from home), trang bị đầy đủ máy tính cấu hình cao cùng trợ cấp làm việc tiện nghi.`,
+      },
+      {
+        q: `Cơ hội đào tạo và lộ trình thăng tiến sự nghiệp cho nhân sự?`,
+        a: `Doanh nghiệp tài trợ 100% kinh phí thi các chứng chỉ chuyên môn quốc tế (AWS, GCP, PMP, Scum...), chương trình Mentorship 1-1 cùng chuyên gia cấp cao và đánh giá năng lực xét duyệt thăng chức định kỳ hàng năm.`,
+      },
+      {
+        q: `Quy trình ứng tuyển và thời gian phản hồi hồ sơ của JobNest?`,
+        a: `Quy trình tinh gọn gồm 3 vòng: Sàng lọc CV (cam kết phản hồi trong 48h) → Phỏng vấn chuyên môn / Kỹ thuật → Trao đổi văn hóa & Offer. Toàn bộ quy trình hoàn toàn miễn phí và minh bạch 100%.`,
+      },
+    ];
+
+    // Lọc 2 bài viết tin tức liên quan từ mockBlogs
+    const relatedArticles = mockBlogs.slice(0, 2);
+
     return (
       <div className="novatech-page-wrap">
-        {/* 1. HERO IDENTITY CANVAS (Built In Header) */}
+        {/* 1. HERO IDENTITY CANVAS (Built In Header Form) */}
         <section className="novatech-hero-wrap">
           <div className="novatech-hero-dots-left" />
           <div className="novatech-hero-dots-right" />
@@ -883,25 +917,65 @@ export default function Companies() {
               </div>
               <div className="novatech-keyfact-pill">
                 <span>🏢 Tổng số văn phòng:</span>
-                <strong>{extras.officesCount || '3+'}</strong>
+                <strong>{extras.officesCount || '11+'}</strong>
               </div>
               <div className="novatech-keyfact-pill">
-                <span>👥 Quy mô nhân sự:</span>
+                <span>👥 Quy mô:</span>
                 <strong>{extras.size || selectedCompany.size}</strong>
               </div>
               <div className="novatech-keyfact-pill">
                 <span>📅 Năm thành lập:</span>
-                <strong>{extras.founded || '1995'}</strong>
+                <strong>{extras.founded || '1957'}</strong>
               </div>
               <div className="novatech-keyfact-pill">
                 <span>🔥 Đang tuyển dụng:</span>
                 <strong style={{ color: '#EA580C' }}>{jobsList.length} vị trí</strong>
               </div>
             </div>
+
+            {/* Built In McCain Foods Signature "We're Hiring!" Department Track */}
+            <div className="mccain-hiring-track">
+              <span className="mccain-hiring-label">
+                <FaFire size={13} className="text-danger" />
+                <span>We're Hiring!</span>
+              </span>
+              <button
+                type="button"
+                className="mccain-hiring-pill"
+                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+              >
+                <span>Kỹ thuật &amp; Lập trình</span>
+                <span className="mccain-hiring-count">{Math.max(1, Math.round(jobsList.length * 0.4))}</span>
+              </button>
+              <button
+                type="button"
+                className="mccain-hiring-pill"
+                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+              >
+                <span>Dữ liệu &amp; Trí tuệ nhân tạo</span>
+                <span className="mccain-hiring-count">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
+              </button>
+              <button
+                type="button"
+                className="mccain-hiring-pill"
+                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+              >
+                <span>Vận hành &amp; Hệ thống Cloud</span>
+                <span className="mccain-hiring-count">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
+              </button>
+              <button
+                type="button"
+                className="mccain-hiring-pill"
+                onClick={() => handleScrollToSection('jobs', 'company-jobs-section')}
+              >
+                <span>Sản phẩm &amp; Kinh doanh</span>
+                <span className="mccain-hiring-count">{Math.max(1, Math.round(jobsList.length * 0.2))}</span>
+              </button>
+            </div>
           </div>
         </section>
 
-        {/* 2. STICKY SUB-NAV TABS SHELF (Built In Style) */}
+        {/* 2. STICKY SUB-NAV TABS SHELF (Built In McCain Style) */}
         <div className="novatech-subnav-bar">
           <div className="container" style={{ maxWidth: '1240px' }}>
             <div className="novatech-subnav-inner">
@@ -910,14 +984,21 @@ export default function Companies() {
                 className={`novatech-subnav-tab ${companyTab === 'overview' ? 'novatech-subnav-tab--active' : ''}`}
                 onClick={() => handleScrollToSection('overview', 'company-overview-section')}
               >
-                Tổng quan & Sứ mệnh
+                Tổng quan &amp; Sứ mệnh
+              </button>
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'offices' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('offices', 'company-offices-section')}
+              >
+                Văn phòng &amp; Địa điểm
               </button>
               <button
                 type="button"
                 className={`novatech-subnav-tab ${companyTab === 'culture' ? 'novatech-subnav-tab--active' : ''}`}
                 onClick={() => handleScrollToSection('culture', 'company-culture-section')}
               >
-                Văn hóa & Giá trị
+                Văn hóa &amp; Giá trị
               </button>
               <button
                 type="button"
@@ -931,7 +1012,7 @@ export default function Companies() {
                 className={`novatech-subnav-tab ${companyTab === 'perks' ? 'novatech-subnav-tab--active' : ''}`}
                 onClick={() => handleScrollToSection('perks', 'company-perks-section')}
               >
-                Chế độ đãi ngộ & Phúc lợi
+                Chế độ đãi ngộ &amp; Phúc lợi
               </button>
               <button
                 type="button"
@@ -939,6 +1020,20 @@ export default function Companies() {
                 onClick={() => handleScrollToSection('tech', 'company-tech-section')}
               >
                 Công nghệ sử dụng
+              </button>
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'articles' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('articles', 'company-articles-section')}
+              >
+                Bài viết &amp; Tin tức
+              </button>
+              <button
+                type="button"
+                className={`novatech-subnav-tab ${companyTab === 'faqs' ? 'novatech-subnav-tab--active' : ''}`}
+                onClick={() => handleScrollToSection('faqs', 'company-faqs-section')}
+              >
+                Hỏi đáp &amp; Góc nhìn (FAQs)
               </button>
               <button
                 type="button"
@@ -954,13 +1049,13 @@ export default function Companies() {
         {/* 3. MAIN 2-COLUMN CONTENT GRID */}
         <div className="container py-4 my-2" style={{ maxWidth: '1240px' }}>
           <div className="row g-4">
-            {/* CỘT TRÁI (~68% width): Chi tiết nội dung chuẩn Built In */}
+            {/* CỘT TRÁI (~68% width): Chi tiết nội dung chuẩn Built In McCain Foods */}
             <div className="col-12 col-lg-8">
               {/* Mục 1: Tổng quan & Giới thiệu doanh nghiệp */}
               <div className="novatech-section-card" id="company-overview-section">
                 <div className="novatech-section-eyebrow">GIỚI THIỆU DOANH NGHIỆP</div>
                 <h2 className="novatech-section-title">
-                  {selectedCompany.name} - Tiên phong phát triển & Chuyển đổi số
+                  {selectedCompany.name} - Tiên phong phát triển &amp; Chuyển đổi số
                 </h2>
                 <p style={{ fontSize: '15px', color: '#334155', lineHeight: '1.7', marginBottom: '18px' }}>
                   {selectedCompany.description ||
@@ -981,11 +1076,68 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* Mục 2: Văn hóa & Giá trị cốt lõi (Built In 3-Card Grid) */}
-              <div className="novatech-section-card" id="company-culture-section">
-                <div className="novatech-section-eyebrow">MÔI TRƯỜNG & VĂN HÓA</div>
+              {/* Mục 2: Văn phòng & Địa điểm làm việc (Built In McCain Style) */}
+              <div className="novatech-section-card" id="company-offices-section">
+                <div className="novatech-section-eyebrow">KHÔNG GIAN &amp; ĐỊA ĐIỂM</div>
                 <h2 className="novatech-section-title">
-                  Văn hóa doanh nghiệp & Giá trị cốt lõi
+                  Mạng lưới văn phòng &amp; Cơ sở hoạt động
+                </h2>
+                <p style={{ fontSize: '14.5px', color: '#475569', lineHeight: '1.6', marginBottom: '16px' }}>
+                  Tại các cơ sở sản xuất và văn phòng làm việc, chúng tôi tin rằng sự gắn kết mang lại hiệu quả tốt nhất cho đội ngũ. Tiêu chuẩn làm việc tại văn phòng là mô hình Hybrid 3 ngày/tuần, kết hợp làm việc từ xa linh hoạt.
+                </p>
+
+                <div className="mccain-office-grid">
+                  <div className="mccain-office-card">
+                    <div className="d-flex align-items-center gap-2 mb-1.5">
+                      <FaBuilding className="text-primary" size={15} />
+                      <strong className="text-dark" style={{ fontSize: '15px' }}>Trụ sở chính (HQ)</strong>
+                    </div>
+                    <div className="text-secondary small mb-1">{extras.hq || selectedCompany.location}</div>
+                    <div className="badge bg-white border text-dark fw-semibold" style={{ fontSize: '11.5px' }}>
+                      Văn phòng điều hành trung tâm
+                    </div>
+                  </div>
+
+                  <div className="mccain-office-card">
+                    <div className="d-flex align-items-center gap-2 mb-1.5">
+                      <FaMapMarkerAlt className="text-danger" size={15} />
+                      <strong className="text-dark" style={{ fontSize: '15px' }}>Chi nhánh TP. Hồ Chí Minh</strong>
+                    </div>
+                    <div className="text-secondary small mb-1">Khu công nghệ cao &amp; Quận 1, TP.HCM</div>
+                    <div className="badge bg-white border text-dark fw-semibold" style={{ fontSize: '11.5px' }}>
+                      Trung tâm phát triển kinh doanh &amp; AI
+                    </div>
+                  </div>
+
+                  <div className="mccain-office-card">
+                    <div className="d-flex align-items-center gap-2 mb-1.5">
+                      <FaMapMarkerAlt className="text-success" size={15} />
+                      <strong className="text-dark" style={{ fontSize: '15px' }}>Chi nhánh Đà Nẵng</strong>
+                    </div>
+                    <div className="text-secondary small mb-1">Công viên phần mềm Đà Nẵng</div>
+                    <div className="badge bg-white border text-dark fw-semibold" style={{ fontSize: '11.5px' }}>
+                      Trung tâm R&amp;D công nghệ cao
+                    </div>
+                  </div>
+
+                  <div className="mccain-office-card">
+                    <div className="d-flex align-items-center gap-2 mb-1.5">
+                      <FaGlobe className="text-warning" size={15} />
+                      <strong className="text-dark" style={{ fontSize: '15px' }}>Mạng lưới quốc tế</strong>
+                    </div>
+                    <div className="text-secondary small mb-1">{extras.offices || 'Hoạt động trên thị trường quốc tế'}</div>
+                    <div className="badge bg-white border text-dark fw-semibold" style={{ fontSize: '11.5px' }}>
+                      Văn phòng đại diện toàn cầu
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mục 3: Văn hóa & Giá trị cốt lõi (Built In 3-Card Grid) */}
+              <div className="novatech-section-card" id="company-culture-section">
+                <div className="novatech-section-eyebrow">MÔI TRƯỜNG &amp; VĂN HÓA</div>
+                <h2 className="novatech-section-title">
+                  Văn hóa doanh nghiệp &amp; Giá trị cốt lõi
                 </h2>
                 <div className="row g-3">
                   <div className="col-12 col-md-4">
@@ -1007,7 +1159,7 @@ export default function Companies() {
                         <FaUserFriends size={18} />
                       </div>
                       <h3 className="fw-bold text-dark mb-1.5" style={{ fontSize: '15px' }}>
-                        Gắn kết & Đồng đội
+                        Gắn kết &amp; Đồng đội
                       </h3>
                       <p className="text-secondary small mb-0" style={{ lineHeight: '1.55' }}>
                         Môi trường cởi mở, minh bạch, tôn trọng sự đa dạng cá nhân và cùng nhau chinh phục mục tiêu lớn.
@@ -1030,7 +1182,7 @@ export default function Companies() {
                 </div>
               </div>
 
-              {/* Mục 3: Việc làm đang tuyển dụng */}
+              {/* Mục 4: Việc làm đang tuyển dụng */}
               <div className="novatech-section-card" id="company-jobs-section">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <div>
@@ -1093,11 +1245,11 @@ export default function Companies() {
                 )}
               </div>
 
-              {/* Mục 4: Chế độ đãi ngộ & Phúc lợi (Built In 4-Grid Card) */}
+              {/* Mục 5: Chế độ đãi ngộ & Phúc lợi (Built In McCain Foods 6-Grid Card) */}
               <div className="novatech-section-card" id="company-perks-section">
                 <div className="novatech-section-eyebrow">ĐÃI NGỘ &amp; CHẾ ĐỘ</div>
                 <h2 className="novatech-section-title">
-                  Phúc lợi & Chế độ đãi ngộ nổi bật
+                  Phúc lợi &amp; Chế độ đãi ngộ toàn diện
                 </h2>
                 <div className="novatech-perks-grid">
                   <div className="novatech-perk-card">
@@ -1105,11 +1257,11 @@ export default function Companies() {
                       <div className="novatech-perk-icon-wrap">
                         <FaMoneyBillWave />
                       </div>
-                      <h3 className="novatech-perk-title">Lương & Thưởng đãi ngộ</h3>
+                      <h3 className="novatech-perk-title">Lương &amp; Thưởng đãi ngộ</h3>
                     </div>
                     <ul className="novatech-perk-list">
-                      <li className="novatech-perk-item">Thu nhập cạnh tranh, thưởng hiệu quả kinh doanh & dự án</li>
-                      <li className="novatech-perk-item">Lương tháng 13 & thưởng dịp lễ tết hàng năm</li>
+                      <li className="novatech-perk-item">Thu nhập cạnh tranh, thưởng hiệu quả kinh doanh &amp; dự án</li>
+                      <li className="novatech-perk-item">Lương tháng 13 &amp; thưởng dịp lễ tết hàng năm</li>
                       <li className="novatech-perk-item">Xét duyệt điều chỉnh tăng lương định kỳ theo năng lực</li>
                     </ul>
                   </div>
@@ -1119,7 +1271,7 @@ export default function Companies() {
                       <div className="novatech-perk-icon-wrap">
                         <FaHeartbeat />
                       </div>
-                      <h3 className="novatech-perk-title">Sức khỏe & Bảo hiểm</h3>
+                      <h3 className="novatech-perk-title">Sức khỏe &amp; Bảo hiểm</h3>
                     </div>
                     <ul className="novatech-perk-list">
                       <li className="novatech-perk-item">Gói bảo hiểm sức khỏe cao cấp toàn diện (AON / Bảo Việt)</li>
@@ -1133,7 +1285,7 @@ export default function Companies() {
                       <div className="novatech-perk-icon-wrap">
                         <FaGraduationCap />
                       </div>
-                      <h3 className="novatech-perk-title">Đào tạo & Phát triển</h3>
+                      <h3 className="novatech-perk-title">Đào tạo &amp; Phát triển</h3>
                     </div>
                     <ul className="novatech-perk-list">
                       <li className="novatech-perk-item">Tài trợ 100% kinh phí thi các chứng chỉ quốc tế (AWS, GCP, PMP)</li>
@@ -1155,14 +1307,42 @@ export default function Companies() {
                       <li className="novatech-perk-item">Quà tặng và ngày hội gắn kết gia đình nhân viên (Family Day)</li>
                     </ul>
                   </div>
+
+                  <div className="novatech-perk-card">
+                    <div className="novatech-perk-header">
+                      <div className="novatech-perk-icon-wrap">
+                        <FaHandsHelping />
+                      </div>
+                      <h3 className="novatech-perk-title">Hòa nhập &amp; Đa dạng</h3>
+                    </div>
+                    <ul className="novatech-perk-list">
+                      <li className="novatech-perk-item">Môi trường bình đẳng giới, không phân biệt đối xử</li>
+                      <li className="novatech-perk-item">Tôn trọng sự đa dạng văn hóa và quốc tịch nhân viên</li>
+                      <li className="novatech-perk-item">Các nhóm hỗ trợ và phát triển cộng đồng nội bộ (ERG)</li>
+                    </ul>
+                  </div>
+
+                  <div className="novatech-perk-card">
+                    <div className="novatech-perk-header">
+                      <div className="novatech-perk-icon-wrap">
+                        <FaAward />
+                      </div>
+                      <h3 className="novatech-perk-title">Ghi nhận &amp; Tôn vinh</h3>
+                    </div>
+                    <ul className="novatech-perk-list">
+                      <li className="novatech-perk-item">Giải thưởng nhân viên xuất sắc hàng quý (Star of Quarter)</li>
+                      <li className="novatech-perk-item">Giải thưởng sáng kiến cải tiến công nghệ (Innovation Award)</li>
+                      <li className="novatech-perk-item">Khen thưởng cống hiến gắn bó lâu năm (Long Service Award)</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
-              {/* Mục 5: Công nghệ & Hệ sinh thái sử dụng */}
+              {/* Mục 6: Công nghệ & Hệ sinh thái sử dụng */}
               <div className="novatech-section-card" id="company-tech-section">
                 <div className="novatech-section-eyebrow">TECH STACK &amp; TOOLS</div>
                 <h2 className="novatech-section-title">
-                  Công nghệ & Hệ sinh thái sử dụng (Technology We Use)
+                  Công nghệ &amp; Hệ sinh thái sử dụng (Technology We Use)
                 </h2>
                 <div className="d-flex flex-wrap gap-2">
                   {companyTechStack.map((tech, idx) => (
@@ -1170,6 +1350,88 @@ export default function Companies() {
                       {tech}
                     </span>
                   ))}
+                </div>
+              </div>
+
+              {/* Mục 7: Bài viết & Tin tức doanh nghiệp (Built In McCain "Articles We're In") */}
+              <div className="novatech-section-card" id="company-articles-section">
+                <div className="novatech-section-eyebrow">BÀI VIẾT &amp; TIN TỨC</div>
+                <h2 className="novatech-section-title">
+                  Tin tức &amp; Góc nhìn văn hóa (Articles We're In)
+                </h2>
+                <div className="d-flex flex-column gap-3">
+                  {relatedArticles.map((art) => (
+                    <Link
+                      key={art.id}
+                      to={`/blog/${art.id}`}
+                      className="mccain-article-card"
+                    >
+                      <img
+                        src={art.cover}
+                        alt={art.title}
+                        className="mccain-article-img"
+                        loading="lazy"
+                      />
+                      <div className="p-3 d-flex flex-column justify-content-between flex-grow-1">
+                        <div>
+                          <div className="d-flex align-items-center gap-2 mb-1.5">
+                            <span className="badge bg-warning-subtle text-warning-emphasis fw-bold" style={{ fontSize: '11px' }}>
+                              {art.category}
+                            </span>
+                            <span className="text-muted small">• {art.date}</span>
+                            <span className="text-muted small">• {art.readTime}</span>
+                          </div>
+                          <h3 className="fw-bold text-dark mb-1" style={{ fontSize: '16px', lineHeight: '1.4' }}>
+                            {art.title}
+                          </h3>
+                          <p className="text-secondary small mb-0 text-truncate-2" style={{ lineHeight: '1.5' }}>
+                            {art.excerpt}
+                          </p>
+                        </div>
+                        <div className="d-flex align-items-center gap-2 mt-2 text-primary fw-bold small">
+                          <span>Đọc bài viết chi tiết</span>
+                          <FaArrowRight size={11} />
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mục 8: Hỏi đáp & Góc nhìn văn hóa (Built In McCain FAQs Accordion) */}
+              <div className="novatech-section-card" id="company-faqs-section">
+                <div className="novatech-section-eyebrow">HỎI ĐÁP &amp; INSIGHTS</div>
+                <h2 className="novatech-section-title">
+                  Câu hỏi thường gặp về {selectedCompany.shortName || selectedCompany.name} (Company FAQs)
+                </h2>
+                <div className="d-flex flex-column">
+                  {companyFaqs.map((faq, idx) => {
+                    const isOpen = expandedFaq === idx;
+                    return (
+                      <div
+                        key={idx}
+                        className={`mccain-faq-item ${isOpen ? 'mccain-faq-item--open' : ''}`}
+                      >
+                        <button
+                          type="button"
+                          className="mccain-faq-header"
+                          onClick={() => setExpandedFaq(isOpen ? -1 : idx)}
+                          aria-expanded={isOpen}
+                        >
+                          <span className="d-flex align-items-center gap-2">
+                            <FaQuestionCircle className="text-secondary" size={14} />
+                            <span>{faq.q}</span>
+                          </span>
+                          {isOpen ? (
+                            <FaChevronUp size={12} className="text-primary flex-shrink-0" />
+                          ) : (
+                            <FaChevronDown size={12} className="text-muted flex-shrink-0" />
+                          )}
+                        </button>
+                        {isOpen && <div className="mccain-faq-body">{faq.a}</div>}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -1182,7 +1444,7 @@ export default function Companies() {
                   <div className="col-6">
                     <div className="novatech-stat-card">
                       <div className="fw-bold text-dark mb-0" style={{ fontSize: '28px', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                        {extras.officesCount || '6+'}
+                        {extras.officesCount || '11+'}
                       </div>
                       <div className="small fw-semibold mt-1" style={{ fontSize: '13.5px', color: '#334155' }}>Văn phòng hoạt động</div>
                     </div>
@@ -1191,7 +1453,7 @@ export default function Companies() {
                   <div className="col-6">
                     <div className="novatech-stat-card">
                       <div className="fw-bold text-dark mb-0" style={{ fontSize: '28px', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                        {extras.activeUsers || '14M+'}
+                        {extras.activeUsers || '20M+'}
                       </div>
                       <div className="small fw-semibold mt-1" style={{ fontSize: '13.5px', color: '#334155' }}>Khách hàng / Users</div>
                     </div>
@@ -1207,12 +1469,12 @@ export default function Companies() {
                   <div className="d-flex flex-column">
                     <div className="novatech-overview-row">
                       <span style={{ color: '#475569', fontWeight: 500 }}>Năm thành lập</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.founded || '1995'}</strong>
+                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.founded || '1957'}</strong>
                     </div>
 
                     <div className="novatech-overview-row">
                       <span style={{ color: '#475569', fontWeight: 500 }}>Hình thức sở hữu</span>
-                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.ownership || 'Doanh nghiệp Cổ phần'}</strong>
+                      <strong style={{ color: '#0F172A', fontWeight: 700 }}>{extras.ownership || 'Tập đoàn Tư nhân'}</strong>
                     </div>
 
                     <div className="novatech-overview-row">
