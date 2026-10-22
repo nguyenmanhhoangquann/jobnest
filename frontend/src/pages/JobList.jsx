@@ -29,17 +29,24 @@ export default function JobList() {
     };
   }, [searchParams]);
 
-  // Kiểm tra xem các bộ lọc mở rộng (trong "Tất cả bộ lọc") có đang được kích hoạt không
-  const hasRemainingFilters = Boolean(
-    filters.keyword ||
-    (filters.experience && filters.experience !== 'all') ||
-    (filters.jobType && filters.jobType !== 'all')
-  );
-
-  const remainingActiveCount =
-    (filters.keyword ? 1 : 0) +
-    (filters.experience && filters.experience !== 'all' ? 1 : 0) +
-    (filters.jobType && filters.jobType !== 'all' ? 1 : 0);
+  // Khóa cuộn trang và lắng nghe phím ESC khi mở Offcanvas
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && showAllFilters) {
+        setShowAllFilters(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    if (showAllFilters) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [showAllFilters]);
 
   // Cập nhật URL khi người dùng thay đổi bộ lọc
   const updateFilters = (newFilters) => {
@@ -55,7 +62,6 @@ export default function JobList() {
 
   const handleResetFilters = () => {
     setSearchParams(new URLSearchParams());
-    setShowAllFilters(false);
   };
 
   const handlePageChange = (newPage) => {
@@ -99,7 +105,7 @@ export default function JobList() {
       });
   }, [filters]);
 
-  // Danh sách chip lọc đang kích hoạt để người dùng dễ theo dõi và gỡ bỏ
+  // Danh sách chip lọc đang kích hoạt
   const activeChips = useMemo(() => {
     const list = [];
     if (filters.keyword && filters.keyword.trim()) {
@@ -161,7 +167,7 @@ export default function JobList() {
 
   return (
     <div className="companies-page-root">
-      {/* 1. HERO SECTION (Built In Style - Thanh lọc ngang chuẩn trang Công ty) */}
+      {/* 1. HERO SECTION (Built In Toolbar) */}
       <section className="builtin-companies-hero-wrap">
         <div className="builtin-hero-inner">
           <h1 className="builtin-hero-title">
@@ -245,20 +251,20 @@ export default function JobList() {
             {/* Phân cách đứng */}
             <div className="builtin-divider" />
 
-            {/* Tất cả bộ lọc (All Filters Button) */}
+            {/* Tất cả bộ lọc (Mở Offcanvas Drawer chuẩn Built In) */}
             <button
               type="button"
-              className={`builtin-all-filters-btn ${showAllFilters || hasRemainingFilters ? 'builtin-all-filters-btn--active' : ''}`}
-              onClick={() => setShowAllFilters(!showAllFilters)}
-              title="Tìm kiếm từ khóa & mở rộng bộ lọc"
+              className={`builtin-all-filters-btn ${activeChips.length > 0 ? 'builtin-all-filters-btn--active' : ''}`}
+              onClick={() => setShowAllFilters(true)}
+              title="Mở tất cả bộ lọc"
             >
               <span>Tất cả bộ lọc</span>
-              {remainingActiveCount > 0 && (
+              {activeChips.length > 0 && (
                 <span
-                  className="badge bg-warning text-dark font-monospace fw-bold"
-                  style={{ fontSize: '10px', padding: '2px 5px', borderRadius: '4px' }}
+                  className="badge bg-white text-danger font-monospace fw-bold rounded-pill"
+                  style={{ fontSize: '10px', padding: '2px 6px' }}
                 >
-                  {remainingActiveCount}
+                  +{activeChips.length}
                 </span>
               )}
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -283,69 +289,333 @@ export default function JobList() {
               Xóa lọc
             </button>
           </div>
-
-          {/* Ngăn kéo chứa các bộ lọc còn lại (Từ khóa, Kinh nghiệm, Hình thức làm việc) */}
-          {(showAllFilters || hasRemainingFilters) && (
-            <div className="builtin-keyword-drawer flex-wrap gap-3">
-              {/* Từ khóa */}
-              <div className="d-flex align-items-center gap-2 flex-grow-1" style={{ minWidth: '240px' }}>
-                <FaSearch size={14} className="text-secondary flex-shrink-0" />
-                <input
-                  type="text"
-                  className="builtin-keyword-input"
-                  placeholder="Nhập từ khóa kỹ năng (Java, React...), chức danh, công ty..."
-                  value={filters.keyword}
-                  onChange={(e) => updateFilters({ keyword: e.target.value, page: 1 })}
-                />
-                {filters.keyword && (
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-link text-muted p-0 me-1 text-decoration-none"
-                    onClick={() => updateFilters({ keyword: '', page: 1 })}
-                    title="Xóa từ khóa"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              {/* Kinh nghiệm */}
-              <div className="builtin-drawer-field">
-                <span className="builtin-drawer-label">Kinh nghiệm:</span>
-                <select
-                  className="builtin-drawer-select"
-                  value={filters.experience}
-                  onChange={(e) => updateFilters({ experience: e.target.value, page: 1 })}
-                >
-                  <option value="all">Tất cả kinh nghiệm</option>
-                  <option value="none">Chưa có kinh nghiệm</option>
-                  <option value="1-year">Dưới 1 năm</option>
-                  <option value="2-years">1 - 2 năm</option>
-                  <option value="3-years">2 - 5 năm</option>
-                  <option value="5-plus">Trên 5 năm</option>
-                </select>
-              </div>
-
-              {/* Loại hình làm việc */}
-              <div className="builtin-drawer-field">
-                <span className="builtin-drawer-label">Hình thức:</span>
-                <select
-                  className="builtin-drawer-select"
-                  value={filters.jobType}
-                  onChange={(e) => updateFilters({ jobType: e.target.value, page: 1 })}
-                >
-                  <option value="all">Tất cả hình thức</option>
-                  <option value="full-time">Toàn thời gian</option>
-                  <option value="part-time">Bán thời gian</option>
-                  <option value="intern">Thực tập sinh</option>
-                </select>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* 2. MAIN JOBS LISTING SECTION */}
+      {/* 2. OFFCANVAS ALL FILTERS DRAWER (Chuẩn phong cách BuiltIn.com/jobs) */}
+      {showAllFilters && (
+        <div
+          className="builtin-offcanvas-backdrop"
+          onClick={() => setShowAllFilters(false)}
+        />
+      )}
+
+      <div
+        className={`builtin-offcanvas ${showAllFilters ? 'builtin-offcanvas--open' : ''}`}
+        aria-hidden={!showAllFilters}
+      >
+        {/* Header */}
+        <div className="builtin-offcanvas-header">
+          <h2 className="builtin-offcanvas-title">Tất cả bộ lọc</h2>
+          <button
+            type="button"
+            className="builtin-offcanvas-close"
+            onClick={() => setShowAllFilters(false)}
+            aria-label="Đóng bộ lọc"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="builtin-offcanvas-body">
+          {/* Summary đang chọn */}
+          {activeChips.length > 0 && (
+            <div className="p-3 rounded-3 mb-3" style={{ background: '#FFF7ED', border: '1px solid #FFEDD5' }}>
+              <div className="d-flex justify-content-between align-items-center mb-2">
+                <span className="small fw-bold text-dark">
+                  Đang chọn ({activeChips.length} tiêu chí)
+                </span>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-link text-decoration-none p-0 text-danger small fw-semibold"
+                  onClick={handleResetFilters}
+                >
+                  Xóa tất cả
+                </button>
+              </div>
+              <div className="d-flex flex-wrap gap-1">
+                {activeChips.map((chip) => (
+                  <span
+                    key={chip.key}
+                    className="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2"
+                    style={{ fontSize: '11px', cursor: 'pointer' }}
+                    onClick={() => updateFilters({ [chip.key]: chip.clearVal, page: 1 })}
+                    title="Nhấn để gỡ"
+                  >
+                    {chip.label}
+                    <FaTimes size={8} className="text-muted" />
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 1. Từ khóa tìm kiếm */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Từ khóa tìm kiếm</span>
+              {filters.keyword && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => updateFilters({ keyword: '', page: 1 })}
+                >
+                  Xóa
+                </button>
+              )}
+            </div>
+            <div className="job-filter-input-wrap">
+              <FaSearch size={12} className="text-muted ms-2.5 flex-shrink-0" />
+              <input
+                type="text"
+                className="job-filter-input"
+                placeholder="Chức danh, kỹ năng (Java, React...), công ty..."
+                value={filters.keyword}
+                onChange={(e) => updateFilters({ keyword: e.target.value, page: 1 })}
+              />
+              {filters.keyword && (
+                <button
+                  type="button"
+                  className="job-filter-clear-btn"
+                  onClick={() => updateFilters({ keyword: '', page: 1 })}
+                  aria-label="Xóa từ khóa"
+                >
+                  <FaTimes size={10} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* 2. Kinh nghiệm làm việc */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Kinh nghiệm</span>
+              {filters.experience !== 'all' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => updateFilters({ experience: 'all', page: 1 })}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'all', label: 'Tất cả kinh nghiệm' },
+                { value: 'none', label: 'Chưa có kinh nghiệm' },
+                { value: '1-year', label: 'Dưới 1 năm (Entry Level)' },
+                { value: '2-years', label: '1 - 2 năm (Junior)' },
+                { value: '3-years', label: '2 - 5 năm (Mid-level)' },
+                { value: '5-plus', label: 'Trên 5 năm (Senior)' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${filters.experience === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="filter_experience"
+                    value={opt.value}
+                    checked={filters.experience === opt.value}
+                    onChange={() => updateFilters({ experience: opt.value, page: 1 })}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* 3. Hình thức làm việc */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Hình thức làm việc</span>
+              {filters.jobType !== 'all' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => updateFilters({ jobType: 'all', page: 1 })}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'all', label: 'Tất cả hình thức' },
+                { value: 'full-time', label: 'Toàn thời gian (Full-time)' },
+                { value: 'part-time', label: 'Bán thời gian (Part-time)' },
+                { value: 'intern', label: 'Thực tập sinh (Internship)' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${filters.jobType === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="filter_jobType"
+                    value={opt.value}
+                    checked={filters.jobType === opt.value}
+                    onChange={() => updateFilters({ jobType: opt.value, page: 1 })}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* 4. Mức thu nhập */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Mức thu nhập</span>
+              {filters.salary !== 'all' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => updateFilters({ salary: 'all', page: 1 })}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'all', label: 'Tất cả mức lương' },
+                { value: 'under-10', label: 'Dưới 10 triệu' },
+                { value: '10-20', label: '10 - 20 triệu' },
+                { value: '20-30', label: '20 - 30 triệu' },
+                { value: 'over-30', label: 'Trên 30 triệu' },
+                { value: 'deal', label: 'Thỏa thuận' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${filters.salary === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="filter_salary"
+                    value={opt.value}
+                    checked={filters.salary === opt.value}
+                    onChange={() => updateFilters({ salary: opt.value, page: 1 })}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* 5. Ngành nghề */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Ngành nghề</span>
+              {filters.category !== 'all' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => updateFilters({ category: 'all', page: 1 })}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'all', label: 'Tất cả ngành nghề' },
+                { value: 'cntt', label: 'Công nghệ thông tin (IT)' },
+                { value: 'kinh-doanh', label: 'Kinh doanh - Bán hàng' },
+                { value: 'marketing', label: 'Marketing - Truyền thông' },
+                { value: 'tai-chinh', label: 'Tài chính - Ngân hàng' },
+                { value: 'ke-toan', label: 'Kế toán - Kiểm toán' },
+                { value: 'nhan-su', label: 'Nhân sự - Hành chính' },
+                { value: 'thiet-ke', label: 'Thiết kế - Sáng tạo' },
+                { value: 'san-xuat', label: 'Sản xuất - Vận hành' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${filters.category === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="filter_category"
+                    value={opt.value}
+                    checked={filters.category === opt.value}
+                    onChange={() => updateFilters({ category: opt.value, page: 1 })}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* 6. Địa điểm */}
+          <div className="builtin-offcanvas-section">
+            <div className="builtin-offcanvas-section-title">
+              <span>Địa điểm</span>
+              {filters.area !== 'all' && (
+                <button
+                  type="button"
+                  className="btn btn-link text-muted p-0 text-decoration-none small"
+                  style={{ fontSize: '11.5px' }}
+                  onClick={() => updateFilters({ area: 'all', page: 1 })}
+                >
+                  Đặt lại
+                </button>
+              )}
+            </div>
+            <div className="builtin-offcanvas-radio-list">
+              {[
+                { value: 'all', label: 'Toàn quốc (Tất cả)' },
+                { value: 'ha-noi', label: 'Hà Nội' },
+                { value: 'ho-chi-minh', label: 'TP. Hồ Chí Minh' },
+                { value: 'da-nang', label: 'Đà Nẵng' },
+                { value: 'hai-phong', label: 'Hải Phòng' },
+                { value: 'can-tho', label: 'Cần Thơ' },
+              ].map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`builtin-offcanvas-radio-item ${filters.area === opt.value ? 'builtin-offcanvas-radio-item--active' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name="filter_area"
+                    value={opt.value}
+                    checked={filters.area === opt.value}
+                    onChange={() => updateFilters({ area: opt.value, page: 1 })}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer (Reset / View Results) */}
+        <div className="builtin-offcanvas-footer">
+          <button
+            type="button"
+            className="btn btn-link text-uppercase text-muted fw-bold p-0 text-decoration-none"
+            style={{ fontSize: '13px', letterSpacing: '0.04em' }}
+            onClick={handleResetFilters}
+          >
+            Xóa tất cả
+          </button>
+          <button
+            type="button"
+            className="builtin-offcanvas-submit-btn"
+            onClick={() => setShowAllFilters(false)}
+          >
+            Xem kết quả ({totalElements})
+          </button>
+        </div>
+      </div>
+
+      {/* 3. MAIN JOBS LISTING SECTION */}
       <div className="container py-4" id="jobs-results-anchor" style={{ maxWidth: '1280px' }}>
         {/* Active chips strip */}
         {activeChips.length > 0 && (
