@@ -828,25 +828,20 @@ export default function Companies() {
     ];
 
     // Danh sách phòng ban tuyển dụng tính toán trực tiếp từ jobsList thực tế 100%
-    const departmentsList = useMemo(() => {
-      const counts = {};
-      jobsList.forEach((j) => {
-        const dName = j.department || 'Kỹ thuật & Phát triển phần mềm';
-        counts[dName] = (counts[dName] || 0) + 1;
-      });
-      return Object.entries(counts).map(([name, count]) => ({
-        name,
-        count,
-      }));
-    }, [jobsList]);
+    const counts = {};
+    jobsList.forEach((j) => {
+      const dName = j.department || 'Kỹ thuật & Phát triển phần mềm';
+      counts[dName] = (counts[dName] || 0) + 1;
+    });
+    const departmentsList = Object.entries(counts).map(([name, count]) => ({
+      name,
+      count,
+    }));
 
     // Lọc danh sách việc làm hiển thị theo phòng ban đang chọn
-    const displayedJobs = useMemo(() => {
-      if (!selectedDept) return jobsList;
-      return jobsList.filter(
-        (j) => (j.department || 'Kỹ thuật & Phát triển phần mềm') === selectedDept.name
-      );
-    }, [selectedDept, jobsList]);
+    const displayedJobs = selectedDept
+      ? jobsList.filter((j) => (j.department || 'Kỹ thuật & Phát triển phần mềm') === selectedDept.name)
+      : jobsList;
 
     // Danh sách cơ sở văn phòng thực tế tại Việt Nam
     const officeSites = [
@@ -2113,8 +2108,7 @@ export default function Companies() {
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                setSearchKeyword(skill);
-                                setPage(1);
+                                updateFilters({ keyword: skill, page: 1 });
                                 const el = document.getElementById('companies-list-section');
                                 if (el) el.scrollIntoView({ behavior: 'smooth' });
                               }}
